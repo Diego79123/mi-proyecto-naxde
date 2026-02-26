@@ -119,7 +119,7 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
           name: 'Oscar Rivera',
           role: 'Director de Estrategia e IA',
           slug: 'oscar-rivera',
-          profileImageUrl: 'https://picsum.photos/seed/oscar/400/400',
+          profileImageUrl: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1',
           bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial. Apasionado por crear productos que cambian el status quo de las industrias.',
           phone: '+57 318 425 4198',
           email: 'naxdeadmon@gmail.com',
@@ -455,4 +455,3 @@ END:VCARD`;
     </main>
   );
 }
-
