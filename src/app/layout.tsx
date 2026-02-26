@@ -1,5 +1,13 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
+import { Poppins } from 'next/font/google';
 import './globals.css';
+import { FirebaseClientProvider } from '@/firebase/client-provider';
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-poppins',
+});
 
 export const metadata: Metadata = {
   title: 'Naxde | Plataformas Digitales que Transforman Negocios',
@@ -12,14 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="es" className={poppins.variable}>
       <body className="font-body antialiased">
-        {children}
+        <FirebaseClientProvider>
+          {children}
+        </FirebaseClientProvider>
       </body>
     </html>
   );
