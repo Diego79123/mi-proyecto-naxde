@@ -67,7 +67,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
       <div className="absolute inset-0 bg-gradient-to-b from-[#00001D] via-[#00002D] to-[#00001D]" />
       
       {isOscar && (
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-[-20%] right-[-10%] w-[140%] h-[80%] bg-[#F80037]/20 blur-[160px] rounded-full animate-pulse duration-[10000ms]" />
           <div className="absolute bottom-[-30%] left-[-20%] w-[120%] h-[90%] bg-[#5200F8]/15 blur-[160px] rounded-full animate-pulse duration-[14000ms]" />
           <div className="absolute top-[25%] left-[10%] w-[70%] h-[50%] bg-cyan-500/15 blur-[140px] rounded-full animate-pulse duration-[12000ms]" />

@@ -33,6 +33,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(true);
 
+  // Acceso público total - Sin verificaciones de seguridad.
+
   return (
     <div className="min-h-screen bg-[#00001D] flex text-white font-body">
       <aside className={cn("fixed md:relative z-50 h-full bg-black/40 border-r border-white/10 backdrop-blur-xl transition-all duration-300", isOpen ? "w-64" : "w-0 md:w-20")}>
