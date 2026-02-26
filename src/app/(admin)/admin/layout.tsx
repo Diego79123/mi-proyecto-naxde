@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { 
   LayoutDashboard, 
@@ -15,9 +15,15 @@ import {
   LogOut,
   Menu,
   X,
-  Smartphone
+  Smartphone,
+  Lock,
+  ArrowLeft
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useUser, useAuth } from '@/firebase';
+import { Button } from '@/components/ui/button';
+import { initiateAnonymousSignIn } from '@/firebase/non-blocking-login';
+import { signOut } from 'firebase/auth';
 
 const sidebarItems = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/admin" },
@@ -35,10 +41,61 @@ const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [isOpen, setIsOpen] = React.useState(true);
+  const { user, isUserLoading } = useUser();
+  const auth = useAuth();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    router.push('/');
+  };
+
+  if (isUserLoading) {
+    return (
+      <div className="min-h-screen bg-[#00001D] flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-[#00001D] flex flex-col items-center justify-center p-6 text-center space-y-8 overflow-hidden relative">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" />
+        
+        <div className="w-24 h-24 rounded-[2rem] bg-white/5 flex items-center justify-center relative border border-white/10 group">
+          <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full group-hover:bg-primary/40 transition-all duration-500" />
+          <Lock className="w-12 h-12 text-primary relative z-10" />
+        </div>
+        
+        <div className="space-y-4 max-w-md">
+          <h1 className="text-4xl md:text-5xl font-headline font-bold text-white tracking-tighter uppercase">Zona de Control</h1>
+          <p className="text-white/50 text-lg leading-relaxed">
+            Este es un entorno restringido. Debes autenticarte para gestionar el ecosistema digital de Naxde.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-4 w-full max-w-xs">
+          <Button 
+            onClick={() => initiateAnonymousSignIn(auth)} 
+            className="h-14 px-10 bg-primary hover:bg-primary/90 text-white rounded-full font-bold text-lg neon-accent transition-all hover:scale-105"
+          >
+            Acceso Rápido (Staff)
+          </Button>
+          <Link href="/">
+            <Button variant="ghost" className="w-full text-white/40 hover:text-white flex items-center justify-center gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              Volver al Inicio
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-background flex text-white">
+    <div className="min-h-screen bg-background flex text-white font-body">
       {/* Sidebar */}
       <aside className={cn(
         "fixed md:relative z-50 h-full bg-black/40 border-r border-white/10 backdrop-blur-xl transition-all duration-300 overflow-hidden",
@@ -74,14 +131,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   )}
                 >
                   <item.icon className={cn("w-5 h-5 shrink-0", isActive ? "text-white" : "text-primary")} />
-                  <span className={cn("text-sm font-medium transition-opacity", !isOpen && "md:opacity-0")}>{item.name}</span>
+                  <span className={cn("text-sm font-medium transition-opacity whitespace-nowrap", !isOpen && "md:opacity-0")}>{item.name}</span>
                 </Link>
               );
             })}
           </nav>
 
           <div className="pt-6 border-t border-white/5">
-            <button className="flex items-center gap-3 px-4 py-3 rounded-xl w-full text-white/50 hover:bg-destructive/10 hover:text-destructive transition-all">
+            <button 
+              onClick={handleLogout}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl w-full text-white/50 hover:bg-destructive/10 hover:text-destructive transition-all"
+            >
               <LogOut className="w-5 h-5 shrink-0" />
               <span className={cn("text-sm font-medium", !isOpen && "md:opacity-0")}>Salir</span>
             </button>
@@ -101,12 +161,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           
           <div className="flex items-center gap-4">
             <div className="text-right hidden sm:block">
-              <div className="text-sm font-bold">Admin Naxde</div>
-              <div className="text-[10px] text-primary uppercase font-bold tracking-widest">Super Usuario</div>
+              <div className="text-sm font-bold">{user.displayName || 'Admin Naxde'}</div>
+              <div className="text-[10px] text-primary uppercase font-bold tracking-widest">Sesión Activa</div>
             </div>
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary p-0.5">
               <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                <span className="font-bold text-xs">AD</span>
+                <span className="font-bold text-xs">{user.email?.substring(0, 2).toUpperCase() || 'AD'}</span>
               </div>
             </div>
           </div>
