@@ -27,6 +27,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
+const OSCAR_PROFILE_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1";
+const MAPS_URL = "https://maps.app.goo.gl/tvQx2QB3CXvPcGEX6";
 
 interface DigitalCardPageProps {
   params: Promise<{ slug: string }>;
@@ -39,7 +41,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
   const [shootingStars, setShootingStars] = useState<{ id: number; top: string; left: string; duration: string; delay: string }[]>([]);
 
   useEffect(() => {
-    const starCount = 150;
+    const starCount = 120;
     const newStars = Array.from({ length: starCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 100}%`,
@@ -49,13 +51,13 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
     }));
     setStars(newStars);
 
-    const shootingCount = 10;
+    const shootingCount = 8;
     const newShootingStars = Array.from({ length: shootingCount }).map((_, i) => ({
       id: i,
-      top: `${Math.random() * 60}%`,
+      top: `${Math.random() * 50}%`,
       left: `${Math.random() * 100}%`,
-      duration: `${Math.random() * 3 + 3}s`,
-      delay: `${Math.random() * 20}s`
+      duration: `${Math.random() * 3 + 4}s`,
+      delay: `${Math.random() * 15}s`
     }));
     setShootingStars(newShootingStars);
   }, []);
@@ -65,24 +67,23 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
       <div className="absolute inset-0 bg-gradient-to-b from-[#00001D] via-[#00002D] to-[#00001D]" />
       
       {isOscar && (
-        <>
-          {/* Capas de Nebulosa Dinámica - Inmersión Cósmica */}
-          <div className="absolute top-[-20%] right-[-10%] w-[140%] h-[80%] bg-[#F80037]/20 blur-[160px] rounded-full animate-pulse duration-[12000ms] mix-blend-screen opacity-60" />
-          <div className="absolute bottom-[-30%] left-[-20%] w-[120%] h-[90%] bg-[#5200F8]/15 blur-[160px] rounded-full animate-pulse duration-[15000ms] mix-blend-screen opacity-50" />
-          <div className="absolute top-[20%] left-[5%] w-[80%] h-[60%] bg-cyan-500/10 blur-[140px] rounded-full animate-pulse duration-[10000ms] opacity-40" />
-        </>
+        <div className="absolute inset-0">
+          <div className="absolute top-[-20%] right-[-10%] w-[140%] h-[80%] bg-[#F80037]/15 blur-[160px] rounded-full animate-pulse duration-[12000ms]" />
+          <div className="absolute bottom-[-30%] left-[-20%] w-[120%] h-[90%] bg-[#5200F8]/10 blur-[160px] rounded-full animate-pulse duration-[15000ms]" />
+          <div className="absolute top-[20%] left-[5%] w-[80%] h-[60%] bg-cyan-500/10 blur-[140px] rounded-full" />
+        </div>
       )}
       
       {stars.map((star) => (
         <div
           key={star.id}
-          className="star absolute bg-white rounded-full opacity-30 animate-pulse"
+          className="star absolute bg-white rounded-full opacity-30"
           style={{
             top: star.top,
             left: star.left,
             width: star.size,
             height: star.size,
-            animationDuration: star.duration,
+            animation: `twinkle ${star.duration} infinite ease-in-out`,
           } as any}
         />
       ))}
@@ -90,11 +91,11 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
       {shootingStars.map((ss) => (
         <div
           key={ss.id}
-          className="shooting-star absolute h-[1.5px] bg-gradient-to-r from-white via-white/40 to-transparent opacity-0"
+          className="shooting-star absolute h-[1px] bg-gradient-to-r from-white to-transparent opacity-0"
           style={{
             top: ss.top,
             left: ss.left,
-            width: '250px',
+            width: '200px',
             animation: `shooting ${ss.duration} linear infinite`,
             animationDelay: ss.delay
           } as any}
@@ -117,6 +118,7 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
       setIsLoading(true);
       const q = query(collection(db, 'team_members'), where('slug', '==', slug), where('isActive', '==', true), limit(1));
       const snapshot = await getDocs(q);
+      
       if (!snapshot.empty) {
         setMember({ ...snapshot.docs[0].data(), id: snapshot.docs[0].id });
       } else if (slug === 'oscar-rivera') {
@@ -124,7 +126,7 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
           name: 'Oscar Rivera',
           role: 'CEO & Founder Naxde',
           slug: 'oscar-rivera',
-          profileImageUrl: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1',
+          profileImageUrl: OSCAR_PROFILE_URL,
           bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial.',
           phone: '+57 318 425 4198',
           email: 'naxdeadmon@gmail.com',
@@ -189,45 +191,47 @@ END:VCARD`;
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
       
       <div className={cn(
-        "w-full max-w-lg flex flex-col items-center px-6 pt-10 pb-40 space-y-10 transition-all duration-500",
-        activeSection !== 'inicio' ? "blur-sm opacity-40 scale-[0.98]" : "blur-0 opacity-100 scale-100"
+        "w-full max-w-lg flex flex-col items-center px-6 pt-10 pb-40 space-y-10 transition-all duration-700",
+        activeSection !== 'inicio' ? "blur-xl opacity-30 scale-[0.95]" : "blur-0 opacity-100 scale-100"
       )}>
         <header className="w-full flex justify-center py-4">
           <Link href="/">
-            <Image src={LOGO_URL} alt="Naxde Logo" width={150} height={45} className="h-9 w-auto object-contain" priority />
+            <div className="relative h-10 w-32">
+              <Image src={LOGO_URL} alt="Naxde Logo" fill className="object-contain" priority />
+            </div>
           </Link>
         </header>
 
-        <section className="flex flex-col items-center text-center space-y-4 pt-4">
+        <section className="flex flex-col items-center text-center space-y-6 pt-4">
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-br from-primary to-secondary rounded-full blur opacity-75 animate-pulse"></div>
-            <Avatar className="w-32 h-32 border-4 border-[#00001D] relative shadow-[0_0_25px_rgba(248,0,55,0.4)]">
+            <div className="absolute -inset-1.5 bg-gradient-to-br from-primary via-secondary to-primary rounded-full blur-lg opacity-75 animate-pulse"></div>
+            <Avatar className="w-36 h-36 border-4 border-[#00001D] relative shadow-[0_0_35px_rgba(248,0,55,0.4)]">
               <AvatarImage src={member.profileImageUrl} alt={member.name} className="object-cover" />
-              <AvatarFallback className="bg-white/5 text-3xl font-headline">{member.name[0]}</AvatarFallback>
+              <AvatarFallback className="bg-white/5 text-4xl font-headline">{member.name[0]}</AvatarFallback>
             </Avatar>
-            <div className="absolute bottom-1 right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-[#00001D] flex items-center justify-center shadow-lg">
-              <div className="w-3 h-1.5 border-l-2 border-b-2 border-white -rotate-45 mb-0.5" />
+            <div className="absolute bottom-2 right-2 w-7 h-7 bg-green-500 rounded-full border-2 border-[#00001D] flex items-center justify-center shadow-lg">
+              <div className="w-3.5 h-1.5 border-l-2 border-b-2 border-white -rotate-45 mb-1" />
             </div>
           </div>
           <div className="space-y-2">
-            <h1 className="text-3xl font-headline font-bold tracking-tight text-white leading-tight">{member.name}</h1>
-            <p className="text-primary text-xs font-bold uppercase tracking-[0.3em]">{member.role}</p>
+            <h1 className="text-4xl font-headline font-bold tracking-tight text-white leading-tight">{member.name}</h1>
+            <p className="text-primary text-sm font-bold uppercase tracking-[0.4em]">{member.role}</p>
           </div>
         </section>
 
         <section className="w-full space-y-4 px-4">
           {member.phone && (
-            <div className="flex items-center gap-4 text-white/50 bg-white/[0.03] p-3 rounded-2xl border border-white/5 group hover:bg-white/[0.06] transition-colors cursor-pointer" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
-              <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
-                <Phone className="w-4 h-4 text-primary" />
+            <div className="flex items-center gap-4 text-white/70 bg-white/[0.03] p-4 rounded-3xl border border-white/5 hover:bg-white/[0.08] transition-all cursor-pointer" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Phone className="w-5 h-5 text-primary" />
               </div>
               <span className="text-sm font-medium">{member.phone}</span>
             </div>
           )}
           {member.email && (
-            <div className="flex items-center gap-4 text-white/50 bg-white/[0.03] p-3 rounded-2xl border border-white/5 group hover:bg-white/[0.06] transition-colors cursor-pointer" onClick={() => window.open(`mailto:${member.email}`, '_self')}>
-              <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
-                <Mail className="w-4 h-4 text-primary" />
+            <div className="flex items-center gap-4 text-white/70 bg-white/[0.03] p-4 rounded-3xl border border-white/5 hover:bg-white/[0.08] transition-all cursor-pointer" onClick={() => window.open(`mailto:${member.email}`, '_self')}>
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Mail className="w-5 h-5 text-primary" />
               </div>
               <span className="text-sm font-medium truncate">{member.email}</span>
             </div>
@@ -235,101 +239,104 @@ END:VCARD`;
         </section>
 
         <section className="w-full grid grid-cols-2 gap-4 px-2">
-          <Button variant="outline" className="h-14 bg-white/[0.05] border-white/10 text-white rounded-2xl gap-3 hover:bg-white/10" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
-            <Phone className="w-4 h-4 text-white/40" />
+          <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
+            <Phone className="w-5 h-5 text-white/40" />
             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Llamar</span>
           </Button>
-          <Button className="h-14 bg-primary hover:bg-primary/90 text-white rounded-2xl gap-3 neon-accent" onClick={() => window.open(`https://wa.me/${member.whatsapp}`, '_blank')}>
-            <MessageCircle className="w-4 h-4" />
+          <Button className="h-16 bg-primary hover:bg-primary/90 text-white rounded-[2rem] gap-3 neon-accent" onClick={() => window.open(`https://wa.me/${member.whatsapp}`, '_blank')}>
+            <MessageCircle className="w-5 h-5" />
             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">WhatsApp</span>
           </Button>
-          <Button variant="outline" className="h-14 bg-white/[0.05] border-white/10 text-white rounded-2xl gap-3 hover:bg-white/10" onClick={() => window.open(`mailto:${member.email}`, '_self')}>
-            <Mail className="w-4 h-4 text-white/40" />
+          <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10" onClick={() => window.open(`mailto:${member.email}`, '_self')}>
+            <Mail className="w-5 h-5 text-white/40" />
             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Email</span>
           </Button>
-          <Button variant="outline" className="h-14 bg-white/[0.05] border-white/10 text-white rounded-2xl gap-3 hover:bg-white/10" onClick={handleSaveContact}>
-            <UserPlus className="w-4 h-4 text-white/40" />
+          <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10" onClick={handleSaveContact}>
+            <UserPlus className="w-5 h-5 text-white/40" />
             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Guardar</span>
           </Button>
         </section>
 
-        <footer className="pt-10 flex flex-col items-center space-y-3 opacity-30 pb-10">
-          <Image src={LOGO_URL} alt="Naxde Logo" width={60} height={18} className="h-4 w-auto object-contain grayscale" />
+        <footer className="pt-20 flex flex-col items-center space-y-4 opacity-40 pb-20">
+          <div className="relative h-6 w-24">
+            <Image src={LOGO_URL} alt="Naxde Logo" fill className="object-contain grayscale" />
+          </div>
           <div className="flex items-center gap-2">
-            <Zap className="w-3 h-3 text-primary" />
-            <p className="text-[8px] font-bold uppercase tracking-[0.4em]">Propulsado por Naxde</p>
+            <Zap className="w-4 h-4 text-primary" />
+            <p className="text-[10px] font-bold uppercase tracking-[0.5em]">Futuro Digital Naxde</p>
           </div>
         </footer>
       </div>
 
-      {/* Paneles Inmersivos con Glass Blur - Despliegue desde abajo con desenfoque de fondo */}
+      {/* Paneles Inmersivos Glass Blur */}
       {['ubicacion', 'calendario', 'horario', 'logros'].map((section) => (
         <div key={section} className={cn(
-          "fixed inset-x-0 bottom-0 z-[80] bg-white/[0.03] backdrop-blur-[40px] border-t border-white/10 rounded-t-[3rem] transition-all duration-700 ease-in-out transform flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.5)]",
-          activeSection === section ? "h-[85vh] translate-y-0" : "h-0 translate-y-full"
+          "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-700 ease-in-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.6)]",
+          activeSection === section ? "h-[75vh] translate-y-0" : "h-0 translate-y-full"
         )}>
-          <div className="w-full h-12 flex items-center justify-center cursor-pointer" onClick={() => setActiveSection('inicio')}>
-            <div className="w-12 h-1.5 bg-white/20 rounded-full" />
+          <div className="w-full h-14 flex items-center justify-center cursor-pointer" onClick={() => setActiveSection('inicio')}>
+            <div className="w-16 h-1.5 bg-white/20 rounded-full" />
           </div>
-          <header className="h-16 flex items-center justify-between px-8 mb-4">
-            <div className="flex items-center gap-3">
-              <Zap className="w-4 h-4 text-primary" />
-              <span className="font-headline font-bold text-lg uppercase tracking-[0.2em] text-white">
+          <header className="h-20 flex items-center justify-between px-10">
+            <div className="flex items-center gap-4">
+              <Zap className="w-5 h-5 text-primary" />
+              <span className="font-headline font-bold text-xl uppercase tracking-[0.3em] text-white">
                 {section === 'ubicacion' ? 'Ubicación' : section === 'calendario' ? 'Agenda' : section === 'horario' ? 'Horario' : 'Logros'}
               </span>
             </div>
-            <Button variant="ghost" size="icon" onClick={() => setActiveSection('inicio')} className="w-10 h-10 rounded-full text-white/40 hover:text-white"><X /></Button>
+            <Button variant="ghost" size="icon" onClick={() => setActiveSection('inicio')} className="w-12 h-12 rounded-full text-white/30 hover:text-white"><X className="w-6 h-6" /></Button>
           </header>
-          <div className="flex-1 overflow-y-auto px-8 pb-32 space-y-8 no-scrollbar">
+          <div className="flex-1 overflow-y-auto px-10 pb-32 space-y-8 no-scrollbar">
             {section === 'ubicacion' && (
-              <div className="text-center space-y-8 pt-12">
+              <div className="text-center space-y-10 pt-16">
                 <div className="relative inline-block">
-                  <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
-                  <MapPin className="w-20 h-20 text-primary mx-auto relative z-10" />
+                  <div className="absolute inset-0 bg-primary/30 blur-[60px] rounded-full" />
+                  <MapPin className="w-24 h-24 text-primary mx-auto relative z-10 animate-bounce" />
                 </div>
-                <div className="space-y-3">
-                  <h3 className="text-2xl font-bold">Nuestra Ubicación</h3>
-                  <p className="text-white/40 text-sm max-w-xs mx-auto">Visítanos en Bogotá. Conéctanos para agendar tu visita.</p>
+                <div className="space-y-4">
+                  <h3 className="text-3xl font-bold">Nuestra Sede</h3>
+                  <p className="text-white/50 text-base max-w-xs mx-auto leading-relaxed">Te esperamos en Bogotá para cocrear tu próxima plataforma digital.</p>
                 </div>
-                <Button className="w-full h-16 bg-primary text-white rounded-full font-bold neon-accent" onClick={() => window.open('https://maps.app.goo.gl/tvQx2QB3CXvPcGEX6', '_blank')}>
-                  Abrir en Google Maps
-                  <ExternalLink className="w-4 h-4 ml-2" />
+                <Button className="w-full h-20 bg-primary text-white rounded-[2.5rem] text-lg font-bold neon-accent gap-3" onClick={() => window.open(MAPS_URL, '_blank')}>
+                  Abrir Google Maps
+                  <ExternalLink className="w-5 h-5" />
                 </Button>
               </div>
             )}
             {section === 'calendario' && (
-              <div className="text-center space-y-8 pt-12">
-                <CalendarIcon className="w-20 h-20 text-primary mx-auto" />
-                <h3 className="text-2xl font-bold">Agenda tu Cita</h3>
-                <p className="text-white/40 text-sm max-w-xs mx-auto">Reserva un espacio para consultoría técnica o comercial.</p>
-                <Button className="w-full h-16 bg-primary text-white rounded-full font-bold neon-accent">Ver Disponibilidad</Button>
+              <div className="text-center space-y-10 pt-16">
+                <CalendarIcon className="w-24 h-24 text-primary mx-auto" />
+                <h3 className="text-3xl font-bold">Agenda tu Cita</h3>
+                <p className="text-white/50 text-base max-w-xs mx-auto">Reserva una consultoría técnica o comercial con nuestro equipo experto.</p>
+                <Button className="w-full h-20 bg-primary text-white rounded-[2.5rem] text-lg font-bold neon-accent">Consultar Horarios</Button>
               </div>
             )}
             {section === 'horario' && (
-              <div className="space-y-4">
+              <div className="space-y-4 pt-4">
                 {[
                   { d: 'Lunes - Viernes', t: '8:00 AM - 6:00 PM', a: true },
                   { d: 'Sábados', t: '9:00 AM - 1:00 PM', a: true },
                   { d: 'Domingos', t: 'Cerrado', a: false }
                 ].map((item, i) => (
-                  <div key={i} className={cn("flex justify-between p-6 rounded-2xl border", item.a ? "bg-white/[0.03] border-white/10" : "opacity-40 border-white/5")}>
-                    <span className="font-bold text-sm">{item.d}</span>
-                    <span className="text-xs text-primary font-bold">{item.t}</span>
+                  <div key={i} className={cn("flex justify-between p-8 rounded-[2rem] border transition-all", item.a ? "bg-white/[0.04] border-white/10" : "opacity-30 border-white/5")}>
+                    <span className="font-bold text-base">{item.d}</span>
+                    <span className="text-sm text-primary font-bold uppercase tracking-widest">{item.t}</span>
                   </div>
                 ))}
               </div>
             )}
             {section === 'logros' && (
-              <div className="grid gap-4">
+              <div className="grid gap-6 pt-4">
                 {[
-                  { t: '250+ Proyectos', d: 'Liderazgo técnico en implementaciones SaaS.' },
-                  { t: 'Estratega IA', d: 'Certificado en despliegue de modelos generativos.' }
+                  { t: '250+ Proyectos LATAM', d: 'Liderazgo en transformación digital regional.' },
+                  { t: 'Pionero NFC Hub', d: 'Innovación en sistemas de identidad inteligente.' },
+                  { t: 'Partner Estratégico AI', d: 'Implementación de modelos LLM en negocios.' }
                 ].map((l, i) => (
-                  <div key={i} className="p-6 rounded-3xl bg-white/[0.03] border border-white/10 flex gap-4">
-                    <Trophy className="w-8 h-8 text-primary" />
-                    <div>
-                      <h4 className="font-bold">{l.t}</h4>
-                      <p className="text-xs text-white/40">{l.d}</p>
+                  <div key={i} className="p-8 rounded-[2.5rem] bg-white/[0.04] border border-white/10 flex gap-6 group hover:bg-white/[0.08] transition-all">
+                    <Trophy className="w-10 h-10 text-primary group-hover:scale-110 transition-transform" />
+                    <div className="space-y-1">
+                      <h4 className="font-bold text-lg">{l.t}</h4>
+                      <p className="text-sm text-white/50">{l.d}</p>
                     </div>
                   </div>
                 ))}
@@ -340,15 +347,28 @@ END:VCARD`;
       ))}
 
       {/* Navegación Inferior Inmersiva */}
-      <nav className="fixed bottom-8 left-6 right-6 z-[90] h-20 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] flex items-center justify-around px-2 shadow-2xl">
+      <nav className="fixed bottom-10 left-6 right-6 z-[110] h-24 bg-black/40 backdrop-blur-[40px] border border-white/10 rounded-[3rem] flex items-center justify-around px-4 shadow-2xl">
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
           return (
-            <button key={item.id} onClick={() => setActiveSection(item.id as any)} className={cn("flex flex-col items-center justify-center flex-1 transition-all h-full group", isActive ? "text-primary" : "text-white/30 hover:text-white/60")}>
-              <div className={cn("p-2.5 rounded-2xl transition-all", isActive ? "bg-primary/10 shadow-glow-accent scale-110" : "group-hover:bg-white/5")}>
-                <item.icon className="w-6 h-6" />
+            <button 
+              key={item.id} 
+              onClick={() => setActiveSection(item.id as any)} 
+              className={cn(
+                "flex flex-col items-center justify-center flex-1 transition-all h-full relative group",
+                isActive ? "text-primary" : "text-white/30 hover:text-white/60"
+              )}
+            >
+              <div className={cn(
+                "p-3 rounded-[1.5rem] transition-all duration-300",
+                isActive ? "bg-primary/20 shadow-glow-accent scale-110" : "group-hover:bg-white/5"
+              )}>
+                <item.icon className="w-7 h-7" />
               </div>
-              <span className="text-[8px] font-bold uppercase tracking-[0.2em] mt-1.5">{item.label}</span>
+              <span className="text-[9px] font-bold uppercase tracking-[0.3em] mt-2 transition-all">{item.label}</span>
+              {isActive && (
+                <div className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-primary shadow-glow-accent animate-pulse" />
+              )}
             </button>
           );
         })}

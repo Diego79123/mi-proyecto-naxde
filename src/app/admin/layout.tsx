@@ -33,14 +33,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(true);
 
-  // ACCESO TOTALMENTE LIMPIO: Sin verificaciones de auth o roles.
-  
   return (
     <div className="min-h-screen bg-[#00001D] flex text-white font-body">
       <aside className={cn("fixed md:relative z-50 h-full bg-black/40 border-r border-white/10 backdrop-blur-xl transition-all duration-300", isOpen ? "w-64" : "w-0 md:w-20")}>
         <div className="p-6 h-full flex flex-col">
           <div className="flex items-center gap-3 mb-10 overflow-hidden">
-            <Image src={LOGO_URL} alt="Naxde Logo" width={100} height={30} className={cn("h-8 w-auto object-contain", !isOpen && "md:hidden")} />
+            <div className="relative h-8 w-24">
+              <Image src={LOGO_URL} alt="Naxde Logo" fill className={cn("object-contain", !isOpen && "md:hidden")} />
+            </div>
           </div>
           <nav className="flex-1 space-y-1">
             {sidebarItems.map((item, idx) => (
@@ -62,7 +62,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20">
               <ShieldAlert className="w-3.5 h-3.5 text-yellow-500" />
-              <span className="text-[10px] font-bold text-yellow-500 uppercase tracking-widest">Acceso Público Sin Seguridad</span>
+              <span className="text-[10px] font-bold text-yellow-500 uppercase tracking-widest">Acceso Público</span>
             </div>
             <Avatar className="h-10 w-10 border border-primary/30">
               <AvatarFallback className="bg-primary/20 text-primary">
