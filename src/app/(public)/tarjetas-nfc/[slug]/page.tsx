@@ -36,12 +36,12 @@ interface DigitalCardPageProps {
 
 type SectionType = 'inicio' | 'ubicacion' | 'calendario' | 'horario' | 'logros';
 
-const StarField = () => {
+const SpaceBackground = () => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
   const [shootingStars, setShootingStars] = useState<{ id: number; top: string; left: string; duration: string; delay: string }[]>([]);
 
   useEffect(() => {
-    const starCount = 80;
+    const starCount = 100;
     const newStars = Array.from({ length: starCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 100}%`,
@@ -51,23 +51,28 @@ const StarField = () => {
     }));
     setStars(newStars);
 
-    const shootingCount = 4;
+    const shootingCount = 5;
     const newShootingStars = Array.from({ length: shootingCount }).map((_, i) => ({
       id: i,
-      top: `${Math.random() * 50}%`,
+      top: `${Math.random() * 60}%`,
       left: `${Math.random() * 100}%`,
-      duration: `${Math.random() * 2 + 2}s`,
-      delay: `${Math.random() * 15}s`
+      duration: `${Math.random() * 3 + 2}s`,
+      delay: `${Math.random() * 20}s`
     }));
     setShootingStars(newShootingStars);
   }, []);
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#00001D] via-[#00002D] to-[#00001D]" />
-      <div className="absolute top-[-20%] right-[-10%] w-[80%] h-[60%] bg-primary/10 blur-[150px] rounded-full" />
-      <div className="absolute bottom-[-20%] left-[-10%] w-[80%] h-[60%] bg-secondary/10 blur-[150px] rounded-full" />
+      {/* Deep Space Base */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#00001D] via-[#00002D] to-[#00001D]" />
       
+      {/* Nebula Effects */}
+      <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-primary/20 blur-[150px] rounded-full animate-pulse duration-[8000ms] mix-blend-screen" />
+      <div className="absolute bottom-[-20%] left-[-20%] w-[100%] h-[80%] bg-secondary/15 blur-[150px] rounded-full animate-pulse duration-[10000ms] mix-blend-screen" />
+      <div className="absolute top-[30%] left-[20%] w-[60%] h-[40%] bg-accent/10 blur-[130px] rounded-full animate-pulse duration-[6000ms]" />
+      
+      {/* Stars */}
       {stars.map((star) => (
         <div
           key={star.id}
@@ -82,14 +87,15 @@ const StarField = () => {
         />
       ))}
 
+      {/* Shooting Stars with smooth transitions */}
       {shootingStars.map((ss) => (
         <div
           key={ss.id}
-          className="shooting-star absolute h-[1px] bg-gradient-to-r from-white to-transparent opacity-0"
+          className="shooting-star absolute h-[1.5px] bg-gradient-to-r from-white via-white/50 to-transparent opacity-0"
           style={{
             top: ss.top,
             left: ss.left,
-            width: '150px',
+            width: '200px',
             animation: `shooting ${ss.duration} linear infinite`,
             animationDelay: ss.delay
           }}
@@ -186,7 +192,7 @@ END:VCARD`;
 
   return (
     <main className="min-h-screen bg-[#00001D] text-white flex flex-col items-center overflow-x-hidden relative font-body selection:bg-primary/30">
-      <StarField />
+      <SpaceBackground />
       
       {/* Container Principal con Blur cuando el popup está activo */}
       <div className={cn(
@@ -200,9 +206,9 @@ END:VCARD`;
             <Image 
               src={LOGO_URL} 
               alt="Naxde Logo" 
-              width={120} 
-              height={36} 
-              className="h-7 w-auto object-contain"
+              width={150} 
+              height={45} 
+              className="h-9 w-auto object-contain"
               priority
             />
           </Link>
@@ -303,7 +309,7 @@ END:VCARD`;
         </footer>
       </div>
 
-      {/* Papás (Slide-up Glass Panels) */}
+      {/* Panels (Slide-up Glass Panels) */}
       {['ubicacion', 'calendario', 'horario', 'logros'].map((section) => (
         <div 
           key={section}
@@ -422,7 +428,7 @@ END:VCARD`;
         </div>
       ))}
 
-      {/* Menú de Navegación Inferior Inmersivo */}
+      {/* Bottom Menu Navigation */}
       <nav className="fixed bottom-8 left-6 right-6 z-[90] h-20 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] flex items-center justify-around px-2 shadow-2xl overflow-hidden">
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
