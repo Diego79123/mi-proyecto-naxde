@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-tech",
+      "description": "Futuristic digital city representation",
+      "imageUrl": "https://images.unsplash.com/photo-1512364615838-8088a04a778b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmdXR1cmlzdGljJTIwY2l0eXxlbnwwfHx8fDE3NzE5ODQ0OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "futuristic city"
+    },
+    {
+      "id": "nfc-demo",
+      "description": "Person using an NFC card with a smartphone",
+      "imageUrl": "https://images.unsplash.com/photo-1687969962129-dd77e13b95b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bmZjJTIwY2FyZHxlbnwwfHx8fDE3NzIwNzE0NTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "nfc card"
+    },
+    {
+      "id": "project-saas",
+      "description": "SaaS platform dashboard preview",
+      "imageUrl": "https://images.unsplash.com/photo-1669023414166-a4cc7c0fe1f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkYXNoYm9hcmQlMjBzb2Z0d2FyZXxlbnwwfHx8fDE3NzIwNjk4Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dashboard software"
+    },
+    {
+      "id": "team-collab",
+      "description": "Team working on digital projects",
+      "imageUrl": "https://images.unsplash.com/photo-1579389083046-e3df9c2b3325?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx0ZWNoJTIwdGVhbXxlbnwwfHx8fDE3NzIwNDAzOTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tech team"
+    }
+  ]
 }
