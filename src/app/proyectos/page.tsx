@@ -44,29 +44,21 @@ export default function ProyectosPage() {
 
   const mockProjects = [
     {
-      id: '1',
-      title: 'Ecosistema de Tarjetas Digitales',
+      id: 'oscar-card-project',
+      title: 'Identidad Digital Oscar Rivera',
       category: 'Tarjetas Digitales',
-      shortDescription: 'Plataforma de networking inteligente con tecnología NFC. Incluye perfiles inmersivos como el de Oscar Rivera.',
+      shortDescription: 'Perfil inmersivo con temática de nebulosa espacial y tecnología NFC. El futuro del networking personal.',
       imageUrl: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1',
-      technologies: ['NFC', 'React', 'Firebase', 'Glass Blur'],
-      customHref: '/tarjetas-digitales'
+      technologies: ['NFC', 'Space Theme', 'React', 'Glass Blur'],
+      customHref: '/tarjetas-nfc/oscar-rivera'
     },
     {
-      id: '2',
-      title: 'SaaS Finance Dashboard',
-      category: 'Aplicaciones',
-      shortDescription: 'Plataforma de gestión financiera con análisis de datos en tiempo real.',
-      imageUrl: 'https://picsum.photos/seed/app1/800/600',
-      technologies: ['Next.js', 'Tailwind', 'GenAI']
-    },
-    {
-      id: '3',
-      title: 'E-commerce Futurista',
+      id: 'naxde-hub',
+      title: 'Ecosistema de Servicios Naxde',
       category: 'Páginas Web',
-      shortDescription: 'Experiencia de compra inmersiva con animaciones premium.',
-      imageUrl: 'https://picsum.photos/seed/web1/800/600',
-      technologies: ['Framer Motion', 'Three.js']
+      shortDescription: 'Plataforma corporativa de alta conversión con estética futurista y rendimiento optimizado.',
+      imageUrl: 'https://images.unsplash.com/photo-1512364615838-8088a04a778b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      technologies: ['Next.js', 'Tailwind', 'GenAI']
     }
   ];
 
@@ -98,18 +90,17 @@ export default function ProyectosPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center gap-4 bg-white/[0.02] p-2 rounded-[2rem] border border-white/5 w-fit mx-auto backdrop-blur-xl">
             {categories.map((cat) => (
-              <Button
+              <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                variant={activeCategory === cat.id ? 'default' : 'ghost'}
                 className={cn(
-                  "h-12 px-6 rounded-full font-bold transition-all gap-2",
-                  activeCategory === cat.id ? "bg-primary text-white neon-accent" : "text-white/40 hover:text-white hover:bg-white/5"
+                  "h-12 px-6 rounded-full font-bold transition-all gap-2 flex items-center",
+                  activeCategory === cat.id ? "bg-primary text-white neon-accent shadow-[0_0_15px_rgba(248,0,55,0.4)]" : "text-white/40 hover:text-white hover:bg-white/5"
                 )}
               >
                 <cat.icon className="w-4 h-4" />
                 {cat.label}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
@@ -161,7 +152,7 @@ export default function ProyectosPage() {
                     <div className="pt-6 flex items-center justify-between border-t border-white/5">
                       <Link href={project.customHref || `/proyectos/${project.slug || project.id}`}>
                         <Button variant="link" className="text-primary p-0 font-bold uppercase tracking-widest text-xs gap-2 group/btn">
-                          {project.category === 'Tarjetas Digitales' ? 'Ver Portafolio' : 'Ver Detalles'}
+                          Ver Portafolio
                           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
                       </Link>

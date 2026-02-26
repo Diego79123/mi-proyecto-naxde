@@ -62,7 +62,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20">
               <ShieldAlert className="w-3.5 h-3.5 text-yellow-500" />
-              <span className="text-[10px] font-bold text-yellow-500 uppercase tracking-widest">Acceso Público</span>
+              <span className="text-[10px] font-bold text-yellow-500 uppercase tracking-widest">Acceso Libre</span>
             </div>
             <Avatar className="h-10 w-10 border border-primary/30">
               <AvatarFallback className="bg-primary/20 text-primary">

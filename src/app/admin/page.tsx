@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -11,8 +12,7 @@ import { collection } from 'firebase/firestore';
 export default function AdminDashboard() {
   const db = useFirestore();
   
-  // Se han eliminado las verificaciones de autenticación para acceso público.
-  
+  // Acceso público total.
   const leadsRef = useMemoFirebase(() => collection(db, 'leads'), [db]);
   const { data: leads } = useCollection(leadsRef);
   
@@ -30,8 +30,8 @@ export default function AdminDashboard() {
     <div className="p-8 space-y-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-headline font-bold text-white tracking-tight">Dashboard Administrativo</h1>
-          <p className="text-white/50 font-medium">Panel de gestión pública para el ecosistema Naxde.</p>
+          <h1 className="text-3xl font-headline font-bold text-white tracking-tight uppercase">Dashboard Naxde Hub</h1>
+          <p className="text-white/50 font-medium">Gestión administrativa sin restricciones de acceso.</p>
         </div>
         <div className="flex gap-2">
           <Link href="/admin/tarjetas-digitales">
@@ -97,11 +97,11 @@ export default function AdminDashboard() {
             </Link>
             <Button variant="outline" className="w-full justify-start border-white/10 hover:bg-white/5 text-white h-12 rounded-xl group px-6">
               <ShieldCheck className="w-4 h-4 mr-3 text-white/40 group-hover:text-primary transition-colors" />
-              Estado de la Base de Datos
+              Estado del Sistema
             </Button>
             <Button variant="outline" className="w-full justify-start border-white/10 hover:bg-white/5 text-white h-12 rounded-xl group px-6">
               <Users className="w-4 h-4 mr-3 text-white/40 group-hover:text-primary transition-colors" />
-              Staff Administrativo
+              Staff Naxde
             </Button>
           </CardContent>
         </Card>
