@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { 
   LayoutDashboard, 
   Zap, 
@@ -30,6 +31,8 @@ const sidebarItems = [
   { name: "Ajustes", icon: Settings, href: "/admin/settings" }
 ];
 
+const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(true);
@@ -43,10 +46,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       )}>
         <div className="p-6 h-full flex flex-col">
           <div className="flex items-center gap-3 mb-10 overflow-hidden">
-            <div className="w-8 h-8 rounded-lg bg-primary shrink-0 flex items-center justify-center">
-              <span className="font-headline font-bold text-white">N</span>
-            </div>
-            <span className={cn("font-headline font-bold text-lg whitespace-nowrap", !isOpen && "opacity-0")}>NAXDE ADMIN</span>
+            <Image 
+              src={LOGO_URL} 
+              alt="Naxde Logo" 
+              width={100} 
+              height={30} 
+              className={cn("h-8 w-auto object-contain transition-opacity", !isOpen && "md:hidden")}
+            />
+            {isOpen && <span className="font-headline font-bold text-xs text-primary uppercase tracking-widest">Admin</span>}
+            {!isOpen && (
+              <div className="w-8 h-8 rounded-lg bg-primary shrink-0 flex items-center justify-center">
+                <span className="font-headline font-bold text-white text-xs">N</span>
+              </div>
+            )}
           </div>
 
           <nav className="flex-1 space-y-1">

@@ -1,6 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mail, Phone, MapPin, Instagram, Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
+
+const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 
 export const Footer = () => {
   return (
@@ -8,10 +11,13 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="md:col-span-1 space-y-6">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="font-headline font-bold text-white">N</span>
-            </div>
-            <span className="font-headline font-bold text-xl text-white">NAXDE</span>
+            <Image 
+              src={LOGO_URL} 
+              alt="Naxde Logo" 
+              width={120} 
+              height={36} 
+              className="h-8 w-auto object-contain"
+            />
           </Link>
           <p className="text-white/50 text-sm leading-relaxed">
             Construimos plataformas digitales que transforman negocios en Colombia y Latinoamérica. Futurismo, conversión y seguridad.

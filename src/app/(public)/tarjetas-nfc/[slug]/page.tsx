@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { use } from 'react';
@@ -9,6 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import Image from 'next/image';
+
+const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 
 interface DigitalCardPageProps {
   params: Promise<{ slug: string }>;
@@ -52,7 +54,6 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
   }
 
   const handleSaveContact = () => {
-    // Basic VCF logic simulation
     const vcard = `BEGIN:VCARD
 VERSION:3.0
 FN:${member.name}
@@ -161,15 +162,16 @@ END:VCARD`;
 
       {/* Footer Branding */}
       <footer className="mt-20 flex flex-col items-center space-y-4 opacity-40 hover:opacity-100 transition-opacity">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded bg-primary flex items-center justify-center">
-            <span className="font-headline font-bold text-[10px] text-white">N</span>
-          </div>
-          <span className="font-headline font-bold text-sm tracking-tighter text-white uppercase">
-            NAXDE DIGITAL HUB
-          </span>
+        <Link href="/" className="flex flex-col items-center gap-2">
+          <Image 
+            src={LOGO_URL} 
+            alt="Naxde Logo" 
+            width={80} 
+            height={24} 
+            className="h-6 w-auto object-contain"
+          />
+          <p className="text-[8px] font-bold uppercase tracking-[0.5em] text-white/50">Colombia & Latam</p>
         </Link>
-        <p className="text-[8px] font-bold uppercase tracking-[0.5em] text-white/50">Colombia & Latam</p>
       </footer>
     </main>
   );

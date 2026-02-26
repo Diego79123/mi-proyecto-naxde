@@ -6,6 +6,9 @@ import { Menu, X, Smartphone, ArrowRight, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MegaMenu } from './MegaMenu';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
+
+const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,12 +32,14 @@ export const Header = () => {
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center neon-accent">
-              <span className="font-headline font-bold text-xl text-white">N</span>
-            </div>
-            <span className="font-headline font-bold text-2xl tracking-tighter text-white hidden sm:block">
-              NAXDE
-            </span>
+            <Image 
+              src={LOGO_URL} 
+              alt="Naxde Logo" 
+              width={140} 
+              height={40} 
+              className="h-10 w-auto object-contain"
+              priority
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
