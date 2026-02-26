@@ -34,7 +34,7 @@ interface DigitalCardPageProps {
   params: Promise<{ slug: string }>;
 }
 
-type SectionType = 'inicio' | 'perfil' | 'calendario' | 'horario' | 'logros';
+type SectionType = 'inicio' | 'ubicacion' | 'calendario' | 'horario' | 'logros';
 
 const StarField = () => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
@@ -178,8 +178,8 @@ END:VCARD`;
 
   const navItems = [
     { id: 'inicio', icon: Home, label: 'Inicio' },
-    { id: 'perfil', icon: User, label: 'Perfil' },
-    { id: 'calendario', icon: CalendarIcon, label: 'Calendario' },
+    { id: 'ubicacion', icon: MapPin, label: 'Ubicación' },
+    { id: 'calendario', icon: CalendarIcon, label: 'Agenda' },
     { id: 'horario', icon: Clock, label: 'Horario' },
     { id: 'logros', icon: Trophy, label: 'Logros' },
   ];
@@ -304,7 +304,7 @@ END:VCARD`;
       </div>
 
       {/* Papás (Slide-up Glass Panels) */}
-      {['perfil', 'calendario', 'horario', 'logros'].map((section) => (
+      {['ubicacion', 'calendario', 'horario', 'logros'].map((section) => (
         <div 
           key={section}
           className={cn(
@@ -326,7 +326,7 @@ END:VCARD`;
                 <Zap className="w-4 h-4 text-primary" />
               </div>
               <span className="font-headline font-bold text-lg uppercase tracking-[0.2em] text-white">
-                {section === 'perfil' ? 'Mi Perfil' : 
+                {section === 'ubicacion' ? 'Ubicación' : 
                  section === 'calendario' ? 'Agenda' : 
                  section === 'horario' ? 'Horario' : 'Logros'}
               </span>
@@ -342,24 +342,22 @@ END:VCARD`;
           </header>
 
           <div className="flex-1 overflow-y-auto px-8 pb-32 space-y-8 no-scrollbar">
-            {section === 'perfil' && (
-              <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                <div className="space-y-4">
-                  <h3 className="text-xl font-bold text-primary">Biografía</h3>
-                  <p className="text-white/70 leading-relaxed text-sm font-medium italic">
-                    "{member.bio}"
-                  </p>
+            {section === 'ubicacion' && (
+              <div className="text-center space-y-8 pt-12 animate-in fade-in scale-95 duration-700">
+                <div className="relative inline-block">
+                   <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
+                   <MapPin className="w-20 h-20 text-primary relative z-10 mx-auto" />
                 </div>
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 space-y-2">
-                    <h4 className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Especialidad</h4>
-                    <p className="text-white font-bold">Estrategia Digital & IA Aplicada</p>
-                  </div>
-                  <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 space-y-2">
-                    <h4 className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Experiencia</h4>
-                    <p className="text-white font-bold">+8 años liderando equipos tecnológicos en LATAM.</p>
-                  </div>
+                <div className="space-y-3">
+                  <h3 className="text-2xl font-bold">Nuestra Ubicación</h3>
+                  <p className="text-white/40 text-sm max-w-xs mx-auto">Visítanos en nuestra sede central de Bogotá. Estamos listos para recibirte.</p>
                 </div>
+                <Button 
+                  className="w-full max-w-xs h-16 bg-primary text-white rounded-full text-lg font-bold neon-accent hover:scale-105 transition-transform"
+                  onClick={() => window.open('https://maps.app.goo.gl/tvQx2QB3CXvPcGEX6', '_blank')}
+                >
+                  Abrir en Google Maps
+                </Button>
               </div>
             )}
             
