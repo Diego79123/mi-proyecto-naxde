@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -12,7 +13,8 @@ import {
   Menu,
   Smartphone,
   ArrowLeft,
-  User
+  User,
+  ShieldAlert
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -31,8 +33,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(true);
 
-  // Se ha eliminado toda la lógica de seguridad y roles para acceso total público.
-
+  // ACCESO TOTALMENTE LIMPIO: Sin verificaciones de auth o roles.
+  
   return (
     <div className="min-h-screen bg-[#00001D] flex text-white font-body">
       <aside className={cn("fixed md:relative z-50 h-full bg-black/40 border-r border-white/10 backdrop-blur-xl transition-all duration-300", isOpen ? "w-64" : "w-0 md:w-20")}>
@@ -58,9 +60,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <header className="h-16 border-b border-white/5 flex items-center justify-between px-8 bg-white/[0.02]">
           <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-lg hover:bg-white/5 text-white/50"><Menu /></button>
           <div className="flex items-center gap-4">
-            <div className="text-right hidden sm:block">
-              <div className="text-sm font-bold">Admin Naxde</div>
-              <div className="text-[10px] text-primary uppercase font-bold tracking-widest">Acceso Público Sin Restricciones</div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20">
+              <ShieldAlert className="w-3.5 h-3.5 text-yellow-500" />
+              <span className="text-[10px] font-bold text-yellow-500 uppercase tracking-widest">Acceso Público Sin Seguridad</span>
             </div>
             <Avatar className="h-10 w-10 border border-primary/30">
               <AvatarFallback className="bg-primary/20 text-primary">

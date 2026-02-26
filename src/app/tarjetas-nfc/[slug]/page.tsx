@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { use, useState, useEffect } from 'react';
@@ -16,7 +17,8 @@ import {
   Calendar as CalendarIcon, 
   Trophy, 
   Home,
-  X
+  X,
+  ExternalLink
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -64,6 +66,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
       
       {isOscar && (
         <>
+          {/* Capas de Nebulosa Dinámica - Inmersión Cósmica */}
           <div className="absolute top-[-20%] right-[-10%] w-[140%] h-[80%] bg-[#F80037]/20 blur-[160px] rounded-full animate-pulse duration-[12000ms] mix-blend-screen opacity-60" />
           <div className="absolute bottom-[-30%] left-[-20%] w-[120%] h-[90%] bg-[#5200F8]/15 blur-[160px] rounded-full animate-pulse duration-[15000ms] mix-blend-screen opacity-50" />
           <div className="absolute top-[20%] left-[5%] w-[80%] h-[60%] bg-cyan-500/10 blur-[140px] rounded-full animate-pulse duration-[10000ms] opacity-40" />
@@ -259,6 +262,7 @@ END:VCARD`;
         </footer>
       </div>
 
+      {/* Paneles Inmersivos con Glass Blur - Despliegue desde abajo con desenfoque de fondo */}
       {['ubicacion', 'calendario', 'horario', 'logros'].map((section) => (
         <div key={section} className={cn(
           "fixed inset-x-0 bottom-0 z-[80] bg-white/[0.03] backdrop-blur-[40px] border-t border-white/10 rounded-t-[3rem] transition-all duration-700 ease-in-out transform flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.5)]",
@@ -287,7 +291,10 @@ END:VCARD`;
                   <h3 className="text-2xl font-bold">Nuestra Ubicación</h3>
                   <p className="text-white/40 text-sm max-w-xs mx-auto">Visítanos en Bogotá. Conéctanos para agendar tu visita.</p>
                 </div>
-                <Button className="w-full h-16 bg-primary text-white rounded-full font-bold neon-accent" onClick={() => window.open('https://maps.app.goo.gl/tvQx2QB3CXvPcGEX6', '_blank')}>Abrir en Google Maps</Button>
+                <Button className="w-full h-16 bg-primary text-white rounded-full font-bold neon-accent" onClick={() => window.open('https://maps.app.goo.gl/tvQx2QB3CXvPcGEX6', '_blank')}>
+                  Abrir en Google Maps
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                </Button>
               </div>
             )}
             {section === 'calendario' && (
@@ -332,6 +339,7 @@ END:VCARD`;
         </div>
       ))}
 
+      {/* Navegación Inferior Inmersiva */}
       <nav className="fixed bottom-8 left-6 right-6 z-[90] h-20 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] flex items-center justify-around px-2 shadow-2xl">
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
