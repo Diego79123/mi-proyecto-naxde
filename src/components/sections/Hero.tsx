@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
-import { Smartphone, ArrowRight, Zap, Cpu, MousePointer2, Instagram, BarChart3, Search, Play } from 'lucide-react';
+import { Smartphone, ArrowRight, Zap, Cpu, MousePointer2, Instagram, BarChart3, Search, Play, LayoutGrid } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -24,14 +24,15 @@ const slides = [
   },
   {
     id: 2,
-    badge: "TECNOLOGÍA NFC",
-    title: "TU IDENTIDAD DIGITAL EN UN SOLO TOQUE.",
-    description: "La evolución del networking ya está aquí. Tarjetas inteligentes vinculadas a tu ecosistema digital profesional.",
-    ctaPrimary: "Pedir mi Tarjeta",
-    ctaSecondary: "Saber más",
+    badge: "CREA HERMOSAS APLICACIONES",
+    title: "INTERFAZ DIGITAL DE ALTO IMPACTO",
+    description: "Diseñamos experiencias que cautivan y convierten, utilizando los estándares más modernos de diseño de materiales y animaciones inmersivas.",
+    ctaPrimary: "Descargar",
+    ctaSecondary: "Más información",
     image: "nfc-demo",
-    icon: Smartphone,
-    accent: "from-[#F80037]/40", // Rojo acento
+    icon: LayoutGrid,
+    accent: "from-cyan-500/60", // Teal / Cian
+    isSecond: true,
   },
   {
     id: 3,
@@ -42,7 +43,7 @@ const slides = [
     ctaSecondary: "Explorar IA",
     image: "team-collab",
     icon: Cpu,
-    accent: "from-cyan-500/40",
+    accent: "from-[#F80037]/40", // Rojo acento
   }
 ];
 
@@ -84,7 +85,7 @@ const StarField = () => {
             width: star.size,
             height: star.size,
             animationDuration: star.duration,
-            boxShadow: '0 0 4px rgba(82, 0, 248, 0.4)' // Sutil resplandor morado
+            boxShadow: '0 0 4px rgba(82, 0, 248, 0.4)'
           }}
         />
       ))}
@@ -140,7 +141,6 @@ export const Hero = () => {
         "to-transparent"
       )} />
 
-      {/* Decorative Brand Labels */}
       <div className="absolute top-10 left-12 z-50">
         <span className="text-white/40 text-[10px] font-bold tracking-[0.6em] uppercase">NAXDE HUB</span>
       </div>
@@ -176,7 +176,10 @@ export const Hero = () => {
 
                   <div className="flex flex-wrap justify-center lg:justify-start gap-6 pt-4">
                     <Link href="/contacto">
-                      <Button size="lg" className="h-16 px-12 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-xl font-bold transition-all hover:scale-105">
+                      <Button size="lg" className={cn(
+                        "h-16 px-12 text-white rounded-full text-xl font-bold transition-all hover:scale-105",
+                        slide.id === 2 ? "bg-cyan-500 hover:bg-cyan-600 shadow-[0_0_20px_rgba(6,182,212,0.5)]" : "bg-primary hover:bg-primary/90 neon-accent"
+                      )}>
                         {slide.ctaPrimary}
                         <ArrowRight className="w-5 h-5 ml-2" />
                       </Button>
@@ -189,14 +192,13 @@ export const Hero = () => {
                   </div>
                 </div>
 
-                {/* Visual Side (Mockups with Floating Animation) */}
+                {/* Visual Side */}
                 <div className={cn(
-                  "relative transition-all duration-1200 delay-500",
+                  "relative transition-all duration-1200 delay-500 flex justify-center lg:justify-end",
                   selectedIndex === idx ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-90 rotate-3"
                 )}>
-                  {slide.isFirst ? (
-                    <div className="relative mx-auto lg:ml-auto max-w-[420px]">
-                      {/* Floating UI Elements matching the Reference Image */}
+                  {slide.isFirst && (
+                    <div className="relative w-full max-w-[420px]">
                       <div className="absolute -top-12 -left-12 z-30 glass-panel p-6 rounded-3xl border border-primary/30 float-anim-reverse w-48 shadow-glow-complement bg-[#5200F8]/10">
                         <div className="text-[11px] text-white/40 font-bold uppercase mb-2">Metrics</div>
                         <div className="text-3xl font-bold text-white mb-1">98.4%</div>
@@ -214,68 +216,76 @@ export const Hero = () => {
                             src="https://picsum.photos/seed/naxde-vibe/600/400" 
                             alt="UX Design Preview" 
                             className="w-full h-36 object-cover rounded-[1.8rem]" 
-                            data-ai-hint="futuristic interface"
                            />
                          </div>
                          <div className="p-5 space-y-3">
                            <div className="h-2 w-20 bg-primary/40 rounded-full" />
                            <div className="text-sm font-bold text-white uppercase tracking-widest">Interface Design</div>
                            <p className="text-[11px] text-white/40 leading-relaxed font-medium">Sistemas de diseño escalables con estética futurista premium.</p>
-                           <div className="flex justify-between items-center pt-2">
-                              <div className="flex -space-x-2">
-                                {[1,2,3].map(i => <div key={i} className="w-6 h-6 rounded-full border border-white/20 bg-white/10" />)}
-                              </div>
-                              <Button size="sm" variant="ghost" className="text-primary text-[10px] p-0 h-auto font-bold uppercase tracking-[0.2em]">Explore</Button>
-                           </div>
                          </div>
                       </div>
 
-                      <div className="absolute -bottom-8 left-12 z-40 glass-panel p-4 rounded-full border border-primary/20 float-anim flex items-center gap-4 w-72 shadow-glow-accent bg-[#00001D]/90">
-                         <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                           <Play className="w-4 h-4 text-white fill-white" />
-                         </div>
-                         <div className="flex-1 space-y-2">
-                           <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                              <div className="h-full w-2/3 bg-primary" />
-                           </div>
-                           <div className="flex justify-between text-[8px] font-bold text-white/30 uppercase tracking-widest">
-                              <span>02:45</span>
-                              <span>Play Reel</span>
-                           </div>
-                         </div>
-                      </div>
-
-                      {/* Central Mobile Frame */}
                       <div className="relative glass-card p-2.5 rounded-[4rem] border border-white/10 overflow-hidden shadow-[0_0_50px_rgba(82,0,248,0.2)] bg-[#00001D]/90 backdrop-blur-3xl scale-110">
-                        <div className="absolute top-5 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-40 flex items-center justify-center">
-                          <div className="w-2 h-2 rounded-full bg-white/5" />
-                        </div>
+                        <div className="absolute top-5 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-40" />
                         <div className="relative aspect-[9/19] w-full rounded-[3.5rem] overflow-hidden border border-white/5 bg-gradient-to-b from-[#5200F8]/10 via-transparent to-transparent">
-                           <div className="absolute inset-0 bg-primary/5 flex flex-col items-center justify-center gap-4">
+                           <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
                               <Zap className="w-16 h-16 text-primary/20 animate-pulse" />
-                              <div className="space-y-2 text-center">
-                                <div className="h-1 w-20 bg-primary/20 rounded-full mx-auto" />
-                                <div className="h-1 w-12 bg-primary/10 rounded-full mx-auto" />
-                              </div>
                            </div>
                         </div>
                       </div>
                     </div>
-                  ) : (
+                  )}
+
+                  {slide.isSecond && (
+                    <div className="relative w-full max-w-[420px]">
+                      {/* Elementos flotantes estilo Slide 2 (Teal) */}
+                      <div className="absolute top-20 -left-16 z-30 glass-panel p-5 rounded-2xl border border-cyan-500/30 float-anim w-44 bg-cyan-950/40 backdrop-blur-xl">
+                        <div className="text-[10px] text-cyan-500 font-bold uppercase tracking-widest mb-3">Conversión</div>
+                        <div className="flex items-end gap-1.5 h-16">
+                           {[30, 60, 45, 80, 50].map((h, i) => (
+                             <div key={i} className="flex-1 bg-cyan-500 rounded-t-sm" style={{ height: `${h}%` }} />
+                           ))}
+                        </div>
+                        <div className="mt-3 text-xl font-bold text-white">654</div>
+                        <div className="text-[9px] text-cyan-400 font-bold">+22% del objetivo</div>
+                      </div>
+
+                      <div className="absolute top-44 -right-16 z-30 glass-panel p-5 rounded-2xl border border-white/10 float-anim-reverse w-56 bg-black/60 backdrop-blur-xl">
+                        <div className="h-1.5 w-12 bg-cyan-500/40 rounded-full mb-3" />
+                        <div className="text-sm font-bold text-white uppercase tracking-widest mb-2">Titular</div>
+                        <p className="text-[10px] text-white/50 leading-relaxed mb-4">Diseñamos experiencias que cautivan y convierten usuarios.</p>
+                        <Button size="sm" variant="ghost" className="h-6 text-[9px] font-bold text-cyan-500 uppercase tracking-widest p-0">Acción</Button>
+                      </div>
+
+                      <div className="absolute top-0 right-10 z-30 glass-panel px-4 py-2 rounded-full border border-cyan-500/20 float-anim bg-cyan-950/30 flex items-center gap-3">
+                         <div className="text-[10px] text-white/80 font-medium">Texto de entrada</div>
+                         <Search className="w-3 h-3 text-cyan-500" />
+                      </div>
+
+                      {/* Smartphone Frame (Teal) */}
+                      <div className="relative glass-card p-2 rounded-[3.5rem] border border-cyan-500/20 overflow-hidden shadow-[0_0_60px_rgba(6,182,212,0.15)] bg-cyan-950/20 backdrop-blur-3xl">
+                        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-40" />
+                        <div className="relative aspect-[9/19] w-72 rounded-[3rem] overflow-hidden border border-white/5 bg-gradient-to-b from-cyan-900/20 to-transparent flex flex-col">
+                           <div className="flex-1 flex items-center justify-center">
+                              <LayoutGrid className="w-12 h-12 text-cyan-500/20" />
+                           </div>
+                           {/* Bottom Navigation Mock */}
+                           <div className="h-14 border-t border-white/5 bg-white/5 backdrop-blur-md flex items-center justify-around px-4">
+                              {[1,2,3,4].map(i => <div key={i} className="w-2 h-2 rounded-full bg-cyan-500/20" />)}
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {!slide.isFirst && !slide.isSecond && (
                     <div className="relative glass-card p-6 rounded-[3.5rem] border border-white/10 overflow-hidden shadow-2xl max-w-md ml-auto">
                       <div className="absolute inset-0 bg-gradient-to-t from-[#00001D] via-transparent to-transparent z-10" />
                       <img 
                         src={PlaceHolderImages.find(i => i.id === slide.image)?.imageUrl} 
                         alt={slide.title} 
-                        className="w-full aspect-[4/5] rounded-[2.5rem] object-cover grayscale-[0.2] transition-all duration-700"
-                        data-ai-hint={slide.image.replace('-', ' ')}
+                        className="w-full aspect-[4/5] rounded-[2.5rem] object-cover grayscale-[0.2]"
                       />
-                      <div className="absolute bottom-10 left-10 z-20 space-y-2">
-                        <div className="px-3 py-1 rounded-full bg-primary/20 border border-primary/30 backdrop-blur-xl inline-block">
-                           <span className="text-[10px] font-bold text-primary tracking-widest uppercase">Premium Tech</span>
-                        </div>
-                        <h4 className="text-2xl font-bold text-white uppercase tracking-tighter">Naxde Solutions</h4>
-                      </div>
                     </div>
                   )}
                 </div>
@@ -293,24 +303,13 @@ export const Hero = () => {
             key={i}
             onClick={() => emblaApi?.scrollTo(i)}
             className="group relative h-10 w-10 flex items-center justify-center"
-            aria-label={`Go to slide ${i + 1}`}
           >
             <div className={cn(
               "h-1.5 rounded-full transition-all duration-700",
               selectedIndex === i ? "w-10 bg-primary shadow-[0_0_15px_rgba(248,0,55,0.8)]" : "w-1.5 bg-white/20 group-hover:bg-white/40"
             )} />
-            <span className={cn(
-              "absolute -top-6 text-[10px] font-bold text-white transition-opacity duration-300",
-              selectedIndex === i ? "opacity-100" : "opacity-0"
-            )}>0{i + 1}</span>
           </button>
         ))}
-      </div>
-
-      {/* Decorative Branding / Scroll */}
-      <div className="absolute bottom-16 right-16 hidden lg:flex flex-col items-center gap-6 opacity-30 hover:opacity-100 transition-all duration-500">
-        <div className="w-[1px] h-20 bg-gradient-to-b from-primary to-transparent" />
-        <span className="text-[9px] font-bold uppercase tracking-[0.6em] vertical-text text-white">Discover</span>
       </div>
     </section>
   );
