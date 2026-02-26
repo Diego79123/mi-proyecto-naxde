@@ -64,17 +64,23 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
+      {/* Fondo base oscuro */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#00001D] via-[#00002D] to-[#00001D]" />
       
+      {/* Nebulosa Espacial (Efectos de gas cósmico) */}
       {isOscar && (
         <div className="absolute inset-0 overflow-hidden">
+          {/* Capas de gas dinámico */}
           <div className="absolute top-[-20%] right-[-10%] w-[140%] h-[80%] bg-[#F80037]/20 blur-[160px] rounded-full animate-pulse duration-[10000ms]" />
           <div className="absolute bottom-[-30%] left-[-20%] w-[120%] h-[90%] bg-[#5200F8]/15 blur-[160px] rounded-full animate-pulse duration-[14000ms]" />
           <div className="absolute top-[25%] left-[10%] w-[70%] h-[50%] bg-cyan-500/15 blur-[140px] rounded-full animate-pulse duration-[12000ms]" />
+          
+          {/* Overlay de ruido cósmico sutil */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(82,0,248,0.1)_0%,transparent_100%)]" />
         </div>
       )}
       
+      {/* Estrellas Estáticas */}
       {stars.map((star) => (
         <div
           key={star.id}
@@ -89,6 +95,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
         />
       ))}
 
+      {/* Estrellas Fugaces */}
       {shootingStars.map((ss) => (
         <div
           key={ss.id}
@@ -123,6 +130,7 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
       if (!snapshot.empty) {
         setMember({ ...snapshot.docs[0].data(), id: snapshot.docs[0].id });
       } else if (slug === 'oscar-rivera') {
+        // Datos locales de respaldo para Oscar Rivera
         setMember({
           name: 'Oscar Rivera',
           role: 'CEO & Founder Naxde',
@@ -191,6 +199,7 @@ END:VCARD`;
     <main className="min-h-screen bg-[#00001D] text-white flex flex-col items-center overflow-x-hidden relative font-body selection:bg-primary/30">
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
       
+      {/* Contenido Principal (Se difumina cuando hay una sección activa) */}
       <div className={cn(
         "w-full max-w-lg flex flex-col items-center px-6 pt-10 pb-40 space-y-10 transition-all duration-700",
         activeSection !== 'inicio' ? "blur-xl opacity-20 scale-[0.9] pointer-events-none" : "blur-0 opacity-100 scale-100"
@@ -223,6 +232,7 @@ END:VCARD`;
           </p>
         </section>
 
+        {/* Acciones Rápidas */}
         <section className="w-full grid grid-cols-2 gap-4 px-2 relative z-10">
           <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10 group" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
             <Phone className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
@@ -253,14 +263,17 @@ END:VCARD`;
         </footer>
       </div>
 
+      {/* Paneles de Sección (Glass Overlay) */}
       {['ubicacion', 'calendario', 'horario', 'logros'].map((section) => (
         <div key={section} className={cn(
           "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-700 ease-in-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)]",
           activeSection === section ? "h-[75vh] translate-y-0" : "h-0 translate-y-full"
         )}>
+          {/* Handle de cierre */}
           <div className="w-full h-14 flex items-center justify-center cursor-pointer" onClick={() => setActiveSection('inicio')}>
             <div className="w-16 h-1.5 bg-white/30 rounded-full" />
           </div>
+
           <header className="h-20 flex items-center justify-between px-10">
             <div className="flex items-center gap-4">
               <Zap className="w-5 h-5 text-primary" />
@@ -272,6 +285,7 @@ END:VCARD`;
               <X className="w-7 h-7" />
             </Button>
           </header>
+
           <div className="flex-1 overflow-y-auto px-10 pb-32 space-y-8 no-scrollbar">
             {section === 'ubicacion' && (
               <div className="text-center space-y-12 pt-16">
@@ -289,6 +303,7 @@ END:VCARD`;
                 </Button>
               </div>
             )}
+            
             {section === 'calendario' && (
               <div className="text-center space-y-12 pt-16">
                 <CalendarIcon className="w-28 h-28 text-primary mx-auto" />
@@ -297,6 +312,7 @@ END:VCARD`;
                 <Button className="w-full h-20 bg-primary text-white rounded-[2.5rem] text-xl font-bold neon-accent hover:scale-[1.02] transition-transform">Consultar Agenda</Button>
               </div>
             )}
+
             {section === 'horario' && (
               <div className="space-y-6 pt-8">
                 {[
@@ -311,6 +327,7 @@ END:VCARD`;
                 ))}
               </div>
             )}
+
             {section === 'logros' && (
               <div className="grid gap-8 pt-8">
                 {[
@@ -334,6 +351,7 @@ END:VCARD`;
         </div>
       ))}
 
+      {/* Navegación Inferior Flotante (NFC Inspired) */}
       <nav className="fixed bottom-10 left-6 right-6 z-[110] h-24 bg-black/40 backdrop-blur-[45px] border border-white/10 rounded-[3rem] flex items-center justify-around px-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
