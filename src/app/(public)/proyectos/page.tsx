@@ -24,7 +24,7 @@ import Link from 'next/link';
 
 const categories = [
   { id: 'all', label: 'Todos', icon: Layout },
-  { id: 'Tarjetas Digitales', label: 'Tarjetas NFC', icon: Smartphone },
+  { id: 'Tarjetas Digitales', label: 'Tarjetas Digitales', icon: Smartphone },
   { id: 'Aplicaciones', label: 'Aplicaciones', icon: Code },
   { id: 'Páginas Web', label: 'Páginas Web', icon: Globe },
 ];
@@ -47,7 +47,7 @@ export default function ProyectosPage() {
   const mockProjects = [
     {
       id: '1',
-      title: 'NFC Executive Card',
+      title: 'Tarjetas Digitales',
       category: 'Tarjetas Digitales',
       shortDescription: 'Sistema de networking inteligente para ejecutivos de alto nivel.',
       imageUrl: 'https://picsum.photos/seed/nfc1/800/600',
@@ -87,7 +87,7 @@ export default function ProyectosPage() {
             <Zap className="w-4 h-4 text-primary animate-pulse" />
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">Portfolio Naxde</span>
           </div>
-          <h1 className="text-5xl md:text-8xl font-headline font-bold tracking-tighter leading-none">
+          <h1 className="text-5xl md:text-8xl font-headline font-bold tracking-tighter leading-none uppercase">
             NUESTRO <span className="text-primary italic">LEGADO</span> DIGITAL.
           </h1>
           <p className="text-xl text-white/50 max-w-3xl mx-auto leading-relaxed">
@@ -197,7 +197,7 @@ export default function ProyectosPage() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[100px]" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full blur-[100px]" />
           
-          <h3 className="text-4xl md:text-6xl font-headline font-bold text-white">¿TU PROYECTO ES EL <span className="text-primary italic">PRÓXIMO</span>?</h3>
+          <h3 className="text-4xl md:text-6xl font-headline font-bold text-white uppercase">¿TU PROYECTO ES EL <span className="text-primary italic">PRÓXIMO</span>?</h3>
           <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
             Estamos listos para aplicar nuestra tecnología y diseño futurista en tu próximo gran desafío digital.
           </p>
