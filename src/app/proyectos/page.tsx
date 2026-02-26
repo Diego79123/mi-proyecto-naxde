@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState } from 'react';
@@ -44,11 +45,11 @@ export default function ProyectosPage() {
   const mockProjects = [
     {
       id: '1',
-      title: 'Tarjetas Digitales',
+      title: 'Ecosistema de Tarjetas Digitales',
       category: 'Tarjetas Digitales',
-      shortDescription: 'Sistema de networking inteligente para ejecutivos de alto nivel. Una nueva forma de conectar.',
-      imageUrl: 'https://picsum.photos/seed/nfc1/800/600',
-      technologies: ['NFC', 'React', 'Firebase'],
+      shortDescription: 'Plataforma de networking inteligente con tecnología NFC. Incluye perfiles inmersivos como el de Oscar Rivera.',
+      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1',
+      technologies: ['NFC', 'React', 'Firebase', 'Glass Blur'],
       customHref: '/tarjetas-digitales'
     },
     {

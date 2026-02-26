@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -35,8 +36,8 @@ export default function TarjetasDigitalesPortfolio() {
       profileImageUrl: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1',
       bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial.',
       linkedinUrl: '#',
-      email: 'oscar@naxde.com',
-      whatsapp: '57315001001'
+      email: 'naxdeadmon@gmail.com',
+      whatsapp: '573184254198'
     }
   ];
 
