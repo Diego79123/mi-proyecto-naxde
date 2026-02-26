@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -22,7 +23,7 @@ import {
 import { cn } from '@/lib/utils';
 import { useUser, useAuth } from '@/firebase';
 import { Button } from '@/components/ui/button';
-import { initiateAnonymousSignIn } from '@/firebase/non-blocking-login';
+import { initiateAnonymousSignIn, initiateGoogleSignIn } from '@/firebase/non-blocking-login';
 import { signOut } from 'firebase/auth';
 
 const sidebarItems = [
@@ -78,8 +79,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         <div className="flex flex-col gap-4 w-full max-w-xs">
           <Button 
-            onClick={() => initiateAnonymousSignIn(auth)} 
+            onClick={() => initiateGoogleSignIn(auth)} 
             className="h-14 px-10 bg-primary hover:bg-primary/90 text-white rounded-full font-bold text-lg neon-accent transition-all hover:scale-105"
+          >
+            Continuar con Google
+          </Button>
+          <Button 
+            variant="outline"
+            onClick={() => initiateAnonymousSignIn(auth)} 
+            className="h-14 px-10 border-white/10 text-white/60 hover:text-white rounded-full font-bold"
           >
             Acceso Rápido (Staff)
           </Button>
@@ -165,8 +173,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <div className="text-[10px] text-primary uppercase font-bold tracking-widest">Sesión Activa</div>
             </div>
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary p-0.5">
-              <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                <span className="font-bold text-xs">{user.email?.substring(0, 2).toUpperCase() || 'AD'}</span>
+              <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
+                {user.photoURL ? (
+                  <img src={user.photoURL} alt={user.displayName || 'Avatar'} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="font-bold text-xs">{user.email?.substring(0, 2).toUpperCase() || 'AD'}</span>
+                )}
               </div>
             </div>
           </div>

@@ -12,12 +12,16 @@ import {
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { useUser, useAuth } from '@/firebase';
+import { initiateGoogleSignIn } from '@/firebase/non-blocking-login';
 
 const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useUser();
+  const auth = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +30,12 @@ export const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLogin = () => {
+    if (!user) {
+      initiateGoogleSignIn(auth);
+    }
+  };
 
   return (
     <header 
@@ -70,9 +80,18 @@ export const Header = () => {
         {/* Right Navigation & CTA */}
         <div className="flex items-center justify-end gap-6">
           <div className="hidden lg:flex items-center gap-6">
-            <Link href="/admin" className="text-sm font-medium text-white/70 hover:text-white transition-colors">
-              Iniciar sesión
-            </Link>
+            {user ? (
+              <Link href="/admin" className="text-sm font-medium text-white/70 hover:text-white transition-colors">
+                Panel Control
+              </Link>
+            ) : (
+              <button 
+                onClick={handleLogin}
+                className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+              >
+                Iniciar sesión
+              </button>
+            )}
             <div className="group flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white transition-colors cursor-pointer">
               ¿Necesitas ayuda?
               <ChevronDown className="w-3.5 h-3.5 text-white/30 group-hover:text-primary transition-colors" />
@@ -111,7 +130,11 @@ export const Header = () => {
           <Link href="/tarjetas-nfc" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold">Características</Link>
           <Link href="/proyectos" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold">Soluciones listas</Link>
           <div className="h-px bg-white/5" />
-          <Link href="/admin" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-white/60">Iniciar sesión</Link>
+          {user ? (
+            <Link href="/admin" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-white/60">Panel Control</Link>
+          ) : (
+            <button onClick={() => { handleLogin(); setIsMobileMenuOpen(false); }} className="text-left text-sm font-medium text-white/60">Iniciar sesión</button>
+          )}
           <Link href="/contacto" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-white/60">Ayuda</Link>
           <Button className="w-full bg-primary text-white rounded-full font-bold">Ver Precios</Button>
         </div>
