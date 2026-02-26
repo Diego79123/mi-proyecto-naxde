@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { 
   ChevronDown, 
   ShoppingCart, 
-  User, 
-  HelpCircle,
   Menu,
   X
 } from 'lucide-react';
@@ -58,7 +56,7 @@ export const Header = () => {
 
         {/* Center Logo */}
         <div className="flex justify-center order-first md:order-none">
-          <Link href="/" className="relative h-10 w-32 md:w-40">
+          <Link href="/" className="relative h-10 w-[150px]">
             <Image 
               src={LOGO_URL} 
               alt="Naxde Logo" 
