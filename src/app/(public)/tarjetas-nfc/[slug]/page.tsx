@@ -129,7 +129,6 @@ END:VCARD`;
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
         <div className="absolute top-[-10%] left-[-20%] w-[100%] h-[50%] bg-primary/10 blur-[150px] rounded-full" />
         <div className="absolute bottom-[-10%] right-[-20%] w-[100%] h-[50%] bg-secondary/10 blur-[150px] rounded-full" />
-        {/* Animated stars mock */}
         {[...Array(50)].map((_, i) => (
           <div 
             key={i} 
@@ -146,10 +145,24 @@ END:VCARD`;
       </div>
 
       {/* Main Container */}
-      <div className="w-full max-w-lg flex flex-col items-center px-6 pt-20 pb-40 space-y-10">
+      <div className="w-full max-w-lg flex flex-col items-center px-6 pt-10 pb-40 space-y-10">
         
+        {/* Logo Header */}
+        <header className="w-full flex justify-center py-4 opacity-90 transition-opacity">
+          <Link href="/">
+            <Image 
+              src={LOGO_URL} 
+              alt="Naxde Logo" 
+              width={120} 
+              height={36} 
+              className="h-7 w-auto object-contain"
+              priority
+            />
+          </Link>
+        </header>
+
         {/* Profile Card Header */}
-        <section className="flex flex-col items-center text-center space-y-4">
+        <section className="flex flex-col items-center text-center space-y-4 pt-4">
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-br from-primary to-secondary rounded-full blur opacity-75 animate-pulse"></div>
             <Avatar className="w-32 h-32 border-4 border-[#00001D] relative shadow-[0_0_20px_rgba(248,0,55,0.3)]">
@@ -327,7 +340,7 @@ END:VCARD`;
           return (
             <button
               key={item.id}
-              onClick={() => setActiveSection(item.id as SectionType)}
+              onClick={() => setSelectedSection(item.id as SectionType)}
               className={cn(
                 "flex flex-col items-center justify-center flex-1 transition-all relative h-full",
                 isActive ? "text-primary scale-110" : "text-white/40 hover:text-white/60"
@@ -345,5 +358,12 @@ END:VCARD`;
 
     </main>
   );
-}
 
+  function setSelectedSection(id: SectionType) {
+    if (id === 'inicio') {
+      setActiveSection('inicio');
+    } else {
+      setActiveSection(id);
+    }
+  }
+}
