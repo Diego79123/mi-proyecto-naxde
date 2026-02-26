@@ -19,7 +19,6 @@ import {
   Code
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const categories = [
@@ -43,15 +42,15 @@ export default function ProyectosPage() {
 
   const { data: projects, isLoading } = useCollection(projectsQuery);
 
-  // Datos de ejemplo para el prototipo si no hay en Firestore
   const mockProjects = [
     {
       id: '1',
       title: 'Tarjetas Digitales',
       category: 'Tarjetas Digitales',
-      shortDescription: 'Sistema de networking inteligente para ejecutivos de alto nivel.',
+      shortDescription: 'Sistema de networking inteligente para ejecutivos de alto nivel. Una nueva forma de conectar.',
       imageUrl: 'https://picsum.photos/seed/nfc1/800/600',
-      technologies: ['NFC', 'React', 'Firebase']
+      technologies: ['NFC', 'React', 'Firebase'],
+      customHref: '/tarjetas-digitales'
     },
     {
       id: '2',
@@ -71,17 +70,16 @@ export default function ProyectosPage() {
     }
   ];
 
-  const displayProjects = projects && projects.length > 0 ? projects : (activeCategory === 'all' ? mockProjects : mockProjects.filter(p => p.category === activeCategory));
+  const displayProjects = (projects && projects.length > 0) 
+    ? projects 
+    : (activeCategory === 'all' ? mockProjects : mockProjects.filter(p => p.category === activeCategory));
 
   return (
     <main className="min-h-screen bg-background text-white font-body selection:bg-primary/30">
       <Header />
 
-      {/* Hero Section */}
       <section className="pt-40 pb-20 px-6 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[100px] -z-10" />
-        
         <div className="max-w-7xl mx-auto text-center space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
             <Zap className="w-4 h-4 text-primary animate-pulse" />
@@ -96,7 +94,6 @@ export default function ProyectosPage() {
         </div>
       </section>
 
-      {/* Filters Section */}
       <section className="pb-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center gap-4 bg-white/[0.02] p-2 rounded-[2rem] border border-white/5 w-fit mx-auto backdrop-blur-xl">
@@ -118,7 +115,6 @@ export default function ProyectosPage() {
         </div>
       </section>
 
-      {/* Projects Grid */}
       <section className="py-12 px-6 min-h-[600px]">
         <div className="max-w-7xl mx-auto">
           {isLoading ? (
@@ -163,9 +159,9 @@ export default function ProyectosPage() {
                     </div>
 
                     <div className="pt-6 flex items-center justify-between border-t border-white/5">
-                      <Link href={`/proyectos/${project.slug || project.id}`}>
+                      <Link href={project.customHref || `/proyectos/${project.slug || project.id}`}>
                         <Button variant="link" className="text-primary p-0 font-bold uppercase tracking-widest text-xs gap-2 group/btn">
-                          Ver Detalles
+                          {project.category === 'Tarjetas Digitales' ? 'Ver Portafolio' : 'Ver Detalles'}
                           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
                       </Link>
@@ -178,38 +174,6 @@ export default function ProyectosPage() {
               ))}
             </div>
           )}
-
-          {displayProjects.length === 0 && !isLoading && (
-            <div className="text-center py-24 space-y-6">
-              <Smartphone className="w-16 h-16 text-white/10 mx-auto" />
-              <h3 className="text-2xl font-headline font-bold text-white/40">No se encontraron proyectos en esta categoría.</h3>
-              <Button onClick={() => setActiveCategory('all')} variant="outline" className="border-white/10 text-white/60">
-                Ver todos los proyectos
-              </Button>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 px-6">
-        <div className="max-w-5xl mx-auto glass-card rounded-[3rem] p-12 md:p-20 text-center space-y-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full blur-[100px]" />
-          
-          <h3 className="text-4xl md:text-6xl font-headline font-bold text-white uppercase">¿TU PROYECTO ES EL <span className="text-primary italic">PRÓXIMO</span>?</h3>
-          <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
-            Estamos listos para aplicar nuestra tecnología y diseño futurista en tu próximo gran desafío digital.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row justify-center gap-6 pt-4 relative z-10">
-            <Link href="/contacto">
-              <Button size="lg" className="h-16 px-10 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-xl font-bold">
-                Empezar Ahora
-                <Zap className="w-6 h-6 ml-2" />
-              </Button>
-            </Link>
-          </div>
         </div>
       </section>
 
