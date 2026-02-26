@@ -13,12 +13,14 @@ import {
   Settings, 
   LogOut,
   Menu,
-  X
+  X,
+  Smartphone
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const sidebarItems = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/admin" },
+  { name: "Tarjetas Digitales", icon: Smartphone, href: "/admin/tarjetas-digitales" },
   { name: "Servicios", icon: Zap, href: "/admin/services" },
   { name: "Proyectos", icon: Briefcase, href: "/admin/projects" },
   { name: "Productos", icon: Package, href: "/admin/products" },
