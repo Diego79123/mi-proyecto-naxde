@@ -1,0 +1,1169 @@
+{
+  "entities": {
+    "SiteSettings": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "SiteSettings",
+      "type": "object",
+      "description": "Global settings and configuration for the Naxde platform, including contact information, brand details, and aesthetic colors.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the SiteSettings entity. Expected to be a single, predefined ID like 'main' or 'current'."
+        },
+        "contact": {
+          "type": "array",
+          "description": "Contact information for the Naxde platform.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contactAddress": {
+          "type": "string",
+          "description": "Physical address for Naxde."
+        },
+        "contactWhatsapp": {
+          "type": "string",
+          "description": "WhatsApp contact number for Naxde, including country code."
+        },
+        "contactEmail": {
+          "type": "string",
+          "description": "Primary contact email address for Naxde.",
+          "format": "email"
+        },
+        "contactMapsUrl": {
+          "type": "string",
+          "description": "URL to Naxde's location on Google Maps.",
+          "format": "uri"
+        },
+        "colorBg0": {
+          "type": "string",
+          "description": "Hexadecimal color code for the primary background."
+        },
+        "colorAccent": {
+          "type": "string",
+          "description": "Hexadecimal color code for the brand's accent color (e.g., CTAs)."
+        },
+        "colorComplement": {
+          "type": "string",
+          "description": "Hexadecimal color code for the brand's complementary color."
+        },
+        "brandName": {
+          "type": "string",
+          "description": "The official name of the Naxde brand."
+        },
+        "brandTagline": {
+          "type": "string",
+          "description": "The strategic tagline or motto for the Naxde brand."
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the settings were last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "contactAddress",
+        "contactWhatsapp",
+        "contactEmail",
+        "contactMapsUrl",
+        "colorBg0",
+        "colorAccent",
+        "colorComplement",
+        "brandName",
+        "brandTagline",
+        "updatedAt"
+      ]
+    },
+    "Service": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Service",
+      "type": "object",
+      "description": "A digital service offered by Naxde, detailing its features, benefits, and categorization for display on the public site.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Service entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The name or headline of the service."
+        },
+        "slug": {
+          "type": "string",
+          "description": "A URL-friendly unique identifier for the service, used for permalinks."
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "A concise summary of the service."
+        },
+        "longDescription": {
+          "type": "string",
+          "description": "A detailed description of what the service entails."
+        },
+        "benefits": {
+          "type": "array",
+          "description": "A list of advantages or positive outcomes users gain from the service.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "features": {
+          "type": "array",
+          "description": "A list of key functionalities or components included in the service.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "icon": {
+          "type": "string",
+          "description": "A string representing an icon associated with the service (e.g., icon font class, SVG path, or image URL).",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "The category the service belongs to (e.g., 'Web Development', 'AI Applied')."
+        },
+        "order": {
+          "type": "number",
+          "description": "A numerical value to determine the display order of services on the frontend."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the service is currently active and visible on the public site."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL to a hero or thumbnail image for the service.",
+          "format": "uri"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the service record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the service record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "shortDescription",
+        "longDescription",
+        "benefits",
+        "features",
+        "icon",
+        "category",
+        "order",
+        "isActive",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "A digital product offered by Naxde, typically with a distinct price, such as specific software components or themes.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Product entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The name of the product."
+        },
+        "slug": {
+          "type": "string",
+          "description": "A URL-friendly unique identifier for the product, used for permalinks."
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "A concise summary of the product."
+        },
+        "longDescription": {
+          "type": "string",
+          "description": "A detailed description of the product's features and functionality."
+        },
+        "benefits": {
+          "type": "array",
+          "description": "A list of advantages or positive outcomes users gain from the product.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "features": {
+          "type": "array",
+          "description": "A list of key functionalities or components included in the product.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "icon": {
+          "type": "string",
+          "description": "A string representing an icon associated with the product (e.g., icon font class, SVG path, or image URL).",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "The category the product belongs to (e.g., 'SaaS', 'Digital Tools')."
+        },
+        "order": {
+          "type": "number",
+          "description": "A numerical value to determine the display order of products on the frontend."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the product is currently active and visible on the public site."
+        },
+        "price": {
+          "type": "number",
+          "description": "The base price of the product."
+        },
+        "priceUnit": {
+          "type": "string",
+          "description": "The unit of the price (e.g., 'USD', 'COP', '/month', '/one-time')."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL to a hero or thumbnail image for the product.",
+          "format": "uri"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the product record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the product record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "shortDescription",
+        "longDescription",
+        "benefits",
+        "features",
+        "icon",
+        "category",
+        "order",
+        "isActive",
+        "price",
+        "priceUnit",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "A showcase of Naxde's past work and client successes, detailing the project's challenge, solution, and outcomes.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Project entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title or name of the project."
+        },
+        "slug": {
+          "type": "string",
+          "description": "A URL-friendly unique identifier for the project, used for permalinks."
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "A brief overview of the project's challenge or goal."
+        },
+        "longDescription": {
+          "type": "string",
+          "description": "A detailed account of the solution Naxde provided and the results achieved."
+        },
+        "clientName": {
+          "type": "string",
+          "description": "The name of the client for whom the project was completed."
+        },
+        "clientWebsite": {
+          "type": "string",
+          "description": "The website URL of the client, if applicable.",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "The type or category of the project (e.g., 'Web Development', 'Mobile App', 'NFC Solution')."
+        },
+        "technologies": {
+          "type": "array",
+          "description": "A list of key technologies used in the project.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL to a primary image representing the project (e.g., a screenshot or hero image).",
+          "format": "uri"
+        },
+        "galleryImageUrls": {
+          "type": "array",
+          "description": "A list of URLs to additional images or screenshots of the project.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "order": {
+          "type": "number",
+          "description": "A numerical value to determine the display order of projects on the frontend."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the project is currently active and visible on the public site."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the project record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the project record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "shortDescription",
+        "longDescription",
+        "clientName",
+        "category",
+        "technologies",
+        "imageUrl",
+        "order",
+        "isActive",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Testimonial": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Testimonial",
+      "type": "object",
+      "description": "A customer testimonial or review, including the quote, author's details, and company information.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Testimonial entity."
+        },
+        "quote": {
+          "type": "string",
+          "description": "The actual testimonial statement from the customer."
+        },
+        "authorName": {
+          "type": "string",
+          "description": "The name of the person giving the testimonial."
+        },
+        "authorTitle": {
+          "type": "string",
+          "description": "The professional title or role of the author (e.g., 'CEO', 'Marketing Manager')."
+        },
+        "authorAvatarUrl": {
+          "type": "string",
+          "description": "URL to the avatar or profile picture of the author.",
+          "format": "uri"
+        },
+        "companyName": {
+          "type": "string",
+          "description": "The name of the company the author represents."
+        },
+        "companyWebsite": {
+          "type": "string",
+          "description": "The website URL of the author's company, if applicable.",
+          "format": "uri"
+        },
+        "rating": {
+          "type": "number",
+          "description": "A numerical rating provided by the customer, typically on a scale (e.g., 1-5 stars)."
+        },
+        "order": {
+          "type": "number",
+          "description": "A numerical value to determine the display order of testimonials on the frontend."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the testimonial is currently active and visible on the public site."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the testimonial record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the testimonial record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "quote",
+        "authorName",
+        "authorTitle",
+        "companyName",
+        "rating",
+        "order",
+        "isActive",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "FAQ": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "FAQ",
+      "type": "object",
+      "description": "A frequently asked question and its corresponding answer, organized for easy access on the public site.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the FAQ entity."
+        },
+        "question": {
+          "type": "string",
+          "description": "The full text of the frequently asked question."
+        },
+        "answer": {
+          "type": "string",
+          "description": "The detailed answer to the question."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category the FAQ belongs to (e.g., 'General', 'NFC Cards', 'Services')."
+        },
+        "order": {
+          "type": "number",
+          "description": "A numerical value to determine the display order of FAQs within their category."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the FAQ is currently active and visible on the public site."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the FAQ record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the FAQ record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "question",
+        "answer",
+        "category",
+        "order",
+        "isActive",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Plan": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Plan",
+      "type": "object",
+      "description": "A subscription or service plan offered by Naxde, detailing pricing, included features, and call to action.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Plan entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The name of the plan (e.g., 'Basic', 'Premium', 'Enterprise')."
+        },
+        "slug": {
+          "type": "string",
+          "description": "A URL-friendly unique identifier for the plan, used for permalinks."
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "A brief tagline or summary for the plan."
+        },
+        "longDescription": {
+          "type": "string",
+          "description": "A detailed description of the plan's offerings."
+        },
+        "price": {
+          "type": "number",
+          "description": "The monetary cost of the plan."
+        },
+        "priceUnit": {
+          "type": "string",
+          "description": "The currency and frequency of the price (e.g., 'USD/month', 'COP/year', 'One-time')."
+        },
+        "benefits": {
+          "type": "array",
+          "description": "A list of key advantages or selling points of the plan.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "features": {
+          "type": "array",
+          "description": "A list of specific features or inclusions in the plan.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "callToActionText": {
+          "type": "string",
+          "description": "The text for the call-to-action button associated with this plan."
+        },
+        "callToActionUrl": {
+          "type": "string",
+          "description": "The URL to which the call-to-action button directs.",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "The category the plan belongs to (e.g., 'NFC Plans', 'SaaS Subscriptions')."
+        },
+        "order": {
+          "type": "number",
+          "description": "A numerical value to determine the display order of plans."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the plan is currently active and visible on the public site."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the plan record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the plan record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "shortDescription",
+        "longDescription",
+        "price",
+        "priceUnit",
+        "benefits",
+        "features",
+        "callToActionText",
+        "callToActionUrl",
+        "category",
+        "order",
+        "isActive",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "TeamMember": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "TeamMember",
+      "type": "object",
+      "description": "Information about a Naxde team member, for display on 'About Us' pages or as blog post authors.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the TeamMember entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The full name of the team member."
+        },
+        "role": {
+          "type": "string",
+          "description": "The professional role or title of the team member."
+        },
+        "bio": {
+          "type": "string",
+          "description": "A short biographical description of the team member."
+        },
+        "profileImageUrl": {
+          "type": "string",
+          "description": "URL to the team member's profile picture.",
+          "format": "uri"
+        },
+        "linkedinUrl": {
+          "type": "string",
+          "description": "URL to the team member's LinkedIn profile.",
+          "format": "uri"
+        },
+        "email": {
+          "type": "string",
+          "description": "The professional email address of the team member.",
+          "format": "email"
+        },
+        "order": {
+          "type": "number",
+          "description": "A numerical value to determine the display order of team members."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the team member's profile is currently active and visible."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the team member record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the team member record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "role",
+        "bio",
+        "profileImageUrl",
+        "order",
+        "isActive",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Lead": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Lead",
+      "type": "object",
+      "description": "Data captured from general contact forms or inquiries, representing potential clients or sales leads.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Lead entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The full name of the person submitting the lead."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the lead.",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the lead, including country code."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company name associated with the lead, if provided."
+        },
+        "message": {
+          "type": "string",
+          "description": "The message or inquiry submitted by the lead."
+        },
+        "source": {
+          "type": "string",
+          "description": "The origin of the lead (e.g., 'contact form', 'homepage CTA', 'NFC landing')."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current processing status of the lead (e.g., 'New', 'Contacted', 'Qualified', 'Closed')."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the lead was submitted.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the lead record was last updated (e.g., status change).",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "message",
+        "source",
+        "status",
+        "createdAt"
+      ]
+    },
+    "CardRequest": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CardRequest",
+      "type": "object",
+      "description": "Details of a request specifically for NFC Digital Cards, captured via a dedicated landing page form.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the CardRequest entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The full name of the person requesting NFC cards."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the requester.",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the requester, including country code."
+        },
+        "company": {
+          "type": "string",
+          "description": "The company name of the requester, if provided."
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The requested quantity of NFC cards."
+        },
+        "designNotes": {
+          "type": "string",
+          "description": "Any specific design preferences or notes provided by the requester."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current processing status of the card request (e.g., 'New', 'Quoted', 'Design Drafted', 'Ordered')."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the card request was submitted.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the card request record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "status",
+        "createdAt"
+      ]
+    },
+    "CardProduct": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CardProduct",
+      "type": "object",
+      "description": "Defines different models or types of NFC Digital Cards Naxde offers, with their specifications and pricing.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the CardProduct entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The name of the NFC card product (e.g., 'Standard PVC NFC Card', 'Premium Metal NFC Card')."
+        },
+        "slug": {
+          "type": "string",
+          "description": "A URL-friendly unique identifier for the card product, used for permalinks."
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "A concise summary of the card product."
+        },
+        "longDescription": {
+          "type": "string",
+          "description": "A detailed description of the card product, including its features and benefits."
+        },
+        "price": {
+          "type": "number",
+          "description": "The base price per unit of the NFC card product."
+        },
+        "priceUnit": {
+          "type": "string",
+          "description": "The currency unit for the price (e.g., 'COP', 'USD')."
+        },
+        "material": {
+          "type": "string",
+          "description": "The material from which the NFC card is made (e.g., 'PVC', 'Metal', 'Wood')."
+        },
+        "designOptions": {
+          "type": "array",
+          "description": "A list of available design customizations or finishes for the card.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL to an image showcasing the NFC card product.",
+          "format": "uri"
+        },
+        "benefits": {
+          "type": "array",
+          "description": "Key benefits of choosing this specific NFC card product.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "features": {
+          "type": "array",
+          "description": "Specific features or technical specifications of the NFC card.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "order": {
+          "type": "number",
+          "description": "A numerical value to determine the display order of card products."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the card product is currently active and available for request."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the card product record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the card product record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "shortDescription",
+        "longDescription",
+        "price",
+        "priceUnit",
+        "material",
+        "designOptions",
+        "imageUrl",
+        "benefits",
+        "features",
+        "order",
+        "isActive",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "BlogPost": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "BlogPost",
+      "type": "object",
+      "description": "An article or post for Naxde's blog, covering various topics related to technology, business, and digital solutions.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Blog Post entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the blog post."
+        },
+        "slug": {
+          "type": "string",
+          "description": "A URL-friendly unique identifier for the blog post, used for permalinks."
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "A concise excerpt or summary of the blog post content."
+        },
+        "longDescription": {
+          "type": "string",
+          "description": "The full content of the blog post, typically in markdown or HTML format."
+        },
+        "authorId": {
+          "type": "string",
+          "description": "Reference to the author of the blog post. (Relationship: TeamMember 1:N BlogPost)"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL to the main image or thumbnail for the blog post.",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "The primary category of the blog post (e.g., 'Technology', 'Marketing', 'NFC')."
+        },
+        "tags": {
+          "type": "array",
+          "description": "A list of tags or keywords associated with the blog post for filtering and search.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "publishedAt": {
+          "type": "string",
+          "description": "Timestamp when the blog post was officially published.",
+          "format": "date-time"
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the blog post is currently published and visible on the public blog."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the blog post record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the blog post record was last updated (e.g., content edits).",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "slug",
+        "shortDescription",
+        "longDescription",
+        "authorId",
+        "imageUrl",
+        "category",
+        "publishedAt",
+        "isActive",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/site_settings/{settingsId}",
+        "definition": {
+          "entityName": "SiteSettings",
+          "schema": {
+            "$ref": "#/backend/entities/SiteSettings"
+          },
+          "description": "Global configuration and branding settings for the Naxde platform. This collection is expected to contain a single document (e.g., with ID 'main'). Publicly readable, writeable only by admin/editor roles."
+        }
+      },
+      {
+        "path": "/services/{serviceId}",
+        "definition": {
+          "entityName": "Service",
+          "schema": {
+            "$ref": "#/backend/entities/Service"
+          },
+          "description": "Definitions of digital services offered by Naxde. Documents are publicly readable only if 'isActive' is true. Writeable only by admin/editor roles.",
+          "params": [
+            {
+              "name": "serviceId",
+              "description": "Unique identifier for a specific service."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/backend/entities/Product"
+          },
+          "description": "Definitions of digital products offered by Naxde. Documents are publicly readable only if 'isActive' is true. Writeable only by admin/editor roles.",
+          "params": [
+            {
+              "name": "productId",
+              "description": "Unique identifier for a specific product."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Showcase of Naxde's past work and client successes. Documents are publicly readable only if 'isActive' is true. Writeable only by admin/editor roles.",
+          "params": [
+            {
+              "name": "projectId",
+              "description": "Unique identifier for a specific project."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/testimonials/{testimonialId}",
+        "definition": {
+          "entityName": "Testimonial",
+          "schema": {
+            "$ref": "#/backend/entities/Testimonial"
+          },
+          "description": "Customer testimonials and reviews. Documents are publicly readable only if 'isActive' is true. Writeable only by admin/editor roles.",
+          "params": [
+            {
+              "name": "testimonialId",
+              "description": "Unique identifier for a specific testimonial."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/faqs/{faqId}",
+        "definition": {
+          "entityName": "FAQ",
+          "schema": {
+            "$ref": "#/backend/entities/FAQ"
+          },
+          "description": "Frequently asked questions and their answers. Documents are publicly readable only if 'isActive' is true. Writeable only by admin/editor roles.",
+          "params": [
+            {
+              "name": "faqId",
+              "description": "Unique identifier for a specific FAQ."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/plans/{planId}",
+        "definition": {
+          "entityName": "Plan",
+          "schema": {
+            "$ref": "#/backend/entities/Plan"
+          },
+          "description": "Subscription or service plans offered by Naxde. Documents are publicly readable only if 'isActive' is true. Writeable only by admin/editor roles.",
+          "params": [
+            {
+              "name": "planId",
+              "description": "Unique identifier for a specific plan."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/team_members/{teamMemberId}",
+        "definition": {
+          "entityName": "TeamMember",
+          "schema": {
+            "$ref": "#/backend/entities/TeamMember"
+          },
+          "description": "Information about Naxde team members. Documents are publicly readable only if 'isActive' is true. Writeable only by admin/editor roles.",
+          "params": [
+            {
+              "name": "teamMemberId",
+              "description": "Unique identifier for a specific team member."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/leads/{leadId}",
+        "definition": {
+          "entityName": "Lead",
+          "schema": {
+            "$ref": "#/backend/entities/Lead"
+          },
+          "description": "Data captured from general contact forms or inquiries. Publicly creatable. Read, update, and delete access is restricted to admin/editor roles.",
+          "params": [
+            {
+              "name": "leadId",
+              "description": "Unique identifier for a specific lead."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/card_requests/{cardRequestId}",
+        "definition": {
+          "entityName": "CardRequest",
+          "schema": {
+            "$ref": "#/backend/entities/CardRequest"
+          },
+          "description": "Details of requests specifically for NFC Digital Cards. Publicly creatable. Read, update, and delete access is restricted to admin/editor roles.",
+          "params": [
+            {
+              "name": "cardRequestId",
+              "description": "Unique identifier for a specific card request."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/card_products/{cardProductId}",
+        "definition": {
+          "entityName": "CardProduct",
+          "schema": {
+            "$ref": "#/backend/entities/CardProduct"
+          },
+          "description": "Definitions of different models or types of NFC Digital Cards offered by Naxde. Documents are publicly readable only if 'isActive' is true. Writeable only by admin/editor roles.",
+          "params": [
+            {
+              "name": "cardProductId",
+              "description": "Unique identifier for a specific card product."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/blog_posts/{blogPostId}",
+        "definition": {
+          "entityName": "BlogPost",
+          "schema": {
+            "$ref": "#/backend/entities/BlogPost"
+          },
+          "description": "Articles and posts for Naxde's blog. Documents are publicly readable only if 'isActive' is true. Writeable only by admin/editor roles.",
+          "params": [
+            {
+              "name": "blogPostId",
+              "description": "Unique identifier for a specific blog post."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_admin/{userId}",
+        "definition": {
+          "entityName": "user",
+          "schema": {
+            "$ref": "#/backend/entities/user"
+          },
+          "description": "Collection storing UIDs of users who have 'admin' privileges. Used for Database Access Control (DBAC) by checking document existence. Read by authenticated users for rules checks. Writeable only by existing admin roles."
+        }
+      },
+      {
+        "path": "/roles_editor/{userId}",
+        "definition": {
+          "entityName": "user",
+          "schema": {
+            "$ref": "#/backend/entities/user"
+          },
+          "description": "Collection storing UIDs of users who have 'editor' privileges. Used for Database Access Control (DBAC) by checking document existence. Read by authenticated users for rules checks. Writeable only by admin roles."
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure for Naxde Digital Hub is designed with a strong emphasis on Authorization Independence, Structural Segregation, and DBAC principles to ensure security, scalability, and debuggability. All public-facing content (services, products, projects, testimonials, FAQs, plans, team members, card products, blog posts) resides in top-level collections (e.g., /services, /products).\n\n**Authorization Independence:** This is primarily achieved by ensuring that authorization rules do not rely on `get()` calls to other documents. For public content, the `isActive` field within each document is the sole determinant for public read access. This means a document's visibility is self-contained, avoiding brittle hierarchical dependencies. For instance, a `BlogPost`'s public visibility depends only on its own `isActive` status, not on querying the `TeamMember`'s `isActive` status. Administrative access (read/write for all content, and read/update/delete for leads/card requests) is managed via dedicated role collections: `/roles_admin/{userId}` and `/roles_editor/{userId}`. Security rules will use `exists()` checks against these collections, which is an atomic, non-hierarchical operation, fully adhering to the Authorization Independence mandate by avoiding `get()` for authorization.\n\n**QAPs (Rules are not Filters):** This design supports efficient and secure `list` operations for all public collections. By segregating active and inactive content within the same collection but strictly enforcing `where('isActive', '==', true)` in both client queries and Firestore security rules, we ensure that clients only receive authorized data and cannot bypass visibility restrictions. For example, for `/services`, the rule would allow read access only if `resource.data.isActive == true`. The client-side queries for public consumption are expected to include this `isActive: true` filter. For administrative sections, `list` operations for leads, card requests, and all content management are restricted to users with `admin` or `editor` roles, allowing them to query the entire collection without needing additional filtering criteria for authorization, only for sorting/pagination.\n\n**Structural Segregation:** Each collection holds documents that share a homogeneous security posture. Public content collections (/services, /products, etc.) allow public read of `isActive: true` documents and restricted write access. Leads and card requests (/leads, /card_requests) allow public create, but restricted read/update/delete. Role collections (/roles_admin, /roles_editor) are purely for role assignment. This clear segregation simplifies security rules significantly by removing conditional logic based on document type or mixed access patterns within a single collection."
+  }
+}
