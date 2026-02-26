@@ -7,13 +7,15 @@ import {
   ChevronDown, 
   ShoppingCart, 
   Menu,
-  X
+  X,
+  User as UserIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useUser, useAuth } from '@/firebase';
 import { initiateGoogleSignIn } from '@/firebase/non-blocking-login';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 
@@ -81,14 +83,25 @@ export const Header = () => {
         <div className="flex items-center justify-end gap-6">
           <div className="hidden lg:flex items-center gap-6">
             {user ? (
-              <Link href="/admin" className="text-sm font-medium text-white/70 hover:text-white transition-colors">
-                Panel Control
-              </Link>
+              <div className="flex items-center gap-4">
+                <Link href="/admin" className="text-sm font-medium text-white/70 hover:text-white transition-colors hidden xl:block">
+                  Panel Control
+                </Link>
+                <Link href="/admin">
+                  <Avatar className="h-9 w-9 border border-primary/30 hover:border-primary transition-all duration-300 neon-accent ring-2 ring-transparent hover:ring-primary/20">
+                    <AvatarImage src={user.photoURL || ''} alt={user.displayName || 'User'} className="object-cover" />
+                    <AvatarFallback className="bg-primary/20 text-primary text-[10px] font-bold">
+                      {user.displayName?.substring(0, 2).toUpperCase() || <UserIcon className="w-4 h-4" />}
+                    </AvatarFallback>
+                  </Avatar>
+                </Link>
+              </div>
             ) : (
               <button 
                 onClick={handleLogin}
-                className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+                className="text-sm font-medium text-white/70 hover:text-white transition-colors flex items-center gap-2 group"
               >
+                <UserIcon className="w-4 h-4 text-primary/60 group-hover:text-primary transition-colors" />
                 Iniciar sesión
               </button>
             )}
@@ -131,9 +144,15 @@ export const Header = () => {
           <Link href="/proyectos" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold">Soluciones listas</Link>
           <div className="h-px bg-white/5" />
           {user ? (
-            <Link href="/admin" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-white/60">Panel Control</Link>
+            <div className="flex items-center gap-4">
+              <Avatar className="h-10 w-10 border border-primary/30">
+                <AvatarImage src={user.photoURL || ''} />
+                <AvatarFallback>{user.displayName?.[0] || 'U'}</AvatarFallback>
+              </Avatar>
+              <Link href="/admin" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-white/60">Mi Panel Control</Link>
+            </div>
           ) : (
-            <button onClick={() => { handleLogin(); setIsMobileMenuOpen(false); }} className="text-left text-sm font-medium text-white/60">Iniciar sesión</button>
+            <button onClick={() => { handleLogin(); setIsMobileMenuOpen(false); }} className="text-left text-sm font-medium text-white/60">Iniciar sesión con Google</button>
           )}
           <Link href="/contacto" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-white/60">Ayuda</Link>
           <Button className="w-full bg-primary text-white rounded-full font-bold">Ver Precios</Button>
