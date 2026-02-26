@@ -2,8 +2,8 @@
 "use client"
 
 import React, { use, useState, useEffect } from 'react';
-import { useDoc, useFirestore, useMemoFirebase } from '@/firebase';
-import { doc, collection, query, where, limit, getDocs } from 'firebase/firestore';
+import { useFirestore } from '@/firebase';
+import { collection, query, where, limit, getDocs } from 'firebase/firestore';
 import { 
   Smartphone, 
   Mail, 
@@ -36,6 +36,69 @@ interface DigitalCardPageProps {
 
 type SectionType = 'inicio' | 'perfil' | 'calendario' | 'horario' | 'logros';
 
+const StarField = () => {
+  const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
+  const [shootingStars, setShootingStars] = useState<{ id: number; top: string; left: string; duration: string; delay: string }[]>([]);
+
+  useEffect(() => {
+    const starCount = 80;
+    const newStars = Array.from({ length: starCount }).map((_, i) => ({
+      id: i,
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      size: `${Math.random() * 2 + 0.5}px`,
+      duration: `${Math.random() * 3 + 2}s`
+    }));
+    setStars(newStars);
+
+    const shootingCount = 4;
+    const newShootingStars = Array.from({ length: shootingCount }).map((_, i) => ({
+      id: i,
+      top: `${Math.random() * 50}%`,
+      left: `${Math.random() * 100}%`,
+      duration: `${Math.random() * 2 + 2}s`,
+      delay: `${Math.random() * 15}s`
+    }));
+    setShootingStars(newShootingStars);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#00001D] via-[#00002D] to-[#00001D]" />
+      <div className="absolute top-[-20%] right-[-10%] w-[80%] h-[60%] bg-primary/10 blur-[150px] rounded-full" />
+      <div className="absolute bottom-[-20%] left-[-10%] w-[80%] h-[60%] bg-secondary/10 blur-[150px] rounded-full" />
+      
+      {stars.map((star) => (
+        <div
+          key={star.id}
+          className="star absolute bg-white rounded-full opacity-30 animate-pulse"
+          style={{
+            top: star.top,
+            left: star.left,
+            width: star.size,
+            height: star.size,
+            animationDuration: star.duration,
+          }}
+        />
+      ))}
+
+      {shootingStars.map((ss) => (
+        <div
+          key={ss.id}
+          className="shooting-star absolute h-[1px] bg-gradient-to-r from-white to-transparent opacity-0"
+          style={{
+            top: ss.top,
+            left: ss.left,
+            width: '150px',
+            animation: `shooting ${ss.duration} linear infinite`,
+            animationDelay: ss.delay
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 export default function DigitalCardPage({ params }: DigitalCardPageProps) {
   const { slug } = use(params);
   const db = useFirestore();
@@ -52,13 +115,12 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
       if (!snapshot.empty) {
         setMember({ ...snapshot.docs[0].data(), id: snapshot.docs[0].id });
       } else if (slug === 'oscar-rivera') {
-        // Fallback for Oscar Rivera if DB is empty for initial demo
         setMember({
           name: 'Oscar Rivera',
           role: 'Director de Estrategia e IA',
           slug: 'oscar-rivera',
           profileImageUrl: 'https://picsum.photos/seed/oscar/400/400',
-          bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial.',
+          bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial. Apasionado por crear productos que cambian el status quo de las industrias.',
           phone: '+57 318 425 4198',
           email: 'naxdeadmon@gmail.com',
           whatsapp: '573184254198',
@@ -124,31 +186,16 @@ END:VCARD`;
 
   return (
     <main className="min-h-screen bg-[#00001D] text-white flex flex-col items-center overflow-x-hidden relative font-body selection:bg-primary/30">
+      <StarField />
       
-      {/* Star Field Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
-        <div className="absolute top-[-10%] left-[-20%] w-[100%] h-[50%] bg-primary/10 blur-[150px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-20%] w-[100%] h-[50%] bg-secondary/10 blur-[150px] rounded-full" />
-        {[...Array(50)].map((_, i) => (
-          <div 
-            key={i} 
-            className="absolute bg-white rounded-full opacity-30 animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              width: `${Math.random() * 2}px`,
-              height: `${Math.random() * 2}px`,
-              animationDelay: `${Math.random() * 5}s`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Main Container */}
-      <div className="w-full max-w-lg flex flex-col items-center px-6 pt-10 pb-40 space-y-10">
+      {/* Container Principal con Blur cuando el popup está activo */}
+      <div className={cn(
+        "w-full max-w-lg flex flex-col items-center px-6 pt-10 pb-40 space-y-10 transition-all duration-500",
+        activeSection !== 'inicio' ? "blur-sm opacity-40 scale-[0.98]" : "blur-0 opacity-100 scale-100"
+      )}>
         
         {/* Logo Header */}
-        <header className="w-full flex justify-center py-4 opacity-90 transition-opacity">
+        <header className="w-full flex justify-center py-4">
           <Link href="/">
             <Image 
               src={LOGO_URL} 
@@ -165,43 +212,43 @@ END:VCARD`;
         <section className="flex flex-col items-center text-center space-y-4 pt-4">
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-br from-primary to-secondary rounded-full blur opacity-75 animate-pulse"></div>
-            <Avatar className="w-32 h-32 border-4 border-[#00001D] relative shadow-[0_0_20px_rgba(248,0,55,0.3)]">
+            <Avatar className="w-32 h-32 border-4 border-[#00001D] relative shadow-[0_0_25px_rgba(248,0,55,0.4)]">
               <AvatarImage src={member.profileImageUrl} alt={member.name} className="object-cover" />
               <AvatarFallback className="bg-white/5 text-3xl font-headline">{member.name[0]}</AvatarFallback>
             </Avatar>
-            <div className="absolute bottom-1 right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-[#00001D] flex items-center justify-center">
+            <div className="absolute bottom-1 right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-[#00001D] flex items-center justify-center shadow-lg">
               <div className="w-3 h-1.5 border-l-2 border-b-2 border-white -rotate-45 mb-0.5" />
             </div>
           </div>
           
-          <div className="space-y-1">
-            <h1 className="text-3xl font-headline font-bold tracking-tight text-white">{member.name}</h1>
-            <p className="text-primary text-sm font-bold uppercase tracking-widest">{member.role}</p>
+          <div className="space-y-2">
+            <h1 className="text-3xl font-headline font-bold tracking-tight text-white leading-tight">{member.name}</h1>
+            <p className="text-primary text-xs font-bold uppercase tracking-[0.3em]">{member.role}</p>
           </div>
         </section>
 
         {/* Contact Details List */}
-        <section className="w-full space-y-3 px-2">
+        <section className="w-full space-y-4 px-4">
           {member.phone && (
-            <div className="flex items-center gap-4 text-white/60 hover:text-white transition-colors group">
-              <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                <Phone className="w-4 h-4 text-white/40 group-hover:text-primary" />
+            <div className="flex items-center gap-4 text-white/50 hover:text-white transition-all group bg-white/[0.03] p-3 rounded-2xl border border-white/5">
+              <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
+                <Phone className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
               </div>
               <span className="text-sm font-medium">{member.phone}</span>
             </div>
           )}
           {member.email && (
-            <div className="flex items-center gap-4 text-white/60 hover:text-white transition-colors group">
-              <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                <Mail className="w-4 h-4 text-white/40 group-hover:text-primary" />
+            <div className="flex items-center gap-4 text-white/50 hover:text-white transition-all group bg-white/[0.03] p-3 rounded-2xl border border-white/5">
+              <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
+                <Mail className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
               </div>
-              <span className="text-sm font-medium">{member.email}</span>
+              <span className="text-sm font-medium truncate">{member.email}</span>
             </div>
           )}
           {member.address && (
-            <div className="flex items-center gap-4 text-white/60 hover:text-white transition-colors group">
-              <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                <MapPin className="w-4 h-4 text-white/40 group-hover:text-primary" />
+            <div className="flex items-center gap-4 text-white/50 hover:text-white transition-all group bg-white/[0.03] p-3 rounded-2xl border border-white/5">
+              <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
+                <MapPin className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
               </div>
               <span className="text-sm font-medium leading-tight">{member.address}</span>
             </div>
@@ -209,121 +256,165 @@ END:VCARD`;
         </section>
 
         {/* Action Buttons Grid */}
-        <section className="w-full grid grid-cols-2 gap-4">
+        <section className="w-full grid grid-cols-2 gap-4 px-2">
           <Button 
             variant="outline"
-            className="h-12 bg-white/5 border-white/10 hover:bg-white/10 text-white rounded-xl flex items-center justify-center gap-2 group"
+            className="h-14 bg-white/[0.05] border-white/10 hover:bg-white/10 text-white rounded-2xl flex items-center justify-center gap-3 group transition-all"
             onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}
           >
-            <Phone className="w-4 h-4 text-white/40 group-hover:text-primary transition-transform group-hover:scale-110" />
-            <span className="text-xs font-bold uppercase tracking-widest">Llamar</span>
+            <Phone className="w-4 h-4 text-white/40 group-hover:text-primary" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Llamar</span>
           </Button>
 
           <Button 
-            className="h-12 bg-primary hover:bg-primary/90 text-white rounded-xl flex items-center justify-center gap-2 neon-accent"
+            className="h-14 bg-primary hover:bg-primary/90 text-white rounded-2xl flex items-center justify-center gap-3 neon-accent group"
             onClick={() => window.open(`https://wa.me/${member.whatsapp}`, '_blank')}
           >
-            <MessageCircle className="w-4 h-4" />
-            <span className="text-xs font-bold uppercase tracking-widest">WhatsApp</span>
+            <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">WhatsApp</span>
           </Button>
 
           <Button 
             variant="outline"
-            className="h-12 bg-white/5 border-white/10 hover:bg-white/10 text-white rounded-xl flex items-center justify-center gap-2 group"
+            className="h-14 bg-white/[0.05] border-white/10 hover:bg-white/10 text-white rounded-2xl flex items-center justify-center gap-3 group transition-all"
             onClick={() => window.open(`mailto:${member.email}`, '_self')}
           >
-            <Mail className="w-4 h-4 text-white/40 group-hover:text-primary transition-transform group-hover:scale-110" />
-            <span className="text-xs font-bold uppercase tracking-widest">Email</span>
+            <Mail className="w-4 h-4 text-white/40 group-hover:text-primary" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Email</span>
           </Button>
 
           <Button 
             variant="outline"
-            className="h-12 bg-white/5 border-white/10 hover:bg-white/10 text-white rounded-xl flex items-center justify-center gap-2 group"
+            className="h-14 bg-white/[0.05] border-white/10 hover:bg-white/10 text-white rounded-2xl flex items-center justify-center gap-3 group transition-all"
             onClick={handleSaveContact}
           >
-            <UserPlus className="w-4 h-4 text-white/40 group-hover:text-primary transition-transform group-hover:scale-110" />
-            <span className="text-xs font-bold uppercase tracking-widest">Guardar Contacto</span>
+            <UserPlus className="w-4 h-4 text-white/40 group-hover:text-primary" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Guardar</span>
           </Button>
         </section>
 
         {/* Brand Footer */}
-        <footer className="pt-10 flex flex-col items-center space-y-2 opacity-30">
+        <footer className="pt-10 flex flex-col items-center space-y-3 opacity-30 pb-10">
           <Image src={LOGO_URL} alt="Naxde Logo" width={60} height={18} className="h-4 w-auto object-contain grayscale" />
-          <p className="text-[8px] font-bold uppercase tracking-[0.4em]">Propulsado por Naxde</p>
+          <div className="flex items-center gap-2">
+            <Zap className="w-3 h-3 text-primary" />
+            <p className="text-[8px] font-bold uppercase tracking-[0.4em]">Propulsado por Naxde</p>
+          </div>
         </footer>
       </div>
 
-      {/* Slide-up Panels (Inmersive Experience) */}
+      {/* Papás (Slide-up Glass Panels) */}
       {['perfil', 'calendario', 'horario', 'logros'].map((section) => (
         <div 
           key={section}
           className={cn(
-            "fixed inset-0 z-[60] bg-[#00001D]/95 backdrop-blur-2xl transition-transform duration-500 ease-in-out transform flex flex-col",
-            activeSection === section ? "translate-y-0" : "translate-y-full"
+            "fixed inset-x-0 bottom-0 z-[80] bg-white/[0.03] backdrop-blur-[40px] border-t border-white/10 rounded-t-[3rem] transition-all duration-700 ease-in-out transform flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.5)]",
+            activeSection === section ? "h-[85vh] translate-y-0" : "h-0 translate-y-full"
           )}
         >
-          <header className="h-16 flex items-center justify-between px-6 border-b border-white/5">
-            <span className="font-headline font-bold text-lg uppercase tracking-widest text-primary">{section}</span>
-            <Button variant="ghost" size="icon" onClick={() => setActiveSection('inicio')} className="text-white/40 hover:text-white">
-              <X className="w-6 h-6" />
+          {/* Handle de cierre arriba */}
+          <div 
+            className="w-full h-12 flex items-center justify-center cursor-pointer"
+            onClick={() => setActiveSection('inicio')}
+          >
+            <div className="w-12 h-1.5 bg-white/20 rounded-full" />
+          </div>
+
+          <header className="h-16 flex items-center justify-between px-8 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
+                <Zap className="w-4 h-4 text-primary" />
+              </div>
+              <span className="font-headline font-bold text-lg uppercase tracking-[0.2em] text-white">
+                {section === 'perfil' ? 'Mi Perfil' : 
+                 section === 'calendario' ? 'Agenda' : 
+                 section === 'horario' ? 'Horario' : 'Logros'}
+              </span>
+            </div>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setActiveSection('inicio')} 
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 text-white/40 hover:text-white"
+            >
+              <X className="w-5 h-5" />
             </Button>
           </header>
-          <div className="flex-1 overflow-y-auto p-8 space-y-6">
+
+          <div className="flex-1 overflow-y-auto px-8 pb-32 space-y-8 no-scrollbar">
             {section === 'perfil' && (
-              <div className="space-y-4">
-                <h3 className="text-xl font-bold">Sobre Mí</h3>
-                <p className="text-white/60 leading-relaxed">{member.bio}</p>
-                <div className="pt-6 grid grid-cols-1 gap-4">
-                  <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                    <h4 className="text-primary text-xs font-bold uppercase mb-2">Especialidad</h4>
-                    <p className="text-sm">Estrategia Digital & IA Aplicada</p>
+              <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-primary">Biografía</h3>
+                  <p className="text-white/70 leading-relaxed text-sm font-medium italic">
+                    "{member.bio}"
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 space-y-2">
+                    <h4 className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Especialidad</h4>
+                    <p className="text-white font-bold">Estrategia Digital & IA Aplicada</p>
                   </div>
-                  <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                    <h4 className="text-primary text-xs font-bold uppercase mb-2">Experiencia</h4>
-                    <p className="text-sm">+8 años construyendo ecosistemas tecnológicos.</p>
+                  <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 space-y-2">
+                    <h4 className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Experiencia</h4>
+                    <p className="text-white font-bold">+8 años liderando equipos tecnológicos en LATAM.</p>
                   </div>
                 </div>
               </div>
             )}
+            
             {section === 'calendario' && (
-              <div className="text-center space-y-6 pt-10">
-                <CalendarIcon className="w-16 h-16 text-primary mx-auto opacity-20" />
-                <h3 className="text-2xl font-bold">Agenda Digital</h3>
-                <p className="text-white/50">Agenda una consultoría técnica o de estrategia directamente.</p>
-                <Button className="bg-primary text-white rounded-full px-10 h-14 neon-accent">Reservar Espacio</Button>
+              <div className="text-center space-y-8 pt-12 animate-in fade-in scale-95 duration-700">
+                <div className="relative inline-block">
+                   <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
+                   <CalendarIcon className="w-20 h-20 text-primary relative z-10 mx-auto" />
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-2xl font-bold">Reserva una Cita</h3>
+                  <p className="text-white/40 text-sm max-w-xs mx-auto">Conecta conmigo para discutir nuevas oportunidades, consultoría o alianzas estratégicas.</p>
+                </div>
+                <Button className="w-full max-w-xs h-16 bg-primary text-white rounded-full text-lg font-bold neon-accent hover:scale-105 transition-transform">
+                  Agendar por Calendly
+                </Button>
               </div>
             )}
+
             {section === 'horario' && (
-              <div className="space-y-4">
-                <h3 className="text-xl font-bold">Disponibilidad</h3>
-                <div className="space-y-3">
+              <div className="space-y-6 animate-in slide-in-from-right-4 duration-700">
+                <div className="space-y-4">
                   {[
-                    { day: 'Lunes - Viernes', time: '8:00 AM - 6:00 PM' },
-                    { day: 'Sábados', time: '9:00 AM - 1:00 PM' },
-                    { day: 'Domingos', time: 'Cerrado' }
+                    { day: 'Lunes - Viernes', time: '8:00 AM - 6:00 PM', active: true },
+                    { day: 'Sábados', time: '9:00 AM - 1:00 PM', active: true },
+                    { day: 'Domingos', time: 'Cerrado', active: false }
                   ].map((item, i) => (
-                    <div key={i} className="flex justify-between items-center p-4 rounded-xl bg-white/5 border border-white/5">
-                      <span className="font-bold text-sm">{item.day}</span>
-                      <span className="text-white/40 text-sm">{item.time}</span>
+                    <div key={i} className={cn(
+                      "flex justify-between items-center p-6 rounded-[2rem] border transition-all",
+                      item.active ? "bg-white/[0.03] border-white/10" : "bg-transparent border-white/5 opacity-40"
+                    )}>
+                      <span className="font-bold text-sm tracking-wide">{item.day}</span>
+                      <span className={cn("text-xs font-bold px-3 py-1 rounded-full", item.active ? "bg-primary/10 text-primary" : "text-white/30")}>
+                        {item.time}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
             )}
+
             {section === 'logros' && (
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-6 animate-in zoom-in-95 duration-700">
                 {[
-                  { title: "250+ Proyectos", desc: "Liderando despliegues de software en toda la región." },
-                  { title: "Premio Innovación", desc: "Reconocimiento a la mejor integración NFC 2023." },
-                  { title: "Certificación IA", desc: "Especialista certificado en soluciones generativas." }
+                  { title: "250+ Proyectos", desc: "Despliegue exitoso de plataformas SaaS y Web3." },
+                  { title: "Socio Estratégico", desc: "Consultor certificado para multinacionales de tecnología." },
+                  { title: "Pionero NFC", desc: "Lanzamiento del primer ecosistema de tarjetas inteligentes en el país." }
                 ].map((logro, i) => (
-                  <div key={i} className="p-6 rounded-3xl bg-white/5 border border-white/5 flex gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
-                      <Trophy className="w-6 h-6 text-primary" />
+                  <div key={i} className="p-6 rounded-[2.5rem] bg-white/[0.03] border border-white/10 flex gap-6 group hover:bg-white/5 transition-colors">
+                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 shadow-glow-accent">
+                      <Trophy className="w-7 h-7 text-primary" />
                     </div>
                     <div className="space-y-1">
-                      <h4 className="font-bold">{logro.title}</h4>
-                      <p className="text-xs text-white/40">{logro.desc}</p>
+                      <h4 className="font-bold text-lg text-white group-hover:text-primary transition-colors">{logro.title}</h4>
+                      <p className="text-xs text-white/40 leading-relaxed font-medium">{logro.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -333,23 +424,28 @@ END:VCARD`;
         </div>
       ))}
 
-      {/* Bottom Inmersive Navigation Bar */}
-      <nav className="fixed bottom-6 left-6 right-6 z-[70] h-16 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full flex items-center justify-around px-2 shadow-2xl overflow-hidden">
+      {/* Menú de Navegación Inferior Inmersivo */}
+      <nav className="fixed bottom-8 left-6 right-6 z-[90] h-20 bg-black/40 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] flex items-center justify-around px-2 shadow-2xl overflow-hidden">
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
           return (
             <button
               key={item.id}
-              onClick={() => setSelectedSection(item.id as SectionType)}
+              onClick={() => setActiveSection(item.id as SectionType)}
               className={cn(
-                "flex flex-col items-center justify-center flex-1 transition-all relative h-full",
-                isActive ? "text-primary scale-110" : "text-white/40 hover:text-white/60"
+                "flex flex-col items-center justify-center flex-1 transition-all relative h-full group",
+                isActive ? "text-primary" : "text-white/30 hover:text-white/60"
               )}
             >
-              <item.icon className={cn("w-6 h-6", isActive && "drop-shadow-[0_0_8px_rgba(248,0,55,0.6)]")} />
-              <span className="text-[8px] font-bold uppercase tracking-widest mt-1">{item.label}</span>
+              <div className={cn(
+                "p-2.5 rounded-2xl transition-all duration-500",
+                isActive ? "bg-primary/10 shadow-glow-accent scale-110" : "group-hover:bg-white/5"
+              )}>
+                <item.icon className={cn("w-6 h-6", isActive && "drop-shadow-[0_0_8px_rgba(248,0,55,0.6)]")} />
+              </div>
+              <span className="text-[8px] font-bold uppercase tracking-[0.2em] mt-1.5">{item.label}</span>
               {isActive && (
-                <div className="absolute -bottom-2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_#F80037]" />
+                <div className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_12px_#F80037]" />
               )}
             </button>
           );
@@ -358,12 +454,5 @@ END:VCARD`;
 
     </main>
   );
-
-  function setSelectedSection(id: SectionType) {
-    if (id === 'inicio') {
-      setActiveSection('inicio');
-    } else {
-      setActiveSection(id);
-    }
-  }
 }
+
