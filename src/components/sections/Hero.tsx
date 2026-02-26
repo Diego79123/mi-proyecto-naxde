@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
-import { Smartphone, ArrowRight, Zap, Cpu, MousePointer2, Instagram, BarChart3, Search, Play, LayoutGrid } from 'lucide-react';
+import { Smartphone, ArrowRight, Zap, Cpu, MousePointer2, Instagram, BarChart3, Search, Play, LayoutGrid, List } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -36,14 +36,15 @@ const slides = [
   },
   {
     id: 3,
-    badge: "IA & AUTOMATIZACIÓN",
-    title: "INTELIGENCIA QUE ESCALA TU NEGOCIO.",
-    description: "Integramos modelos de IA generativa para optimizar procesos y crear ventajas competitivas reales.",
-    ctaPrimary: "Consultoría IA",
-    ctaSecondary: "Explorar IA",
-    image: "team-collab",
+    badge: "CREA HERMOSAS APLICACIONES",
+    title: "CONTROL DESLIZANTE DE INTERFAZ DE USUARIO",
+    description: "Creamos componentes de software con estética futurista y rendimiento extremo. La arquitectura de materiales del mañana, disponible hoy.",
+    ctaPrimary: "Descargar",
+    ctaSecondary: "Más información",
+    image: "project-saas",
     icon: Cpu,
-    accent: "from-[#F80037]/40", // Rojo acento
+    accent: "from-green-500/60", // Verde Esmeralda
+    isThird: true,
   }
 ];
 
@@ -85,7 +86,7 @@ const StarField = () => {
             width: star.size,
             height: star.size,
             animationDuration: star.duration,
-            boxShadow: '0 0 4px rgba(82, 0, 248, 0.4)'
+            boxShadow: '0 0 4px rgba(255, 255, 255, 0.4)'
           }}
         />
       ))}
@@ -136,7 +137,7 @@ export const Hero = () => {
       
       {/* Ambient Background Light - Sincronizado con el slide */}
       <div className={cn(
-        "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[1100px] rounded-full blur-[180px] pointer-events-none transition-all duration-1500 opacity-40 bg-gradient-to-br",
+        "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[1100px] rounded-full blur-[200px] pointer-events-none transition-all duration-1500 opacity-30 bg-gradient-to-br",
         slides[selectedIndex].accent,
         "to-transparent"
       )} />
@@ -144,11 +145,7 @@ export const Hero = () => {
       <div className="absolute top-10 left-12 z-50">
         <span className="text-white/40 text-[10px] font-bold tracking-[0.6em] uppercase">NAXDE HUB</span>
       </div>
-      <div className="absolute top-10 right-12 z-50 flex items-center gap-3">
-        <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#F80037]" />
-        <span className="text-white/60 text-[9px] font-medium tracking-[0.2em] uppercase">Status: Live</span>
-      </div>
-
+      
       <div className="flex-1 overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
           {slides.map((slide, idx) => (
@@ -162,14 +159,17 @@ export const Hero = () => {
                 )}>
                   <div className="space-y-6">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-                      <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+                      <span className={cn(
+                        "text-[10px] font-bold uppercase tracking-[0.3em]",
+                        slide.id === 1 ? "text-[#5200F8]" : slide.id === 2 ? "text-cyan-500" : "text-green-500"
+                      )}>
                         {slide.badge}
                       </span>
                     </div>
                     <h1 className="text-5xl md:text-6xl lg:text-8xl font-headline font-bold leading-[1] text-white tracking-tighter">
                       {slide.title}
                     </h1>
-                    <p className="text-lg md:text-2xl text-white/50 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                    <p className="text-lg md:text-xl text-white/50 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
                       {slide.description}
                     </p>
                   </div>
@@ -178,7 +178,9 @@ export const Hero = () => {
                     <Link href="/contacto">
                       <Button size="lg" className={cn(
                         "h-16 px-12 text-white rounded-full text-xl font-bold transition-all hover:scale-105",
-                        slide.id === 2 ? "bg-cyan-500 hover:bg-cyan-600 shadow-[0_0_20px_rgba(6,182,212,0.5)]" : "bg-primary hover:bg-primary/90 neon-accent"
+                        slide.id === 1 ? "bg-[#5200F8] hover:bg-[#5200F8]/90 neon-complement" : 
+                        slide.id === 2 ? "bg-cyan-500 hover:bg-cyan-600 shadow-[0_0_20px_rgba(6,182,212,0.5)]" : 
+                        "bg-green-500 hover:bg-green-600 shadow-[0_0_20px_rgba(34,197,94,0.5)]"
                       )}>
                         {slide.ctaPrimary}
                         <ArrowRight className="w-5 h-5 ml-2" />
@@ -199,13 +201,13 @@ export const Hero = () => {
                 )}>
                   {slide.isFirst && (
                     <div className="relative w-full max-w-[420px]">
-                      <div className="absolute -top-12 -left-12 z-30 glass-panel p-6 rounded-3xl border border-primary/30 float-anim-reverse w-48 shadow-glow-complement bg-[#5200F8]/10">
+                      <div className="absolute -top-12 -left-12 z-30 glass-panel p-6 rounded-3xl border border-[#5200F8]/30 float-anim-reverse w-48 shadow-glow-complement bg-[#5200F8]/10">
                         <div className="text-[11px] text-white/40 font-bold uppercase mb-2">Metrics</div>
                         <div className="text-3xl font-bold text-white mb-1">98.4%</div>
-                        <div className="text-[10px] text-primary font-bold tracking-widest">+12% Performance</div>
+                        <div className="text-[10px] text-[#5200F8] font-bold tracking-widest">+12% Performance</div>
                         <div className="flex gap-1.5 mt-3 h-10 items-end">
                            {[40, 75, 55, 95, 65, 85].map((h, i) => (
-                             <div key={i} className="flex-1 bg-gradient-to-t from-primary/60 to-primary rounded-t-sm" style={{ height: `${h}%` }} />
+                             <div key={i} className="flex-1 bg-gradient-to-t from-[#5200F8]/60 to-[#5200F8] rounded-t-sm" style={{ height: `${h}%` }} />
                            ))}
                         </div>
                       </div>
@@ -219,7 +221,7 @@ export const Hero = () => {
                            />
                          </div>
                          <div className="p-5 space-y-3">
-                           <div className="h-2 w-20 bg-primary/40 rounded-full" />
+                           <div className="h-2 w-20 bg-[#5200F8]/40 rounded-full" />
                            <div className="text-sm font-bold text-white uppercase tracking-widest">Interface Design</div>
                            <p className="text-[11px] text-white/40 leading-relaxed font-medium">Sistemas de diseño escalables con estética futurista premium.</p>
                          </div>
@@ -227,9 +229,9 @@ export const Hero = () => {
 
                       <div className="relative glass-card p-2.5 rounded-[4rem] border border-white/10 overflow-hidden shadow-[0_0_50px_rgba(82,0,248,0.2)] bg-[#00001D]/90 backdrop-blur-3xl scale-110">
                         <div className="absolute top-5 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-40" />
-                        <div className="relative aspect-[9/19] w-full rounded-[3.5rem] overflow-hidden border border-white/5 bg-gradient-to-b from-[#5200F8]/10 via-transparent to-transparent">
+                        <div className="relative aspect-[9/19] w-72 rounded-[3.5rem] overflow-hidden border border-white/5 bg-gradient-to-b from-[#5200F8]/20 to-transparent">
                            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-                              <Zap className="w-16 h-16 text-primary/20 animate-pulse" />
+                              <Zap className="w-16 h-16 text-[#5200F8]/20 animate-pulse" />
                            </div>
                         </div>
                       </div>
@@ -238,7 +240,6 @@ export const Hero = () => {
 
                   {slide.isSecond && (
                     <div className="relative w-full max-w-[420px]">
-                      {/* Elementos flotantes estilo Slide 2 (Teal) */}
                       <div className="absolute top-20 -left-16 z-30 glass-panel p-5 rounded-2xl border border-cyan-500/30 float-anim w-44 bg-cyan-950/40 backdrop-blur-xl">
                         <div className="text-[10px] text-cyan-500 font-bold uppercase tracking-widest mb-3">Conversión</div>
                         <div className="flex items-end gap-1.5 h-16">
@@ -262,30 +263,53 @@ export const Hero = () => {
                          <Search className="w-3 h-3 text-cyan-500" />
                       </div>
 
-                      {/* Smartphone Frame (Teal) */}
                       <div className="relative glass-card p-2 rounded-[3.5rem] border border-cyan-500/20 overflow-hidden shadow-[0_0_60px_rgba(6,182,212,0.15)] bg-cyan-950/20 backdrop-blur-3xl">
                         <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-40" />
                         <div className="relative aspect-[9/19] w-72 rounded-[3rem] overflow-hidden border border-white/5 bg-gradient-to-b from-cyan-900/20 to-transparent flex flex-col">
                            <div className="flex-1 flex items-center justify-center">
                               <LayoutGrid className="w-12 h-12 text-cyan-500/20" />
                            </div>
-                           {/* Bottom Navigation Mock */}
-                           <div className="h-14 border-t border-white/5 bg-white/5 backdrop-blur-md flex items-center justify-around px-4">
-                              {[1,2,3,4].map(i => <div key={i} className="w-2 h-2 rounded-full bg-cyan-500/20" />)}
-                           </div>
                         </div>
                       </div>
                     </div>
                   )}
 
-                  {!slide.isFirst && !slide.isSecond && (
-                    <div className="relative glass-card p-6 rounded-[3.5rem] border border-white/10 overflow-hidden shadow-2xl max-w-md ml-auto">
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#00001D] via-transparent to-transparent z-10" />
-                      <img 
-                        src={PlaceHolderImages.find(i => i.id === slide.image)?.imageUrl} 
-                        alt={slide.title} 
-                        className="w-full aspect-[4/5] rounded-[2.5rem] object-cover grayscale-[0.2]"
-                      />
+                  {slide.isThird && (
+                    <div className="relative w-full max-w-[420px]">
+                      {/* Elementos flotantes estilo Slide 3 (Verde) */}
+                      <div className="absolute top-10 -left-20 z-30 glass-panel p-2 rounded-2xl border border-green-500/20 float-anim bg-green-950/30 flex items-center gap-3">
+                         <div className="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center">
+                           <Search className="w-4 h-4 text-white" />
+                         </div>
+                         <div className="w-32 h-1.5 bg-white/20 rounded-full" />
+                      </div>
+
+                      <div className="absolute top-40 -right-20 z-30 glass-panel overflow-hidden rounded-[2rem] border border-green-500/20 float-anim-reverse w-72 bg-black/60 backdrop-blur-xl">
+                        <div className="p-4 space-y-4">
+                           {[1, 2, 3].map((i) => (
+                             <div key={i} className="flex gap-3 group/item transition-colors">
+                               <div className="w-12 h-12 rounded-lg bg-green-500/20 flex items-center justify-center shrink-0 overflow-hidden">
+                                  <img src={`https://picsum.photos/seed/green-${i}/100/100`} alt="Preview" className="w-full h-full object-cover" />
+                               </div>
+                               <div className="space-y-1.5">
+                                 <div className="h-1.5 w-24 bg-green-500/40 rounded-full" />
+                                 <div className="text-[10px] text-white/60 leading-tight">Artículo de tres líneas con descripción dinámica.</div>
+                               </div>
+                             </div>
+                           ))}
+                        </div>
+                      </div>
+
+                      {/* Smartphone Frame (Green) */}
+                      <div className="relative glass-card p-2.5 rounded-[4rem] border border-green-500/20 overflow-hidden shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-green-950/20 backdrop-blur-3xl scale-110">
+                        <div className="absolute top-5 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-40" />
+                        <div className="relative aspect-[9/19] w-72 rounded-[3.5rem] overflow-hidden border border-white/5 bg-gradient-to-b from-green-900/40 to-transparent">
+                           <div className="absolute inset-x-0 bottom-0 p-6 space-y-4">
+                              <div className="h-2 w-3/4 bg-green-500/40 rounded-full" />
+                              <div className="h-2 w-1/2 bg-green-500/20 rounded-full" />
+                           </div>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
