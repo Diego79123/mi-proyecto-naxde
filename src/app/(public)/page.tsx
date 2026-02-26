@@ -1,2 +1,2 @@
-// Eliminado para resolver conflicto de rutas paralelas
-export default function Redirect() { return null; }
+// Ruta plana activada en src/app/page.tsx
+export default function Empty() { return null; }

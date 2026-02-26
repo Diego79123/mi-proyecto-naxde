@@ -5,23 +5,18 @@ import { Smartphone, Package, Briefcase, Zap, MessageSquare, HelpCircle, Setting
 import Link from 'next/link';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useCollection, useFirestore, useMemoFirebase, useUser } from '@/firebase';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection } from 'firebase/firestore';
 
 export default function AdminDashboard() {
   const db = useFirestore();
-  const { user } = useUser();
   
-  const leadsRef = useMemoFirebase(() => {
-    if (!db || !user) return null;
-    return collection(db, 'leads');
-  }, [db, user]);
+  // Se han eliminado las verificaciones de autenticación para acceso público.
+  
+  const leadsRef = useMemoFirebase(() => collection(db, 'leads'), [db]);
   const { data: leads } = useCollection(leadsRef);
   
-  const membersRef = useMemoFirebase(() => {
-    if (!db || !user) return null;
-    return collection(db, 'team_members');
-  }, [db, user]);
+  const membersRef = useMemoFirebase(() => collection(db, 'team_members'), [db]);
   const { data: members } = useCollection(membersRef);
 
   const stats = [
@@ -36,7 +31,7 @@ export default function AdminDashboard() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-3xl font-headline font-bold text-white tracking-tight">Dashboard Administrativo</h1>
-          <p className="text-white/50 font-medium">Panel de gestión centralizada para el ecosistema Naxde.</p>
+          <p className="text-white/50 font-medium">Panel de gestión pública para el ecosistema Naxde.</p>
         </div>
         <div className="flex gap-2">
           <Link href="/admin/tarjetas-digitales">
@@ -91,7 +86,7 @@ export default function AdminDashboard() {
         <Card className="bg-white/5 border-white/10 overflow-hidden">
           <CardHeader className="bg-white/[0.02] border-b border-white/5">
             <CardTitle className="text-white text-lg">Centro de Operaciones</CardTitle>
-            <CardDescription className="text-white/40">Infraestructura y seguridad.</CardDescription>
+            <CardDescription className="text-white/40">Infraestructura abierta.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 pt-6">
             <Link href="/admin/settings" className="block">
@@ -102,11 +97,11 @@ export default function AdminDashboard() {
             </Link>
             <Button variant="outline" className="w-full justify-start border-white/10 hover:bg-white/5 text-white h-12 rounded-xl group px-6">
               <ShieldCheck className="w-4 h-4 mr-3 text-white/40 group-hover:text-primary transition-colors" />
-              Reglas de Seguridad
+              Estado de la Base de Datos
             </Button>
             <Button variant="outline" className="w-full justify-start border-white/10 hover:bg-white/5 text-white h-12 rounded-xl group px-6">
               <Users className="w-4 h-4 mr-3 text-white/40 group-hover:text-primary transition-colors" />
-              Gestión de Staff
+              Staff Administrativo
             </Button>
           </CardContent>
         </Card>

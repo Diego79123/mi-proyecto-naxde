@@ -37,7 +37,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
   const [shootingStars, setShootingStars] = useState<{ id: number; top: string; left: string; duration: string; delay: string }[]>([]);
 
   useEffect(() => {
-    const starCount = 120;
+    const starCount = 150;
     const newStars = Array.from({ length: starCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 100}%`,
@@ -47,27 +47,26 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
     }));
     setStars(newStars);
 
-    const shootingCount = isOscar ? 8 : 4;
+    const shootingCount = 10;
     const newShootingStars = Array.from({ length: shootingCount }).map((_, i) => ({
       id: i,
-      top: `${Math.random() * 50}%`,
+      top: `${Math.random() * 60}%`,
       left: `${Math.random() * 100}%`,
-      duration: `${Math.random() * 4 + 3}s`,
-      delay: `${Math.random() * 15}s`
+      duration: `${Math.random() * 3 + 3}s`,
+      delay: `${Math.random() * 20}s`
     }));
     setShootingStars(newShootingStars);
-  }, [isOscar]);
+  }, []);
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
       <div className="absolute inset-0 bg-gradient-to-b from-[#00001D] via-[#00002D] to-[#00001D]" />
       
-      {/* Nebulosa Dinámica específica para Oscar */}
       {isOscar && (
         <>
-          <div className="absolute top-[-15%] right-[-10%] w-[130%] h-[80%] bg-[#F80037]/15 blur-[160px] rounded-full animate-pulse duration-[10000ms] mix-blend-screen" />
-          <div className="absolute bottom-[-20%] left-[-20%] w-[110%] h-[90%] bg-[#5200F8]/10 blur-[160px] rounded-full animate-pulse duration-[12000ms] mix-blend-screen" />
-          <div className="absolute top-[20%] left-[10%] w-[70%] h-[50%] bg-cyan-500/5 blur-[140px] rounded-full animate-pulse duration-[8000ms]" />
+          <div className="absolute top-[-20%] right-[-10%] w-[140%] h-[80%] bg-[#F80037]/20 blur-[160px] rounded-full animate-pulse duration-[12000ms] mix-blend-screen opacity-60" />
+          <div className="absolute bottom-[-30%] left-[-20%] w-[120%] h-[90%] bg-[#5200F8]/15 blur-[160px] rounded-full animate-pulse duration-[15000ms] mix-blend-screen opacity-50" />
+          <div className="absolute top-[20%] left-[5%] w-[80%] h-[60%] bg-cyan-500/10 blur-[140px] rounded-full animate-pulse duration-[10000ms] opacity-40" />
         </>
       )}
       
@@ -88,11 +87,11 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
       {shootingStars.map((ss) => (
         <div
           key={ss.id}
-          className="shooting-star absolute h-[1px] bg-gradient-to-r from-white via-white/40 to-transparent opacity-0"
+          className="shooting-star absolute h-[1.5px] bg-gradient-to-r from-white via-white/40 to-transparent opacity-0"
           style={{
             top: ss.top,
             left: ss.left,
-            width: '220px',
+            width: '250px',
             animation: `shooting ${ss.duration} linear infinite`,
             animationDelay: ss.delay
           } as any}
@@ -120,15 +119,14 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
       } else if (slug === 'oscar-rivera') {
         setMember({
           name: 'Oscar Rivera',
-          role: 'Director de Estrategia e IA',
+          role: 'CEO & Founder Naxde',
           slug: 'oscar-rivera',
           profileImageUrl: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1',
-          bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial. Apasionado por crear productos que cambian el status quo.',
+          bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial.',
           phone: '+57 318 425 4198',
           email: 'naxdeadmon@gmail.com',
           whatsapp: '573184254198',
-          linkedinUrl: 'https://linkedin.com',
-          address: 'Calle 153 #103B-76, Oficina 103, Bogotá'
+          address: 'Bogotá, Colombia'
         });
       }
       setIsLoading(false);
@@ -164,7 +162,6 @@ ORG:Naxde Digital Hub
 TITLE:${member.role}
 TEL;TYPE=CELL:${member.phone || member.whatsapp}
 EMAIL:${member.email}
-ADR;TYPE=WORK:;;${member.address || ''};Bogotá;;;Colombia
 URL:${window.location.href}
 END:VCARD`;
     const blob = new Blob([vcard], { type: 'text/vcard' });
@@ -185,7 +182,7 @@ END:VCARD`;
   ];
 
   return (
-    <main className="min-h-screen bg-[#00001D] text-white flex flex-col items-center overflow-x-hidden relative font-body">
+    <main className="min-h-screen bg-[#00001D] text-white flex flex-col items-center overflow-x-hidden relative font-body selection:bg-primary/30">
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
       
       <div className={cn(
@@ -262,7 +259,6 @@ END:VCARD`;
         </footer>
       </div>
 
-      {/* Glass Bottom Panels */}
       {['ubicacion', 'calendario', 'horario', 'logros'].map((section) => (
         <div key={section} className={cn(
           "fixed inset-x-0 bottom-0 z-[80] bg-white/[0.03] backdrop-blur-[40px] border-t border-white/10 rounded-t-[3rem] transition-all duration-700 ease-in-out transform flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.5)]",
@@ -289,7 +285,7 @@ END:VCARD`;
                 </div>
                 <div className="space-y-3">
                   <h3 className="text-2xl font-bold">Nuestra Ubicación</h3>
-                  <p className="text-white/40 text-sm max-w-xs mx-auto">{member.address}</p>
+                  <p className="text-white/40 text-sm max-w-xs mx-auto">Visítanos en Bogotá. Conéctanos para agendar tu visita.</p>
                 </div>
                 <Button className="w-full h-16 bg-primary text-white rounded-full font-bold neon-accent" onClick={() => window.open('https://maps.app.goo.gl/tvQx2QB3CXvPcGEX6', '_blank')}>Abrir en Google Maps</Button>
               </div>
