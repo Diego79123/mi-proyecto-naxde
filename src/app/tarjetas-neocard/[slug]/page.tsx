@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { use, useState, useEffect } from 'react';
@@ -22,7 +23,8 @@ import {
   ShieldCheck,
   Cpu,
   Globe,
-  Code
+  Code,
+  Users
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -374,7 +376,7 @@ END:VCARD`;
 
       {['ubicacion', 'logros'].map((section) => (
         <div key={section} className={cn(
-          "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-[700ms] ease-in-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)]",
+          "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-500 ease-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)]",
           activeSection === section ? "h-[75vh] translate-y-0" : "h-0 translate-y-full"
         )}>
           <div className="w-full h-14 flex items-center justify-center cursor-pointer" onClick={() => setActiveSection('inicio')}>
@@ -439,7 +441,7 @@ END:VCARD`;
                 <div className="p-8 rounded-[3rem] bg-white/[0.05] border border-white/10 flex flex-col gap-4 group hover:bg-white/[0.1] transition-all">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                      <StarIcon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                      <Users className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
                     </div>
                     <h4 className="font-bold text-xl">Liderazgo de Equipos</h4>
                   </div>
