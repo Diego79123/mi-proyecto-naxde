@@ -30,7 +30,8 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { 
   Carousel, 
   CarouselContent, 
-  CarouselItem 
+  CarouselItem,
+  type CarouselApi
 } from "@/components/ui/carousel";
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -122,6 +123,9 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
   const [activeSection, setActiveSection] = useState<SectionType>('inicio');
   const [member, setMember] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     async function fetchMember() {
@@ -149,6 +153,16 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
     }
     fetchMember();
   }, [db, slug]);
+
+  useEffect(() => {
+    if (!api) return;
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
 
   if (isLoading) {
     return (
@@ -261,29 +275,49 @@ END:VCARD`;
           </Button>
         </section>
 
-        {/* Carrusel de Servicios */}
-        <section className="w-full pt-4">
-          <div className="flex flex-col items-center gap-4 mb-4">
+        {/* Carrusel de Servicios con Máscara y Dots */}
+        <section className="w-full pt-4 space-y-6">
+          <div className="flex flex-col items-center gap-4">
             <div className="h-px w-20 bg-primary/30" />
             <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-primary">Nuestros Servicios</span>
           </div>
-          <Carousel className="w-full" opts={{ loop: true }}>
-            <CarouselContent>
-              {advisorServices.map((service, idx) => (
-                <CarouselItem key={idx}>
-                  <div className="mx-2 p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/5 backdrop-blur-xl flex flex-col items-center text-center space-y-4 group hover:bg-white/[0.08] transition-all duration-500">
-                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                      <service.icon className="w-7 h-7 text-primary" />
+          
+          <div className="relative w-full">
+            {/* Máscara de Difuminado */}
+            <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#00001D] to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#00001D] to-transparent z-10 pointer-events-none" />
+            
+            <Carousel setApi={setApi} className="w-full" opts={{ loop: true, align: "center" }}>
+              <CarouselContent className="-ml-4">
+                {advisorServices.map((service, idx) => (
+                  <CarouselItem key={idx} className="pl-4 basis-[85%]">
+                    <div className="p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/5 backdrop-blur-xl flex flex-col items-center text-center space-y-4 group hover:bg-white/[0.08] transition-all duration-500 h-full">
+                      <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                        <service.icon className="w-7 h-7 text-primary" />
+                      </div>
+                      <div className="space-y-1">
+                        <h3 className="text-xl font-headline font-bold text-white tracking-tight">{service.title}</h3>
+                        <p className="text-white/40 text-sm font-medium leading-relaxed">{service.desc}</p>
+                      </div>
                     </div>
-                    <div className="space-y-1">
-                      <h3 className="text-xl font-headline font-bold text-white tracking-tight">{service.title}</h3>
-                      <p className="text-white/40 text-sm font-medium leading-relaxed">{service.desc}</p>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+
+          {/* Burbujas de Indicación (Dots) */}
+          <div className="flex justify-center items-center gap-2">
+            {Array.from({ length: count }).map((_, i) => (
+              <div 
+                key={i} 
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-300",
+                  current === i ? "w-6 bg-primary" : "w-1.5 bg-white/20"
+                )}
+              />
+            ))}
+          </div>
         </section>
 
         <footer className="pt-20 flex flex-col items-center space-y-4 opacity-30 pb-20">
