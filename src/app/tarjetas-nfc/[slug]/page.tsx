@@ -73,11 +73,9 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
     }));
     setShootingStars(newShootingStars);
 
-    // Lógica de Giroscopio
     const handleOrientation = (e: DeviceOrientationEvent) => {
       const { beta, gamma } = e;
       if (beta !== null && gamma !== null) {
-        // Limitamos el movimiento para que sea sutil
         setGyro({
           x: (gamma / 20),
           y: (beta - 45) / 20
@@ -94,7 +92,6 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
-      {/* Nebulosas dinámicas con Giroscopio */}
       {isOscar && (
         <div 
           className="absolute inset-0 overflow-hidden transition-transform duration-300 ease-out"
@@ -106,7 +103,6 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
         </div>
       )}
       
-      {/* Campo de estrellas con Giroscopio */}
       <div 
         className="absolute inset-0 transition-transform duration-500 ease-out"
         style={{ transform: `translate(${gyro.x * 20}px, ${gyro.y * 20}px)` }}
@@ -126,7 +122,6 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
         ))}
       </div>
 
-      {/* Estrellas fugaces */}
       {shootingStars.map((ss) => (
         <div
           key={ss.id}
@@ -307,7 +302,6 @@ END:VCARD`;
           </p>
         </section>
 
-        {/* Acciones Rápidas con Botón de Sitio Web */}
         <section className="w-full grid grid-cols-2 gap-4 px-2 relative z-10">
           <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10 group" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
             <Phone className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
@@ -327,7 +321,6 @@ END:VCARD`;
           </Button>
         </section>
 
-        {/* Carrusel de Servicios con Máscara Transparente */}
         <section className="w-full pt-4 space-y-6">
           <div className="flex flex-col items-center gap-4">
             <div className="h-px w-20 bg-primary/30" />
@@ -336,13 +329,13 @@ END:VCARD`;
           
           <div 
             className="relative w-full"
+            style={{ 
+              maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
+            }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {/* Máscara de Difuminado lateral 100% integrada */}
-            <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-transparent via-transparent to-transparent z-10 pointer-events-none backdrop-blur-sm" />
-            <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-transparent via-transparent to-transparent z-10 pointer-events-none backdrop-blur-sm" />
-            
             <Carousel setApi={setApi} className="w-full" opts={{ loop: true, align: "center" }}>
               <CarouselContent className="-ml-4">
                 {advisorServices.map((service, idx) => (
@@ -386,7 +379,6 @@ END:VCARD`;
         </footer>
       </div>
 
-      {/* Popups de secciones */}
       {['ubicacion', 'logros'].map((section) => (
         <div key={section} className={cn(
           "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-700 ease-in-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)]",
@@ -449,7 +441,6 @@ END:VCARD`;
         </div>
       ))}
 
-      {/* Barra de Navegación Inferior Rediseñada */}
       <nav className="fixed bottom-10 left-6 right-6 z-[110] h-24 bg-black/40 backdrop-blur-[45px] border border-white/10 rounded-[3rem] flex items-center justify-around px-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
