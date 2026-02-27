@@ -87,7 +87,7 @@ const StarField = () => {
             height: star.size,
             animationDuration: star.duration,
             boxShadow: '0 0 4px rgba(255, 255, 255, 0.4)'
-          }}
+          } as any}
         />
       ))}
       {shootingStars.map((ss) => (
@@ -100,7 +100,7 @@ const StarField = () => {
             width: '180px',
             animation: `shooting ${ss.duration} linear infinite`,
             animationDelay: ss.delay
-          }}
+          } as any}
         />
       ))}
     </div>
@@ -123,7 +123,7 @@ export const Hero = () => {
 
     const autoplay = setInterval(() => {
       emblaApi.scrollNext();
-    }, 9000);
+    }, 10000); // 10 segundos de espera entre diapositivas
 
     return () => {
       emblaApi.off('select', onSelect);
@@ -142,7 +142,7 @@ export const Hero = () => {
         "to-transparent"
       )} />
 
-      <div className="absolute top-10 left-12 z-50">
+      <div className="absolute top-10 left-12 z-40">
         <span className="text-white/40 text-[10px] font-bold tracking-[0.6em] uppercase">NAXDE HUB</span>
       </div>
       
