@@ -64,7 +64,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
     }));
     setStars(newStars);
 
-    const shootingCount = 4; // Reducido de 12 a 4 para ser más sutil
+    const shootingCount = 4;
     const newShootingStars = Array.from({ length: shootingCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 60}%`,
@@ -243,7 +243,7 @@ END:VCARD`;
 
   const advisorServices = [
     { title: "Diseño Web", desc: "Experiencias de alto impacto y conversión.", icon: Globe },
-    { title: "Neocard", desc: "Identidad inteligente con tecnología NFC.", icon: Smartphone },
+    { title: "Neocard", desc: "Identidad inteligente con tecnologia naxde", icon: Smartphone },
     { title: "Aplicaciones", desc: "Software nativo y plataformas escalables.", icon: Code },
     { title: "Chatbot & Automatización", desc: "Flujos inteligentes para tu negocio.", icon: MessageCircle },
     { title: "Soluciones de IA", desc: "Transformación con Inteligencia Artificial.", icon: Cpu }
