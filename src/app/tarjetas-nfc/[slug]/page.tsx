@@ -63,7 +63,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
     }));
     setStars(newStars);
 
-    const shootingCount = 12;
+    const shootingCount = 4; // Reducido para ser más sutil
     const newShootingStars = Array.from({ length: shootingCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 60}%`,
@@ -83,18 +83,22 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
       }
     };
 
-    if (window.DeviceOrientationEvent) {
+    if (typeof window !== 'undefined' && window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', handleOrientation);
     }
 
-    return () => window.removeEventListener('deviceorientation', handleOrientation);
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('deviceorientation', handleOrientation);
+      }
+    };
   }, []);
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
       {isOscar && (
         <div 
-          className="absolute inset-0 overflow-hidden transition-transform duration-300 ease-out"
+          className="absolute inset-0 overflow-hidden transition-transform duration-[500ms] ease-out"
           style={{ transform: `translate(${gyro.x * 10}px, ${gyro.y * 10}px)` }}
         >
           <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-primary/10 blur-[150px] rounded-full opacity-60" />
@@ -104,7 +108,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
       )}
       
       <div 
-        className="absolute inset-0 transition-transform duration-500 ease-out"
+        className="absolute inset-0 transition-transform duration-[700ms] ease-out"
         style={{ transform: `translate(${gyro.x * 20}px, ${gyro.y * 20}px)` }}
       >
         {stars.map((star) => (
@@ -162,13 +166,13 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
       } else if (slug === 'oscar-rivera') {
         setMember({
           name: 'Oscar Rivera',
-          role: 'CEO & Founder Naxde',
+          role: 'Project Manager',
           slug: 'oscar-rivera',
           profileImageUrl: OSCAR_PROFILE_URL,
-          bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial.',
-          phone: '+57 318 425 4198',
+          bio: 'Project Manager experto en ecosistemas Neocard, diseño web de alta conversión, aplicaciones escalables y soluciones de Inteligencia Artificial.',
+          phone: '+57 319 425 4196',
           email: 'naxdeadmon@gmail.com',
-          whatsapp: '573184254198',
+          whatsapp: '3194254196',
           address: 'Bogotá, Colombia'
         });
       }
@@ -367,16 +371,6 @@ END:VCARD`;
             ))}
           </div>
         </section>
-
-        <footer className="pt-20 flex flex-col items-center space-y-4 opacity-30 pb-20">
-          <div className="relative h-6 w-24">
-            <Image src={LOGO_URL} alt="Naxde Logo" fill className="object-contain grayscale" />
-          </div>
-          <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-primary" />
-            <p className="text-[10px] font-bold uppercase tracking-[0.5em]">Future by Naxde</p>
-          </div>
-        </footer>
       </div>
 
       {['ubicacion', 'logros'].map((section) => (
@@ -422,7 +416,7 @@ END:VCARD`;
               <div className="grid gap-8 pt-8">
                 {[
                   { t: '250+ Proyectos LATAM', d: 'Transformación digital regional.', icon: Trophy },
-                  { t: 'Pionero NFC Hub', d: 'Identidad inteligente sin límites.', icon: Smartphone },
+                  { t: 'Pionero Neocard Hub', d: 'Identidad inteligente sin límites.', icon: Smartphone },
                   { t: 'Expertos en AI', d: 'Modelos predictivos aplicados.', icon: Cpu }
                 ].map((l, i) => (
                   <div key={i} className="p-10 rounded-[3rem] bg-white/[0.05] border border-white/10 flex gap-8 group hover:bg-white/[0.1] transition-all">

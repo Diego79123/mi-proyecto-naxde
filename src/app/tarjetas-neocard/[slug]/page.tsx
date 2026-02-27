@@ -64,7 +64,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
     }));
     setStars(newStars);
 
-    const shootingCount = 12;
+    const shootingCount = 4; // Reducido de 12 a 4 para ser más sutil
     const newShootingStars = Array.from({ length: shootingCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 60}%`,
@@ -99,7 +99,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
       {isOscar && (
         <div 
-          className="absolute inset-0 overflow-hidden transition-transform duration-300 ease-out"
+          className="absolute inset-0 overflow-hidden transition-transform duration-[500ms] ease-out"
           style={{ transform: `translate(${gyro.x * 10}px, ${gyro.y * 10}px)` }}
         >
           <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-primary/10 blur-[150px] rounded-full opacity-60" />
@@ -109,7 +109,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
       )}
       
       <div 
-        className="absolute inset-0 transition-transform duration-500 ease-out"
+        className="absolute inset-0 transition-transform duration-[700ms] ease-out"
         style={{ transform: `translate(${gyro.x * 20}px, ${gyro.y * 20}px)` }}
       >
         {stars.map((star) => (
@@ -276,7 +276,7 @@ END:VCARD`;
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
       
       <div className={cn(
-        "w-full max-w-lg flex flex-col items-center px-6 pt-4 pb-20 space-y-6 transition-all duration-700 h-full justify-center",
+        "w-full max-w-lg flex flex-col items-center px-6 pt-4 pb-20 space-y-6 transition-all duration-[700ms] h-full justify-center",
         activeSection !== 'inicio' ? "blur-xl opacity-20 scale-[0.9] pointer-events-none" : "blur-0 opacity-100 scale-100"
       )}>
         <header className="w-full flex justify-center py-2">
@@ -345,8 +345,8 @@ END:VCARD`;
               <CarouselContent className="-ml-4">
                 {advisorServices.map((service, idx) => (
                   <CarouselItem key={idx} className="pl-4 basis-[72%]">
-                    <div className="p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 backdrop-blur-xl flex flex-col items-center text-center space-y-3 group hover:bg-white/[0.08] transition-all duration-500 h-full">
-                      <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                    <div className="p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 backdrop-blur-xl flex flex-col items-center text-center space-y-3 group hover:bg-white/[0.08] transition-all duration-[500ms] h-full">
+                      <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[500ms]">
                         <service.icon className="w-5 h-5 text-primary" />
                       </div>
                       <div className="space-y-1">
@@ -376,7 +376,7 @@ END:VCARD`;
 
       {['ubicacion', 'logros'].map((section) => (
         <div key={section} className={cn(
-          "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-500 ease-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)]",
+          "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-[500ms] ease-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)]",
           activeSection === section ? "h-[75vh] translate-y-0" : "h-0 translate-y-full"
         )}>
           <div className="w-full h-14 flex items-center justify-center cursor-pointer" onClick={() => setActiveSection('inicio')}>
