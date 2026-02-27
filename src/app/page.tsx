@@ -1,3 +1,6 @@
+'use client';
+
+import React, { useState, useEffect, useRef } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Hero } from '@/components/sections/Hero';
 import { FeaturedServices } from '@/components/sections/FeaturedServices';
@@ -7,6 +10,62 @@ import { BottomNav } from '@/components/layout/BottomNav';
 import { Briefcase, MessageSquare, Star, ArrowRight, Zap, Target, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+
+const AsteroidImpactEffect = () => {
+  const [impacted, setImpacted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setImpacted(true);
+        } else {
+          setImpacted(false);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const particles = Array.from({ length: 40 }).map((_, i) => ({
+    id: i,
+    x: (Math.random() - 0.5) * 800,
+    y: (Math.random() - 0.5) * 600,
+    size: Math.random() * 6 + 2,
+    delay: Math.random() * 0.4,
+    color: Math.random() > 0.5 ? 'bg-primary' : Math.random() > 0.3 ? 'bg-secondary' : 'bg-white',
+  }));
+
+  return (
+    <div ref={containerRef} className="h-1 relative overflow-visible z-50 pointer-events-none">
+      {impacted && (
+        <div className="absolute left-1/2 top-0">
+          {particles.map((p) => (
+            <div
+              key={p.id}
+              className={`absolute rounded-full animate-burst ${p.color}`}
+              style={{
+                width: p.size,
+                height: p.size,
+                '--tw-translate-x': `${p.x}px`,
+                '--tw-translate-y': `${p.y}px`,
+                animationDelay: `${p.delay}s`,
+                boxShadow: p.color === 'bg-white' ? '0 0 10px white' : 'none',
+              } as any}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function Home() {
   return (
@@ -32,6 +91,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Efecto de Impacto entre secciones */}
+      <AsteroidImpactEffect />
 
       <FeaturedServices />
       
