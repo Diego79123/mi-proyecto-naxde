@@ -39,7 +39,7 @@ export const Footer = () => {
           <h4 className="font-headline font-bold text-white uppercase tracking-widest text-sm">Empresa</h4>
           <ul className="space-y-3">
             <li><Link href="/servicios" className="text-white/50 hover:text-white transition-colors text-sm">Servicios</Link></li>
-            <li><Link href="/tarjetas-nfc" className="text-white/50 hover:text-white transition-colors text-sm">Tarjetas NFC</Link></li>
+            <li><Link href="/tarjetas-neocard" className="text-white/50 hover:text-white transition-colors text-sm">Neocard</Link></li>
             <li><Link href="/proyectos" className="text-white/50 hover:text-white transition-colors text-sm">Proyectos</Link></li>
             <li><Link href="/sobre-nosotros" className="text-white/50 hover:text-white transition-colors text-sm">Sobre Nosotros</Link></li>
           </ul>

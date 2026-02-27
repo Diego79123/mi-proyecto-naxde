@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { use, useState, useEffect } from 'react';
@@ -364,7 +363,7 @@ END:VCARD`;
               <div 
                 key={i} 
                 className={cn(
-                  "h-1 rounded-full transition-all duration-300",
+                  "h-1 rounded-full transition-all duration-[300ms]",
                   current === i ? "w-4 bg-primary" : "w-1 bg-white/20"
                 )}
               />
@@ -375,7 +374,7 @@ END:VCARD`;
 
       {['ubicacion', 'logros'].map((section) => (
         <div key={section} className={cn(
-          "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-700 ease-in-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)]",
+          "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-[700ms] ease-in-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)]",
           activeSection === section ? "h-[75vh] translate-y-0" : "h-0 translate-y-full"
         )}>
           <div className="w-full h-14 flex items-center justify-center cursor-pointer" onClick={() => setActiveSection('inicio')}>
@@ -465,7 +464,7 @@ END:VCARD`;
               )}
             >
               <div className={cn(
-                "p-2.5 rounded-[1.5rem] transition-all duration-500",
+                "p-2.5 rounded-[1.5rem] transition-all duration-[500ms]",
                 isActive ? "bg-primary/20 shadow-glow-accent scale-110" : "group-hover:bg-white/5"
               )}>
                 <item.icon className="w-6 h-6" />

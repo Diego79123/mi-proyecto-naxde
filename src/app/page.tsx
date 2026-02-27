@@ -13,9 +13,21 @@ import { Button } from '@/components/ui/button';
 
 const AsteroidImpactEffect = () => {
   const [impacted, setImpacted] = useState(false);
+  const [particles, setParticles] = useState<any[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Generate particles only on client to avoid hydration mismatch
+    const generatedParticles = Array.from({ length: 45 }).map((_, i) => ({
+      id: i,
+      x: (Math.random() - 0.5) * 1000,
+      y: (Math.random() - 0.5) * 800,
+      size: Math.random() * 8 + 2,
+      delay: Math.random() * 0.5,
+      color: Math.random() > 0.6 ? 'bg-zinc-400' : Math.random() > 0.3 ? 'bg-zinc-500' : 'bg-zinc-600',
+    }));
+    setParticles(generatedParticles);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -34,19 +46,9 @@ const AsteroidImpactEffect = () => {
     return () => observer.disconnect();
   }, []);
 
-  const particles = Array.from({ length: 45 }).map((_, i) => ({
-    id: i,
-    x: (Math.random() - 0.5) * 1000,
-    y: (Math.random() - 0.5) * 800,
-    size: Math.random() * 8 + 2,
-    delay: Math.random() * 0.5,
-    // Tonos de gris para simular fragmentos de roca espacial
-    color: Math.random() > 0.6 ? 'bg-zinc-400' : Math.random() > 0.3 ? 'bg-zinc-500' : 'bg-zinc-600',
-  }));
-
   return (
     <div ref={containerRef} className="h-1 relative overflow-visible z-50 pointer-events-none">
-      {impacted && (
+      {impacted && particles.length > 0 && (
         <div className="absolute left-1/2 top-0">
           {particles.map((p) => (
             <div
@@ -82,7 +84,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
             { val: "250+", label: "Plataformas" },
-            { val: "10K+", label: "Tarjetas NFC" },
+            { val: "10K+", label: "Neocards" },
             { val: "99%", label: "Seguridad" },
             { val: "LATAM", label: "Alcance Regional" }
           ].map((item, idx) => (
