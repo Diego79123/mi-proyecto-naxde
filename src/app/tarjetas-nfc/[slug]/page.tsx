@@ -50,9 +50,9 @@ type SectionType = 'inicio' | 'ubicacion' | 'calendario' | 'horario' | 'logros';
 const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
   const [shootingStars, setShootingStars] = useState<{ id: number; top: string; left: string; duration: string; delay: string }[]>([]);
+  const [gyro, setGyro] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    // Generación de estrellas
     const starCount = 160;
     const newStars = Array.from({ length: starCount }).map((_, i) => ({
       id: i,
@@ -63,7 +63,6 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
     }));
     setStars(newStars);
 
-    // Generación de estrellas fugaces
     const shootingCount = 12;
     const newShootingStars = Array.from({ length: shootingCount }).map((_, i) => ({
       id: i,
@@ -73,33 +72,59 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
       delay: `${Math.random() * 15}s`
     }));
     setShootingStars(newShootingStars);
+
+    // Lógica de Giroscopio
+    const handleOrientation = (e: DeviceOrientationEvent) => {
+      const { beta, gamma } = e;
+      if (beta !== null && gamma !== null) {
+        // Limitamos el movimiento para que sea sutil
+        setGyro({
+          x: (gamma / 20),
+          y: (beta - 45) / 20
+        });
+      }
+    };
+
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+
+    return () => window.removeEventListener('deviceorientation', handleOrientation);
   }, []);
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
-      {/* Nebulosas dinámicas para Oscar */}
+      {/* Nebulosas dinámicas con Giroscopio */}
       {isOscar && (
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-primary/20 blur-[150px] rounded-full animate-pulse duration-[8000ms]" />
-          <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-secondary/15 blur-[150px] rounded-full animate-pulse duration-[12000ms]" />
-          <div className="absolute top-[25%] left-[10%] w-[70%] h-[50%] bg-cyan-500/15 blur-[140px] rounded-full animate-pulse duration-[10000ms]" />
+        <div 
+          className="absolute inset-0 overflow-hidden transition-transform duration-300 ease-out"
+          style={{ transform: `translate(${gyro.x * 10}px, ${gyro.y * 10}px)` }}
+        >
+          <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-primary/10 blur-[150px] rounded-full opacity-60" />
+          <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-secondary/10 blur-[150px] rounded-full opacity-60" />
+          <div className="absolute top-[25%] left-[10%] w-[70%] h-[50%] bg-cyan-500/10 blur-[140px] rounded-full opacity-60" />
         </div>
       )}
       
-      {/* Campo de estrellas con brillo */}
-      {stars.map((star) => (
-        <div
-          key={star.id}
-          className="star absolute bg-white rounded-full opacity-40 shadow-[0_0_8px_rgba(255,255,255,0.6)]"
-          style={{
-            top: star.top,
-            left: star.left,
-            width: star.size,
-            height: star.size,
-            animation: `twinkle ${star.duration} infinite ease-in-out`,
-          } as any}
-        />
-      ))}
+      {/* Campo de estrellas con Giroscopio */}
+      <div 
+        className="absolute inset-0 transition-transform duration-500 ease-out"
+        style={{ transform: `translate(${gyro.x * 20}px, ${gyro.y * 20}px)` }}
+      >
+        {stars.map((star) => (
+          <div
+            key={star.id}
+            className="star absolute bg-white rounded-full opacity-40 shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+            style={{
+              top: star.top,
+              left: star.left,
+              width: star.size,
+              height: star.size,
+              animation: `twinkle ${star.duration} infinite ease-in-out`,
+            } as any}
+          />
+        ))}
+      </div>
 
       {/* Estrellas fugaces */}
       {shootingStars.map((ss) => (
@@ -167,7 +192,6 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
     });
   }, [api]);
 
-  // Lógica de Autoplay para el Carrusel
   useEffect(() => {
     if (!api || isHovered) return;
 
@@ -217,20 +241,34 @@ END:VCARD`;
     document.body.removeChild(link);
   };
 
-  const navItems = [
-    { id: 'inicio', icon: Home, label: 'Inicio' },
-    { id: 'ubicacion', icon: MapPin, label: 'Ubicación' },
-    { id: 'calendario', icon: CalendarIcon, label: 'Agenda' },
-    { id: 'horario', icon: Clock, label: 'Horario' },
-    { id: 'logros', icon: Trophy, label: 'Logros' },
-  ];
-
   const advisorServices = [
     { title: "Diseño Web", desc: "Experiencias de alto impacto y conversión.", icon: Globe },
     { title: "Tarjetas Digitales", desc: "Identidad inteligente con tecnología NFC.", icon: Smartphone },
     { title: "Aplicaciones", desc: "Software nativo y plataformas escalables.", icon: Code },
     { title: "Chatbot & Automatización", desc: "Flujos inteligentes para tu negocio.", icon: MessageCircle },
     { title: "Soluciones de IA", desc: "Transformación con Inteligencia Artificial.", icon: Cpu }
+  ];
+
+  const handleNavClick = (id: string) => {
+    if (id === 'llamar') {
+      window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self');
+    } else if (id === 'ubicacion') {
+      setActiveSection('ubicacion');
+    } else if (id === 'guardar') {
+      handleSaveContact();
+    } else if (id === 'email') {
+      window.open(`mailto:${member.email}`, '_self');
+    } else if (id === 'logros') {
+      setActiveSection('logros');
+    }
+  };
+
+  const navItems = [
+    { id: 'llamar', icon: Phone, label: 'Llamar' },
+    { id: 'ubicacion', icon: MapPin, label: 'Ubicación' },
+    { id: 'guardar', icon: UserPlus, label: 'Guardar' },
+    { id: 'email', icon: Mail, label: 'Email' },
+    { id: 'logros', icon: Trophy, label: 'Logros' },
   ];
 
   return (
@@ -251,8 +289,8 @@ END:VCARD`;
 
         <section className="flex flex-col items-center text-center space-y-6 pt-4">
           <div className="relative group">
-            <div className="absolute -inset-2 bg-gradient-to-br from-primary via-secondary to-primary rounded-full blur-xl opacity-75 animate-pulse"></div>
-            <Avatar className="w-40 h-40 border-4 border-[#00001D] relative shadow-[0_0_45px_rgba(248,0,55,0.5)]">
+            <div className="absolute -inset-2 bg-gradient-to-br from-primary/30 via-secondary/30 to-primary/30 rounded-full blur-xl"></div>
+            <Avatar className="w-40 h-40 border-4 border-[#00001D] relative shadow-[0_0_45px_rgba(248,0,55,0.3)]">
               <AvatarImage src={member.profileImageUrl} alt={member.name} className="object-cover" />
               <AvatarFallback className="bg-white/5 text-5xl font-headline">{member.name[0]}</AvatarFallback>
             </Avatar>
@@ -269,7 +307,7 @@ END:VCARD`;
           </p>
         </section>
 
-        {/* Acciones Rápidas */}
+        {/* Acciones Rápidas con Botón de Sitio Web */}
         <section className="w-full grid grid-cols-2 gap-4 px-2 relative z-10">
           <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10 group" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
             <Phone className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
@@ -279,9 +317,9 @@ END:VCARD`;
             <MessageCircle className="w-5 h-5" />
             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">WhatsApp</span>
           </Button>
-          <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10 group" onClick={() => window.open(`mailto:${member.email}`, '_self')}>
-            <Mail className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Email</span>
+          <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10 group" onClick={() => window.open('/', '_self')}>
+            <Globe className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Sitio Web</span>
           </Button>
           <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10 group" onClick={handleSaveContact}>
             <UserPlus className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
@@ -289,7 +327,7 @@ END:VCARD`;
           </Button>
         </section>
 
-        {/* Carrusel de Servicios */}
+        {/* Carrusel de Servicios con Máscara Transparente */}
         <section className="w-full pt-4 space-y-6">
           <div className="flex flex-col items-center gap-4">
             <div className="h-px w-20 bg-primary/30" />
@@ -301,9 +339,9 @@ END:VCARD`;
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {/* Máscara de Difuminado lateral */}
-            <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#00001D] via-[#00001D]/70 to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#00001D] via-[#00001D]/70 to-transparent z-10 pointer-events-none" />
+            {/* Máscara de Difuminado lateral 100% integrada */}
+            <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-transparent via-transparent to-transparent z-10 pointer-events-none backdrop-blur-sm" />
+            <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-transparent via-transparent to-transparent z-10 pointer-events-none backdrop-blur-sm" />
             
             <Carousel setApi={setApi} className="w-full" opts={{ loop: true, align: "center" }}>
               <CarouselContent className="-ml-4">
@@ -324,7 +362,6 @@ END:VCARD`;
             </Carousel>
           </div>
 
-          {/* Burbujas de Indicación */}
           <div className="flex justify-center items-center gap-2">
             {Array.from({ length: count }).map((_, i) => (
               <div 
@@ -349,7 +386,8 @@ END:VCARD`;
         </footer>
       </div>
 
-      {['ubicacion', 'calendario', 'horario', 'logros'].map((section) => (
+      {/* Popups de secciones */}
+      {['ubicacion', 'logros'].map((section) => (
         <div key={section} className={cn(
           "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-700 ease-in-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)]",
           activeSection === section ? "h-[75vh] translate-y-0" : "h-0 translate-y-full"
@@ -362,7 +400,7 @@ END:VCARD`;
             <div className="flex items-center gap-4">
               <Zap className="w-5 h-5 text-primary" />
               <span className="font-headline font-bold text-xl uppercase tracking-[0.4em] text-white">
-                {section === 'ubicacion' ? 'Ubicación' : section === 'calendario' ? 'Agenda' : section === 'horario' ? 'Horario' : 'Logros'}
+                {section === 'ubicacion' ? 'Ubicación' : 'Logros'}
               </span>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setActiveSection('inicio')} className="w-12 h-12 rounded-full text-white/30 hover:text-white transition-colors">
@@ -374,7 +412,7 @@ END:VCARD`;
             {section === 'ubicacion' && (
               <div className="text-center space-y-12 pt-16">
                 <div className="relative inline-block">
-                  <div className="absolute inset-0 bg-primary/40 blur-[70px] rounded-full animate-pulse" />
+                  <div className="absolute inset-0 bg-primary/20 blur-[70px] rounded-full" />
                   <MapPin className="w-28 h-28 text-primary mx-auto relative z-10 animate-bounce" />
                 </div>
                 <div className="space-y-4">
@@ -388,30 +426,6 @@ END:VCARD`;
               </div>
             )}
             
-            {section === 'calendario' && (
-              <div className="text-center space-y-12 pt-16">
-                <CalendarIcon className="w-28 h-28 text-primary mx-auto" />
-                <h3 className="text-4xl font-bold font-headline">Agendar Cita</h3>
-                <p className="text-white/50 text-lg max-w-xs mx-auto">Reserva una consultoría técnica para tu próximo proyecto digital.</p>
-                <Button className="w-full h-20 bg-primary text-white rounded-[2.5rem] text-xl font-bold neon-accent hover:scale-[1.02] transition-transform">Consultar Agenda</Button>
-              </div>
-            )}
-
-            {section === 'horario' && (
-              <div className="space-y-6 pt-8">
-                {[
-                  { d: 'Lunes - Viernes', t: '8:00 AM - 6:00 PM', a: true },
-                  { d: 'Sábados', t: '9:00 AM - 1:00 PM', a: true },
-                  { d: 'Domingos', t: 'Descanso', a: false }
-                ].map((item, i) => (
-                  <div key={i} className={cn("flex justify-between items-center p-10 rounded-[2.5rem] border transition-all", item.a ? "bg-white/[0.05] border-white/10" : "opacity-20 border-white/5")}>
-                    <span className="font-bold text-xl">{item.d}</span>
-                    <span className="text-sm text-primary font-bold uppercase tracking-[0.2em]">{item.t}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-
             {section === 'logros' && (
               <div className="grid gap-8 pt-8">
                 {[
@@ -435,13 +449,14 @@ END:VCARD`;
         </div>
       ))}
 
+      {/* Barra de Navegación Inferior Rediseñada */}
       <nav className="fixed bottom-10 left-6 right-6 z-[110] h-24 bg-black/40 backdrop-blur-[45px] border border-white/10 rounded-[3rem] flex items-center justify-around px-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
           return (
             <button 
               key={item.id} 
-              onClick={() => setActiveSection(item.id as any)} 
+              onClick={() => handleNavClick(item.id)} 
               className={cn(
                 "flex flex-col items-center justify-center flex-1 transition-all h-full relative group",
                 isActive ? "text-primary" : "text-white/30 hover:text-white/60"
@@ -455,7 +470,7 @@ END:VCARD`;
               </div>
               <span className="text-[9px] font-bold uppercase tracking-[0.4em] mt-2 transition-all opacity-80">{item.label}</span>
               {isActive && (
-                <div className="absolute -bottom-1 w-2 h-2 rounded-full bg-primary shadow-glow-accent animate-pulse" />
+                <div className="absolute -bottom-1 w-2 h-2 rounded-full bg-primary shadow-glow-accent" />
               )}
             </button>
           );
