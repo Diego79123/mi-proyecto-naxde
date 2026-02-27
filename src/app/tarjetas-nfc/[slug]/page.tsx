@@ -22,7 +22,8 @@ import {
   Star as StarIcon,
   ShieldCheck,
   Cpu,
-  Globe
+  Globe,
+  Code
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -196,11 +197,12 @@ END:VCARD`;
     { id: 'logros', icon: Trophy, label: 'Logros' },
   ];
 
-  const aptitudes = [
-    { title: "Estrategia Digital", desc: "Optimización de modelos de negocio.", icon: Zap },
-    { title: "Innovación NFC", desc: "Networking de última generación.", icon: Cpu },
-    { title: "Escalabilidad Cloud", desc: "Arquitecturas robustas y seguras.", icon: Globe },
-    { title: "Liderazgo LATAM", desc: "Transformación digital regional.", icon: Trophy }
+  const advisorServices = [
+    { title: "Diseño Web", desc: "Experiencias de alto impacto y conversión.", icon: Globe },
+    { title: "Tarjetas Digitales", desc: "Identidad inteligente con tecnología NFC.", icon: Smartphone },
+    { title: "Aplicaciones", desc: "Software nativo y plataformas escalables.", icon: Code },
+    { title: "Chatbot & Automatización", desc: "Flujos inteligentes para tu negocio.", icon: MessageCircle },
+    { title: "Soluciones de IA", desc: "Transformación con Inteligencia Artificial.", icon: Cpu }
   ];
 
   return (
@@ -259,19 +261,23 @@ END:VCARD`;
           </Button>
         </section>
 
-        {/* Carrusel de Aptitudes/Beneficios */}
+        {/* Carrusel de Servicios */}
         <section className="w-full pt-4">
+          <div className="flex flex-col items-center gap-4 mb-4">
+            <div className="h-px w-20 bg-primary/30" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-primary">Nuestros Servicios</span>
+          </div>
           <Carousel className="w-full" opts={{ loop: true }}>
             <CarouselContent>
-              {aptitudes.map((apt, idx) => (
+              {advisorServices.map((service, idx) => (
                 <CarouselItem key={idx}>
                   <div className="mx-2 p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/5 backdrop-blur-xl flex flex-col items-center text-center space-y-4 group hover:bg-white/[0.08] transition-all duration-500">
                     <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                      <apt.icon className="w-7 h-7 text-primary" />
+                      <service.icon className="w-7 h-7 text-primary" />
                     </div>
                     <div className="space-y-1">
-                      <h3 className="text-xl font-headline font-bold text-white tracking-tight">{apt.title}</h3>
-                      <p className="text-white/40 text-sm font-medium">{apt.desc}</p>
+                      <h3 className="text-xl font-headline font-bold text-white tracking-tight">{service.title}</h3>
+                      <p className="text-white/40 text-sm font-medium leading-relaxed">{service.desc}</p>
                     </div>
                   </div>
                 </CarouselItem>
