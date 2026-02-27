@@ -24,7 +24,9 @@ import {
   Cpu,
   Globe,
   Code,
-  Users
+  Users,
+  Instagram,
+  Facebook
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -103,7 +105,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
           style={{ transform: `translate(${gyro.x * 10}px, ${gyro.y * 10}px)` }}
         >
           {/* Black Hole & Purple Glow Effect */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(88,28,135,0.3)_0%,rgba(0,0,0,1)_70%)] blur-[180px] rounded-full opacity-90" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(0,0,0,1)_0%,rgba(88,28,135,0.3)_40%,rgba(0,0,0,1)_70%)] blur-[180px] rounded-full opacity-90" />
           <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-purple-900/20 blur-[150px] rounded-full opacity-60" />
           <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-purple-900/20 blur-[150px] rounded-full opacity-60" />
         </div>
@@ -304,6 +306,16 @@ END:VCARD`;
     <main className="h-[100dvh] w-full bg-transparent text-white flex flex-col items-center overflow-hidden relative font-body selection:bg-primary/30">
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
       
+      {/* Menu Flotante de Redes Sociales */}
+      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-[120] flex flex-col gap-4 p-3 rounded-2xl glass-panel backdrop-blur-xl border border-white/10 shadow-2xl">
+        <Link href="https://instagram.com" target="_blank" className="p-2.5 rounded-xl hover:bg-white/10 transition-all text-white/60 hover:text-primary group">
+          <Instagram className="w-6 h-6 group-hover:scale-110 transition-transform" />
+        </Link>
+        <Link href="https://facebook.com" target="_blank" className="p-2.5 rounded-xl hover:bg-white/10 transition-all text-white/60 hover:text-blue-500 group">
+          <Facebook className="w-6 h-6 group-hover:scale-110 transition-transform" />
+        </Link>
+      </div>
+
       <div className={cn(
         "w-full max-w-lg flex flex-col items-center px-6 pt-4 pb-20 space-y-6 transition-all duration-[700ms] h-full justify-center",
         activeSection !== 'inicio' ? "blur-xl opacity-20 scale-[0.9] pointer-events-none" : "blur-0 opacity-100 scale-100"
@@ -319,8 +331,8 @@ END:VCARD`;
         <section className="flex flex-col items-center text-center space-y-4">
           <div className="relative group">
             {/* Destello Morado Sutil detras del perfil */}
-            <div className="absolute -inset-4 bg-purple-600/20 rounded-full blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
-            <Avatar className="w-28 h-28 border-4 border-[#00001D] relative shadow-[0_0_50px_rgba(168,85,247,0.35)] transition-shadow duration-700 group-hover:shadow-[0_0_70px_rgba(168,85,247,0.5)]">
+            <div className="absolute -inset-4 bg-purple-600/30 rounded-full blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <Avatar className="w-28 h-28 border-4 border-[#00001D] relative shadow-[0_0_50px_rgba(168,85,247,0.4)] transition-shadow duration-700 group-hover:shadow-[0_0_70px_rgba(168,85,247,0.6)]">
               <AvatarImage src={member.profileImageUrl} alt={member.name} className="object-cover" />
               <AvatarFallback className="bg-white/5 text-5xl font-headline">{member.name[0]}</AvatarFallback>
             </Avatar>
@@ -342,7 +354,7 @@ END:VCARD`;
             <Phone className="w-4 h-4 text-white/40 group-hover:text-primary transition-colors" />
             <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Llamar</span>
           </Button>
-          <Button className="h-12 bg-primary hover:bg-primary/90 text-white rounded-[1.5rem] gap-2 neon-accent" onClick={() => window.open(`https://wa.me/573194254196`, '_blank')}>
+          <Button className="h-12 bg-primary hover:bg-primary/90 text-white rounded-[1.5rem] gap-2 neon-accent shadow-[0_0_15px_rgba(248,0,55,0.4)]" onClick={() => window.open(`https://wa.me/573194254196`, '_blank')}>
             <MessageCircle className="w-4 h-4" />
             <span className="text-[9px] font-bold uppercase tracking-[0.2em]">WhatsApp</span>
           </Button>
