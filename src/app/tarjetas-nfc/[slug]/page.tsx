@@ -52,7 +52,8 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
   const [shootingStars, setShootingStars] = useState<{ id: number; top: string; left: string; duration: string; delay: string }[]>([]);
 
   useEffect(() => {
-    const starCount = 140;
+    // Generación de estrellas
+    const starCount = 160;
     const newStars = Array.from({ length: starCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 100}%`,
@@ -62,34 +63,34 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
     }));
     setStars(newStars);
 
-    const shootingCount = 10;
+    // Generación de estrellas fugaces
+    const shootingCount = 12;
     const newShootingStars = Array.from({ length: shootingCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 60}%`,
       left: `${Math.random() * 100}%`,
       duration: `${Math.random() * 2 + 3}s`,
-      delay: `${Math.random() * 12}s`
+      delay: `${Math.random() * 15}s`
     }));
     setShootingStars(newShootingStars);
   }, []);
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#00001D] via-[#00002D] to-[#00001D]" />
-      
+      {/* Nebulosas dinámicas para Oscar */}
       {isOscar && (
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-[-20%] right-[-10%] w-[140%] h-[80%] bg-[#F80037]/20 blur-[160px] rounded-full animate-pulse duration-[10000ms]" />
-          <div className="absolute bottom-[-30%] left-[-20%] w-[120%] h-[90%] bg-[#5200F8]/15 blur-[160px] rounded-full animate-pulse duration-[14000ms]" />
-          <div className="absolute top-[25%] left-[10%] w-[70%] h-[50%] bg-cyan-500/15 blur-[140px] rounded-full animate-pulse duration-[12000ms]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(82,0,248,0.1)_0%,transparent_100%)]" />
+          <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-primary/20 blur-[150px] rounded-full animate-pulse duration-[8000ms]" />
+          <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-secondary/15 blur-[150px] rounded-full animate-pulse duration-[12000ms]" />
+          <div className="absolute top-[25%] left-[10%] w-[70%] h-[50%] bg-cyan-500/15 blur-[140px] rounded-full animate-pulse duration-[10000ms]" />
         </div>
       )}
       
+      {/* Campo de estrellas con brillo */}
       {stars.map((star) => (
         <div
           key={star.id}
-          className="star absolute bg-white rounded-full opacity-40 shadow-[0_0_8px_white]"
+          className="star absolute bg-white rounded-full opacity-40 shadow-[0_0_8px_rgba(255,255,255,0.6)]"
           style={{
             top: star.top,
             left: star.left,
@@ -100,14 +101,15 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
         />
       ))}
 
+      {/* Estrellas fugaces */}
       {shootingStars.map((ss) => (
         <div
           key={ss.id}
-          className="shooting-star absolute h-[1px] bg-gradient-to-r from-white to-transparent opacity-0"
+          className="shooting-star absolute h-[1.5px] bg-gradient-to-r from-white/80 to-transparent opacity-0"
           style={{
             top: ss.top,
             left: ss.left,
-            width: '250px',
+            width: '280px',
             animation: `shooting ${ss.duration} linear infinite`,
             animationDelay: ss.delay
           } as any}
@@ -165,7 +167,7 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
     });
   }, [api]);
 
-  // Autoplay Logic
+  // Lógica de Autoplay para el Carrusel
   useEffect(() => {
     if (!api || isHovered) return;
 
@@ -232,7 +234,7 @@ END:VCARD`;
   ];
 
   return (
-    <main className="min-h-screen bg-[#00001D] text-white flex flex-col items-center overflow-x-hidden relative font-body selection:bg-primary/30">
+    <main className="min-h-screen bg-transparent text-white flex flex-col items-center overflow-x-hidden relative font-body selection:bg-primary/30">
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
       
       <div className={cn(
@@ -299,7 +301,7 @@ END:VCARD`;
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {/* Máscara de Difuminado */}
+            {/* Máscara de Difuminado lateral */}
             <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#00001D] via-[#00001D]/70 to-transparent z-10 pointer-events-none" />
             <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#00001D] via-[#00001D]/70 to-transparent z-10 pointer-events-none" />
             
