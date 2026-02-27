@@ -170,9 +170,9 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
           slug: 'oscar-rivera',
           profileImageUrl: OSCAR_PROFILE_URL,
           bio: 'Project Manager experto en ecosistemas Neocard, diseño web de alta conversión, aplicaciones escalables y soluciones de Inteligencia Artificial.',
-          phone: '+57 3194254196',
+          phone: '3194254196',
           email: 'naxdeadmon@gmail.com',
-          whatsapp: '573194254196',
+          whatsapp: '3194254196',
           address: 'Bogotá, Colombia'
         });
       }
@@ -413,22 +413,39 @@ END:VCARD`;
             )}
             
             {section === 'logros' && (
-              <div className="grid gap-8 pt-8">
-                {[
-                  { t: '250+ Proyectos LATAM', d: 'Transformación digital regional.', icon: Trophy },
-                  { t: 'Pionero Neocard Hub', d: 'Identidad inteligente sin límites.', icon: Smartphone },
-                  { t: 'Expertos en AI', d: 'Modelos predictivos aplicados.', icon: Cpu }
-                ].map((l, i) => (
-                  <div key={i} className="p-10 rounded-[3rem] bg-white/[0.05] border border-white/10 flex gap-8 group hover:bg-white/[0.1] transition-all">
-                    <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
-                      <l.icon className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />
+              <div className="grid gap-6 pt-4">
+                <div className="p-8 rounded-[3rem] bg-white/[0.05] border border-white/10 flex flex-col gap-4 group hover:bg-white/[0.1] transition-all">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Zap className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
                     </div>
-                    <div className="space-y-2">
-                      <h4 className="font-bold text-2xl">{l.t}</h4>
-                      <p className="text-base text-white/40 leading-relaxed">{l.d}</p>
-                    </div>
+                    <h4 className="font-bold text-xl">Gestión con ADN de Ingeniería 🚀</h4>
                   </div>
-                ))}
+                  <p className="text-sm text-white/50 leading-relaxed font-medium">Transformando la complejidad en soluciones empresariales escalables mediante visión técnica y estratégica.</p>
+                </div>
+
+                <div className="p-8 rounded-[3rem] bg-white/[0.05] border border-white/10 flex flex-col gap-4 group hover:bg-white/[0.1] transition-all">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Trophy className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                    </div>
+                    <h4 className="font-bold text-xl">Trayectoria Académica</h4>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-sm text-white/50 leading-relaxed font-medium">• Graduado en Administración de Empresas en la universidad Uniminuto.</p>
+                    <p className="text-sm text-white/50 leading-relaxed font-medium">• Ingeniería en Gestión Empresarial | Universidad de Chihuahua, Mexico.</p>
+                  </div>
+                </div>
+
+                <div className="p-8 rounded-[3rem] bg-white/[0.05] border border-white/10 flex flex-col gap-4 group hover:bg-white/[0.1] transition-all">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <StarIcon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                    </div>
+                    <h4 className="font-bold text-xl">Liderazgo de Equipos</h4>
+                  </div>
+                  <p className="text-sm text-white/50 leading-relaxed font-medium">Experto apasionado por la eficiencia operativa y el liderazgo inspirador para el cumplimiento de objetivos.</p>
+                </div>
               </div>
             )}
           </div>
