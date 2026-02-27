@@ -83,11 +83,15 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
       }
     };
 
-    if (window.DeviceOrientationEvent) {
+    if (typeof window !== 'undefined' && window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', handleOrientation);
     }
 
-    return () => window.removeEventListener('deviceorientation', handleOrientation);
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('deviceorientation', handleOrientation);
+      }
+    };
   }, []);
 
   return (
@@ -267,64 +271,64 @@ END:VCARD`;
   ];
 
   return (
-    <main className="min-h-screen bg-transparent text-white flex flex-col items-center overflow-x-hidden relative font-body selection:bg-primary/30">
+    <main className="min-h-screen bg-transparent text-white flex flex-col items-center overflow-hidden relative font-body selection:bg-primary/30">
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
       
       <div className={cn(
-        "w-full max-w-lg flex flex-col items-center px-6 pt-10 pb-40 space-y-10 transition-all duration-700",
+        "w-full max-w-lg flex flex-col items-center px-6 pt-6 pb-24 space-y-8 transition-all duration-700 h-full justify-center",
         activeSection !== 'inicio' ? "blur-xl opacity-20 scale-[0.9] pointer-events-none" : "blur-0 opacity-100 scale-100"
       )}>
-        <header className="w-full flex justify-center py-4">
+        <header className="w-full flex justify-center py-2">
           <Link href="/">
-            <div className="relative h-10 w-32">
+            <div className="relative h-8 w-28">
               <Image src={LOGO_URL} alt="Naxde Logo" fill className="object-contain" priority />
             </div>
           </Link>
         </header>
 
-        <section className="flex flex-col items-center text-center space-y-6 pt-4">
+        <section className="flex flex-col items-center text-center space-y-4 pt-2">
           <div className="relative group">
             <div className="absolute -inset-2 bg-gradient-to-br from-primary/30 via-secondary/30 to-primary/30 rounded-full blur-xl"></div>
-            <Avatar className="w-40 h-40 border-4 border-[#00001D] relative shadow-[0_0_45px_rgba(248,0,55,0.3)]">
+            <Avatar className="w-32 h-32 border-4 border-[#00001D] relative shadow-[0_0_45px_rgba(248,0,55,0.3)]">
               <AvatarImage src={member.profileImageUrl} alt={member.name} className="object-cover" />
               <AvatarFallback className="bg-white/5 text-5xl font-headline">{member.name[0]}</AvatarFallback>
             </Avatar>
-            <div className="absolute bottom-2 right-4 w-8 h-8 bg-green-500 rounded-full border-2 border-[#00001D] flex items-center justify-center shadow-lg">
-              <div className="w-4 h-2 border-l-2 border-b-2 border-white -rotate-45 mb-1" />
+            <div className="absolute bottom-2 right-4 w-6 h-6 bg-green-500 rounded-full border-2 border-[#00001D] flex items-center justify-center shadow-lg">
+              <div className="w-3 h-1.5 border-l-2 border-b-2 border-white -rotate-45 mb-1" />
             </div>
           </div>
-          <div className="space-y-2">
-            <h1 className="text-4xl md:text-5xl font-headline font-bold tracking-tight text-white leading-tight">{member.name}</h1>
-            <p className="text-primary text-sm font-bold uppercase tracking-[0.5em]">{member.role}</p>
+          <div className="space-y-1">
+            <h1 className="text-3xl font-headline font-bold tracking-tight text-white leading-tight">{member.name}</h1>
+            <p className="text-primary text-xs font-bold uppercase tracking-[0.5em]">{member.role}</p>
           </div>
-          <p className="text-white/60 text-sm max-w-xs leading-relaxed font-medium">
+          <p className="text-white/60 text-xs max-w-xs leading-relaxed font-medium">
             {member.bio}
           </p>
         </section>
 
-        <section className="w-full grid grid-cols-2 gap-4 px-2 relative z-10">
-          <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10 group" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
-            <Phone className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Llamar</span>
+        <section className="w-full grid grid-cols-2 gap-3 px-2 relative z-10">
+          <Button variant="outline" className="h-14 bg-white/[0.05] border-white/10 text-white rounded-[1.5rem] gap-2 hover:bg-white/10 group" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
+            <Phone className="w-4 h-4 text-white/40 group-hover:text-primary transition-colors" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Llamar</span>
           </Button>
-          <Button className="h-16 bg-primary hover:bg-primary/90 text-white rounded-[2rem] gap-3 neon-accent" onClick={() => window.open(`https://wa.me/${member.whatsapp}`, '_blank')}>
-            <MessageCircle className="w-5 h-5" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">WhatsApp</span>
+          <Button className="h-14 bg-primary hover:bg-primary/90 text-white rounded-[1.5rem] gap-2 neon-accent" onClick={() => window.open(`https://wa.me/${member.whatsapp}`, '_blank')}>
+            <MessageCircle className="w-4 h-4" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.2em]">WhatsApp</span>
           </Button>
-          <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10 group" onClick={() => window.open('/', '_self')}>
-            <Globe className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Sitio Web</span>
+          <Button variant="outline" className="h-14 bg-white/[0.05] border-white/10 text-white rounded-[1.5rem] gap-2 hover:bg-white/10 group" onClick={() => window.open('/', '_self')}>
+            <Globe className="w-4 h-4 text-white/40 group-hover:text-primary transition-colors" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Sitio Web</span>
           </Button>
-          <Button variant="outline" className="h-16 bg-white/[0.05] border-white/10 text-white rounded-[2rem] gap-3 hover:bg-white/10 group" onClick={handleSaveContact}>
-            <UserPlus className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Guardar</span>
+          <Button variant="outline" className="h-14 bg-white/[0.05] border-white/10 text-white rounded-[1.5rem] gap-2 hover:bg-white/10 group" onClick={handleSaveContact}>
+            <UserPlus className="w-4 h-4 text-white/40 group-hover:text-primary transition-colors" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Guardar</span>
           </Button>
         </section>
 
-        <section className="w-full pt-4 space-y-6">
-          <div className="flex flex-col items-center gap-4">
-            <div className="h-px w-20 bg-primary/30" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-primary">Nuestros Servicios</span>
+        <section className="w-full pt-2 space-y-4">
+          <div className="flex flex-col items-center gap-2">
+            <div className="h-px w-16 bg-primary/30" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.5em] text-primary">Nuestros Servicios</span>
           </div>
           
           <div 
@@ -340,13 +344,13 @@ END:VCARD`;
               <CarouselContent className="-ml-4">
                 {advisorServices.map((service, idx) => (
                   <CarouselItem key={idx} className="pl-4 basis-[72%]">
-                    <div className="p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/5 backdrop-blur-xl flex flex-col items-center text-center space-y-4 group hover:bg-white/[0.08] transition-all duration-500 h-full">
-                      <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                        <service.icon className="w-7 h-7 text-primary" />
+                    <div className="p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 backdrop-blur-xl flex flex-col items-center text-center space-y-3 group hover:bg-white/[0.08] transition-all duration-500 h-full">
+                      <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                        <service.icon className="w-6 h-6 text-primary" />
                       </div>
                       <div className="space-y-1">
-                        <h3 className="text-xl font-headline font-bold text-white tracking-tight">{service.title}</h3>
-                        <p className="text-white/40 text-sm font-medium leading-relaxed">{service.desc}</p>
+                        <h3 className="text-lg font-headline font-bold text-white tracking-tight">{service.title}</h3>
+                        <p className="text-white/40 text-[11px] font-medium leading-relaxed line-clamp-2">{service.desc}</p>
                       </div>
                     </div>
                   </CarouselItem>
@@ -355,28 +359,18 @@ END:VCARD`;
             </Carousel>
           </div>
 
-          <div className="flex justify-center items-center gap-2">
+          <div className="flex justify-center items-center gap-1.5">
             {Array.from({ length: count }).map((_, i) => (
               <div 
                 key={i} 
                 className={cn(
-                  "h-1.5 rounded-full transition-all duration-300",
-                  current === i ? "w-6 bg-primary" : "w-1.5 bg-white/20"
+                  "h-1 rounded-full transition-all duration-300",
+                  current === i ? "w-4 bg-primary" : "w-1 bg-white/20"
                 )}
               />
             ))}
           </div>
         </section>
-
-        <footer className="pt-20 flex flex-col items-center space-y-4 opacity-30 pb-20">
-          <div className="relative h-6 w-24">
-            <Image src={LOGO_URL} alt="Naxde Logo" fill className="object-contain grayscale" />
-          </div>
-          <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-primary" />
-            <p className="text-[10px] font-bold uppercase tracking-[0.5em]">Future by Naxde</p>
-          </div>
-        </footer>
       </div>
 
       {['ubicacion', 'logros'].map((section) => (
@@ -441,7 +435,7 @@ END:VCARD`;
         </div>
       ))}
 
-      <nav className="fixed bottom-10 left-6 right-6 z-[110] h-24 bg-black/40 backdrop-blur-[45px] border border-white/10 rounded-[3rem] flex items-center justify-around px-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+      <nav className="fixed bottom-6 left-6 right-6 z-[110] h-20 bg-black/40 backdrop-blur-[45px] border border-white/10 rounded-[2.5rem] flex items-center justify-around px-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
           return (
@@ -454,14 +448,14 @@ END:VCARD`;
               )}
             >
               <div className={cn(
-                "p-3.5 rounded-[1.8rem] transition-all duration-500",
+                "p-2.5 rounded-[1.5rem] transition-all duration-500",
                 isActive ? "bg-primary/20 shadow-glow-accent scale-110" : "group-hover:bg-white/5"
               )}>
-                <item.icon className="w-7 h-7" />
+                <item.icon className="w-6 h-6" />
               </div>
-              <span className="text-[9px] font-bold uppercase tracking-[0.4em] mt-2 transition-all opacity-80">{item.label}</span>
+              <span className="text-[8px] font-bold uppercase tracking-[0.3em] mt-1.5 transition-all opacity-80">{item.label}</span>
               {isActive && (
-                <div className="absolute -bottom-1 w-2 h-2 rounded-full bg-primary shadow-glow-accent" />
+                <div className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-primary shadow-glow-accent" />
               )}
             </button>
           );
