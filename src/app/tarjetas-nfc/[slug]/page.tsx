@@ -126,6 +126,7 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     async function fetchMember() {
@@ -163,6 +164,17 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
+  // Autoplay Logic
+  useEffect(() => {
+    if (!api || isHovered) return;
+
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [api, isHovered]);
 
   if (isLoading) {
     return (
@@ -275,22 +287,26 @@ END:VCARD`;
           </Button>
         </section>
 
-        {/* Carrusel de Servicios con Máscara y Dots */}
+        {/* Carrusel de Servicios */}
         <section className="w-full pt-4 space-y-6">
           <div className="flex flex-col items-center gap-4">
             <div className="h-px w-20 bg-primary/30" />
             <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-primary">Nuestros Servicios</span>
           </div>
           
-          <div className="relative w-full">
-            {/* Máscara de Difuminado */}
-            <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#00001D] to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#00001D] to-transparent z-10 pointer-events-none" />
+          <div 
+            className="relative w-full"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {/* Máscara de Difuminado más visible */}
+            <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#00001D] via-[#00001D]/80 to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#00001D] via-[#00001D]/80 to-transparent z-10 pointer-events-none" />
             
             <Carousel setApi={setApi} className="w-full" opts={{ loop: true, align: "center" }}>
               <CarouselContent className="-ml-4">
                 {advisorServices.map((service, idx) => (
-                  <CarouselItem key={idx} className="pl-4 basis-[85%]">
+                  <CarouselItem key={idx} className="pl-4 basis-[80%]">
                     <div className="p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/5 backdrop-blur-xl flex flex-col items-center text-center space-y-4 group hover:bg-white/[0.08] transition-all duration-500 h-full">
                       <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                         <service.icon className="w-7 h-7 text-primary" />
@@ -306,7 +322,7 @@ END:VCARD`;
             </Carousel>
           </div>
 
-          {/* Burbujas de Indicación (Dots) */}
+          {/* Burbujas de Indicación */}
           <div className="flex justify-center items-center gap-2">
             {Array.from({ length: count }).map((_, i) => (
               <div 
