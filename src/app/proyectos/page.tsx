@@ -23,7 +23,7 @@ import Link from 'next/link';
 
 const categories = [
   { id: 'all', label: 'Todos', icon: Layout },
-  { id: 'Tarjetas Digitales', label: 'Tarjetas Digitales', icon: Smartphone },
+  { id: 'Neocard', label: 'Neocard', icon: Smartphone },
   { id: 'Aplicaciones', label: 'Aplicaciones', icon: Code },
   { id: 'Páginas Web', label: 'Páginas Web', icon: Globe },
 ];
@@ -46,11 +46,11 @@ export default function ProyectosPage() {
     {
       id: 'oscar-card-project',
       title: 'Identidad Digital Oscar Rivera',
-      category: 'Tarjetas Digitales',
+      category: 'Neocard',
       shortDescription: 'Perfil inmersivo con temática de nebulosa espacial y tecnología NFC. El futuro del networking personal.',
       imageUrl: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1',
       technologies: ['NFC', 'Space Theme', 'React', 'Glass Blur'],
-      customHref: '/tarjetas-nfc/oscar-rivera'
+      customHref: '/tarjetas-neocard/oscar-rivera'
     },
     {
       id: 'naxde-hub',
@@ -64,7 +64,7 @@ export default function ProyectosPage() {
 
   const displayProjects = (projects && projects.length > 0) 
     ? projects 
-    : (activeCategory === 'all' ? mockProjects : mockProjects.filter(p => p.category === activeCategory));
+    : (activeCategory === 'all' ? mockProjects : mockProjects.filter(p => p.category === (activeCategory === 'Neocard' ? 'Tarjetas Digitales' : activeCategory)));
 
   return (
     <main className="min-h-screen bg-background text-white font-body selection:bg-primary/30">

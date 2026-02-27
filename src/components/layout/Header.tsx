@@ -46,8 +46,8 @@ export const Header = () => {
             Servicios
             <ChevronDown className="w-3.5 h-3.5 text-white/30 group-hover:text-primary transition-colors" />
           </Link>
-          <Link href="/tarjetas-nfc" className="group flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white transition-colors">
-            Tarjetas Digitales
+          <Link href="/tarjetas-neocard" className="group flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white transition-colors">
+            Neocard
             <ChevronDown className="w-3.5 h-3.5 text-white/30 group-hover:text-primary transition-colors" />
           </Link>
           <Link href="/proyectos" className="group flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white transition-colors">
@@ -79,7 +79,7 @@ export const Header = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <Link href="/tarjetas-nfc">
+            <Link href="/tarjetas-neocard">
               <Button 
                 variant="outline" 
                 className="hidden sm:flex h-10 px-6 border-primary/40 hover:bg-primary/10 text-primary rounded-full font-bold text-xs uppercase tracking-widest neon-accent transition-all"
@@ -107,7 +107,7 @@ export const Header = () => {
       {isMobileMenuOpen && (
         <div className="absolute top-20 left-0 right-0 bg-[#00001D] border-b border-white/10 p-6 flex flex-col gap-6 animate-in slide-in-from-top duration-300 md:hidden">
           <Link href="/servicios" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold">Servicios</Link>
-          <Link href="/tarjetas-nfc" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold">Tarjetas Digitales</Link>
+          <Link href="/tarjetas-neocard" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold">Neocard</Link>
           <Link href="/proyectos" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold">Proyectos</Link>
           <div className="h-px bg-white/5" />
           <Link href="/admin" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-medium text-primary">Acceder al Panel</Link>

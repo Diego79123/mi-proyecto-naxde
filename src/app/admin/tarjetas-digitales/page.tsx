@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState } from 'react';
@@ -13,7 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
-export default function AdminDigitalCards() {
+export default function AdminNeocards() {
   const db = useFirestore();
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
@@ -41,23 +42,23 @@ export default function AdminDigitalCards() {
 
     if (selectedMember) {
       updateDocumentNonBlocking(doc(db, 'team_members', selectedMember.id), data);
-      toast({ title: "Tarjeta Digital actualizada" });
+      toast({ title: "Neocard actualizada" });
     } else {
       addDocumentNonBlocking(teamRef, { 
         ...data, 
         createdAt: serverTimestamp(), 
         order: members?.length || 0 
       });
-      toast({ title: "Tarjeta Digital creada exitosamente" });
+      toast({ title: "Neocard creada exitosamente" });
     }
     setIsEditing(false);
     setSelectedMember(null);
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('¿Estás seguro de eliminar esta tarjeta digital? Esto desactivará el link del usuario.')) {
+    if (confirm('¿Estás seguro de eliminar esta Neocard? Esto desactivará el link del usuario.')) {
       deleteDocumentNonBlocking(doc(db, 'team_members', id));
-      toast({ title: "Tarjeta Digital eliminada", variant: "destructive" });
+      toast({ title: "Neocard eliminada", variant: "destructive" });
     }
   };
 
@@ -67,13 +68,13 @@ export default function AdminDigitalCards() {
         <div>
           <h1 className="text-3xl font-headline font-bold text-white flex items-center gap-3">
             <Smartphone className="w-8 h-8 text-primary" />
-            Ecosistema de Tarjetas Digitales
+            Ecosistema Neocard
           </h1>
-          <p className="text-white/50">Gestiona los perfiles independientes vinculados a tecnología NFC.</p>
+          <p className="text-white/50">Gestiona los perfiles inteligentes vinculados a tecnología NFC.</p>
         </div>
         <Button onClick={() => setIsEditing(true)} className="bg-primary hover:bg-primary/90 text-white">
           <Plus className="w-4 h-4 mr-2" />
-          Crear Nueva Tarjeta
+          Crear Nueva Neocard
         </Button>
       </div>
 
@@ -81,7 +82,7 @@ export default function AdminDigitalCards() {
         {isEditing && (
           <Card className="lg:col-span-5 bg-white/5 border-white/10 h-fit sticky top-8 animate-in slide-in-from-left duration-300">
             <CardHeader>
-              <CardTitle className="text-white">{selectedMember ? 'Editar Tarjeta' : 'Configurar Perfil'}</CardTitle>
+              <CardTitle className="text-white">{selectedMember ? 'Editar Neocard' : 'Configurar Perfil'}</CardTitle>
               <CardDescription className="text-white/40">Toda la información aquí será pública en el link del usuario.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -98,7 +99,7 @@ export default function AdminDigitalCards() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-white/40 uppercase">Cargo / Rol</label>
-                  <Input name="role" defaultValue={selectedMember?.role} required className="bg-white/5 border-white/10" placeholder="CEO & Founder" />
+                  <Input name="role" defaultValue={selectedMember?.role} required className="bg-white/5 border-white/10" placeholder="Project Manager" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-white/40 uppercase">Biografía Corta</label>
@@ -157,13 +158,13 @@ export default function AdminDigitalCards() {
                   </div>
                   <div className="flex items-center gap-2 text-white/40 text-xs">
                     <ExternalLink className="w-3 h-3" />
-                    <span className="truncate">/tarjetas-nfc/{member.slug}</span>
+                    <span className="truncate">/tarjetas-neocard/{member.slug}</span>
                   </div>
                   <div className="flex gap-2 pt-2 border-t border-white/5 mt-4">
                     <Button size="sm" variant="outline" className="flex-1 border-white/10 h-9" onClick={() => { setSelectedMember(member); setIsEditing(true); }}>
                       <Edit2 className="w-3.5 h-3.5 mr-2" /> Editar
                     </Button>
-                    <Link href={`/tarjetas-nfc/${member.slug}`} target="_blank">
+                    <Link href={`/tarjetas-neocard/${member.slug}`} target="_blank">
                       <Button size="icon" variant="outline" className="h-9 w-9 border-white/10 text-primary">
                         <ExternalLink className="w-4 h-4" />
                       </Button>

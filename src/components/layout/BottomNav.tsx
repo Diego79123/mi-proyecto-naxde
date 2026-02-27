@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -9,7 +10,7 @@ import { cn } from '@/lib/utils';
 const navItems = [
   { name: "Inicio", icon: Home, href: "/" },
   { name: "Servicios", icon: Zap, href: "/servicios" },
-  { name: "NFC", icon: Smartphone, href: "/tarjetas-nfc", highlight: true },
+  { name: "Neocard", icon: Smartphone, href: "/tarjetas-neocard", highlight: true },
   { name: "Proyectos", icon: Briefcase, href: "/proyectos" },
   { name: "Contacto", icon: Mail, href: "/contacto" }
 ];

@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -20,7 +21,7 @@ const categories = [
     title: "Productos Estrella",
     icon: Smartphone,
     links: [
-      { name: "Tarjetas NFC Digitales", href: "/tarjetas-nfc", desc: "Tu info con un solo toque" },
+      { name: "Neocard (Tarjetas NFC)", href: "/tarjetas-neocard", desc: "Tu info con un solo toque" },
       { name: "Sistemas de Fidelización", href: "/productos", desc: "Puntos, QR y Dashboards" },
       { name: "Plataformas SaaS", href: "/productos", desc: "Modelos de suscripción escalables" }
     ]

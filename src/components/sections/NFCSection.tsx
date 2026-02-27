@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState } from 'react';
@@ -15,7 +16,7 @@ export const NFCSection = () => {
     setIsTransitioning(true);
     // Esperamos a que la animación del agujero negro esté en su punto álgido antes de navegar
     setTimeout(() => {
-      router.push('/tarjetas-nfc');
+      router.push('/tarjetas-neocard');
     }, 1200);
   };
 
@@ -45,7 +46,7 @@ export const NFCSection = () => {
             <div className="absolute -inset-10 bg-gradient-to-tr from-primary/20 to-transparent blur-3xl opacity-50" />
             <img 
               src={PlaceHolderImages.find(i => i.id === 'nfc-demo')?.imageUrl} 
-              alt="NFC Smart Card Demo" 
+              alt="Neocard Smart Card Demo" 
               className="w-full h-full object-cover rounded-[2.5rem] border border-white/10 shadow-2xl"
               data-ai-hint="nfc card use"
             />
@@ -68,10 +69,10 @@ export const NFCSection = () => {
           <div className="space-y-4">
             <h2 className="text-primary font-bold uppercase tracking-[0.2em] text-sm">Producto Estrella</h2>
             <h3 className="text-4xl md:text-6xl font-headline font-bold text-white leading-tight">
-              TU TARJETA DIGITAL CON <span className="text-primary italic">UN SOLO</span> TOQUE.
+              TU <span className="text-primary italic">NEOCARD</span> CON UN SOLO TOQUE.
             </h3>
             <p className="text-lg text-white/60 leading-relaxed">
-              Olvídate de las tarjetas de papel. Con la tecnología NFC de Naxde, compartes tu contacto, redes y portafolio al acercar tu tarjeta a cualquier smartphone.
+              Olvídate de las tarjetas de papel. Con la tecnología de Neocard, compartes tu contacto, redes y portafolio al acercar tu tarjeta a cualquier smartphone.
             </p>
           </div>
 
