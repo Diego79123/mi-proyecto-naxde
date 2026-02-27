@@ -1,7 +1,7 @@
 
 "use client"
 
-import React, { use, useState, useEffect } from 'react';
+import React, { use, useState, useEffect, useRef } from 'react';
 import { useFirestore } from '@/firebase';
 import { collection, query, where, limit, getDocs } from 'firebase/firestore';
 import { 
@@ -155,6 +155,11 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
   const [count, setCount] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
+  // States for swipe-to-close interaction
+  const [dragY, setDragY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const startY = useRef(0);
+
   useEffect(() => {
     async function fetchMember() {
       if (!db) return;
@@ -201,6 +206,29 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
 
     return () => clearInterval(interval);
   }, [api, isHovered]);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    setIsDragging(true);
+    startY.current = e.clientY;
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isDragging) return;
+    const deltaY = e.clientY - startY.current;
+    if (deltaY > 0) {
+      setDragY(deltaY);
+    }
+  };
+
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    if (dragY > 150) {
+      setActiveSection('inicio');
+    }
+    setDragY(0);
+  };
 
   if (isLoading) {
     return (
@@ -375,11 +403,24 @@ END:VCARD`;
       </div>
 
       {['ubicacion', 'logros'].map((section) => (
-        <div key={section} className={cn(
-          "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] transition-all duration-[500ms] ease-out transform flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)]",
-          activeSection === section ? "h-[75vh] translate-y-0" : "h-0 translate-y-full"
-        )}>
-          <div className="w-full h-14 flex items-center justify-center cursor-pointer" onClick={() => setActiveSection('inicio')}>
+        <div key={section} 
+          style={{ 
+            transform: activeSection === section 
+              ? `translateY(${dragY}px)` 
+              : 'translateY(100%)',
+            transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)'
+          }}
+          className={cn(
+            "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)] touch-none",
+            activeSection === section ? "h-[75vh]" : "h-0"
+          )}
+        >
+          <div 
+            className="w-full h-14 flex items-center justify-center cursor-grab active:cursor-grabbing"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+          >
             <div className="w-16 h-1.5 bg-white/30 rounded-full" />
           </div>
 
@@ -395,7 +436,7 @@ END:VCARD`;
             </Button>
           </header>
 
-          <div className="flex-1 overflow-y-auto px-10 pb-32 space-y-8 no-scrollbar">
+          <div className="flex-1 overflow-y-auto px-10 pb-32 space-y-8 no-scrollbar touch-auto">
             {section === 'ubicacion' && (
               <div className="text-center space-y-12 pt-16">
                 <div className="relative inline-block">
