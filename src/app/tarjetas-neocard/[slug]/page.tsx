@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { use, useState, useEffect, useRef } from 'react';
@@ -307,7 +306,7 @@ END:VCARD`;
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
       
       {/* Menu Flotante de Redes Sociales */}
-      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-[120] flex flex-col items-center justify-center h-[150px] w-12 gap-1 p-1 rounded-2xl glass-panel backdrop-blur-xl border border-white/10 shadow-2xl">
+      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-[120] flex flex-col items-center justify-center h-[80px] w-12 gap-1 p-1 rounded-2xl glass-panel backdrop-blur-xl border border-white/10 shadow-2xl">
         <Link href="https://instagram.com" target="_blank" className="flex-1 flex items-center justify-center w-full rounded-xl hover:bg-white/10 transition-all text-white/60 hover:text-primary group">
           <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
         </Link>
