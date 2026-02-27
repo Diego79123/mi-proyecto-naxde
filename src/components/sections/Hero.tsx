@@ -3,9 +3,8 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
-import { Smartphone, ArrowRight, Zap, Cpu, MousePointer2, Instagram, BarChart3, Search, Play, LayoutGrid, List, Mouse } from 'lucide-react';
+import { Smartphone, ArrowRight, Zap, Cpu, LayoutGrid, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
 
@@ -147,10 +146,6 @@ export const Hero = () => {
         slides[selectedIndex].accent,
         "to-transparent"
       )} />
-
-      <div className="absolute top-10 left-12 z-40">
-        <span className="text-white/40 text-[10px] font-bold tracking-[0.6em] uppercase">NAXDE HUB</span>
-      </div>
       
       <div className="flex-1 overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
