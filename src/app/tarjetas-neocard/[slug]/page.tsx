@@ -165,8 +165,8 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
           role: 'Project Manager',
           slug: 'oscar-rivera',
           profileImageUrl: OSCAR_PROFILE_URL,
-          bio: 'Especialista en Diseño Web, Neocard NFC, Desarrollo de Apps y Soluciones de Inteligencia Artificial.',
-          phone: '+57 319 425 4196',
+          bio: 'Project Manager experto en ecosistemas Neocard, diseño web de alta conversión, aplicaciones escalables y soluciones de Inteligencia Artificial.',
+          phone: '+57 3194254196',
           email: 'naxdeadmon@gmail.com',
           whatsapp: '573194254196',
           address: 'Bogotá, Colombia'
@@ -238,7 +238,7 @@ END:VCARD`;
 
   const advisorServices = [
     { title: "Diseño Web", desc: "Experiencias de alto impacto y conversión.", icon: Globe },
-    { title: "Tarjetas Digitales", desc: "Identidad inteligente con tecnología NFC.", icon: Smartphone },
+    { title: "Tarjetas Digitales", desc: "Identidad inteligente con tecnología Neocard.", icon: Smartphone },
     { title: "Aplicaciones", desc: "Software nativo y plataformas escalables.", icon: Code },
     { title: "Chatbot & Automatización", desc: "Flujos inteligentes para tu negocio.", icon: MessageCircle },
     { title: "Soluciones de IA", desc: "Transformación con Inteligencia Artificial.", icon: Cpu }
@@ -422,7 +422,7 @@ END:VCARD`;
               <div className="grid gap-8 pt-8">
                 {[
                   { t: '250+ Proyectos LATAM', d: 'Transformación digital regional.', icon: Trophy },
-                  { t: 'Pionero NFC Hub', d: 'Identidad inteligente sin límites.', icon: Smartphone },
+                  { t: 'Pionero Neocard Hub', d: 'Identidad inteligente sin límites.', icon: Smartphone },
                   { t: 'Expertos en AI', d: 'Modelos predictivos aplicados.', icon: Cpu }
                 ].map((l, i) => (
                   <div key={i} className="p-10 rounded-[3rem] bg-white/[0.05] border border-white/10 flex gap-8 group hover:bg-white/[0.1] transition-all">
