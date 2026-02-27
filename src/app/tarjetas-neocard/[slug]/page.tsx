@@ -318,9 +318,9 @@ END:VCARD`;
 
         <section className="flex flex-col items-center text-center space-y-4">
           <div className="relative group">
-            {/* Black Hole & Purple Avatar Resplandor */}
-            <div className="absolute -inset-4 bg-gradient-to-br from-purple-600/30 via-black/80 to-purple-900/30 rounded-full blur-2xl opacity-80 group-hover:scale-110 transition-transform duration-700"></div>
-            <Avatar className="w-28 h-28 border-4 border-[#00001D] relative shadow-[0_0_60px_rgba(0,0,0,1)]">
+            {/* Destello Morado Sutil detras del perfil */}
+            <div className="absolute -inset-4 bg-purple-600/20 rounded-full blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <Avatar className="w-28 h-28 border-4 border-[#00001D] relative shadow-[0_0_50px_rgba(168,85,247,0.35)] transition-shadow duration-700 group-hover:shadow-[0_0_70px_rgba(168,85,247,0.5)]">
               <AvatarImage src={member.profileImageUrl} alt={member.name} className="object-cover" />
               <AvatarFallback className="bg-white/5 text-5xl font-headline">{member.name[0]}</AvatarFallback>
             </Avatar>
