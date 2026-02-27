@@ -339,10 +339,10 @@ export const Hero = () => {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-3 cursor-pointer group" onClick={scrollToNextSection}>
-        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40 group-hover:text-primary transition-all duration-300">Desliza</span>
         <div className="w-6 h-10 border-2 border-white/10 rounded-full flex justify-center p-1.5 group-hover:border-primary/50 transition-all duration-300">
           <div className="w-1.5 h-2 bg-primary rounded-full animate-bounce shadow-[0_0_8px_var(--brand-accent)]" />
         </div>
+        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40 group-hover:text-primary transition-all duration-300">Desliza</span>
       </div>
     </section>
   );
