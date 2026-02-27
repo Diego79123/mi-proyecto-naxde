@@ -34,13 +34,14 @@ const AsteroidImpactEffect = () => {
     return () => observer.disconnect();
   }, []);
 
-  const particles = Array.from({ length: 40 }).map((_, i) => ({
+  const particles = Array.from({ length: 45 }).map((_, i) => ({
     id: i,
-    x: (Math.random() - 0.5) * 800,
-    y: (Math.random() - 0.5) * 600,
-    size: Math.random() * 6 + 2,
-    delay: Math.random() * 0.4,
-    color: Math.random() > 0.5 ? 'bg-primary' : Math.random() > 0.3 ? 'bg-secondary' : 'bg-white',
+    x: (Math.random() - 0.5) * 1000,
+    y: (Math.random() - 0.5) * 800,
+    size: Math.random() * 8 + 2,
+    delay: Math.random() * 0.5,
+    // Tonos de gris para simular fragmentos de roca espacial
+    color: Math.random() > 0.6 ? 'bg-zinc-400' : Math.random() > 0.3 ? 'bg-zinc-500' : 'bg-zinc-600',
   }));
 
   return (
@@ -57,7 +58,8 @@ const AsteroidImpactEffect = () => {
                 '--tw-translate-x': `${p.x}px`,
                 '--tw-translate-y': `${p.y}px`,
                 animationDelay: `${p.delay}s`,
-                boxShadow: p.color === 'bg-white' ? '0 0 10px white' : 'none',
+                opacity: 0.8,
+                boxShadow: '0 0 4px rgba(0,0,0,0.5)',
               } as any}
             />
           ))}
@@ -92,7 +94,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Efecto de Impacto entre secciones */}
+      {/* Efecto de Impacto entre secciones (Color Gris) */}
       <AsteroidImpactEffect />
 
       <FeaturedServices />
