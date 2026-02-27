@@ -135,7 +135,7 @@ export const Hero = () => {
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
       <StarField />
       
-      {/* Ambient Background Light - Sincronizado con el slide */}
+      {/* Ambient Background Light */}
       <div className={cn(
         "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[1100px] rounded-full blur-[200px] pointer-events-none transition-all duration-1500 opacity-30 bg-gradient-to-br",
         slides[selectedIndex].accent,
@@ -154,7 +154,7 @@ export const Hero = () => {
                 
                 {/* Text Content */}
                 <div className={cn(
-                  "space-y-10 text-center lg:text-left transition-all duration-1000 delay-300",
+                  "space-y-8 text-center lg:text-left transition-all duration-1000 delay-300",
                   selectedIndex === idx ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 )}>
                   <div className="space-y-6">
@@ -166,10 +166,10 @@ export const Hero = () => {
                         {slide.badge}
                       </span>
                     </div>
-                    <h1 className="text-5xl md:text-6xl lg:text-8xl font-headline font-bold leading-[1] text-white tracking-tighter">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-headline font-bold leading-[1.1] text-white tracking-tight">
                       {slide.title}
                     </h1>
-                    <p className="text-lg md:text-xl text-white/50 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                    <p className="text-base md:text-lg lg:text-xl text-white/50 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
                       {slide.description}
                     </p>
                   </div>
@@ -177,7 +177,7 @@ export const Hero = () => {
                   <div className="flex flex-wrap justify-center lg:justify-start gap-6 pt-4">
                     <Link href="/contacto">
                       <Button size="lg" className={cn(
-                        "h-16 px-12 text-white rounded-full text-xl font-bold transition-all hover:scale-105",
+                        "h-14 px-10 text-white rounded-full text-lg font-bold transition-all hover:scale-105",
                         slide.id === 1 ? "bg-[#5200F8] hover:bg-[#5200F8]/90 neon-complement" : 
                         slide.id === 2 ? "bg-cyan-500 hover:bg-cyan-600 shadow-[0_0_20px_rgba(6,182,212,0.5)]" : 
                         "bg-green-500 hover:bg-green-600 shadow-[0_0_20px_rgba(34,197,94,0.5)]"
@@ -187,7 +187,7 @@ export const Hero = () => {
                       </Button>
                     </Link>
                     <Link href="/servicios">
-                      <Button size="lg" variant="outline" className="h-16 px-12 border-white/10 bg-white/5 hover:bg-white/10 text-white rounded-full text-xl font-bold">
+                      <Button size="lg" variant="outline" className="h-14 px-10 border-white/10 bg-white/5 hover:bg-white/10 text-white rounded-full text-lg font-bold">
                         {slide.ctaSecondary}
                       </Button>
                     </Link>
@@ -276,7 +276,6 @@ export const Hero = () => {
 
                   {slide.isThird && (
                     <div className="relative w-full max-w-[420px]">
-                      {/* Elementos flotantes estilo Slide 3 (Verde) */}
                       <div className="absolute top-10 -left-20 z-30 glass-panel p-2 rounded-2xl border border-green-500/20 float-anim bg-green-950/30 flex items-center gap-3">
                          <div className="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center">
                            <Search className="w-4 h-4 text-white" />
@@ -300,7 +299,6 @@ export const Hero = () => {
                         </div>
                       </div>
 
-                      {/* Smartphone Frame (Green) */}
                       <div className="relative glass-card p-2.5 rounded-[4rem] border border-green-500/20 overflow-hidden shadow-[0_0_60px_rgba(34,197,94,0.15)] bg-green-950/20 backdrop-blur-3xl scale-110">
                         <div className="absolute top-5 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-40" />
                         <div className="relative aspect-[9/19] w-72 rounded-[3.5rem] overflow-hidden border border-white/5 bg-gradient-to-b from-green-900/40 to-transparent">
