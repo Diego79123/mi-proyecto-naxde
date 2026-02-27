@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
-import { Smartphone, ArrowRight, Zap, Cpu, MousePointer2, Instagram, BarChart3, Search, Play, LayoutGrid, List } from 'lucide-react';
+import { Smartphone, ArrowRight, Zap, Cpu, MousePointer2, Instagram, BarChart3, Search, Play, LayoutGrid, List, Mouse } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -19,7 +19,7 @@ const slides = [
     ctaSecondary: "Ver Proyectos",
     image: "hero-tech",
     icon: Zap,
-    accent: "from-[#5200F8]/60", // Morado intenso
+    accent: "from-[#5200F8]/60", 
     isFirst: true,
   },
   {
@@ -31,7 +31,7 @@ const slides = [
     ctaSecondary: "Más información",
     image: "nfc-demo",
     icon: LayoutGrid,
-    accent: "from-cyan-500/60", // Teal / Cian
+    accent: "from-cyan-500/60",
     isSecond: true,
   },
   {
@@ -43,7 +43,7 @@ const slides = [
     ctaSecondary: "Más información",
     image: "project-saas",
     icon: Cpu,
-    accent: "from-green-500/60", // Verde Esmeralda
+    accent: "from-green-500/60",
     isThird: true,
   }
 ];
@@ -123,7 +123,7 @@ export const Hero = () => {
 
     const autoplay = setInterval(() => {
       emblaApi.scrollNext();
-    }, 10000); // 10 segundos de espera entre diapositivas
+    }, 10000); 
 
     return () => {
       emblaApi.off('select', onSelect);
@@ -131,11 +131,17 @@ export const Hero = () => {
     };
   }, [emblaApi, onSelect]);
 
+  const scrollToNextSection = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
       <StarField />
       
-      {/* Ambient Background Light */}
       <div className={cn(
         "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[1100px] rounded-full blur-[200px] pointer-events-none transition-all duration-1500 opacity-30 bg-gradient-to-br",
         slides[selectedIndex].accent,
@@ -152,7 +158,6 @@ export const Hero = () => {
             <div key={slide.id} className="flex-[0_0_100%] min-w-0 min-h-screen flex items-center relative px-8">
               <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
                 
-                {/* Text Content */}
                 <div className={cn(
                   "space-y-8 text-center lg:text-left transition-all duration-1000 delay-300",
                   selectedIndex === idx ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
@@ -166,10 +171,10 @@ export const Hero = () => {
                         {slide.badge}
                       </span>
                     </div>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-headline font-bold leading-[1.1] text-white tracking-tight">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold leading-[1.1] text-white tracking-tight uppercase">
                       {slide.title}
                     </h1>
-                    <p className="text-base md:text-lg lg:text-xl text-white/50 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                    <p className="text-base md:text-lg text-white/50 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
                       {slide.description}
                     </p>
                   </div>
@@ -194,7 +199,6 @@ export const Hero = () => {
                   </div>
                 </div>
 
-                {/* Visual Side */}
                 <div className={cn(
                   "relative transition-all duration-1200 delay-500 flex justify-center lg:justify-end",
                   selectedIndex === idx ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-90 rotate-3"
@@ -318,8 +322,7 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Modern Slider Controls */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex items-center gap-6">
+      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-30 flex items-center gap-6">
         {slides.map((_, i) => (
           <button
             key={i}
@@ -332,6 +335,14 @@ export const Hero = () => {
             )} />
           </button>
         ))}
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-3 cursor-pointer group" onClick={scrollToNextSection}>
+        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40 group-hover:text-primary transition-all duration-300">Desliza</span>
+        <div className="w-6 h-10 border-2 border-white/10 rounded-full flex justify-center p-1.5 group-hover:border-primary/50 transition-all duration-300">
+          <div className="w-1.5 h-2 bg-primary rounded-full animate-bounce shadow-[0_0_8px_var(--brand-accent)]" />
+        </div>
       </div>
     </section>
   );
