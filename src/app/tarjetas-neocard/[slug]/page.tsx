@@ -165,10 +165,10 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
           role: 'Project Manager',
           slug: 'oscar-rivera',
           profileImageUrl: OSCAR_PROFILE_URL,
-          bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial.',
-          phone: '+57 318 425 4198',
+          bio: 'Especialista en Diseño Web, Neocard NFC, Desarrollo de Apps y Soluciones de Inteligencia Artificial.',
+          phone: '+57 319 425 4196',
           email: 'naxdeadmon@gmail.com',
-          whatsapp: '573184254198',
+          whatsapp: '573194254196',
           address: 'Bogotá, Colombia'
         });
       }
