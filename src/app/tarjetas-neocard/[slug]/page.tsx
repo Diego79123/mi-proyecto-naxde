@@ -102,10 +102,10 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
           className="absolute inset-0 overflow-hidden transition-transform duration-[500ms] ease-out"
           style={{ transform: `translate(${gyro.x * 10}px, ${gyro.y * 10}px)` }}
         >
-          {/* Black Hole Glow Effect */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-black blur-[180px] rounded-full opacity-90 shadow-[0_0_200px_rgba(0,0,0,1)]" />
-          <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-black/40 blur-[150px] rounded-full opacity-60" />
-          <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-black/40 blur-[150px] rounded-full opacity-60" />
+          {/* Black Hole & Purple Glow Effect */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(88,28,135,0.3)_0%,rgba(0,0,0,1)_70%)] blur-[180px] rounded-full opacity-90" />
+          <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-purple-900/20 blur-[150px] rounded-full opacity-60" />
+          <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-purple-900/20 blur-[150px] rounded-full opacity-60" />
         </div>
       )}
       
@@ -318,8 +318,8 @@ END:VCARD`;
 
         <section className="flex flex-col items-center text-center space-y-4">
           <div className="relative group">
-            {/* Black Hole Avatar Resplandor */}
-            <div className="absolute -inset-4 bg-black rounded-full blur-2xl opacity-80 group-hover:scale-110 transition-transform duration-700"></div>
+            {/* Black Hole & Purple Avatar Resplandor */}
+            <div className="absolute -inset-4 bg-gradient-to-br from-purple-600/30 via-black/80 to-purple-900/30 rounded-full blur-2xl opacity-80 group-hover:scale-110 transition-transform duration-700"></div>
             <Avatar className="w-28 h-28 border-4 border-[#00001D] relative shadow-[0_0_60px_rgba(0,0,0,1)]">
               <AvatarImage src={member.profileImageUrl} alt={member.name} className="object-cover" />
               <AvatarFallback className="bg-white/5 text-5xl font-headline">{member.name[0]}</AvatarFallback>
