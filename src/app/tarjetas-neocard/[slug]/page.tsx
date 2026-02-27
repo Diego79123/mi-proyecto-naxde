@@ -45,7 +45,7 @@ interface DigitalCardPageProps {
   params: Promise<{ slug: string }>;
 }
 
-type SectionType = 'inicio' | 'ubicacion' | 'calendario' | 'horario' | 'logros';
+type SectionType = 'inicio' | 'ubicacion' | 'logros';
 
 const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
@@ -242,7 +242,7 @@ END:VCARD`;
 
   const advisorServices = [
     { title: "Diseño Web", desc: "Experiencias de alto impacto y conversión.", icon: Globe },
-    { title: "Tarjetas Digitales", desc: "Identidad inteligente con tecnología Neocard.", icon: Smartphone },
+    { title: "Neocard", desc: "Identidad inteligente con tecnología NFC.", icon: Smartphone },
     { title: "Aplicaciones", desc: "Software nativo y plataformas escalables.", icon: Code },
     { title: "Chatbot & Automatización", desc: "Flujos inteligentes para tu negocio.", icon: MessageCircle },
     { title: "Soluciones de IA", desc: "Transformación con Inteligencia Artificial.", icon: Cpu }
@@ -271,11 +271,11 @@ END:VCARD`;
   ];
 
   return (
-    <main className="min-h-screen bg-transparent text-white flex flex-col items-center overflow-hidden relative font-body selection:bg-primary/30">
+    <main className="h-[100dvh] w-full bg-transparent text-white flex flex-col items-center overflow-hidden relative font-body selection:bg-primary/30">
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
       
       <div className={cn(
-        "w-full max-w-lg flex flex-col items-center px-6 pt-6 pb-24 space-y-8 transition-all duration-700 h-full justify-center",
+        "w-full max-w-lg flex flex-col items-center px-6 pt-4 pb-20 space-y-6 transition-all duration-700 h-full justify-center",
         activeSection !== 'inicio' ? "blur-xl opacity-20 scale-[0.9] pointer-events-none" : "blur-0 opacity-100 scale-100"
       )}>
         <header className="w-full flex justify-center py-2">
@@ -286,10 +286,10 @@ END:VCARD`;
           </Link>
         </header>
 
-        <section className="flex flex-col items-center text-center space-y-4 pt-2">
+        <section className="flex flex-col items-center text-center space-y-4">
           <div className="relative group">
             <div className="absolute -inset-2 bg-gradient-to-br from-primary/30 via-secondary/30 to-primary/30 rounded-full blur-xl"></div>
-            <Avatar className="w-32 h-32 border-4 border-[#00001D] relative shadow-[0_0_45px_rgba(248,0,55,0.3)]">
+            <Avatar className="w-28 h-28 border-4 border-[#00001D] relative shadow-[0_0_45px_rgba(248,0,55,0.3)]">
               <AvatarImage src={member.profileImageUrl} alt={member.name} className="object-cover" />
               <AvatarFallback className="bg-white/5 text-5xl font-headline">{member.name[0]}</AvatarFallback>
             </Avatar>
@@ -298,28 +298,28 @@ END:VCARD`;
             </div>
           </div>
           <div className="space-y-1">
-            <h1 className="text-3xl font-headline font-bold tracking-tight text-white leading-tight">{member.name}</h1>
-            <p className="text-primary text-xs font-bold uppercase tracking-[0.5em]">{member.role}</p>
+            <h1 className="text-2xl font-headline font-bold tracking-tight text-white leading-tight">{member.name}</h1>
+            <p className="text-primary text-[10px] font-bold uppercase tracking-[0.5em]">{member.role}</p>
           </div>
-          <p className="text-white/60 text-xs max-w-xs leading-relaxed font-medium">
+          <p className="text-white/60 text-[11px] max-w-xs leading-relaxed font-medium">
             {member.bio}
           </p>
         </section>
 
         <section className="w-full grid grid-cols-2 gap-3 px-2 relative z-10">
-          <Button variant="outline" className="h-14 bg-white/[0.05] border-white/10 text-white rounded-[1.5rem] gap-2 hover:bg-white/10 group" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
+          <Button variant="outline" className="h-12 bg-white/[0.05] border-white/10 text-white rounded-[1.5rem] gap-2 hover:bg-white/10 group" onClick={() => window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self')}>
             <Phone className="w-4 h-4 text-white/40 group-hover:text-primary transition-colors" />
             <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Llamar</span>
           </Button>
-          <Button className="h-14 bg-primary hover:bg-primary/90 text-white rounded-[1.5rem] gap-2 neon-accent" onClick={() => window.open(`https://wa.me/${member.whatsapp}`, '_blank')}>
+          <Button className="h-12 bg-primary hover:bg-primary/90 text-white rounded-[1.5rem] gap-2 neon-accent" onClick={() => window.open(`https://wa.me/573194254196`, '_blank')}>
             <MessageCircle className="w-4 h-4" />
             <span className="text-[9px] font-bold uppercase tracking-[0.2em]">WhatsApp</span>
           </Button>
-          <Button variant="outline" className="h-14 bg-white/[0.05] border-white/10 text-white rounded-[1.5rem] gap-2 hover:bg-white/10 group" onClick={() => window.open('/', '_self')}>
+          <Button variant="outline" className="h-12 bg-white/[0.05] border-white/10 text-white rounded-[1.5rem] gap-2 hover:bg-white/10 group" onClick={() => window.open('/', '_self')}>
             <Globe className="w-4 h-4 text-white/40 group-hover:text-primary transition-colors" />
             <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Sitio Web</span>
           </Button>
-          <Button variant="outline" className="h-14 bg-white/[0.05] border-white/10 text-white rounded-[1.5rem] gap-2 hover:bg-white/10 group" onClick={handleSaveContact}>
+          <Button variant="outline" className="h-12 bg-white/[0.05] border-white/10 text-white rounded-[1.5rem] gap-2 hover:bg-white/10 group" onClick={handleSaveContact}>
             <UserPlus className="w-4 h-4 text-white/40 group-hover:text-primary transition-colors" />
             <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Guardar</span>
           </Button>
@@ -345,12 +345,12 @@ END:VCARD`;
                 {advisorServices.map((service, idx) => (
                   <CarouselItem key={idx} className="pl-4 basis-[72%]">
                     <div className="p-6 rounded-[2rem] bg-white/[0.03] border border-white/5 backdrop-blur-xl flex flex-col items-center text-center space-y-3 group hover:bg-white/[0.08] transition-all duration-500 h-full">
-                      <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                        <service.icon className="w-6 h-6 text-primary" />
+                      <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                        <service.icon className="w-5 h-5 text-primary" />
                       </div>
                       <div className="space-y-1">
-                        <h3 className="text-lg font-headline font-bold text-white tracking-tight">{service.title}</h3>
-                        <p className="text-white/40 text-[11px] font-medium leading-relaxed line-clamp-2">{service.desc}</p>
+                        <h3 className="text-base font-headline font-bold text-white tracking-tight">{service.title}</h3>
+                        <p className="text-white/40 text-[10px] font-medium leading-relaxed line-clamp-2">{service.desc}</p>
                       </div>
                     </div>
                   </CarouselItem>

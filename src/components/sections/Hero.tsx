@@ -131,10 +131,12 @@ export const Hero = () => {
   }, [emblaApi, onSelect]);
 
   const scrollToNextSection = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth'
-    });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
@@ -142,7 +144,7 @@ export const Hero = () => {
       <StarField />
       
       <div className={cn(
-        "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[1100px] rounded-full blur-[200px] pointer-events-none transition-all duration-1500 opacity-30 bg-gradient-to-br",
+        "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[1100px] rounded-full blur-[200px] pointer-events-none transition-all duration-[1500ms] opacity-30 bg-gradient-to-br",
         slides[selectedIndex].accent,
         "to-transparent"
       )} />
@@ -195,7 +197,7 @@ export const Hero = () => {
                 </div>
 
                 <div className={cn(
-                  "relative transition-all duration-1200 delay-500 flex justify-center lg:justify-end",
+                  "relative transition-all duration-[1200ms] delay-500 flex justify-center lg:justify-end",
                   selectedIndex === idx ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-90 rotate-3"
                 )}>
                   {slide.isFirst && (
