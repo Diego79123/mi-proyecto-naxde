@@ -143,10 +143,10 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
-      {/* Capa de Imagen de Fondo para el Primer Hero */}
+      {/* Capa de Imagen de Fondo Ampliada para el Primer Hero */}
       <div className={cn(
-        "absolute inset-0 transition-all duration-[2000ms] ease-out z-0",
-        selectedIndex === 0 ? "opacity-100 scale-110 rotate-1" : "opacity-0 scale-100 rotate-0"
+        "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
+        selectedIndex === 0 ? "opacity-100 scale-150 rotate-2" : "opacity-0 scale-100 rotate-0"
       )}>
         <Image 
           src={HERO_BG_IMAGE} 
@@ -154,8 +154,9 @@ export const Hero = () => {
           fill 
           className="object-cover"
           priority
+          quality={100}
         />
-        <div className="absolute inset-0 bg-[#00001D]/40 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-[#00001D]/30 backdrop-blur-[1px]" />
       </div>
 
       <StarField />
