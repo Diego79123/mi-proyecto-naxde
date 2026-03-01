@@ -1,26 +1,145 @@
-
 'use client';
 
-import React from 'react';
-import { MessageCircle, Sparkles } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { MessageCircle, Sparkles, Send, X, Bot, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
+import { Input } from '@/components/ui/input';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { generalAssistant } from '@/ai/flows/general-assistant-flow';
 
-/**
- * Componente de acciones flotantes que incluye WhatsApp y Asistente IA.
- */
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
 export const FloatingActions = () => {
-  const { toast } = useToast();
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    { role: 'assistant', content: '¡Hola! Soy el asistente inteligente de Naxde. ¿Cómo puedo ayudarte a transformar tu negocio hoy?' }
+  ]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const handleAIClick = () => {
-    toast({
-      title: "Asistente IA Naxde",
-      description: "Nuestro asistente inteligente estará disponible muy pronto para potenciar tu negocio.",
-    });
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
+
+  const handleSendMessage = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (!input.trim() || isLoading) return;
+
+    const userMessage = input.trim();
+    setInput('');
+    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    setIsLoading(true);
+
+    try {
+      const result = await generalAssistant({ message: userMessage });
+      setMessages(prev => [...prev, { role: 'assistant', content: result.response }]);
+    } catch (error) {
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Lo siento, he tenido un problema técnico. ¿Podrías intentar de nuevo o contactarnos por WhatsApp?' }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="fixed bottom-24 right-6 md:bottom-10 md:right-10 z-[100] flex flex-col gap-4">
+      {/* Botón de Asistente IA (Funcional) */}
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger asChild>
+          <div className="group relative cursor-pointer">
+            <div className="absolute -inset-2 bg-primary/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Button 
+              size="icon" 
+              className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-primary hover:bg-white/20 shadow-lg relative z-10 overflow-hidden transition-transform active:scale-90"
+            >
+              <Sparkles className="w-7 h-7" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent pointer-events-none" />
+            </Button>
+          </div>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[440px] bg-[#00001D]/95 border-white/10 backdrop-blur-2xl p-0 overflow-hidden rounded-[2rem]">
+          <DialogHeader className="p-6 border-b border-white/5 bg-white/[0.02]">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <DialogTitle className="text-white font-headline">Asistente Naxde</DialogTitle>
+                <p className="text-[10px] text-primary font-bold uppercase tracking-widest">Inteligencia Artificial</p>
+              </div>
+            </div>
+          </DialogHeader>
+          
+          <div className="h-[400px] flex flex-col">
+            <ScrollArea className="flex-1 p-6">
+              <div className="space-y-4">
+                {messages.map((msg, idx) => (
+                  <div key={idx} className={cn(
+                    "flex gap-3 max-w-[85%]",
+                    msg.role === 'user' ? "ml-auto flex-row-reverse" : "mr-auto"
+                  )}>
+                    <div className={cn(
+                      "w-8 h-8 rounded-lg flex items-center justify-center shrink-0",
+                      msg.role === 'user' ? "bg-primary/20" : "bg-white/10"
+                    )}>
+                      {msg.role === 'user' ? <User className="w-4 h-4 text-primary" /> : <Bot className="w-4 h-4 text-white/60" />}
+                    </div>
+                    <div className={cn(
+                      "p-3 rounded-2xl text-sm leading-relaxed",
+                      msg.role === 'user' ? "bg-primary text-white" : "bg-white/5 text-white/80 border border-white/5"
+                    )}>
+                      {msg.content}
+                    </div>
+                  </div>
+                ))}
+                {isLoading && (
+                  <div className="flex gap-3 mr-auto">
+                    <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                      <Bot className="w-4 h-4 text-white/60 animate-pulse" />
+                    </div>
+                    <div className="bg-white/5 p-3 rounded-2xl flex gap-1 items-center border border-white/5">
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]" />
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]" />
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" />
+                    </div>
+                  </div>
+                )}
+                <div ref={scrollRef} />
+              </div>
+            </ScrollArea>
+
+            <form onSubmit={handleSendMessage} className="p-4 border-t border-white/5 bg-white/[0.01] flex gap-2">
+              <Input 
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Escribe tu duda aquí..." 
+                className="bg-white/5 border-white/10 text-white rounded-xl focus:ring-primary h-12"
+              />
+              <Button 
+                disabled={isLoading || !input.trim()}
+                type="submit" 
+                size="icon" 
+                className="bg-primary hover:bg-primary/90 text-white shrink-0 rounded-xl h-12 w-12 neon-accent"
+              >
+                <Send className="w-5 h-5" />
+              </Button>
+            </form>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Botón de WhatsApp */}
       <a 
         href="https://wa.me/57315001001" 
@@ -36,19 +155,11 @@ export const FloatingActions = () => {
           <MessageCircle className="w-7 h-7" />
         </Button>
       </a>
-
-      {/* Botón de Asistente IA (Prototipo) */}
-      <div className="group relative">
-        <div className="absolute -inset-2 bg-primary/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-        <Button 
-          onClick={handleAIClick}
-          size="icon" 
-          className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-primary hover:bg-white/20 shadow-lg relative z-10 overflow-hidden transition-transform active:scale-90"
-        >
-          <Sparkles className="w-7 h-7" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent pointer-events-none" />
-        </Button>
-      </div>
     </div>
   );
 };
+
+// Helper function for conditional classes
+function cn(...inputs: any[]) {
+  return inputs.filter(Boolean).join(' ');
+}
