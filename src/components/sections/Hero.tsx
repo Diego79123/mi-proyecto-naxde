@@ -10,6 +10,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
 
 const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero.png?alt=media&token=894d096d-5c36-48b8-aa50-cce731f640c4";
+const HERO_BG_PARALLAX = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero1.png?alt=media&token=24fe3c4d-4cf9-4193-a2b7-6148290b02d3";
 const HERO_BG_ASTEROID = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide.png?alt=media&token=63e277da-ee55-444e-8df7-0988e5783ed7";
 const HERO_BG_ASTEROID_3 = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide3.png?alt=media&token=27bfd71e-552c-4631-962d-06c60990aecb";
 
@@ -114,6 +115,20 @@ const StarField = () => {
 export const Hero = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 50 });
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  // Parallax Effect Listener
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const x = (clientX / window.innerWidth - 0.5) * 40;
+      const y = (clientY / window.innerHeight - 0.5) * 40;
+      setMousePos({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -146,19 +161,39 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
-      {/* Capa de Imagen de Fondo 1 (Nebulosa) */}
+      {/* Capa de Imagen de Fondo 1 (Nebulosa con Parallax 3D) */}
       <div className={cn(
         "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
         selectedIndex === 0 ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
-        <Image 
-          src={HERO_BG_IMAGE} 
-          alt="Space Nebula Background" 
-          fill 
-          className="object-cover"
-          priority
-          quality={100}
-        />
+        {/* Capa de Fondo (Base) */}
+        <div 
+          className="absolute inset-0 transition-transform duration-[600ms] ease-out scale-110"
+          style={{ transform: `translate(${mousePos.x * 0.4}px, ${mousePos.y * 0.4}px)` }}
+        >
+          <Image 
+            src={HERO_BG_IMAGE} 
+            alt="Space Nebula Background Base" 
+            fill 
+            className="object-cover"
+            priority
+            quality={100}
+          />
+        </div>
+        {/* Capa Flotante (Parallax Layer) */}
+        <div 
+          className="absolute inset-0 transition-transform duration-[800ms] ease-out scale-105"
+          style={{ transform: `translate(${mousePos.x * -1.2}px, ${mousePos.y * -1.2}px)` }}
+        >
+          <Image 
+            src={HERO_BG_PARALLAX} 
+            alt="Floating Nebula Elements" 
+            fill 
+            className="object-cover"
+            priority
+            quality={100}
+          />
+        </div>
         <div className="absolute inset-0 bg-[#00001D]/30 backdrop-blur-[1px]" />
       </div>
 
