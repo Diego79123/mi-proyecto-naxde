@@ -76,11 +76,11 @@ export const Header = () => {
               <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/60 group-hover:text-white transition-colors hidden sm:block">
                 {isMenuOpen ? 'Cerrar' : 'Menú'}
               </span>
-              <div className="relative w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 group-hover:bg-primary group-hover:border-primary transition-all duration-500">
+              <div className="relative w-12 h-12 flex items-center justify-center transition-all duration-500">
                 {isMenuOpen ? (
-                  <X className="w-5 h-5 text-white" />
+                  <X className="w-10 h-10 text-white" />
                 ) : (
-                  <Menu className="w-5 h-5 text-white" />
+                  <Menu className="w-10 h-10 text-white" />
                 )}
               </div>
             </button>
@@ -93,7 +93,7 @@ export const Header = () => {
         "fixed inset-0 z-[120] transition-all duration-700 ease-in-out",
         isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       )}>
-        {/* Glass Background - More transparent to see the background better */}
+        {/* Glass Background */}
         <div className="absolute inset-0 bg-[#0A0520]/40 backdrop-blur-[40px]" />
         
         <div className="relative h-full w-full flex flex-col justify-end px-8 pb-16 md:px-24 md:pb-24 overflow-hidden">
@@ -108,7 +108,7 @@ export const Header = () => {
 
           <div className="flex flex-col md:flex-row justify-between items-end w-full gap-12">
             
-            {/* Main Links - Stacked on the bottom-left */}
+            {/* Main Links */}
             <nav className="flex flex-col space-y-1 md:space-y-2 text-left">
               {navLinks.map((link, idx) => (
                 <Link 
@@ -124,7 +124,7 @@ export const Header = () => {
               ))}
             </nav>
 
-            {/* Social Links - Bottom Right */}
+            {/* Social Links */}
             <div className="flex flex-wrap gap-6 md:gap-10 pb-4">
               <Link href="https://facebook.com" target="_blank" className="text-xs md:text-sm font-bold text-white/40 hover:text-white uppercase tracking-[0.2em] transition-colors">
                 Facebook
@@ -139,7 +139,7 @@ export const Header = () => {
 
           </div>
 
-          {/* Branding Background Mark (Subtle) */}
+          {/* Branding Background Mark */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 pointer-events-none opacity-[0.03]">
             <span className="text-[20vw] font-black text-white uppercase tracking-tighter whitespace-nowrap">NAXDE HUB</span>
           </div>
