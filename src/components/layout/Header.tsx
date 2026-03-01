@@ -93,8 +93,8 @@ export const Header = () => {
         "fixed inset-0 z-[120] transition-all duration-700 ease-in-out",
         isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       )}>
-        {/* Deep Blur Background with slightly more transparency for the glass effect */}
-        <div className="absolute inset-0 bg-[#0A0520]/80 backdrop-blur-[40px]" />
+        {/* Glass Background - More transparent to see the background better */}
+        <div className="absolute inset-0 bg-[#0A0520]/40 backdrop-blur-[40px]" />
         
         <div className="relative h-full w-full flex flex-col justify-end px-8 pb-16 md:px-24 md:pb-24 overflow-hidden">
           
