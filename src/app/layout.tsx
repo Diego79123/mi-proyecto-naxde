@@ -4,6 +4,7 @@ import { Poppins } from 'next/font/google';
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { FloatingActions } from '@/components/layout/FloatingActions';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className="font-body antialiased bg-[#00001D]">
         <FirebaseClientProvider>
           {children}
+          <FloatingActions />
           <Toaster />
         </FirebaseClientProvider>
       </body>
