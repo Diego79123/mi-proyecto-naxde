@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useEffect, useState, useCallback } from 'react';
@@ -117,12 +116,13 @@ export const Hero = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  // Parallax Effect Listener
+  // Parallax Effect Listener - Intensity reduced for a "muy leve" effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5) * 40;
-      const y = (clientY / window.innerHeight - 0.5) * 40;
+      // Multiplier reduced from 40 to 12 for subtleness
+      const x = (clientX / window.innerWidth - 0.5) * 12;
+      const y = (clientY / window.innerHeight - 0.5) * 12;
       setMousePos({ x, y });
     };
 
@@ -161,15 +161,15 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
-      {/* Capa de Imagen de Fondo 1 (Nebulosa con Parallax 3D) */}
+      {/* Capa de Imagen de Fondo 1 (Nebulosa con Parallax 3D Suave) */}
       <div className={cn(
         "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
         selectedIndex === 0 ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
-        {/* Capa de Fondo (Base) */}
+        {/* Capa de Fondo (Base) - Movimiento muy leve */}
         <div 
-          className="absolute inset-0 transition-transform duration-[600ms] ease-out scale-110"
-          style={{ transform: `translate(${mousePos.x * 0.4}px, ${mousePos.y * 0.4}px)` }}
+          className="absolute inset-0 transition-transform duration-[1000ms] ease-out scale-110"
+          style={{ transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)` }}
         >
           <Image 
             src={HERO_BG_IMAGE} 
@@ -180,10 +180,10 @@ export const Hero = () => {
             quality={100}
           />
         </div>
-        {/* Capa Flotante (Parallax Layer) */}
+        {/* Capa Flotante (Parallax Layer) - Movimiento suave opuesto */}
         <div 
-          className="absolute inset-0 transition-transform duration-[800ms] ease-out scale-105"
-          style={{ transform: `translate(${mousePos.x * -1.2}px, ${mousePos.y * -1.2}px)` }}
+          className="absolute inset-0 transition-transform duration-[1200ms] ease-out scale-105"
+          style={{ transform: `translate(${mousePos.x * -0.6}px, ${mousePos.y * -0.6}px)` }}
         >
           <Image 
             src={HERO_BG_PARALLAX} 
