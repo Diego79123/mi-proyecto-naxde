@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useEffect, useState, useCallback } from 'react';
@@ -143,10 +144,10 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
-      {/* Capa de Imagen de Fondo Ampliada para el Primer Hero */}
+      {/* Capa de Imagen de Fondo Ajustada */}
       <div className={cn(
         "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
-        selectedIndex === 0 ? "opacity-100 scale-150 rotate-2" : "opacity-0 scale-100 rotate-0"
+        selectedIndex === 0 ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-95 rotate-0"
       )}>
         <Image 
           src={HERO_BG_IMAGE} 
