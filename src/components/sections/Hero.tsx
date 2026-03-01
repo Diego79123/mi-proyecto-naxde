@@ -162,7 +162,7 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-[#00001D]/30 backdrop-blur-[1px]" />
       </div>
 
-      {/* Capa de Imagen de Fondo 2 (Asteroide) */}
+      {/* Capa de Imagen de Fondo 2 (Asteroide) - Con Filtro Azul */}
       <div className={cn(
         "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
         selectedIndex === 1 ? "opacity-100 scale-100" : "opacity-0 scale-95"
@@ -172,9 +172,11 @@ export const Hero = () => {
           alt="Asteroid Background" 
           fill 
           className="object-cover"
+          style={{ filter: 'hue-rotate(190deg) saturate(1.2) brightness(0.9)' }}
           quality={100}
         />
-        <div className="absolute inset-0 bg-[#00001D]/20 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-[#00001D]/40 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-blue-500/10 mix-blend-overlay pointer-events-none" />
       </div>
 
       {/* Capa de Imagen de Fondo 3 (Asteroide 3) */}
