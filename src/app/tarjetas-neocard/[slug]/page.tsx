@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { use, useState, useEffect, useRef } from 'react';
@@ -38,6 +39,7 @@ import {
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Header } from '@/components/layout/Header';
 
 const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 const OSCAR_PROFILE_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1";
@@ -98,17 +100,14 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
-      {isOscar && (
-        <div 
-          className="absolute inset-0 overflow-hidden transition-transform duration-[500ms] ease-out"
-          style={{ transform: `translate(${gyro.x * 10}px, ${gyro.y * 10}px)` }}
-        >
-          {/* Black Hole & Purple Glow Effect */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(0,0,0,1)_0%,rgba(88,28,135,0.3)_40%,rgba(0,0,0,1)_70%)] blur-[180px] rounded-full opacity-90" />
-          <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-purple-900/20 blur-[150px] rounded-full opacity-60" />
-          <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-purple-900/20 blur-[150px] rounded-full opacity-60" />
-        </div>
-      )}
+      <div 
+        className="absolute inset-0 overflow-hidden transition-transform duration-[500ms] ease-out"
+        style={{ transform: `translate(${gyro.x * 10}px, ${gyro.y * 10}px)` }}
+      >
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(0,0,0,1)_0%,rgba(88,28,135,0.2)_40%,rgba(0,0,0,1)_70%)] blur-[180px] rounded-full opacity-90" />
+        <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-purple-900/10 blur-[150px] rounded-full opacity-60" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-purple-900/10 blur-[150px] rounded-full opacity-60" />
+      </div>
       
       <div 
         className="absolute inset-0 transition-transform duration-[700ms] ease-out"
@@ -273,7 +272,7 @@ END:VCARD`;
 
   const advisorServices = [
     { title: "Diseño Web", desc: "Experiencias de alto impacto y conversión.", icon: Globe },
-    { title: "Neocard", desc: "Identidad inteligente con tecnologia naxde", icon: Smartphone },
+    { title: "Neocard", desc: "Identidad inteligente con tecnología naxde", icon: Smartphone },
     { title: "Aplicaciones", desc: "Software nativo y plataformas escalables.", icon: Code },
     { title: "Chatbot & Automatización", desc: "Flujos inteligentes para tu negocio.", icon: MessageCircle },
     { title: "Soluciones de IA", desc: "Transformación con Inteligencia Artificial.", icon: Cpu }
@@ -304,34 +303,16 @@ END:VCARD`;
   return (
     <main className="h-[100dvh] w-full bg-transparent text-white flex flex-col items-center overflow-hidden relative font-body selection:bg-primary/30">
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
-      
-      {/* Menu Flotante de Redes Sociales */}
-      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-[120] flex flex-col items-center justify-center h-[80px] w-12 gap-1 p-1 rounded-2xl glass-panel backdrop-blur-xl border border-white/10 shadow-2xl">
-        <Link href="https://instagram.com" target="_blank" className="flex-1 flex items-center justify-center w-full rounded-xl hover:bg-white/10 transition-all text-white/60 hover:text-primary group">
-          <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
-        </Link>
-        <Link href="https://facebook.com" target="_blank" className="flex-1 flex items-center justify-center w-full rounded-xl hover:bg-white/10 transition-all text-white/60 hover:text-blue-500 group">
-          <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
-        </Link>
-      </div>
+      <Header />
 
       <div className={cn(
-        "w-full max-w-lg flex flex-col items-center px-6 pt-4 pb-20 space-y-6 transition-all duration-[700ms] h-full justify-center",
+        "w-full max-w-lg flex flex-col items-center px-6 pt-24 pb-20 space-y-6 transition-all duration-[700ms] h-full justify-center",
         activeSection !== 'inicio' ? "blur-xl opacity-20 scale-[0.9] pointer-events-none" : "blur-0 opacity-100 scale-100"
       )}>
-        <header className="w-full flex justify-center py-2">
-          <Link href="/">
-            <div className="relative h-8 w-28">
-              <Image src={LOGO_URL} alt="Naxde Logo" fill className="object-contain" priority />
-            </div>
-          </Link>
-        </header>
-
         <section className="flex flex-col items-center text-center space-y-4">
           <div className="relative group">
-            {/* Destello Morado Sutil detras del perfil */}
-            <div className="absolute -inset-4 bg-purple-600/30 rounded-full blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
-            <Avatar className="w-28 h-28 border-4 border-[#00001D] relative shadow-[0_0_50px_rgba(168,85,247,0.4)] transition-shadow duration-700 group-hover:shadow-[0_0_70px_rgba(168,85,247,0.6)]">
+            <div className="absolute -inset-4 bg-purple-600/20 rounded-full blur-2xl opacity-60"></div>
+            <Avatar className="w-28 h-28 border-4 border-[#00001D] relative shadow-[0_0_50px_rgba(168,85,247,0.3)]">
               <AvatarImage src={member.profileImageUrl} alt={member.name} className="object-cover" />
               <AvatarFallback className="bg-white/5 text-5xl font-headline">{member.name[0]}</AvatarFallback>
             </Avatar>
