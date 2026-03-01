@@ -3,9 +3,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  X
-} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -44,8 +41,9 @@ export const Header = () => {
     <>
       <header 
         className={cn(
-          "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 px-8 h-24 flex items-center border-b border-white/5",
-          isScrolled ? "bg-black/20 backdrop-blur-xl" : "bg-transparent backdrop-blur-sm"
+          "fixed top-0 left-0 right-0 z-[130] transition-all duration-500 px-8 h-24 flex items-center border-b border-white/5",
+          isScrolled ? "bg-black/20 backdrop-blur-xl" : "bg-transparent backdrop-blur-sm",
+          isMenuOpen && "bg-transparent border-transparent backdrop-blur-none"
         )}
       >
         <div className="max-w-screen-2xl mx-auto w-full relative flex items-center justify-center">
@@ -101,21 +99,6 @@ export const Header = () => {
         
         <div className="relative h-full w-full flex flex-col justify-end px-8 pb-16 md:px-24 md:pb-24 overflow-hidden">
           
-          {/* Close Action Trigger */}
-          <button 
-            onClick={() => setIsMenuOpen(false)}
-            className="absolute top-6 right-8 p-4 z-[130] flex items-center gap-4 group"
-          >
-             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 group-hover:text-white transition-colors hidden sm:block">
-                Cerrar
-              </span>
-              {/* Simplified X for the menu panel */}
-              <div className="relative w-12 h-12 flex flex-col items-center justify-center gap-2">
-                <div className="absolute h-[2px] w-10 bg-white rotate-45" />
-                <div className="absolute h-[2px] w-10 bg-white -rotate-45" />
-              </div>
-          </button>
-
           <div className="flex flex-col md:flex-row justify-between items-end w-full gap-12">
             
             {/* Main Links */}
