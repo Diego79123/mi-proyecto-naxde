@@ -4,9 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
-  Menu,
-  X,
-  ShieldCheck
+  X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
@@ -63,7 +61,7 @@ export const Header = () => {
             />
           </Link>
 
-          {/* Menú Hamburguesa a la derecha */}
+          {/* Menú Hamburguesa Animado a la derecha */}
           <div className="absolute right-0 flex items-center gap-8 z-[110]">
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -72,12 +70,17 @@ export const Header = () => {
               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 group-hover:text-white transition-colors hidden sm:block">
                 {isMenuOpen ? 'Cerrar' : 'Menú'}
               </span>
-              <div className="relative flex items-center justify-center transition-all duration-500">
-                {isMenuOpen ? (
-                  <X className="w-12 h-12 text-white" />
-                ) : (
-                  <Menu className="w-12 h-12 text-white" />
-                )}
+              
+              {/* Custom Animated Hamburger Icon */}
+              <div className="relative w-12 h-12 flex flex-col items-center justify-center gap-2.5 transition-all duration-500">
+                <div className={cn(
+                  "h-[2px] bg-white transition-all duration-500 ease-in-out",
+                  isMenuOpen ? "w-10 rotate-45 translate-y-[6px]" : "w-10"
+                )} />
+                <div className={cn(
+                  "h-[2px] bg-white transition-all duration-500 ease-in-out",
+                  isMenuOpen ? "w-10 -rotate-45 -translate-y-[6px]" : "w-7 self-end"
+                )} />
               </div>
             </button>
           </div>
@@ -89,22 +92,28 @@ export const Header = () => {
         "fixed inset-0 z-[120] transition-all duration-700 ease-in-out",
         isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       )}>
-        {/* Glass Background - Muy traslúcido para ver el fondo */}
+        {/* Glass Background */}
         <div className="absolute inset-0 bg-[#0A0520]/40 backdrop-blur-[40px]" />
         
         <div className="relative h-full w-full flex flex-col justify-end px-8 pb-16 md:px-24 md:pb-24 overflow-hidden">
           
-          {/* Close Button Top Right */}
+          {/* Close Action Trigger - Same position as toggle for seamless feel */}
           <button 
             onClick={() => setIsMenuOpen(false)}
-            className="absolute top-10 right-10 p-4 text-white/40 hover:text-white transition-all hover:scale-110 active:scale-90"
+            className="absolute top-6 right-8 p-4 z-[130] flex items-center gap-4 group"
           >
-            <X className="w-14 h-14" />
+             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 group-hover:text-white transition-colors hidden sm:block">
+                Cerrar
+              </span>
+              <div className="relative w-12 h-12 flex items-center justify-center">
+                <div className="absolute h-[2px] w-10 bg-white rotate-45" />
+                <div className="absolute h-[2px] w-10 bg-white -rotate-45" />
+              </div>
           </button>
 
           <div className="flex flex-col md:flex-row justify-between items-end w-full gap-12">
             
-            {/* Main Links - Tipografía Ultra-Bold Estilo Vanguardia */}
+            {/* Main Links */}
             <nav className="flex flex-col space-y-0 md:space-y-0 text-left">
               {navLinks.map((link, idx) => (
                 <Link 
@@ -120,7 +129,7 @@ export const Header = () => {
               ))}
             </nav>
 
-            {/* Social Links - Esquina inferior derecha */}
+            {/* Social Links */}
             <div className="flex flex-wrap gap-6 md:gap-10 pb-4">
               <Link href="https://facebook.com" target="_blank" className="text-xs md:text-sm font-black text-white/40 hover:text-white uppercase tracking-[0.2em] transition-colors">
                 Facebook
