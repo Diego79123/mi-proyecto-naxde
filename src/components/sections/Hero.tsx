@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useEffect, useState, useCallback } from 'react';
@@ -9,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
 
-const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero.png?alt=media&token=4a8ef963-2060-4e9e-b6d6-18bd8e558de7";
+const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero.png?alt=media&token=894d096d-5c36-48b8-aa50-cce731f640c4";
 
 const slides = [
   {
