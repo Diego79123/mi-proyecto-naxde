@@ -71,15 +71,19 @@ export const Header = () => {
                 {isMenuOpen ? 'Cerrar' : 'Menú'}
               </span>
               
-              {/* Custom Animated Hamburger Icon */}
-              <div className="relative w-12 h-12 flex flex-col items-center justify-center gap-2.5 transition-all duration-500">
+              {/* Custom Animated Hamburger Icon (3 Lines style) */}
+              <div className="relative w-12 h-12 flex flex-col items-center justify-center gap-2 transition-all duration-500">
                 <div className={cn(
-                  "h-[2px] bg-white transition-all duration-500 ease-in-out",
-                  isMenuOpen ? "w-10 rotate-45 translate-y-[6px]" : "w-10"
+                  "h-[2px] bg-white transition-all duration-500 ease-in-out rounded-full",
+                  isMenuOpen ? "w-10 rotate-45 translate-y-[5px]" : "w-10"
                 )} />
                 <div className={cn(
-                  "h-[2px] bg-white transition-all duration-500 ease-in-out",
-                  isMenuOpen ? "w-10 -rotate-45 -translate-y-[6px]" : "w-7 self-end"
+                  "h-[2px] bg-white transition-all duration-500 ease-in-out self-end rounded-full",
+                  isMenuOpen ? "w-0 opacity-0 scale-0" : "w-6"
+                )} />
+                <div className={cn(
+                  "h-[2px] bg-white transition-all duration-500 ease-in-out rounded-full",
+                  isMenuOpen ? "w-10 -rotate-45 -translate-y-[5px]" : "w-10"
                 )} />
               </div>
             </button>
@@ -92,12 +96,12 @@ export const Header = () => {
         "fixed inset-0 z-[120] transition-all duration-700 ease-in-out",
         isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       )}>
-        {/* Glass Background */}
+        {/* Glass Background - High transparency to see background elements */}
         <div className="absolute inset-0 bg-[#0A0520]/40 backdrop-blur-[40px]" />
         
         <div className="relative h-full w-full flex flex-col justify-end px-8 pb-16 md:px-24 md:pb-24 overflow-hidden">
           
-          {/* Close Action Trigger - Same position as toggle for seamless feel */}
+          {/* Close Action Trigger */}
           <button 
             onClick={() => setIsMenuOpen(false)}
             className="absolute top-6 right-8 p-4 z-[130] flex items-center gap-4 group"
@@ -105,7 +109,8 @@ export const Header = () => {
              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 group-hover:text-white transition-colors hidden sm:block">
                 Cerrar
               </span>
-              <div className="relative w-12 h-12 flex items-center justify-center">
+              {/* Simplified X for the menu panel */}
+              <div className="relative w-12 h-12 flex flex-col items-center justify-center gap-2">
                 <div className="absolute h-[2px] w-10 bg-white rotate-45" />
                 <div className="absolute h-[2px] w-10 bg-white -rotate-45" />
               </div>
