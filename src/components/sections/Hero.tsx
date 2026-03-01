@@ -10,6 +10,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
 
 const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero.png?alt=media&token=894d096d-5c36-48b8-aa50-cce731f640c4";
+const HERO_BG_ASTEROID = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide.png?alt=media&token=63e277da-ee55-444e-8df7-0988e5783ed7";
 
 const slides = [
   {
@@ -144,10 +145,10 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
-      {/* Capa de Imagen de Fondo Ajustada */}
+      {/* Capa de Imagen de Fondo 1 (Nebulosa) */}
       <div className={cn(
         "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
-        selectedIndex === 0 ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-95 rotate-0"
+        selectedIndex === 0 ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
         <Image 
           src={HERO_BG_IMAGE} 
@@ -158,6 +159,21 @@ export const Hero = () => {
           quality={100}
         />
         <div className="absolute inset-0 bg-[#00001D]/30 backdrop-blur-[1px]" />
+      </div>
+
+      {/* Capa de Imagen de Fondo 2 (Asteroide) */}
+      <div className={cn(
+        "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
+        selectedIndex === 1 ? "opacity-100 scale-100" : "opacity-0 scale-95"
+      )}>
+        <Image 
+          src={HERO_BG_ASTEROID} 
+          alt="Asteroid Background" 
+          fill 
+          className="object-cover"
+          quality={100}
+        />
+        <div className="absolute inset-0 bg-[#00001D]/20 backdrop-blur-[1px]" />
       </div>
 
       <StarField />
