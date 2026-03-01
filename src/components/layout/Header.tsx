@@ -48,8 +48,8 @@ export const Header = () => {
       >
         <div className="max-w-screen-2xl mx-auto w-full relative flex items-center justify-center">
           
-          {/* Logo Centrado */}
-          <Link href="/" className="relative h-12 w-[180px] z-[110]">
+          {/* Logo Centrado - Ajustado a 150px de ancho */}
+          <Link href="/" className="relative h-12 w-[150px] z-[110]">
             <Image 
               src={LOGO_URL} 
               alt="Naxde Logo" 
@@ -90,7 +90,7 @@ export const Header = () => {
         "fixed inset-0 z-[120] transition-all duration-700 ease-in-out",
         isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       )}>
-        {/* Glass Background - Refined for better background visibility */}
+        {/* Glass Background - Low opacity for better visibility of the background */}
         <div className="absolute inset-0 bg-[#0A0520]/40 backdrop-blur-[40px]" />
         
         <div className="relative h-full w-full flex flex-col justify-end px-8 pb-16 md:px-24 md:pb-24 overflow-hidden">
