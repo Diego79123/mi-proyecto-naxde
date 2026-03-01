@@ -63,12 +63,8 @@ export const Header = () => {
           <div className="absolute right-0 flex items-center gap-8 z-[110]">
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="group flex items-center gap-4 focus:outline-none"
+              className="group flex items-center focus:outline-none"
             >
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 group-hover:text-white transition-colors hidden sm:block">
-                {isMenuOpen ? 'Cerrar' : 'Menú'}
-              </span>
-              
               {/* Custom Animated Hamburger Icon (3 Lines style) */}
               <div className="relative w-12 h-12 flex flex-col items-center justify-center gap-2 transition-all duration-500">
                 <div className={cn(
@@ -94,15 +90,15 @@ export const Header = () => {
         "fixed inset-0 z-[120] transition-all duration-700 ease-in-out",
         isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       )}>
-        {/* Glass Background - High transparency to see background elements */}
+        {/* Glass Background - Refined for better background visibility */}
         <div className="absolute inset-0 bg-[#0A0520]/40 backdrop-blur-[40px]" />
         
         <div className="relative h-full w-full flex flex-col justify-end px-8 pb-16 md:px-24 md:pb-24 overflow-hidden">
           
           <div className="flex flex-col md:flex-row justify-between items-end w-full gap-12">
             
-            {/* Main Links */}
-            <nav className="flex flex-col space-y-0 md:space-y-0 text-left">
+            {/* Main Links - Aligned Bottom Left */}
+            <nav className="flex flex-col space-y-0 text-left">
               {navLinks.map((link, idx) => (
                 <Link 
                   key={idx} 
@@ -117,7 +113,7 @@ export const Header = () => {
               ))}
             </nav>
 
-            {/* Social Links */}
+            {/* Social Links - Aligned Bottom Right */}
             <div className="flex flex-wrap gap-6 md:gap-10 pb-4">
               <Link href="https://facebook.com" target="_blank" className="text-xs md:text-sm font-black text-white/40 hover:text-white uppercase tracking-[0.2em] transition-colors">
                 Facebook
