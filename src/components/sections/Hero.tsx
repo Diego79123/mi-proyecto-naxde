@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 
 const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero.png?alt=media&token=894d096d-5c36-48b8-aa50-cce731f640c4";
 const HERO_BG_ASTEROID = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide.png?alt=media&token=63e277da-ee55-444e-8df7-0988e5783ed7";
+const HERO_BG_ASTEROID_3 = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide3.png?alt=media&token=27bfd71e-552c-4631-962d-06c60990aecb";
 
 const slides = [
   {
@@ -169,6 +170,21 @@ export const Hero = () => {
         <Image 
           src={HERO_BG_ASTEROID} 
           alt="Asteroid Background" 
+          fill 
+          className="object-cover"
+          quality={100}
+        />
+        <div className="absolute inset-0 bg-[#00001D]/20 backdrop-blur-[1px]" />
+      </div>
+
+      {/* Capa de Imagen de Fondo 3 (Asteroide 3) */}
+      <div className={cn(
+        "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
+        selectedIndex === 2 ? "opacity-100 scale-100" : "opacity-0 scale-95"
+      )}>
+        <Image 
+          src={HERO_BG_ASTEROID_3} 
+          alt="Deep Space Asteroid Background" 
           fill 
           className="object-cover"
           quality={100}
