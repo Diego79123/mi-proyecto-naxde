@@ -59,8 +59,8 @@ export const Header = () => {
             />
           </Link>
 
-          {/* Menú Hamburguesa Animado a la derecha */}
-          <div className="absolute right-0 flex items-center gap-8 z-[110]">
+          {/* Menú Hamburguesa Animado a la derecha - Desplazado 300px */}
+          <div className="absolute right-[-300px] flex items-center gap-8 z-[110]">
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="group flex items-center focus:outline-none"
@@ -90,7 +90,7 @@ export const Header = () => {
         "fixed inset-0 z-[120] transition-all duration-700 ease-in-out",
         isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       )}>
-        {/* Glass Background - Low opacity for better visibility of the background */}
+        {/* Glass Background - Refined for better background visibility */}
         <div className="absolute inset-0 bg-[#0A0520]/40 backdrop-blur-[40px]" />
         
         <div className="relative h-full w-full flex flex-col justify-end px-8 pb-16 md:px-24 md:pb-24 overflow-hidden">
