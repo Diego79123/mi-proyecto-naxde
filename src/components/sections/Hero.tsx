@@ -3,10 +3,13 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Smartphone, ArrowRight, Zap, Cpu, LayoutGrid, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
+
+const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero.png?alt=media&token=780a3c59-162c-405f-b642-e5d5df3ce5b8";
 
 const slides = [
   {
@@ -74,7 +77,7 @@ const StarField = () => {
   }, []);
 
   return (
-    <div className="stars-container absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="stars-container absolute inset-0 overflow-hidden pointer-events-none z-[5]">
       {stars.map((star) => (
         <div
           key={star.id}
@@ -141,15 +144,30 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
+      {/* Capa de Imagen de Fondo para el Primer Hero */}
+      <div className={cn(
+        "absolute inset-0 transition-all duration-[2000ms] ease-out z-0",
+        selectedIndex === 0 ? "opacity-100 scale-110 rotate-1" : "opacity-0 scale-100 rotate-0"
+      )}>
+        <Image 
+          src={HERO_BG_IMAGE} 
+          alt="Space Nebula Background" 
+          fill 
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-[#00001D]/40 backdrop-blur-[2px]" />
+      </div>
+
       <StarField />
       
       <div className={cn(
         "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[1100px] rounded-full blur-[200px] pointer-events-none transition-all duration-[1500ms] opacity-30 bg-gradient-to-br",
         slides[selectedIndex].accent,
-        "to-transparent"
+        "to-transparent z-[6]"
       )} />
       
-      <div className="flex-1 overflow-hidden" ref={emblaRef}>
+      <div className="flex-1 overflow-hidden z-10" ref={emblaRef}>
         <div className="flex h-full">
           {slides.map((slide, idx) => (
             <div key={slide.id} className="flex-[0_0_100%] min-w-0 min-h-screen flex items-center relative px-8">
