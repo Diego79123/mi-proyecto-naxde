@@ -122,7 +122,7 @@ export const Hero = () => {
       {/* 3. Contenedor Central (Texto Monumental) - z-10 */}
       <div className="flex-1 relative flex items-center justify-center">
         <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-          <h1 className="text-[12vw] md:text-[14vw] font-black text-[#F84F39] leading-none tracking-tighter uppercase opacity-90 select-none">
+          <h1 className="text-[7vw] md:text-[8vw] font-black text-[#F84F39] leading-none tracking-tighter uppercase opacity-90 select-none">
             DESARROLLAMOS
           </h1>
         </div>
