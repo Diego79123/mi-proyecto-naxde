@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -17,20 +16,20 @@ export const CursorFollower = () => {
     window.addEventListener('mousemove', handleMouseMove);
 
     const animate = () => {
-      // Physics: Smooth easing (lerp) for the head
-      const ease = 0.15;
+      // Física: Interpolación lineal (lerp) para un movimiento suave y etéreo
+      const ease = 0.08; // Valor menor para más suavizado (inercia)
       cursorRef.current.x += (targetRef.current.x - cursorRef.current.x) * ease;
       cursorRef.current.y += (targetRef.current.y - cursorRef.current.y) * ease;
 
-      // Update trail history
+      // Actualizar historial de la estela (más corta y leve)
       setTrail((prev) => {
         const newPoint = { 
           x: cursorRef.current.x, 
           y: cursorRef.current.y, 
           id: Date.now() + Math.random() 
         };
-        // Keep the last 20 points for a longer, more fluid tail
-        return [...prev.slice(-20), newPoint];
+        // Reducimos el número de puntos para una estela más leve
+        return [...prev.slice(-12), newPoint];
       });
 
       requestRef.current = requestAnimationFrame(animate);
@@ -46,31 +45,31 @@ export const CursorFollower = () => {
 
   return (
     <>
-      {/* Comet Head with Glow */}
+      {/* Cabeza de la Estrella (Punto de luz brillante) */}
       <div 
         className="cursor-follower"
         style={{
-          transform: `translate(${cursorRef.current.x - 12}px, ${cursorRef.current.y - 12}px)`,
+          transform: `translate(${cursorRef.current.x - 6}px, ${cursorRef.current.y - 6}px)`,
           position: 'fixed',
           top: 0,
           left: 0,
-          width: '24px',
-          height: '24px',
-          backgroundColor: '#5200F8',
+          width: '12px',
+          height: '12px',
+          backgroundColor: '#FFF', // Blanco en el centro para efecto estrella
           borderRadius: '50%',
           pointerEvents: 'none',
           zIndex: 9999,
           mixBlendMode: 'screen',
-          filter: 'blur(2px)',
-          boxShadow: '0 0 20px #5200F8, 0 0 40px #5200F8, 0 0 60px rgba(82, 0, 248, 0.5)',
+          filter: 'blur(1px)',
+          boxShadow: '0 0 10px #5200F8, 0 0 20px rgba(82, 0, 248, 0.8), 0 0 30px rgba(255, 255, 255, 0.4)',
         }}
       />
       
-      {/* Dynamic Comet Tail segments */}
+      {/* Estela de la Estrella (Segmentos tenues y pequeños) */}
       {trail.map((point, index) => {
         const ratio = index / trail.length;
-        const size = 4 + (ratio * 8); // Tail segments get smaller towards the start
-        const opacity = ratio * 0.6; // Tail fades out
+        const size = 2 + (ratio * 4); // Segmentos mucho más pequeños
+        const opacity = ratio * 0.3; // Mucho más transparente
         
         return (
           <div
@@ -88,7 +87,8 @@ export const CursorFollower = () => {
               borderRadius: '50%',
               pointerEvents: 'none',
               zIndex: 9998,
-              boxShadow: `0 0 ${index}px #5200F8`,
+              filter: 'blur(1.5px)',
+              boxShadow: `0 0 ${index}px rgba(82, 0, 248, 0.5)`,
             }}
           />
         );
