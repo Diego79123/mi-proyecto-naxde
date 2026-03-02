@@ -4,12 +4,9 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
-const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FHero%20fondo%20asteroide1.webp?alt=media&token=bd74abc5-f125-49d8-9cd6-59a98ea3dad5";
-const ASTEROIDE_1 = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAsteroide1.webp?alt=media&token=64700fa9-ed0f-4d51-ad26-687cfa5f70e9";
+const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero.png?alt=media&token=894d096d-5c36-48b8-aa50-cce731f640c4";
 
 const StarField = () => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
@@ -76,8 +73,8 @@ export const Hero = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5) * 15;
-      const y = (clientY / window.innerHeight - 0.5) * 15;
+      const x = (clientX / window.innerWidth - 0.5) * 10;
+      const y = (clientY / window.innerHeight - 0.5) * 10;
       setMousePos({ x, y });
     };
 
@@ -87,15 +84,10 @@ export const Hero = () => {
 
   const scrollToNextSection = () => {
     if (typeof window !== 'undefined') {
-      const nextSection = document.getElementById('featured-services');
-      if (nextSection) {
-        nextSection.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.scrollTo({
-          top: window.innerHeight,
-          behavior: 'smooth'
-        });
-      }
+      window.scrollTo({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -127,28 +119,12 @@ export const Hero = () => {
         <span className="text-white/40 text-[10px] font-bold tracking-[0.5em] mt-2">01 / 01</span>
       </div>
 
-      {/* 3. Contenedor Central (Texto + Asteroide Parallax) - z-10 a z-40 */}
+      {/* 3. Contenedor Central (Texto Monumental) - z-10 */}
       <div className="flex-1 relative flex items-center justify-center">
-        
-        {/* Texto Monumental (Detrás del Asteroide) - z-10 */}
         <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-          <h1 className="text-[15vw] md:text-[18vw] font-black text-[#F84F39] leading-none tracking-tighter uppercase opacity-90 select-none">
-            PLATAFORMAS
+          <h1 className="text-[12vw] md:text-[14vw] font-black text-[#F84F39] leading-none tracking-tighter uppercase opacity-90 select-none">
+            DESARROLLAMOS
           </h1>
-        </div>
-
-        {/* Asteroide Flotante (Delante del Texto) - z-30 */}
-        <div 
-          className="relative z-30 w-full max-w-[600px] aspect-square transition-transform duration-[1200ms] ease-out pointer-events-none"
-          style={{ transform: `translate(${mousePos.x * -1.2}px, ${mousePos.y * -1.2}px) scale(1.1)` }}
-        >
-          <Image 
-            src={ASTEROIDE_1} 
-            alt="Floating Asteroide Front" 
-            fill 
-            className="object-contain"
-            priority
-          />
         </div>
       </div>
 
@@ -191,46 +167,3 @@ export const Hero = () => {
     </section>
   );
 };
-
-/**
- * DATOS DE SLIDES ANTERIORES (Guardados para uso futuro)
- * 
- * const previousSlides = [
- *   {
- *     id: 1,
- *     badge: "CONSTRUIMOS EL FUTURO",
- *     title: "PLATAFORMAS QUE TRANSFORMAN NEGOCIOS",
- *     description: "Software premium con escalabilidad sin límites para toda Latinoamérica. Diseñamos experiencias que cautivan y convierten.",
- *     ctaPrimary: "Empezar Ahora",
- *     ctaSecondary: "Ver Proyectos",
- *     image: "hero-tech",
- *     icon: Zap,
- *     accent: "from-[#5200F8]/60", 
- *     parallaxImg: ASTEROIDE_1
- *   },
- *   {
- *     id: 2,
- *     badge: "CREA HERMOSAS APLICACIONES",
- *     title: "INTERFAZ DIGITAL DE ALTO IMPACTO",
- *     description: "Diseñamos experiencias que cautivan y convierten, utilizando los estándares más modernos de diseño de materiales y animaciones inmersivas.",
- *     ctaPrimary: "Descargar",
- *     ctaSecondary: "Más información",
- *     image: "nfc-demo",
- *     icon: LayoutGrid,
- *     accent: "from-cyan-500/60",
- *     parallaxImg: ASTEROIDE_2
- *   },
- *   {
- *     id: 3,
- *     badge: "CREA HERMOSAS APLICACIONES",
- *     title: "CONTROL DESLIZANTE DE INTERFAZ DE USUARIO",
- *     description: "Creamos componentes de software con estética futurista y rendimiento extremo. La arquitectura de materiales del mañana, disponible hoy.",
- *     ctaPrimary: "Descargar",
- *     ctaSecondary: "Más información",
- *     image: "project-saas",
- *     icon: Cpu,
- *     accent: "from-green-500/60",
- *     parallaxImg: ASTEROIDE_1
- *   }
- * ];
- */
