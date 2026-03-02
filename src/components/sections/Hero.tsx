@@ -140,10 +140,8 @@ const ParticleText = ({ text }: { text: string }) => {
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
-    // Reset particles
     particles.current = [];
     
-    // Set canvas dimensions based on container
     const width = canvas.offsetWidth;
     const height = canvas.offsetHeight;
     if (width === 0 || height === 0) return;
@@ -151,9 +149,8 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    // Draw text to read pixel data
-    // Aumentamos el tamaño para que sea realmente monumental
-    const fontSize = Math.min(width / 6, 160); 
+    // Al ser una palabra más corta (AVANZA), aumentamos el tamaño relativo para máximo impacto
+    const fontSize = Math.min(width / 3.5, 240); 
     ctx.font = `900 ${fontSize}px sans-serif`;
     ctx.fillStyle = '#F84F39';
     ctx.textAlign = 'center';
@@ -163,7 +160,7 @@ const ParticleText = ({ text }: { text: string }) => {
     const pixels = ctx.getImageData(0, 0, width, height).data;
     ctx.clearRect(0, 0, width, height);
 
-    const gap = 2; // Alta resolución
+    const gap = 2; 
 
     for (let y = 0; y < height; y += gap) {
       for (let x = 0; x < width; x += gap) {
@@ -172,7 +169,7 @@ const ParticleText = ({ text }: { text: string }) => {
         if (alpha > 128) {
           particles.current.push(
             new Particle({
-              x: x, // Comienza exactamente en su origen para visibilidad inmediata
+              x: x, 
               y: y,
               originX: x,
               originY: y,
@@ -265,7 +262,6 @@ export const Hero = () => {
 
   return (
     <section className="relative h-screen w-full flex flex-col bg-[#00001D] overflow-hidden select-none">
-      {/* 1. Fondo Base (Nebulosa) - z-0 */}
       <div className="absolute inset-0 z-0">
         <div 
           className="absolute inset-0 transition-transform duration-[1500ms] ease-out scale-110"
@@ -285,20 +281,17 @@ export const Hero = () => {
 
       <StarField />
 
-      {/* 2. Top Header Minimalista - z-50 */}
       <div className="relative z-50 pt-12 flex flex-col items-center gap-4">
         <span className="text-white text-xl font-bold tracking-[0.3em] uppercase">naxde.</span>
         <span className="text-white/40 text-[10px] font-bold tracking-[0.5em] mt-2">01 / 01</span>
       </div>
 
-      {/* 3. Contenedor Central (Texto Monumental con Partículas) - z-10 */}
       <div className="flex-1 relative flex items-center justify-center">
         <div className="w-full h-[60vh] flex items-center justify-center z-10 text-center px-6">
-          <ParticleText text="DESARROLLAMOS" />
+          <ParticleText text="AVANZA" />
         </div>
       </div>
 
-      {/* 4. Footer del Hero (Tagline + Botón) - z-50 */}
       <div className="relative z-50 pb-16 flex flex-col items-center space-y-10 px-8 text-center">
         <div className="max-w-md">
           <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed">
@@ -316,7 +309,6 @@ export const Hero = () => {
             Explorar más
           </Button>
 
-          {/* Scroll Indicator */}
           <div className="flex flex-col items-center gap-3 cursor-pointer group" onClick={scrollToNextSection}>
             <div className="w-[1px] h-12 bg-gradient-to-b from-white/0 via-white/40 to-white/0 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1/2 bg-primary animate-scroll-line" />
