@@ -147,7 +147,6 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    // Aumentamos ligeramente el peso de la fuente para mejor definición de partículas
     const fontSize = Math.min(width / (text.length * 0.55), 320); 
     ctx.font = `900 ${fontSize}px sans-serif`;
     
@@ -163,14 +162,12 @@ const ParticleText = ({ text }: { text: string }) => {
     const pixels = ctx.getImageData(0, 0, width, height).data;
     ctx.clearRect(0, 0, width, height);
 
-    // Reducimos el gap a 1 para una definición extrema (máxima densidad)
     const gap = 1;
 
     for (let y = 0; y < height; y += gap) {
       for (let x = 0; x < width; x += gap) {
         const index = (y * width + x) * 4;
         const alpha = pixels[index + 3];
-        // Umbral de opacidad más bajo para capturar bordes suavizados
         if (alpha > 100) {
           const r = pixels[index];
           const g = pixels[index + 1];
@@ -183,7 +180,7 @@ const ParticleText = ({ text }: { text: string }) => {
               originX: x,
               originY: y,
               color: `rgb(${r}, ${g}, ${b})`,
-              size: 1.2, // Tamaño ajustado para cubrir el gap de 1 sin espacios
+              size: 1.2,
               friction: 0.9,
               ease: 0.1
             })
@@ -280,7 +277,6 @@ export const Hero = () => {
 
   return (
     <section className="relative h-screen w-full flex flex-col bg-[#00001D] overflow-hidden select-none">
-      {/* Fondo de Nebulosa Espacial */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div 
           className="absolute inset-0 transition-transform duration-[2000ms] ease-out scale-110"
@@ -289,19 +285,17 @@ export const Hero = () => {
           <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[70%] bg-purple-600/20 blur-[150px] rounded-full animate-pulse duration-[8s]" />
           <div className="absolute bottom-[-15%] left-[-5%] w-[70%] h-[60%] bg-[#F80037]/10 blur-[120px] rounded-full animate-pulse duration-[10s] delay-700" />
           <div className="absolute top-[20%] left-[20%] w-[50%] h-[50%] bg-blue-600/10 blur-[140px] rounded-full animate-pulse duration-[12s] delay-1000" />
-          <div className="absolute top-[40%] right-[10%] right-[-10%] w-[120%] h-[70%] bg-purple-900/10 blur-[150px] rounded-full opacity-60" />
-          <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-purple-900/10 blur-[150px] rounded-full opacity-60" />
+          <div className="absolute top-[40%] right-[10%] w-[120%] h-[70%] bg-purple-900/10 blur-[150px] rounded-full opacity-60" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(82,0,248,0.05)_0%,transparent_70%)]" />
         </div>
       </div>
 
       <StarField />
 
-      {/* Astronauta Candy al frente del texto */}
       <div className="absolute inset-0 flex items-center justify-center z-[20] pointer-events-none">
         <div className="relative w-[280px] h-[280px] md:w-[480px] md:h-[480px] float-anim">
           <Image 
-            src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=106c2f53-b560-4e16-876f-fd64bd6b1589"
+            src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=2b444080-0b94-4549-a656-6e67dc038512"
             alt="Astronauta Candy"
             fill
             className="object-contain"
@@ -311,7 +305,6 @@ export const Hero = () => {
       </div>
 
       <div className="flex-1 relative flex flex-col items-center justify-center gap-[10px]">
-        {/* Slider de palabras monumental */}
         <div 
           key={currentWordIndex} 
           className="w-full h-[40vh] md:h-[50vh] flex items-center justify-center z-10 text-center px-6 animate-slide-word"
@@ -319,7 +312,6 @@ export const Hero = () => {
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        {/* Eslogan reubicado */}
         <div className="max-w-md z-10 px-8">
           <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
             Construimos plataformas digitales que transforman negocios.<br />
