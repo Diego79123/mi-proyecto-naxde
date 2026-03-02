@@ -1,75 +1,16 @@
+
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Hero } from '@/components/sections/Hero';
 import { FeaturedServices } from '@/components/sections/FeaturedServices';
 import { NFCSection } from '@/components/sections/NFCSection';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
-import { Briefcase, MessageSquare, Star, ArrowRight, Zap, Target, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Zap, Target, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-
-const AsteroidImpactEffect = () => {
-  const [impacted, setImpacted] = useState(false);
-  const [particles, setParticles] = useState<any[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Generate particles only on client to avoid hydration mismatch
-    const generatedParticles = Array.from({ length: 45 }).map((_, i) => ({
-      id: i,
-      x: (Math.random() - 0.5) * 1000,
-      y: (Math.random() - 0.5) * 800,
-      size: Math.random() * 8 + 2,
-      delay: Math.random() * 0.5,
-      color: Math.random() > 0.6 ? 'bg-zinc-400' : Math.random() > 0.3 ? 'bg-zinc-500' : 'bg-zinc-600',
-    }));
-    setParticles(generatedParticles);
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setImpacted(true);
-        } else {
-          setImpacted(false);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={containerRef} className="h-1 relative overflow-visible z-50 pointer-events-none">
-      {impacted && particles.length > 0 && (
-        <div className="absolute left-1/2 top-0">
-          {particles.map((p) => (
-            <div
-              key={p.id}
-              className={`absolute rounded-full animate-burst ${p.color}`}
-              style={{
-                width: p.size,
-                height: p.size,
-                '--tw-translate-x': `${p.x}px`,
-                '--tw-translate-y': `${p.y}px`,
-                animationDelay: `${p.delay}s`,
-                opacity: 0.8,
-                boxShadow: '0 0 4px rgba(0,0,0,0.5)',
-              } as any}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
 
 export default function Home() {
   return (
@@ -95,9 +36,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      {/* Efecto de Impacto entre secciones (Color Gris) */}
-      <AsteroidImpactEffect />
 
       <FeaturedServices />
       

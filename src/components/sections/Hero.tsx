@@ -2,11 +2,7 @@
 "use client"
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-
-const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FHero%20fondo%20asteroide1.webp?alt=media&token=bd74abc5-f125-49d8-9cd6-59a98ea3dad5";
 
 const StarField = () => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
@@ -152,7 +148,6 @@ const ParticleText = ({ text }: { text: string }) => {
     const fontSize = Math.min(width / 3, 280); 
     ctx.font = `900 ${fontSize}px sans-serif`;
     
-    // Gradient from Purple to Naxde Pink
     const gradient = ctx.createLinearGradient(width * 0.2, 0, width * 0.8, 0);
     gradient.addColorStop(0, '#5200F8'); // Deep Purple
     gradient.addColorStop(1, '#F80037'); // Naxde Pink
@@ -275,22 +270,11 @@ export const Hero = () => {
         <div 
           className="absolute inset-0 transition-transform duration-[1500ms] ease-out scale-110"
           style={{ transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)` }}
-        >
-          <Image 
-            src={HERO_BG_IMAGE} 
-            alt="Space Nebula Background" 
-            fill 
-            className="object-cover"
-            priority
-            quality={100}
-          />
-        </div>
+        />
         <div className="absolute inset-0 bg-[#00001D]/40 backdrop-blur-[2px]" />
       </div>
 
       <StarField />
-
-      {/* RE-ESTRUCTURACION: Se eliminó el bloque de branding superior para mayor limpieza visual */}
 
       <div className="flex-1 relative flex items-center justify-center">
         <div className="w-full h-[60vh] flex items-center justify-center z-10 text-center px-6">
