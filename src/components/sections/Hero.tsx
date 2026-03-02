@@ -3,9 +3,10 @@
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-import { Mouse } from 'lucide-react';
+import { Mouse, Zap } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const StarField = () => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
@@ -246,9 +247,11 @@ const ParticleText = ({ text }: { text: string }) => {
 };
 
 export const Hero = () => {
+  const router = useRouter();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const words = ["CREA", "CONECTA", "AVANZA"];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [isExpanding, setIsExpanding] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -276,8 +279,28 @@ export const Hero = () => {
     }
   };
 
+  const handleBlackHoleClick = () => {
+    setIsExpanding(true);
+    setTimeout(() => {
+      router.push('/tarjetas-neocard');
+    }, 1200);
+  };
+
   return (
     <section className="relative h-screen w-full flex flex-col bg-[#00001D] overflow-hidden select-none">
+      {/* Vortex Transition Overlay */}
+      {isExpanding && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center pointer-events-none">
+          <div className="absolute inset-0 bg-black animate-in fade-in duration-1000" />
+          <div className="relative w-full h-full flex items-center justify-center">
+            <div className="absolute w-[50vh] h-[50vh] rounded-full bg-black shadow-[0_0_150px_#F80037,0_0_300px_#5200F8,inset_0_0_100px_rgba(0,0,0,1)] animate-black-hole flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_0%,#F80037_50%,transparent_100%)] opacity-30 animate-spin duration-[3s]" />
+            </div>
+            <div className="absolute w-[60vh] h-[60vh] rounded-full border-[30px] border-white/5 backdrop-blur-[40px] animate-black-hole" style={{ animationDelay: '0.1s' }} />
+          </div>
+        </div>
+      )}
+
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div 
           className="absolute inset-0 transition-transform duration-[2000ms] ease-out scale-110"
@@ -292,6 +315,23 @@ export const Hero = () => {
       </div>
 
       <StarField />
+
+      {/* Black Hole Interactive Element */}
+      <div 
+        onClick={handleBlackHoleClick}
+        className="absolute right-[8%] top-1/2 -translate-y-1/2 z-[30] cursor-pointer group hidden md:block"
+      >
+        <div className="relative w-24 h-24 lg:w-32 lg:h-32 rounded-full bg-black shadow-[0_0_40px_rgba(248,0,55,0.4),0_0_80px_rgba(82,0,248,0.4)] transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_60px_#F80037,0_0_120px_#5200F8]">
+          <div className="absolute inset-0 rounded-full border border-white/5 animate-spin duration-[15s]" />
+          <div className="absolute inset-[-15px] rounded-full border border-primary/10 blur-md animate-pulse" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/20 group-hover:text-primary/60 transition-colors">
+            <Zap className="w-6 h-6 animate-pulse" />
+          </div>
+          <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Saltar al Nexo</span>
+          </div>
+        </div>
+      </div>
 
       <div className="absolute inset-0 flex items-center justify-center z-[20] pointer-events-none">
         <div className="relative w-[280px] h-[280px] md:w-[480px] md:h-[480px] float-anim">
