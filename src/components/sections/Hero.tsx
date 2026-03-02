@@ -9,17 +9,17 @@ const StarField = () => {
   const [shootingStars, setShootingStars] = useState<{ id: number; top: string; left: string; duration: string; delay: string }[]>([]);
 
   useEffect(() => {
-    const starCount = 140;
+    const starCount = 180;
     const newStars = Array.from({ length: starCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
-      size: `${Math.random() * 2 + 0.5}px`,
-      duration: `${Math.random() * 3 + 2}s`
+      size: `${Math.random() * 2.5 + 0.5}px`,
+      duration: `${Math.random() * 4 + 2}s`
     }));
     setStars(newStars);
 
-    const shootingCount = 6;
+    const shootingCount = 4;
     const newShootingStars = Array.from({ length: shootingCount }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 40}%`,
@@ -35,14 +35,14 @@ const StarField = () => {
       {stars.map((star) => (
         <div
           key={star.id}
-          className="star absolute bg-white rounded-full opacity-40 animate-pulse"
+          className="star absolute bg-white rounded-full opacity-60 animate-pulse"
           style={{
             top: star.top,
             left: star.left,
             width: star.size,
             height: star.size,
             animationDuration: star.duration,
-            boxShadow: '0 0 4px rgba(255, 255, 255, 0.4)'
+            boxShadow: '0 0 6px rgba(255, 255, 255, 0.6)'
           } as any}
         />
       ))}
@@ -53,7 +53,7 @@ const StarField = () => {
           style={{
             top: ss.top,
             left: ss.left,
-            width: '180px',
+            width: '220px',
             animation: `shooting ${ss.duration} linear infinite`,
             animationDelay: ss.delay
           } as any}
@@ -145,12 +145,13 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    const fontSize = Math.min(width / 3, 280); 
+    // Aumento de tamaño para la palabra corta "AVANZA"
+    const fontSize = Math.min(width / 3.5, 320); 
     ctx.font = `900 ${fontSize}px sans-serif`;
     
-    const gradient = ctx.createLinearGradient(width * 0.2, 0, width * 0.8, 0);
-    gradient.addColorStop(0, '#5200F8'); // Deep Purple
-    gradient.addColorStop(1, '#F80037'); // Naxde Pink
+    const gradient = ctx.createLinearGradient(width * 0.3, 0, width * 0.7, 0);
+    gradient.addColorStop(0, '#5200F8'); // Púrpura
+    gradient.addColorStop(1, '#F80037'); // Rosado Naxde
     
     ctx.fillStyle = gradient;
     ctx.textAlign = 'center';
@@ -175,7 +176,7 @@ const ParticleText = ({ text }: { text: string }) => {
             new Particle({
               x: x, 
               y: y, 
-              originX: x,
+              originX: x, // Comienza ya en su posición
               originY: y,
               color: `rgb(${r}, ${g}, ${b})`,
               size: 2,
@@ -248,8 +249,8 @@ export const Hero = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5) * 15;
-      const y = (clientY / window.innerHeight - 0.5) * 15;
+      const x = (clientX / window.innerWidth - 0.5) * 20;
+      const y = (clientY / window.innerHeight - 0.5) * 20;
       setMousePos({ x, y });
     };
 
@@ -266,12 +267,21 @@ export const Hero = () => {
 
   return (
     <section className="relative h-screen w-full flex flex-col bg-[#00001D] overflow-hidden select-none">
-      <div className="absolute inset-0 z-0">
+      {/* Capa de Nebulosa (Basada en la imagen de guía) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <div 
-          className="absolute inset-0 transition-transform duration-[1500ms] ease-out scale-110"
-          style={{ transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)` }}
-        />
-        <div className="absolute inset-0 bg-[#00001D]/40 backdrop-blur-[2px]" />
+          className="absolute inset-0 transition-transform duration-[2000ms] ease-out scale-110"
+          style={{ transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)` }}
+        >
+          {/* Nubes de gas (Nebula Blobs) */}
+          <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[70%] bg-purple-600/20 blur-[150px] rounded-full animate-pulse duration-[8s]" />
+          <div className="absolute bottom-[-15%] left-[-5%] w-[70%] h-[60%] bg-[#F80037]/10 blur-[120px] rounded-full animate-pulse duration-[10s] delay-700" />
+          <div className="absolute top-[20%] left-[20%] w-[50%] h-[50%] bg-blue-600/10 blur-[140px] rounded-full animate-pulse duration-[12s] delay-1000" />
+          <div className="absolute top-[40%] right-[10%] w-[40%] h-[40%] bg-indigo-500/15 blur-[130px] rounded-full animate-pulse duration-[9s] delay-300" />
+          
+          {/* Fondo estelar base */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(82,0,248,0.05)_0%,transparent_70%)]" />
+        </div>
       </div>
 
       <StarField />
