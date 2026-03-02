@@ -17,7 +17,7 @@ export const CursorFollower = () => {
 
     const animate = () => {
       // Física: Interpolación lineal (lerp)
-      // Aumentamos el ease a 0.25 para que esté mucho más cerca del cursor real
+      // Ease de 0.25 para mantener la estrella muy cerca del cursor real
       const ease = 0.25; 
       cursorRef.current.x += (targetRef.current.x - cursorRef.current.x) * ease;
       cursorRef.current.y += (targetRef.current.y - cursorRef.current.y) * ease;
@@ -29,8 +29,8 @@ export const CursorFollower = () => {
           y: cursorRef.current.y, 
           id: Date.now() + Math.random() 
         };
-        // Mantenemos una estela elegante de 10 puntos
-        return [...prev.slice(-10), newPoint];
+        // Estela elegante de 12 puntos para mayor fluidez
+        return [...prev.slice(-12), newPoint];
       });
 
       requestRef.current = requestAnimationFrame(animate);
@@ -46,31 +46,51 @@ export const CursorFollower = () => {
 
   return (
     <>
-      {/* Cabeza de la Estrella (Punto morado vibrante) */}
+      <style jsx global>{`
+        @keyframes star-pulse {
+          0%, 100% { 
+            transform: scale(1);
+            filter: blur(0.5px) brightness(1);
+            box-shadow: 0 0 15px #5200F8, 0 0 30px #5200F8;
+          }
+          50% { 
+            transform: scale(1.4);
+            filter: blur(1px) brightness(1.5);
+            box-shadow: 0 0 25px #5200F8, 0 0 50px #5200F8, 0 0 70px rgba(255, 255, 255, 0.4);
+          }
+        }
+        .animate-star-pulse {
+          animation: star-pulse 2s infinite ease-in-out;
+        }
+      `}</style>
+
+      {/* Cabeza de la Estrella (Punto morado con efecto de pulsación) */}
       <div 
-        className="cursor-follower"
+        className="animate-star-pulse"
         style={{
-          transform: `translate(${cursorRef.current.x - 5}px, ${cursorRef.current.y - 5}px)`,
+          transform: `translate(${cursorRef.current.x - 6}px, ${cursorRef.current.y - 6}px)`,
           position: 'fixed',
           top: 0,
           left: 0,
-          width: '10px',
-          height: '10px',
-          backgroundColor: '#5200F8', // Morado marca
+          width: '12px',
+          height: '12px',
+          backgroundColor: '#5200F8',
           borderRadius: '50%',
           pointerEvents: 'none',
           zIndex: 9999,
           mixBlendMode: 'screen',
-          filter: 'blur(0.5px)',
-          boxShadow: '0 0 10px #5200F8, 0 0 20px #5200F8, 0 0 35px rgba(255, 255, 255, 0.5)',
+          left: `${cursorRef.current.x - 6}px`,
+          top: `${cursorRef.current.y - 6}px`,
+          position: 'fixed',
+          transform: 'none' // Manejado por top/left para no interferir con la animación de scale
         }}
       />
       
       {/* Estela de la Estrella (Partículas que siguen la trayectoria) */}
       {trail.map((point, index) => {
         const ratio = index / trail.length;
-        const size = 2 + (ratio * 6);
-        const opacity = ratio * 0.4;
+        const size = 2 + (ratio * 8);
+        const opacity = ratio * 0.5;
         
         return (
           <div
@@ -88,8 +108,8 @@ export const CursorFollower = () => {
               borderRadius: '50%',
               pointerEvents: 'none',
               zIndex: 9998,
-              filter: 'blur(1.5px)',
-              boxShadow: `0 0 ${index}px rgba(82, 0, 248, 0.6)`,
+              filter: 'blur(2px)',
+              boxShadow: `0 0 ${index * 2}px rgba(82, 0, 248, 0.6)`,
             }}
           />
         );
