@@ -1,77 +1,113 @@
 
 "use client"
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Zap, Smartphone, Briefcase, Mail } from 'lucide-react';
+import { Home, Zap, Plus, Briefcase, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { MegaMenu } from './MegaMenu';
 
 const navItems = [
   { name: "Inicio", icon: Home, href: "/" },
   { name: "Servicios", icon: Zap, href: "/servicios" },
-  { name: "Neocard", icon: Smartphone, href: "/tarjetas-neocard", highlight: true },
   { name: "Proyectos", icon: Briefcase, href: "/proyectos" },
   { name: "Contacto", icon: Mail, href: "/contacto" }
 ];
 
 export const BottomNav = () => {
   const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[130] px-0">
-      <div className="relative w-full h-24 flex items-end">
-        
-        {/* Cuerpo Principal del Menú con Notch Trapezoidal */}
-        <div 
-          className="absolute inset-x-0 bottom-0 h-16 bg-[#0A0520] border-t border-white/5 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
-          style={{
-            clipPath: 'polygon(0 0, 38% 0, 42% 40%, 58% 40%, 62% 0, 100% 0, 100% 100%, 0 100%)'
-          }}
-        />
+    <>
+      <nav className="fixed bottom-0 left-0 right-0 z-[130] flex justify-center pb-0">
+        <div className="relative w-full max-w-4xl h-24 flex items-end">
+          
+          {/* Cuerpo Principal del Menú con Muesca Elevada (Trapezoidal) */}
+          <div 
+            className="absolute inset-x-0 bottom-0 h-16 bg-[#050515] border-t border-white/5 shadow-[0_-15px_40px_rgba(0,0,0,0.8)] backdrop-blur-xl"
+            style={{
+              clipPath: 'polygon(0 0, 40% 0, 44% -40%, 56% -40%, 60% 0, 100% 0, 100% 100%, 0 100%)'
+            }}
+          />
+          
+          {/* Sombra y Refuerzo Visual de la Muesca */}
+          <div 
+            className="absolute left-1/2 -translate-x-1/2 bottom-[16px] w-[20%] h-8 bg-[#050515] -z-10"
+            style={{ clipPath: 'polygon(15% 0, 85% 0, 100% 100%, 0 100%)' }}
+          />
 
-        <div className="relative w-full h-16 flex items-center justify-around px-4 z-10">
-          {navItems.map((item, idx) => {
-            const isActive = pathname === item.href;
-            
-            if (item.highlight) {
-              return (
-                <div key={idx} className="relative -top-6">
-                  <Link href={item.href}>
-                    <div className={cn(
-                      "w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500",
-                      "bg-gradient-to-br from-[#5200F8] to-[#F80037] shadow-[0_0_25px_rgba(248,0,55,0.5)]",
-                      "border-4 border-[#00001D] hover:scale-110 active:scale-95"
-                    )}>
-                      <item.icon className="w-8 h-8 text-white" />
-                    </div>
+          <div className="relative w-full h-16 flex items-center justify-between px-6 z-10">
+            {/* Items Izquierda */}
+            <div className="flex-1 flex justify-around">
+              {navItems.slice(0, 2).map((item, idx) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link 
+                    key={idx} 
+                    href={item.href}
+                    className={cn(
+                      "flex flex-col items-center justify-center gap-1 transition-all group",
+                      isActive ? "text-primary" : "text-white/40 hover:text-white"
+                    )}
+                  >
+                    <item.icon className={cn(
+                      "w-5 h-5 transition-transform duration-300 group-hover:scale-110",
+                      isActive && "scale-110"
+                    )} />
+                    <span className="text-[8px] font-bold uppercase tracking-[0.2em]">{item.name}</span>
                   </Link>
-                  <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] font-black text-primary uppercase tracking-widest whitespace-nowrap">
-                    {item.name}
-                  </span>
-                </div>
-              );
-            }
+                );
+              })}
+            </div>
 
-            return (
-              <Link 
-                key={idx} 
-                href={item.href}
+            {/* Botón Central "+" Elevado */}
+            <div className="relative -top-8 mx-4">
+              <button 
+                onClick={() => setIsMenuOpen(true)}
                 className={cn(
-                  "flex flex-col items-center justify-center flex-1 gap-1 transition-all h-full mt-2",
-                  isActive ? "text-primary" : "text-white/40 hover:text-white"
+                  "w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500",
+                  "bg-gradient-to-br from-[#5200F8] to-[#F80037] shadow-[0_0_30px_rgba(82,0,248,0.6)]",
+                  "border-4 border-[#050515] hover:scale-110 active:scale-90 relative z-20 group"
                 )}
               >
-                <item.icon className={cn(
-                  "w-5 h-5 transition-transform duration-300",
-                  isActive && "scale-110"
-                )} />
-                <span className="text-[8px] font-bold uppercase tracking-widest">{item.name}</span>
-              </Link>
-            );
-          })}
+                <Plus className="w-8 h-8 text-white transition-transform duration-500 group-hover:rotate-90" />
+                <div className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-hover:opacity-100 blur-md transition-opacity" />
+              </button>
+              <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] font-black text-primary uppercase tracking-[0.3em] whitespace-nowrap">
+                MENU
+              </span>
+            </div>
+
+            {/* Items Derecha */}
+            <div className="flex-1 flex justify-around">
+              {navItems.slice(2).map((item, idx) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link 
+                    key={idx} 
+                    href={item.href}
+                    className={cn(
+                      "flex flex-col items-center justify-center gap-1 transition-all group",
+                      isActive ? "text-primary" : "text-white/40 hover:text-white"
+                    )}
+                  >
+                    <item.icon className={cn(
+                      "w-5 h-5 transition-transform duration-300 group-hover:scale-110",
+                      isActive && "scale-110"
+                    )} />
+                    <span className="text-[8px] font-bold uppercase tracking-[0.2em]">{item.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mega Menú Pop-up */}
+      <MegaMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+    </>
   );
 };
