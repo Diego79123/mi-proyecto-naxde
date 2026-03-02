@@ -157,9 +157,10 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    const maxFontSize = width < 768 ? 120 : 320;
-    const charFactor = width < 768 ? 0.8 : (text.length > 6 ? 0.65 : 0.55);
-    const responsiveFontSize = Math.min(width / (text.length * charFactor), maxFontSize);
+    // Intelligent font scaling formula
+    const baseSize = width < 768 ? 140 : 320;
+    const scaleFactor = width < 768 ? (width / 400) : (width / 1440);
+    const responsiveFontSize = Math.min(baseSize * scaleFactor * (text.length > 6 ? 0.8 : 1), baseSize);
     
     ctx.font = `900 ${responsiveFontSize}px sans-serif`;
     
@@ -332,7 +333,7 @@ export const Hero = () => {
       <div 
         onClick={handleBlackHoleClick}
         className={cn(
-          "absolute right-[5%] md:right-[10%] top-[20%] sm:top-1/2 -translate-y-1/2 z-[30] cursor-pointer group transition-all duration-500",
+          "absolute right-[5%] md:right-[8%] lg:right-[10%] top-[20%] sm:top-1/2 -translate-y-1/2 z-[30] cursor-pointer group transition-all duration-500",
           isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]"
         )}
       >
@@ -342,7 +343,7 @@ export const Hero = () => {
             <defs>
               <path id="circlePath" d="M 100, 100 m -85, 0 a 85,85 0 1,1 170,0 a 85,85 0 1,1 -170,0" />
             </defs>
-            <text className="fill-primary/40 text-[10px] font-black tracking-[0.25em] uppercase">
+            <text className="fill-white text-[10px] font-black tracking-[0.25em] uppercase">
               <textPath xlinkHref="#circlePath">
                 PRODUCTO DESTACADO • PRODUCTO DESTACADO • PRODUCTO DESTACADO • 
               </textPath>
@@ -382,24 +383,26 @@ export const Hero = () => {
       </div>
 
       <div className={cn(
-        "flex-1 relative flex flex-col items-center justify-center gap-2 sm:gap-4 transition-all duration-1000 px-4 sm:px-6",
+        "flex-1 relative flex flex-col items-center justify-center gap-2 sm:gap-4 transition-all duration-1000 px-6 sm:px-12",
         isAbsorbing && "animate-absorb"
       )}
       style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
       >
         <div 
           key={currentWordIndex} 
-          className="w-full h-[25vh] sm:h-[40vh] md:h-[50vh] flex items-center justify-center z-10 text-center animate-slide-word"
+          className="w-full min-h-[30vh] sm:min-h-[40vh] md:min-h-[50vh] flex items-center justify-center z-10 text-center"
         >
-          <ParticleText text={words[currentWordIndex]} />
+          <div className="w-full h-full animate-slide-word">
+            <ParticleText text={words[currentWordIndex]} />
+          </div>
         </div>
         
-        <div className="max-w-4xl z-10 flex flex-col items-center gap-6 sm:gap-8 w-full">
-          <p className="text-[10px] sm:text-sm md:text-lg text-white/60 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-relaxed text-center px-4 max-w-2xl">
+        <div className="max-w-4xl z-10 flex flex-col items-center gap-6 sm:gap-8 w-full mt-4">
+          <p className="text-[10px] sm:text-xs md:text-base lg:text-lg text-white/60 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-relaxed text-center px-4 max-w-2xl">
             Construimos plataformas digitales que transforman negocios.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center items-center">
             <Link href="/contacto" className="w-full sm:w-auto flex justify-center">
               <Button size="lg" className="h-12 sm:h-14 px-8 sm:px-10 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-sm sm:text-lg font-bold w-[80%] sm:w-auto transition-all hover:scale-105 active:scale-95">
                 Contacta
@@ -433,10 +436,10 @@ export const Hero = () => {
 
       <style jsx global>{`
         @keyframes slide-word-cycle {
-          0% { transform: translateX(100px); opacity: 0; filter: blur(15px); }
-          15% { transform: translateX(0); opacity: 1; filter: blur(0); }
-          85% { transform: translateX(0); opacity: 1; filter: blur(0); }
-          100% { transform: translateX(-100px); opacity: 0; filter: blur(15px); }
+          0% { transform: translateY(40px); opacity: 0; filter: blur(10px); }
+          10% { transform: translateY(0); opacity: 1; filter: blur(0); }
+          90% { transform: translateY(0); opacity: 1; filter: blur(0); }
+          100% { transform: translateY(-40px); opacity: 0; filter: blur(10px); }
         }
         .animate-slide-word {
           animation: slide-word-cycle 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
