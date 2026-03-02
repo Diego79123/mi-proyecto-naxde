@@ -145,13 +145,12 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    // Aumento de tamaño para la palabra corta "AVANZA"
     const fontSize = Math.min(width / 3.5, 320); 
     ctx.font = `900 ${fontSize}px sans-serif`;
     
     const gradient = ctx.createLinearGradient(width * 0.3, 0, width * 0.7, 0);
-    gradient.addColorStop(0, '#5200F8'); // Púrpura
-    gradient.addColorStop(1, '#F80037'); // Rosado Naxde
+    gradient.addColorStop(0, '#5200F8'); 
+    gradient.addColorStop(1, '#F80037'); 
     
     ctx.fillStyle = gradient;
     ctx.textAlign = 'center';
@@ -176,7 +175,7 @@ const ParticleText = ({ text }: { text: string }) => {
             new Particle({
               x: x, 
               y: y, 
-              originX: x, // Comienza ya en su posición
+              originX: x,
               originY: y,
               color: `rgb(${r}, ${g}, ${b})`,
               size: 2,
@@ -267,39 +266,35 @@ export const Hero = () => {
 
   return (
     <section className="relative h-screen w-full flex flex-col bg-[#00001D] overflow-hidden select-none">
-      {/* Capa de Nebulosa (Basada en la imagen de guía) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div 
           className="absolute inset-0 transition-transform duration-[2000ms] ease-out scale-110"
           style={{ transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)` }}
         >
-          {/* Nubes de gas (Nebula Blobs) */}
           <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[70%] bg-purple-600/20 blur-[150px] rounded-full animate-pulse duration-[8s]" />
           <div className="absolute bottom-[-15%] left-[-5%] w-[70%] h-[60%] bg-[#F80037]/10 blur-[120px] rounded-full animate-pulse duration-[10s] delay-700" />
           <div className="absolute top-[20%] left-[20%] w-[50%] h-[50%] bg-blue-600/10 blur-[140px] rounded-full animate-pulse duration-[12s] delay-1000" />
           <div className="absolute top-[40%] right-[10%] w-[40%] h-[40%] bg-indigo-500/15 blur-[130px] rounded-full animate-pulse duration-[9s] delay-300" />
-          
-          {/* Fondo estelar base */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(82,0,248,0.05)_0%,transparent_70%)]" />
         </div>
       </div>
 
       <StarField />
 
-      <div className="flex-1 relative flex items-center justify-center">
-        <div className="w-full h-[60vh] flex items-center justify-center z-10 text-center px-6">
+      <div className="flex-1 relative flex flex-col items-center justify-center">
+        <div className="w-full h-[55vh] flex items-center justify-center z-10 text-center px-6">
           <ParticleText text="AVANZA" />
         </div>
-      </div>
-
-      <div className="relative z-50 pb-16 flex flex-col items-center space-y-10 px-8 text-center">
-        <div className="max-w-md">
-          <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed">
+        
+        <div className="max-w-md z-10 -mt-10 md:-mt-16 px-8">
+          <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
             Construimos plataformas digitales que transforman negocios.<br />
             Hay movimiento en el futuro.
           </p>
         </div>
+      </div>
 
+      <div className="relative z-50 pb-16 flex flex-col items-center space-y-10 px-8 text-center">
         <div className="flex flex-col items-center gap-6">
           <Button 
             onClick={scrollToNextSection}
