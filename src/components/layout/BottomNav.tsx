@@ -21,24 +21,16 @@ export const BottomNav = () => {
 
   return (
     <>
-      <nav className="fixed bottom-0 left-0 right-0 z-[130] flex justify-center pb-0">
-        <div className="relative w-full max-w-4xl h-24 flex items-end">
+      <nav className="fixed bottom-6 left-6 right-6 z-[130] flex justify-center pointer-events-none">
+        <div className="relative w-full max-w-4xl h-20 flex items-center bg-[#050515]/95 border border-white/10 rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-[45px] px-4 pointer-events-auto">
           
-          {/* Cuerpo Principal del Menú con Muesca Elevada (Trapezoidal) */}
+          {/* Muesca Visual para el botón central (Sutil) */}
           <div 
-            className="absolute inset-x-0 bottom-0 h-16 bg-[#050515] border-t border-white/5 shadow-[0_-15px_40px_rgba(0,0,0,0.8)] backdrop-blur-xl"
-            style={{
-              clipPath: 'polygon(0 0, 40% 0, 44% -40%, 56% -40%, 60% 0, 100% 0, 100% 100%, 0 100%)'
-            }}
-          />
-          
-          {/* Sombra y Refuerzo Visual de la Muesca */}
-          <div 
-            className="absolute left-1/2 -translate-x-1/2 bottom-[16px] w-[20%] h-8 bg-[#050515] -z-10"
-            style={{ clipPath: 'polygon(15% 0, 85% 0, 100% 100%, 0 100%)' }}
+            className="absolute left-1/2 -translate-x-1/2 -top-4 w-32 h-8 bg-[#050515] -z-10"
+            style={{ clipPath: 'polygon(10% 100%, 90% 100%, 100% 0, 0 0)' }}
           />
 
-          <div className="relative w-full h-16 flex items-center justify-between px-6 z-10">
+          <div className="relative w-full h-full flex items-center justify-between z-10">
             {/* Items Izquierda */}
             <div className="flex-1 flex justify-around">
               {navItems.slice(0, 2).map((item, idx) => {
@@ -48,7 +40,7 @@ export const BottomNav = () => {
                     key={idx} 
                     href={item.href}
                     className={cn(
-                      "flex flex-col items-center justify-center gap-1 transition-all group",
+                      "flex flex-col items-center justify-center gap-1 transition-all group h-full",
                       isActive ? "text-primary" : "text-white/40 hover:text-white"
                     )}
                   >
@@ -89,7 +81,7 @@ export const BottomNav = () => {
                     key={idx} 
                     href={item.href}
                     className={cn(
-                      "flex flex-col items-center justify-center gap-1 transition-all group",
+                      "flex flex-col items-center justify-center gap-1 transition-all group h-full",
                       isActive ? "text-primary" : "text-white/40 hover:text-white"
                     )}
                   >
