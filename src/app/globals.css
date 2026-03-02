@@ -42,7 +42,8 @@
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30;
     background-color: var(--bg-0);
-    cursor: none; /* Ocultamos el cursor por defecto para la estrella fugaz */
+    /* Cursor restaurado por solicitud del usuario */
+    cursor: auto;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline font-bold tracking-tight;
