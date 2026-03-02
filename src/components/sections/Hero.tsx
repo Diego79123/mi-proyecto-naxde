@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
+import { Mouse } from 'lucide-react';
 
 const StarField = () => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
@@ -292,7 +293,7 @@ export const Hero = () => {
       <StarField />
 
       <div className="flex-1 relative flex flex-col items-center justify-center">
-        {/* Slider de palabras monumental con animación sutil de deslizamiento */}
+        {/* Slider de palabras monumental */}
         <div 
           key={currentWordIndex} 
           className="w-full h-[55vh] flex items-center justify-center z-10 text-center px-6 animate-slide-word"
@@ -300,7 +301,7 @@ export const Hero = () => {
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        {/* Eslogan reubicado 20px más abajo de la zona central de las palabras - Ajustado subiendo 15px adicionales */}
+        {/* Eslogan reubicado */}
         <div className="max-w-md z-10 -mt-28 md:-mt-32 px-8">
           <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
             Construimos plataformas digitales que transforman negocios.<br />
@@ -309,32 +310,19 @@ export const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-50 pb-16 flex flex-col items-center space-y-10 px-8 text-center">
-        <div className="flex flex-col items-center gap-6">
-          <Button 
-            onClick={scrollToNextSection}
-            variant="outline" 
-            className="h-14 px-12 border-white/20 bg-white/5 hover:bg-white/10 text-white rounded-none text-sm font-bold uppercase tracking-[0.2em] transition-all"
-          >
-            Explorar más
-          </Button>
-
-          <div className="flex flex-col items-center gap-3 cursor-pointer group" onClick={scrollToNextSection}>
-            <div className="w-[1px] h-12 bg-gradient-to-b from-white/0 via-white/40 to-white/0 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1/2 bg-primary animate-scroll-line" />
-            </div>
-          </div>
+      <div className="relative z-50 pb-16 flex flex-col items-center px-8 text-center">
+        <div 
+          className="flex flex-col items-center gap-3 cursor-pointer group" 
+          onClick={scrollToNextSection}
+        >
+          <Mouse className="w-6 h-6 text-white/40 group-hover:text-primary transition-colors animate-bounce" />
+          <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] group-hover:text-white transition-colors">
+            explora
+          </span>
         </div>
       </div>
 
       <style jsx global>{`
-        @keyframes scroll-line {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(200%); }
-        }
-        .animate-scroll-line {
-          animation: scroll-line 2s infinite ease-in-out;
-        }
         @keyframes slide-word {
           0% { transform: translateX(50px); opacity: 0; filter: blur(10px); }
           100% { transform: translateX(0); opacity: 1; filter: blur(0); }
