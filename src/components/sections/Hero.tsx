@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 
-const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero.png?alt=media&token=894d096d-5c36-48b8-aa50-cce731f640c4";
+const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FHero%20fondo%20asteroide1.webp?alt=media&token=bd74abc5-f125-49d8-9cd6-59a98ea3dad5";
 
 const StarField = () => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
@@ -146,12 +146,15 @@ const ParticleText = ({ text }: { text: string }) => {
     // Set canvas dimensions based on container
     const width = canvas.offsetWidth;
     const height = canvas.offsetHeight;
+    if (width === 0 || height === 0) return;
+    
     canvas.width = width;
     canvas.height = height;
 
     // Draw text to read pixel data
-    const fontSize = Math.min(width / 8, 100);
-    ctx.font = `900 ${fontSize}px var(--font-poppins)`;
+    // Aumentamos el tamaño para que sea realmente monumental
+    const fontSize = Math.min(width / 6, 160); 
+    ctx.font = `900 ${fontSize}px sans-serif`;
     ctx.fillStyle = '#F84F39';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -160,7 +163,7 @@ const ParticleText = ({ text }: { text: string }) => {
     const pixels = ctx.getImageData(0, 0, width, height).data;
     ctx.clearRect(0, 0, width, height);
 
-    const gap = 2; // Particle spacing - lower is higher detail
+    const gap = 2; // Alta resolución
 
     for (let y = 0; y < height; y += gap) {
       for (let x = 0; x < width; x += gap) {
@@ -169,14 +172,14 @@ const ParticleText = ({ text }: { text: string }) => {
         if (alpha > 128) {
           particles.current.push(
             new Particle({
-              x: x, // Start at origin for immediate detail
-              y: y, // Start at origin for immediate detail
+              x: x, // Comienza exactamente en su origen para visibilidad inmediata
+              y: y,
               originX: x,
               originY: y,
               color: '#F84F39',
               size: 2,
               friction: 0.9,
-              ease: 0.15
+              ease: 0.1
             })
           );
         }
@@ -233,7 +236,7 @@ const ParticleText = ({ text }: { text: string }) => {
       ref={canvasRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="w-full h-full max-w-5xl cursor-default"
+      className="w-full h-full cursor-default"
     />
   );
 };
@@ -244,8 +247,8 @@ export const Hero = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5) * 10;
-      const y = (clientY / window.innerHeight - 0.5) * 10;
+      const x = (clientX / window.innerWidth - 0.5) * 15;
+      const y = (clientY / window.innerHeight - 0.5) * 15;
       setMousePos({ x, y });
     };
 
@@ -266,7 +269,7 @@ export const Hero = () => {
       <div className="absolute inset-0 z-0">
         <div 
           className="absolute inset-0 transition-transform duration-[1500ms] ease-out scale-110"
-          style={{ transform: `translate(${mousePos.x * 0.2}px, ${mousePos.y * 0.2}px)` }}
+          style={{ transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)` }}
         >
           <Image 
             src={HERO_BG_IMAGE} 
@@ -290,7 +293,7 @@ export const Hero = () => {
 
       {/* 3. Contenedor Central (Texto Monumental con Partículas) - z-10 */}
       <div className="flex-1 relative flex items-center justify-center">
-        <div className="absolute inset-0 flex items-center justify-center z-10 text-center px-6">
+        <div className="w-full h-[60vh] flex items-center justify-center z-10 text-center px-6">
           <ParticleText text="DESARROLLAMOS" />
         </div>
       </div>
