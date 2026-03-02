@@ -116,8 +116,8 @@ class Particle {
 
     if (distance < mouse.radius) {
       const angle = Math.atan2(dy, dx);
-      this.vx -= Math.cos(angle) * force * 10;
-      this.vy -= Math.sin(angle) * force * 10;
+      this.vx -= Math.cos(angle) * force * 15;
+      this.vy -= Math.sin(angle) * force * 15;
     }
 
     this.vx *= this.friction;
@@ -143,14 +143,14 @@ const ParticleText = ({ text }: { text: string }) => {
     // Reset particles
     particles.current = [];
     
-    // Set canvas dimensions
+    // Set canvas dimensions based on container
     const width = canvas.offsetWidth;
     const height = canvas.offsetHeight;
     canvas.width = width;
     canvas.height = height;
 
     // Draw text to read pixel data
-    const fontSize = Math.min(width / 10, 120);
+    const fontSize = Math.min(width / 8, 100);
     ctx.font = `900 ${fontSize}px var(--font-poppins)`;
     ctx.fillStyle = '#F84F39';
     ctx.textAlign = 'center';
@@ -160,7 +160,7 @@ const ParticleText = ({ text }: { text: string }) => {
     const pixels = ctx.getImageData(0, 0, width, height).data;
     ctx.clearRect(0, 0, width, height);
 
-    const gap = 4; // Particle spacing
+    const gap = 2; // Particle spacing - lower is higher detail
 
     for (let y = 0; y < height; y += gap) {
       for (let x = 0; x < width; x += gap) {
@@ -169,14 +169,14 @@ const ParticleText = ({ text }: { text: string }) => {
         if (alpha > 128) {
           particles.current.push(
             new Particle({
-              x: Math.random() * width,
-              y: Math.random() * height,
+              x: x, // Start at origin for immediate detail
+              y: y, // Start at origin for immediate detail
               originX: x,
               originY: y,
               color: '#F84F39',
               size: 2,
-              friction: 0.95,
-              ease: 0.1
+              friction: 0.9,
+              ease: 0.15
             })
           );
         }
