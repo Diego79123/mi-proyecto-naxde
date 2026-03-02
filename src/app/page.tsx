@@ -25,29 +25,6 @@ export default function Home() {
       
       <Hero />
       
-      {/* Sección de Métricas */}
-      <section id="metrics" className="py-16 md:py-24 border-y border-white/5 bg-white/[0.01] relative overflow-hidden">
-        <div className="absolute inset-0 bg-primary/5 blur-[120px] -z-10" />
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            {[
-              { val: "250+", label: "Plataformas", sub: "Desplegadas" },
-              { val: "10K+", label: "Neocards", sub: "Networking" },
-              { val: "99%", label: "Seguridad", sub: "Certificada" },
-              { val: "LATAM", label: "Alcance", sub: "Presencia" }
-            ].map((item, idx) => (
-              <div key={idx} className="text-center space-y-2 md:space-y-3 group">
-                <div className="text-4xl md:text-7xl font-headline font-black text-white group-hover:text-primary transition-colors duration-500">{item.val}</div>
-                <div className="space-y-1">
-                  <div className="text-[10px] md:text-xs uppercase tracking-[0.2em] md:tracking-[0.3em] text-primary font-bold">{item.label}</div>
-                  <div className="text-[8px] md:text-[10px] uppercase text-white/30 font-medium">{item.sub}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <FeaturedServices />
       
       <NFCSection />
