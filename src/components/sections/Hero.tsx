@@ -5,6 +5,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Mouse } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const StarField = () => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
@@ -312,10 +313,23 @@ export const Hero = () => {
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        <div className="max-w-4xl z-10 px-8">
+        <div className="max-w-4xl z-10 px-8 flex flex-col items-center gap-8">
           <p className="text-sm md:text-lg text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
             Construimos plataformas digitales que transforman negocios.
           </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">
+            <Link href="/contacto">
+              <Button size="lg" className="h-14 px-10 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-lg font-bold min-w-[180px] transition-all hover:scale-105 active:scale-95">
+                Contacta
+              </Button>
+            </Link>
+            <Link href="/proyectos">
+              <Button size="lg" variant="outline" className="h-14 px-10 border-white/20 hover:bg-white/10 text-white rounded-full text-lg font-bold min-w-[180px] backdrop-blur-sm transition-all hover:border-white/40">
+                Ver Proyectos
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
 
