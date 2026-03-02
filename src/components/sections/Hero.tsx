@@ -390,7 +390,7 @@ export const Hero = () => {
           0% { transform: translateX(100px); opacity: 0; filter: blur(15px); }
           15% { transform: translateX(0); opacity: 1; filter: blur(0); }
           85% { transform: translateX(0); opacity: 1; filter: blur(0); }
-          100% { transform: translateX(100px); opacity: 0; filter: blur(15px); }
+          100% { transform: translateX(-100px); opacity: 0; filter: blur(15px); }
         }
         .animate-slide-word {
           animation: slide-word-cycle 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
