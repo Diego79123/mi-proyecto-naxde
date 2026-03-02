@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -158,7 +157,6 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    // Calculo dinámico mejorado para responsividad total
     const maxFontSize = width < 768 ? 120 : 320;
     const charFactor = width < 768 ? 0.8 : (text.length > 6 ? 0.65 : 0.55);
     const responsiveFontSize = Math.min(width / (text.length * charFactor), maxFontSize);
@@ -177,7 +175,6 @@ const ParticleText = ({ text }: { text: string }) => {
     const pixels = ctx.getImageData(0, 0, width, height).data;
     ctx.clearRect(0, 0, width, height);
 
-    // Gap dinámico según densidad de píxeles
     const gap = width < 768 ? 3 : 1;
 
     for (let y = 0; y < height; y += gap) {
@@ -331,13 +328,28 @@ export const Hero = () => {
 
       <StarField isAbsorbing={isAbsorbing} />
 
+      {/* Agujero Negro con Texto Rotativo */}
       <div 
         onClick={handleBlackHoleClick}
         className={cn(
-          "absolute right-[5%] md:right-[8%] top-[20%] sm:top-1/2 -translate-y-1/2 z-[30] cursor-pointer group transition-all duration-500",
+          "absolute right-[5%] md:right-[10%] top-[20%] sm:top-1/2 -translate-y-1/2 z-[30] cursor-pointer group transition-all duration-500",
           isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]"
         )}
       >
+        {/* Texto Circular Rotativo */}
+        <div className="absolute inset-[-40px] sm:inset-[-60px] md:inset-[-80px] pointer-events-none animate-spin-slow">
+          <svg viewBox="0 0 200 200" className="w-full h-full overflow-visible">
+            <defs>
+              <path id="circlePath" d="M 100, 100 m -85, 0 a 85,85 0 1,1 170,0 a 85,85 0 1,1 -170,0" />
+            </defs>
+            <text className="fill-primary/40 text-[10px] font-black tracking-[0.25em] uppercase">
+              <textPath xlinkHref="#circlePath">
+                PRODUCTO DESTACADO • PRODUCTO DESTACADO • PRODUCTO DESTACADO • 
+              </textPath>
+            </text>
+          </svg>
+        </div>
+
         <div className="relative w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full bg-black shadow-[0_0_40px_rgba(248,0,55,0.4),0_0_80px_rgba(82,0,248,0.4)] transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_60px_#F80037,0_0_120px_#5200F8]">
           <div className="absolute inset-0 rounded-full border border-white/5 animate-spin duration-[15s]" />
           <div className="absolute inset-[-15px] rounded-full border border-primary/10 blur-md animate-pulse" />

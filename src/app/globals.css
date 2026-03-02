@@ -210,6 +210,19 @@
   .animate-black-hole {
     animation: black-hole-expand 1.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
   }
+
+  .animate-spin-slow {
+    animation: spin 12s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
