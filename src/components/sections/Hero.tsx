@@ -178,8 +178,8 @@ const ParticleText = ({ text }: { text: string }) => {
           
           particles.current.push(
             new Particle({
-              x: x, // Instant initial position
-              y: y, // Instant initial position
+              x: x, 
+              y: y, 
               originX: x,
               originY: y,
               color: `rgb(${r}, ${g}, ${b})`,
@@ -290,10 +290,7 @@ export const Hero = () => {
 
       <StarField />
 
-      <div className="relative z-50 pt-12 flex flex-col items-center gap-4">
-        <span className="text-white text-xl font-bold tracking-[0.3em] uppercase">naxde.</span>
-        <span className="text-white/40 text-[10px] font-bold tracking-[0.5em] mt-2">01 / 01</span>
-      </div>
+      {/* RE-ESTRUCTURACION: Se eliminó el bloque de branding superior para mayor limpieza visual */}
 
       <div className="flex-1 relative flex items-center justify-center">
         <div className="w-full h-[60vh] flex items-center justify-center z-10 text-center px-6">
