@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
@@ -6,6 +5,7 @@ import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { FloatingActions } from '@/components/layout/FloatingActions';
 import { SocialSidebar } from '@/components/layout/SocialSidebar';
+import { CursorFollower } from '@/components/layout/CursorFollower';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -27,6 +27,7 @@ export default function RootLayout({
     <html lang="es" className={poppins.variable}>
       <body className="font-body antialiased bg-[#00001D]">
         <FirebaseClientProvider>
+          <CursorFollower />
           {children}
           <SocialSidebar />
           <FloatingActions />

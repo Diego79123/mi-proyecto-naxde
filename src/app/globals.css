@@ -42,6 +42,7 @@
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30;
     background-color: var(--bg-0);
+    cursor: none; /* Ocultamos el cursor por defecto para la estrella fugaz */
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline font-bold tracking-tight;
@@ -71,6 +72,11 @@
 
   .neon-complement {
     box-shadow: var(--shadow-glow-complement);
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+    color: transparent;
   }
 
   .text-gradient {
@@ -123,6 +129,44 @@
     100% { transform: translateX(-500px) translateY(500px) rotate(-45deg); opacity: 0; }
   }
 
+  /* Reveal Animations */
+  @keyframes reveal-up {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .reveal-text {
+    animation: reveal-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Cursor Follower Styles */
+  .cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background: #5200F8;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    filter: blur(4px);
+    transition: transform 0.1s ease-out;
+    box-shadow: 0 0 20px #5200F8, 0 0 40px #5200F8;
+  }
+
+  .cursor-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: rgba(82, 0, 248, 0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.2s ease-out, opacity 0.5s;
+  }
+
   .float-anim {
     animation: floating 6s infinite ease-in-out;
   }
@@ -130,15 +174,6 @@
   @keyframes floating {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
-  }
-
-  .float-anim-reverse {
-    animation: floating-reverse 8s infinite ease-in-out;
-  }
-
-  @keyframes floating-reverse {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(15px); }
   }
 
   /* Black Hole Absorption Animation */

@@ -1,32 +1,33 @@
+
 "use client"
 
 import React from 'react';
 import Link from 'next/link';
-import { Smartphone, Globe, BarChart3, ShieldCheck, Zap, Cpu } from 'lucide-react';
+import { Smartphone, Globe, Zap, Cpu, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const services = [
   {
     title: "Apps Móviles & Web",
-    desc: "Plataformas nativas y progresivas con foco en UI/UX futurista.",
+    desc: "Plataformas nativas y progresivas con foco en UI/UX futurista y escalabilidad cloud.",
     icon: Smartphone,
     accent: "from-[#F80037]/20"
   },
   {
     title: "Páginas Interactivas",
-    desc: "Desarrollo web de alta conversión y animaciones premium.",
+    desc: "Desarrollo web de alta conversión con animaciones premium y experiencias inmersivas.",
     icon: Globe,
     accent: "from-[#5200F8]/20"
   },
   {
     title: "Tarjetas NFC",
-    desc: "Networking inteligente. Tu información en un toque.",
+    desc: "Networking inteligente. Tu identidad digital en un toque, sin aplicaciones adicionales.",
     icon: Zap,
     accent: "from-yellow-500/10"
   },
   {
     title: "IA Aplicada",
-    desc: "Integración de modelos GPT para automatizar tu negocio.",
+    desc: "Integración de modelos LLM para automatizar procesos y transformar la atención al cliente.",
     icon: Cpu,
     accent: "from-cyan-500/10"
   }
@@ -34,41 +35,47 @@ const services = [
 
 export const FeaturedServices = () => {
   return (
-    <section className="py-24 relative">
+    <section className="py-32 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16">
+        <div className="flex flex-col gap-8 mb-24">
           <div className="space-y-4">
-            <h2 className="text-primary font-bold uppercase tracking-[0.2em] text-sm">Servicios Core</h2>
-            <h3 className="text-4xl md:text-5xl font-headline font-bold text-white max-w-2xl leading-tight">
-              SOLUCIONES QUE <span className="italic">IMPULSAN</span> TU ESCALABILIDAD.
+            <h2 className="text-primary font-bold uppercase tracking-[0.4em] text-xs">Ecosistema Naxde</h2>
+            <h3 className="text-6xl md:text-[10rem] font-headline font-black text-white leading-[0.8] tracking-tighter">
+              SOLUCIONES <br />
+              <span className="text-outline italic opacity-40">SIN LÍMITES.</span>
             </h3>
           </div>
-          <Link href="/servicios">
-            <Button variant="link" className="text-primary hover:text-primary/80 text-lg group p-0">
-              Ver todos los servicios
-              <Zap className="w-5 h-5 ml-2 group-hover:fill-primary transition-all" />
-            </Button>
-          </Link>
+          <div className="flex flex-col md:flex-row justify-between items-end gap-8">
+            <p className="text-xl text-white/40 max-w-xl leading-relaxed font-medium">
+              Combinamos ingeniería de alto nivel con diseño vanguardista para crear productos que dominan el mercado digital.
+            </p>
+            <Link href="/servicios">
+              <Button variant="link" className="text-primary hover:text-primary/80 text-xl font-bold group p-0 gap-3">
+                Ver todos los servicios
+                <Zap className="w-6 h-6 group-hover:fill-primary transition-all" />
+              </Button>
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, idx) => (
-            <div key={idx} className={`glass-card p-8 rounded-3xl space-y-6 group hover:-translate-y-2 transition-transform duration-500 relative overflow-hidden`}>
-              <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${service.accent} to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition-opacity`} />
+            <div key={idx} className={`glass-card p-10 rounded-[3rem] space-y-8 group hover:-translate-y-4 transition-all duration-700 relative overflow-hidden border border-white/5`}>
+              <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${service.accent} to-transparent blur-3xl opacity-0 group-hover:opacity-100 transition-opacity`} />
               
-              <div className="w-14 h-14 rounded-2xl glass-panel flex items-center justify-center relative z-10">
-                <service.icon className="w-7 h-7 text-primary" />
+              <div className="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center relative z-10 group-hover:bg-primary/10 transition-colors">
+                <service.icon className="w-8 h-8 text-primary group-hover:scale-110 transition-transform" />
               </div>
               
-              <div className="space-y-3 relative z-10">
-                <h4 className="text-xl font-headline font-bold text-white">{service.title}</h4>
-                <p className="text-white/50 text-sm leading-relaxed">{service.desc}</p>
+              <div className="space-y-4 relative z-10">
+                <h4 className="text-2xl font-headline font-bold text-white group-hover:text-primary transition-colors">{service.title}</h4>
+                <p className="text-white/50 text-sm leading-relaxed font-medium">{service.desc}</p>
               </div>
 
               <div className="pt-4 relative z-10">
-                <Link href="/servicios" className="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest hover:gap-4 transition-all">
-                  Saber más
-                  <Zap className="w-4 h-4" />
+                <Link href="/servicios" className="inline-flex items-center gap-3 text-primary font-bold text-xs uppercase tracking-[0.2em] hover:gap-5 transition-all group/link">
+                  Explorar servicio
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
