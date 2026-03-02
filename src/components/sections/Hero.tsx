@@ -297,7 +297,7 @@ export const Hero = () => {
 
   const scrollToNextSection = () => {
     if (typeof window !== 'undefined') {
-      const target = document.getElementById('metrics');
+      const target = document.getElementById('featured-services');
       target?.scrollIntoView({ behavior: 'smooth' });
     }
   };
@@ -410,13 +410,16 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Astronaut */}
+      {/* Astronaut con interacción de cursor */}
       <div className={cn(
-        "absolute inset-0 flex items-center justify-center z-[20] pointer-events-none transition-all duration-[1500ms] ease-out",
-        isAbsorbing && "animate-absorb",
-        isHovered && "translate-x-[3%] scale-[0.98]"
+        "absolute inset-0 flex items-center justify-center z-[20] pointer-events-none transition-all duration-[1000ms] ease-out",
+        isAbsorbing && "animate-absorb"
       )}
-      style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
+      style={{ 
+        '--absorb-x': '40vw', 
+        '--absorb-y': '0',
+        transform: `translate(${mousePos.x * 1.2}px, ${mousePos.y * 1.2}px)`
+      } as any}
       >
         <div className="relative w-[180px] h-[180px] sm:w-[280px] sm:h-[280px] md:w-[480px] md:h-[480px] float-anim opacity-60 sm:opacity-100">
           <Image 
