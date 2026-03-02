@@ -294,8 +294,8 @@ export const Hero = () => {
 
       <StarField />
 
-      {/* Astronauta Candy con efecto de gravedad leve */}
-      <div className="absolute inset-0 flex items-center justify-center z-[7] pointer-events-none">
+      {/* Astronauta Candy al frente del texto con z-[20] */}
+      <div className="absolute inset-0 flex items-center justify-center z-[20] pointer-events-none">
         <div className="relative w-[280px] h-[280px] md:w-[480px] md:h-[480px] opacity-40 float-anim">
           <Image 
             src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=106c2f53-b560-4e16-876f-fd64bd6b1589"
@@ -308,7 +308,7 @@ export const Hero = () => {
       </div>
 
       <div className="flex-1 relative flex flex-col items-center justify-center gap-[10px]">
-        {/* Slider de palabras monumental */}
+        {/* Slider de palabras monumental - z-10 */}
         <div 
           key={currentWordIndex} 
           className="w-full h-[40vh] md:h-[50vh] flex items-center justify-center z-10 text-center px-6 animate-slide-word"
