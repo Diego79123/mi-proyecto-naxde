@@ -347,11 +347,11 @@ export const Hero = () => {
 
       <style jsx global>{`
         @keyframes slide-word {
-          0% { transform: translateX(30px); opacity: 0; filter: blur(8px); }
+          0% { transform: translateX(100px); opacity: 0; filter: blur(15px); }
           100% { transform: translateX(0); opacity: 1; filter: blur(0); }
         }
         .animate-slide-word {
-          animation: slide-word 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: slide-word 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
       `}</style>
     </section>
