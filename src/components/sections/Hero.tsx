@@ -147,12 +147,13 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
+    // Aumentamos ligeramente el peso de la fuente para mejor definición de partículas
     const fontSize = Math.min(width / (text.length * 0.55), 320); 
     ctx.font = `900 ${fontSize}px sans-serif`;
     
     const gradient = ctx.createLinearGradient(0, 0, width, 0);
-    gradient.addColorStop(0, '#5200F8'); // Púrpura
-    gradient.addColorStop(1, '#F80037'); // Rosado acento
+    gradient.addColorStop(0, '#5200F8');
+    gradient.addColorStop(1, '#F80037');
     
     ctx.fillStyle = gradient;
     ctx.textAlign = 'center';
@@ -162,13 +163,15 @@ const ParticleText = ({ text }: { text: string }) => {
     const pixels = ctx.getImageData(0, 0, width, height).data;
     ctx.clearRect(0, 0, width, height);
 
-    const gap = 2;
+    // Reducimos el gap a 1 para una definición extrema (máxima densidad)
+    const gap = 1;
 
     for (let y = 0; y < height; y += gap) {
       for (let x = 0; x < width; x += gap) {
         const index = (y * width + x) * 4;
         const alpha = pixels[index + 3];
-        if (alpha > 128) {
+        // Umbral de opacidad más bajo para capturar bordes suavizados
+        if (alpha > 100) {
           const r = pixels[index];
           const g = pixels[index + 1];
           const b = pixels[index + 2];
@@ -180,7 +183,7 @@ const ParticleText = ({ text }: { text: string }) => {
               originX: x,
               originY: y,
               color: `rgb(${r}, ${g}, ${b})`,
-              size: 2,
+              size: 1.2, // Tamaño ajustado para cubrir el gap de 1 sin espacios
               friction: 0.9,
               ease: 0.1
             })
@@ -294,7 +297,7 @@ export const Hero = () => {
 
       <StarField />
 
-      {/* Astronauta Candy al frente del texto con z-[20] - Sin opacidad para visibilidad total */}
+      {/* Astronauta Candy al frente del texto */}
       <div className="absolute inset-0 flex items-center justify-center z-[20] pointer-events-none">
         <div className="relative w-[280px] h-[280px] md:w-[480px] md:h-[480px] float-anim">
           <Image 
@@ -308,7 +311,7 @@ export const Hero = () => {
       </div>
 
       <div className="flex-1 relative flex flex-col items-center justify-center gap-[10px]">
-        {/* Slider de palabras monumental - z-10 */}
+        {/* Slider de palabras monumental */}
         <div 
           key={currentWordIndex} 
           className="w-full h-[40vh] md:h-[50vh] flex items-center justify-center z-10 text-center px-6 animate-slide-word"
@@ -316,7 +319,7 @@ export const Hero = () => {
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        {/* Eslogan reubicado - 10px debajo de los textos principales */}
+        {/* Eslogan reubicado */}
         <div className="max-w-md z-10 px-8">
           <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
             Construimos plataformas digitales que transforman negocios.<br />
