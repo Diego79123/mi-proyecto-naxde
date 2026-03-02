@@ -301,8 +301,8 @@ export const Hero = () => {
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        {/* Eslogan reubicado */}
-        <div className="max-w-md z-10 -mt-28 md:-mt-32 px-8">
+        {/* Eslogan reubicado - Ajustado para quedar visualmente 10px debajo de las partículas */}
+        <div className="max-w-md z-10 -mt-40 md:-mt-48 px-8">
           <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
             Construimos plataformas digitales que transforman negocios.<br />
             Hay movimiento en el futuro.
