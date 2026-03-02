@@ -10,6 +10,7 @@ import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
 import { MeticulousWorkSection } from '@/components/sections/MeticulousWorkSection';
 import { ProjectLinksSection } from '@/components/sections/ProjectLinksSection';
+import { ConnectingIdealsSection } from '@/components/sections/ConnectingIdealsSection';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { ArrowRight } from 'lucide-react';
@@ -61,6 +62,9 @@ export default function Home() {
 
       {/* Nueva Sección de Enlaces de Proyectos (Minimalista) */}
       <ProjectLinksSection />
+
+      {/* Nueva Sección Connecting Ideals (Imagen Referencia) */}
+      <ConnectingIdealsSection />
 
       {/* CTA Final */}
       <section className="py-24 md:py-32 px-6">
