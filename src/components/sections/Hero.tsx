@@ -9,7 +9,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
 
 const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FHero%20fondo%20asteroide1.webp?alt=media&token=bd74abc5-f125-49d8-9cd6-59a98ea3dad5";
-const HERO_BG_PARALLAX = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero1.png?alt=media&token=24fe3c4d-4cf9-4193-a2b7-6148290b02d3";
+const HERO_BG_PARALLAX = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAsteroide1.webp?alt=media&token=64700fa9-ed0f-4d51-ad26-687cfa5f70e9";
 const HERO_BG_ASTEROID = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide.png?alt=media&token=63e277da-ee55-444e-8df7-0988e5783ed7";
 const HERO_BG_ASTEROID_3 = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide3.png?alt=media&token=27bfd71e-552c-4631-962d-06c60990aecb";
 
@@ -116,11 +116,9 @@ export const Hero = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  // Parallax Effect Listener - Intensity reduced for a "muy leve" effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      // Multiplier reduced from 40 to 12 for subtleness
       const x = (clientX / window.innerWidth - 0.5) * 12;
       const y = (clientY / window.innerHeight - 0.5) * 12;
       setMousePos({ x, y });
@@ -166,7 +164,7 @@ export const Hero = () => {
         "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
         selectedIndex === 0 ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
-        {/* Capa de Fondo (Base) - Movimiento muy leve */}
+        {/* Capa de Fondo (Base) */}
         <div 
           className="absolute inset-0 transition-transform duration-[1000ms] ease-out scale-110"
           style={{ transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)` }}
@@ -180,7 +178,7 @@ export const Hero = () => {
             quality={100}
           />
         </div>
-        {/* Capa Flotante (Parallax Layer) - Movimiento suave opuesto */}
+        {/* Capa Flotante (Parallax Layer) */}
         <div 
           className="absolute inset-0 transition-transform duration-[1200ms] ease-out scale-105"
           style={{ transform: `translate(${mousePos.x * -0.6}px, ${mousePos.y * -0.6}px)` }}
