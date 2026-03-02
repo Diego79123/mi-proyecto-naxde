@@ -316,6 +316,7 @@ export const Hero = () => {
         <div className="fixed inset-0 z-[10000] bg-white animate-white-out" />
       )}
 
+      {/* Nebula Background Effects */}
       <div className={cn(
         "absolute inset-0 z-0 pointer-events-none transition-all duration-1000",
         isAbsorbing && "animate-absorb"
@@ -336,6 +337,7 @@ export const Hero = () => {
 
       <StarField isAbsorbing={isAbsorbing} />
 
+      {/* Black Hole Singularity */}
       <div 
         onClick={handleBlackHoleClick}
         className={cn(
@@ -343,8 +345,10 @@ export const Hero = () => {
           isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]"
         )}
       >
+        {/* Energy Orbit Glow */}
         <div className="absolute inset-[-20px] sm:inset-[-40px] rounded-full animate-spin-slow opacity-60 blur-2xl bg-[conic-gradient(from_0deg,#F80037,#5200F8,#F80037)] pointer-events-none" />
         
+        {/* Rotating Circular Text */}
         <div className="absolute inset-[-40px] sm:inset-[-60px] md:inset-[-80px] pointer-events-none animate-spin-slow">
           <svg viewBox="0 0 200 200" className="w-full h-full overflow-visible">
             <defs>
@@ -372,6 +376,7 @@ export const Hero = () => {
         </div>
       </div>
 
+      {/* Astronaut Figure */}
       <div className={cn(
         "absolute inset-0 flex items-center justify-center z-[20] pointer-events-none transition-all duration-1000",
         isAbsorbing && "animate-absorb"
@@ -389,12 +394,14 @@ export const Hero = () => {
         </div>
       </div>
 
+      {/* Dynamic Animated Content Stack */}
       <div className={cn(
         "flex-1 relative flex flex-col items-center justify-center gap-2 sm:gap-4 transition-all duration-1000 px-6 sm:px-12",
         isAbsorbing && "animate-absorb"
       )}
       style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
       >
+        {/* Main Word Animation Container */}
         <div 
           key={currentWordIndex} 
           className="w-full min-h-[30vh] sm:min-h-[40vh] md:min-h-[50vh] flex items-center justify-center z-10 text-center overflow-hidden"
@@ -404,13 +411,16 @@ export const Hero = () => {
           </div>
         </div>
         
+        {/* Elevatable Sub-content (Paragraph + Buttons + Scroll) */}
         <div className="max-w-4xl z-10 flex flex-col items-center gap-6 sm:gap-8 w-full mt-4 relative -top-[300px]">
+          {/* Sychronized Subtitle Paragraph */}
           <div key={`sub-${currentWordIndex}`} className="animate-slide-up-cycle">
             <p className="text-[10px] sm:text-xs md:text-base lg:text-lg text-white/60 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-relaxed text-center px-4 max-w-2xl">
               {subtitles[currentWordIndex]}
             </p>
           </div>
           
+          {/* Static Interaction Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center items-center">
             <Link href="/contacto" className="w-full sm:w-auto flex justify-center">
               <Button size="lg" className="h-12 sm:h-14 px-8 sm:px-10 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-sm sm:text-lg font-bold w-[80%] sm:w-auto transition-all hover:scale-105 active:scale-95">
@@ -424,6 +434,7 @@ export const Hero = () => {
             </Link>
           </div>
 
+          {/* Scroll Indicator (Below Buttons) */}
           <div 
             className="flex flex-col items-center gap-2 sm:gap-3 cursor-pointer group mt-12 transition-all hover:translate-y-1" 
             onClick={scrollToNextSection}
