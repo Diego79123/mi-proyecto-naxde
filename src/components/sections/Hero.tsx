@@ -145,11 +145,10 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    // Ajustamos el tamaño de fuente para que palabras largas como CONECTA quepan bien
     const fontSize = Math.min(width / (text.length * 0.55), 320); 
     ctx.font = `900 ${fontSize}px sans-serif`;
     
-    const gradient = ctx.createLinearGradient(width * 0.3, 0, width * 0.7, 0);
+    const gradient = ctx.createLinearGradient(0, 0, width, 0);
     gradient.addColorStop(0, '#5200F8'); // Púrpura
     gradient.addColorStop(1, '#F80037'); // Rosado acento
     
@@ -161,7 +160,7 @@ const ParticleText = ({ text }: { text: string }) => {
     const pixels = ctx.getImageData(0, 0, width, height).data;
     ctx.clearRect(0, 0, width, height);
 
-    const gap = 2; // Alta definición
+    const gap = 2;
 
     for (let y = 0; y < height; y += gap) {
       for (let x = 0; x < width; x += gap) {
@@ -172,7 +171,6 @@ const ParticleText = ({ text }: { text: string }) => {
           const g = pixels[index + 1];
           const b = pixels[index + 2];
           
-          // Nacen en su origen para visibilidad inmediata
           particles.current.push(
             new Particle({
               x: x, 
@@ -261,7 +259,6 @@ export const Hero = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Efecto de slider para las palabras
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWordIndex((prev) => (prev + 1) % words.length);
@@ -284,13 +281,10 @@ export const Hero = () => {
           className="absolute inset-0 transition-transform duration-[2000ms] ease-out scale-110"
           style={{ transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)` }}
         >
-          {/* Capas de color para la nebulosa */}
           <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[70%] bg-purple-600/20 blur-[150px] rounded-full animate-pulse duration-[8s]" />
           <div className="absolute bottom-[-15%] left-[-5%] w-[70%] h-[60%] bg-[#F80037]/10 blur-[120px] rounded-full animate-pulse duration-[10s] delay-700" />
           <div className="absolute top-[20%] left-[20%] w-[50%] h-[50%] bg-blue-600/10 blur-[140px] rounded-full animate-pulse duration-[12s] delay-1000" />
           <div className="absolute top-[40%] right-[10%] w-[40%] h-[40%] bg-indigo-500/15 blur-[130px] rounded-full animate-pulse duration-[9s] delay-300" />
-          
-          {/* Overlay de resplandor central */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(82,0,248,0.05)_0%,transparent_70%)]" />
         </div>
       </div>
@@ -298,11 +292,15 @@ export const Hero = () => {
       <StarField />
 
       <div className="flex-1 relative flex flex-col items-center justify-center">
-        <div className="w-full h-[55vh] flex items-center justify-center z-10 text-center px-6">
+        {/* Slider de palabras monumental con animación sutil de deslizamiento */}
+        <div 
+          key={currentWordIndex} 
+          className="w-full h-[55vh] flex items-center justify-center z-10 text-center px-6 animate-slide-word"
+        >
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        <div className="max-w-md z-10 -mt-20 md:-mt-24 px-8">
+        <div className="max-w-md z-10 -mt-16 md:-mt-20 px-8">
           <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
             Construimos plataformas digitales que transforman negocios.<br />
             Hay movimiento en el futuro.
@@ -335,6 +333,13 @@ export const Hero = () => {
         }
         .animate-scroll-line {
           animation: scroll-line 2s infinite ease-in-out;
+        }
+        @keyframes slide-word {
+          0% { transform: translateX(50px); opacity: 0; filter: blur(10px); }
+          100% { transform: translateX(0); opacity: 1; filter: blur(0); }
+        }
+        .animate-slide-word {
+          animation: slide-word 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
       `}</style>
     </section>
