@@ -148,7 +148,6 @@ const ParticleText = ({ text }: { text: string }) => {
 
     particles.current = [];
     
-    // Reset canvas dimensions to container
     const parent = canvas.parentElement;
     if (!parent) return;
     
@@ -159,10 +158,9 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    // Responsive font size calculation
-    // More aggressive reduction on smaller widths
-    const maxFontSize = 320;
-    const charFactor = text.length > 6 ? 0.65 : 0.55;
+    // Calculo dinámico mejorado para responsividad total
+    const maxFontSize = width < 768 ? 120 : 320;
+    const charFactor = width < 768 ? 0.8 : (text.length > 6 ? 0.65 : 0.55);
     const responsiveFontSize = Math.min(width / (text.length * charFactor), maxFontSize);
     
     ctx.font = `900 ${responsiveFontSize}px sans-serif`;
@@ -179,8 +177,8 @@ const ParticleText = ({ text }: { text: string }) => {
     const pixels = ctx.getImageData(0, 0, width, height).data;
     ctx.clearRect(0, 0, width, height);
 
-    // Dynamic gap for performance vs density
-    const gap = width < 768 ? 2 : 1;
+    // Gap dinámico según densidad de píxeles
+    const gap = width < 768 ? 3 : 1;
 
     for (let y = 0; y < height; y += gap) {
       for (let x = 0; x < width; x += gap) {
@@ -198,7 +196,7 @@ const ParticleText = ({ text }: { text: string }) => {
               originX: x,
               originY: y,
               color: `rgb(${r}, ${g}, ${b})`,
-              size: 1.2,
+              size: width < 768 ? 1.8 : 1.2,
               friction: 0.9,
               ease: 0.1
             })
@@ -257,7 +255,7 @@ const ParticleText = ({ text }: { text: string }) => {
       ref={canvasRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="w-full h-full cursor-default"
+      className="w-full h-full cursor-default touch-none"
     />
   );
 };
@@ -299,13 +297,9 @@ export const Hero = () => {
 
   const handleBlackHoleClick = () => {
     setIsAbsorbing(true);
-    
-    // Physical compression phase
     setTimeout(() => {
       setShowWhiteOut(true);
     }, 1000);
-
-    // Navigation phase
     setTimeout(() => {
       router.push('/tarjetas-neocard');
     }, 1800);
@@ -313,12 +307,10 @@ export const Hero = () => {
 
   return (
     <section className="relative h-screen w-full flex flex-col bg-[#00001D] overflow-hidden select-none">
-      {/* Singular White-Out Overlay */}
       {showWhiteOut && (
         <div className="fixed inset-0 z-[10000] bg-white animate-white-out" />
       )}
 
-      {/* Universe Absorption Background Wrapper */}
       <div className={cn(
         "absolute inset-0 z-0 pointer-events-none transition-all duration-1000",
         isAbsorbing && "animate-absorb"
@@ -339,36 +331,34 @@ export const Hero = () => {
 
       <StarField isAbsorbing={isAbsorbing} />
 
-      {/* Black Hole Interactive Element */}
       <div 
         onClick={handleBlackHoleClick}
         className={cn(
-          "absolute right-[5%] md:right-[8%] top-1/2 -translate-y-1/2 z-[30] cursor-pointer group hidden sm:block transition-all duration-500",
+          "absolute right-[5%] md:right-[8%] top-[20%] sm:top-1/2 -translate-y-1/2 z-[30] cursor-pointer group transition-all duration-500",
           isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]"
         )}
       >
-        <div className="relative w-20 h-24 md:w-32 md:h-32 rounded-full bg-black shadow-[0_0_40px_rgba(248,0,55,0.4),0_0_80px_rgba(82,0,248,0.4)] transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_60px_#F80037,0_0_120px_#5200F8]">
+        <div className="relative w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full bg-black shadow-[0_0_40px_rgba(248,0,55,0.4),0_0_80px_rgba(82,0,248,0.4)] transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_60px_#F80037,0_0_120px_#5200F8]">
           <div className="absolute inset-0 rounded-full border border-white/5 animate-spin duration-[15s]" />
           <div className="absolute inset-[-15px] rounded-full border border-primary/10 blur-md animate-pulse" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/20 group-hover:text-primary/60 transition-colors">
-            <Zap className="w-6 h-6 animate-pulse" />
+            <Zap className="w-4 h-4 sm:w-6 sm:h-6 animate-pulse" />
           </div>
           {!isAbsorbing && (
-            <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Saltar al Nexo</span>
+            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+              <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-primary">Saltar al Nexo</span>
             </div>
           )}
         </div>
       </div>
 
-      {/* Absorbed Content: Astronaut */}
       <div className={cn(
         "absolute inset-0 flex items-center justify-center z-[20] pointer-events-none transition-all duration-1000",
         isAbsorbing && "animate-absorb"
       )}
       style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
       >
-        <div className="relative w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] md:w-[480px] md:h-[480px] float-anim">
+        <div className="relative w-[180px] h-[180px] sm:w-[280px] sm:h-[280px] md:w-[480px] md:h-[480px] float-anim opacity-80 sm:opacity-100">
           <Image 
             src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=2b444080-0b94-4549-a656-6e67dc038512"
             alt="Astronauta Candy"
@@ -379,33 +369,32 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Absorbed Content: UI elements */}
       <div className={cn(
-        "flex-1 relative flex flex-col items-center justify-center gap-4 transition-all duration-1000 px-6",
+        "flex-1 relative flex flex-col items-center justify-center gap-2 sm:gap-4 transition-all duration-1000 px-4 sm:px-6",
         isAbsorbing && "animate-absorb"
       )}
       style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
       >
         <div 
           key={currentWordIndex} 
-          className="w-full h-[35vh] sm:h-[40vh] md:h-[50vh] flex items-center justify-center z-10 text-center animate-slide-word"
+          className="w-full h-[25vh] sm:h-[40vh] md:h-[50vh] flex items-center justify-center z-10 text-center animate-slide-word"
         >
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        <div className="max-w-4xl z-10 flex flex-col items-center gap-8 w-full">
-          <p className="text-xs sm:text-sm md:text-lg text-white/60 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-relaxed text-center px-4">
+        <div className="max-w-4xl z-10 flex flex-col items-center gap-6 sm:gap-8 w-full">
+          <p className="text-[10px] sm:text-sm md:text-lg text-white/60 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-relaxed text-center px-4 max-w-2xl">
             Construimos plataformas digitales que transforman negocios.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">
-            <Link href="/contacto" className="w-full sm:w-auto">
-              <Button size="lg" className="h-14 px-10 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-lg font-bold w-full transition-all hover:scale-105 active:scale-95">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center items-center">
+            <Link href="/contacto" className="w-full sm:w-auto flex justify-center">
+              <Button size="lg" className="h-12 sm:h-14 px-8 sm:px-10 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-sm sm:text-lg font-bold w-[80%] sm:w-auto transition-all hover:scale-105 active:scale-95">
                 Contacta
               </Button>
             </Link>
-            <Link href="/proyectos" className="w-full sm:w-auto">
-              <Button size="lg" variant="outline" className="h-14 px-10 border-white/20 hover:bg-white/10 text-white rounded-full text-lg font-bold w-full backdrop-blur-sm transition-all hover:border-white/40">
+            <Link href="/proyectos" className="w-full sm:w-auto flex justify-center">
+              <Button size="lg" variant="outline" className="h-12 sm:h-14 px-8 sm:px-10 border-white/20 hover:bg-white/10 text-white rounded-full text-sm sm:text-lg font-bold w-[80%] sm:w-auto backdrop-blur-sm transition-all hover:border-white/40">
                 Ver Proyectos
               </Button>
             </Link>
@@ -413,19 +402,18 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Absorbed Content: Footer Discover */}
       <div className={cn(
-        "relative z-50 pb-[120px] md:pb-[154px] flex flex-col items-center px-8 text-center transition-all duration-1000",
+        "relative z-50 pb-[100px] sm:pb-[120px] md:pb-[154px] flex flex-col items-center px-8 text-center transition-all duration-1000",
         isAbsorbing && "animate-absorb"
       )}
       style={{ '--absorb-x': '40vw', '--absorb-y': '20vh' } as any}
       >
         <div 
-          className="flex flex-col items-center gap-3 cursor-pointer group" 
+          className="flex flex-col items-center gap-2 sm:gap-3 cursor-pointer group" 
           onClick={scrollToNextSection}
         >
-          <Mouse className="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-primary transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#F80037]" />
-          <span className="text-[9px] md:text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] group-hover:text-white transition-colors">
+          <Mouse className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white/30 group-hover:text-primary transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#F80037]" />
+          <span className="text-[8px] md:text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] group-hover:text-white transition-colors">
             descubre
           </span>
         </div>
