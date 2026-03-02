@@ -9,6 +9,7 @@ import { NFCSection } from '@/components/sections/NFCSection';
 import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
 import { MeticulousWorkSection } from '@/components/sections/MeticulousWorkSection';
+import { ProjectLinksSection } from '@/components/sections/ProjectLinksSection';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { ArrowRight } from 'lucide-react';
@@ -57,6 +58,9 @@ export default function Home() {
 
       {/* Nueva Sección de Trabajo Meticuloso */}
       <MeticulousWorkSection />
+
+      {/* Nueva Sección de Enlaces de Proyectos (Minimalista) */}
+      <ProjectLinksSection />
 
       {/* CTA Final */}
       <section className="py-24 md:py-32 px-6">
