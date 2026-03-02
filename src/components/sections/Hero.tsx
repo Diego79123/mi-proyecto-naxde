@@ -312,8 +312,8 @@ export const Hero = () => {
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        <div className="max-w-md z-10 px-8">
-          <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
+        <div className="max-w-2xl z-10 px-8">
+          <p className="text-sm md:text-lg text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
             Construimos plataformas digitales que transforman negocios.<br />
             Hay movimiento en el futuro.
           </p>
