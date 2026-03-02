@@ -300,8 +300,8 @@ export const Hero = () => {
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        {/* Eslogan reubicado 20px más abajo de la zona central de las palabras */}
-        <div className="max-w-md z-10 -mt-24 md:-mt-28 px-8">
+        {/* Eslogan reubicado 20px más abajo de la zona central de las palabras - Ajustado subiendo 15px adicionales */}
+        <div className="max-w-md z-10 -mt-28 md:-mt-32 px-8">
           <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
             Construimos plataformas digitales que transforman negocios.<br />
             Hay movimiento en el futuro.
