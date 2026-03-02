@@ -5,9 +5,10 @@ import { Header } from '@/components/layout/Header';
 import { Hero } from '@/components/sections/Hero';
 import { FeaturedServices } from '@/components/sections/FeaturedServices';
 import { NFCSection } from '@/components/sections/NFCSection';
+import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
-import { ArrowRight, Zap, Target, ShieldCheck, Star } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -45,60 +46,8 @@ export default function Home() {
       
       <NFCSection />
 
-      {/* Sección de Trayectoria */}
-      <section className="py-24 md:py-32 px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col gap-2 mb-16 md:mb-24">
-            <h2 className="text-[15vw] md:text-[12vw] font-black leading-[0.8] tracking-tighter text-outline opacity-20 absolute -top-5 md:-top-10 left-0 pointer-events-none uppercase">NAXDE HUB</h2>
-            <div className="relative z-10 space-y-4">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md">
-                <Star className="w-3 h-3 md:w-4 md:h-4 text-primary fill-primary" />
-                <span className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-primary">Trayectoria</span>
-              </span>
-              <h3 className="text-4xl sm:text-6xl md:text-8xl font-headline font-black leading-none tracking-tighter">
-                LIDERANDO LA <br />
-                <span className="text-primary italic">REVOLUCIÓN</span> DIGITAL.
-              </h3>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {[
-              { 
-                title: "Alta Conversión", 
-                desc: "No solo creamos código, diseñamos interfaces orientadas a vender mediante psicología del diseño.",
-                icon: Target,
-                tag: "01"
-              },
-              { 
-                title: "Escalabilidad Cloud", 
-                desc: "Arquitecturas en la nube preparadas para soportar miles de usuarios concurrentes.",
-                icon: Zap,
-                tag: "02"
-              },
-              { 
-                title: "Seguridad Militar", 
-                desc: "Implementamos los estándares más altos de encriptación para blindar tu ventaja.",
-                icon: ShieldCheck,
-                tag: "03"
-              }
-            ].map((item, idx) => (
-              <div key={idx} className="glass-card p-10 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-white/5 space-y-6 md:space-y-8 group hover:border-primary/30 transition-all duration-700">
-                <div className="flex justify-between items-start">
-                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-[1.2rem] md:rounded-[1.5rem] bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                    <item.icon className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                  </div>
-                  <span className="text-3xl md:text-4xl font-black text-white/5">{item.tag}</span>
-                </div>
-                <div className="space-y-3 md:space-y-4">
-                  <h4 className="text-2xl md:text-3xl font-headline font-bold group-hover:text-primary transition-colors">{item.title}</h4>
-                  <p className="text-sm md:text-lg text-white/50 leading-relaxed font-medium">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Nueva Sección de Identidad y Confianza (Estilo Lusion) */}
+      <ConfidenceSection />
 
       {/* CTA Final */}
       <section className="py-24 md:py-32 px-6">
