@@ -10,7 +10,8 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
 
 const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FHero%20fondo%20asteroide1.webp?alt=media&token=bd74abc5-f125-49d8-9cd6-59a98ea3dad5";
-const HERO_BG_PARALLAX = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAsteroide1.webp?alt=media&token=64700fa9-ed0f-4d51-ad26-687cfa5f70e9";
+const ASTEROIDE_1 = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAsteroide1.webp?alt=media&token=64700fa9-ed0f-4d51-ad26-687cfa5f70e9";
+const ASTEROIDE_2 = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAsteroide2.webp?alt=media&token=cc6b985e-0f79-4e17-b130-7b4f6b037b59";
 
 const slides = [
   {
@@ -24,6 +25,7 @@ const slides = [
     icon: Zap,
     accent: "from-[#5200F8]/60", 
     isFirst: true,
+    parallaxImg: ASTEROIDE_1
   },
   {
     id: 2,
@@ -36,6 +38,7 @@ const slides = [
     icon: LayoutGrid,
     accent: "from-cyan-500/60",
     isSecond: true,
+    parallaxImg: ASTEROIDE_2
   },
   {
     id: 3,
@@ -48,6 +51,7 @@ const slides = [
     icon: Cpu,
     accent: "from-green-500/60",
     isThird: true,
+    parallaxImg: ASTEROIDE_1
   }
 ];
 
@@ -158,7 +162,7 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
-      {/* Capa de Imagen de Fondo Base (z-0) - Unificada para todos los slides */}
+      {/* Capa de Imagen de Fondo Base (z-0) */}
       <div className="absolute inset-0 z-0">
         <div 
           className="absolute inset-0 transition-transform duration-[1000ms] ease-out scale-110"
@@ -349,20 +353,41 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Capa Parallax Frontal (z-30) - Unificada para todos los slides */}
+      {/* Capas Parallax Frontales (z-30) - Diferenciadas por Slide */}
       <div className="absolute inset-0 z-30 pointer-events-none">
         <div 
           className="absolute inset-0 transition-transform duration-[1200ms] ease-out scale-105"
           style={{ transform: `translate(${mousePos.x * -0.6}px, ${mousePos.y * -0.6}px)` }}
         >
-          <Image 
-            src={HERO_BG_PARALLAX} 
-            alt="Floating Foreground Elements" 
-            fill 
-            className="object-cover"
-            priority
-            quality={100}
-          />
+          {/* Asteroide 1 (Slide 1 y 3) */}
+          <div className={cn(
+            "absolute inset-0 transition-opacity duration-1000",
+            (selectedIndex === 0 || selectedIndex === 2) ? "opacity-100" : "opacity-0"
+          )}>
+            <Image 
+              src={ASTEROIDE_1} 
+              alt="Floating Foreground Asteroide 1" 
+              fill 
+              className="object-cover"
+              priority
+              quality={100}
+            />
+          </div>
+
+          {/* Asteroide 2 (Slide 2) */}
+          <div className={cn(
+            "absolute inset-0 transition-opacity duration-1000",
+            selectedIndex === 1 ? "opacity-100" : "opacity-0"
+          )}>
+            <Image 
+              src={ASTEROIDE_2} 
+              alt="Floating Foreground Asteroide 2" 
+              fill 
+              className="object-cover"
+              priority
+              quality={100}
+            />
+          </div>
         </div>
       </div>
 
