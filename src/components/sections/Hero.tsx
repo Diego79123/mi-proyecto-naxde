@@ -337,7 +337,7 @@ export const Hero = () => {
           isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]"
         )}
       >
-        {/* Resplandor Rotativo */}
+        {/* Resplandor Rotativo (Energy Orbit) */}
         <div className="absolute inset-[-20px] sm:inset-[-40px] rounded-full animate-spin-slow opacity-60 blur-2xl bg-[conic-gradient(from_0deg,#F80037,#5200F8,#F80037)] pointer-events-none" />
         
         {/* Texto Circular Rotativo */}
@@ -362,7 +362,7 @@ export const Hero = () => {
           </div>
           {!isAbsorbing && (
             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-              <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-primary">Saltar al Nexo</span>
+              <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-primary">Saltar</span>
             </div>
           )}
         </div>
