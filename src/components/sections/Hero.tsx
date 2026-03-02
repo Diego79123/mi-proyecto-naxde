@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -333,7 +334,7 @@ export const Hero = () => {
       <div 
         onClick={handleBlackHoleClick}
         className={cn(
-          "absolute right-[5%] md:right-[8%] lg:right-[10%] top-[20%] sm:top-1/2 -translate-y-1/2 z-[30] cursor-pointer group transition-all duration-500",
+          "absolute right-[5%] md:right-[8%] lg:right-[10%] top-[calc(20%+200px)] sm:top-[calc(50%+200px)] -translate-y-1/2 z-[30] cursor-pointer group transition-all duration-500",
           isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]"
         )}
       >
