@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -157,7 +158,6 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    // Ajuste dinámico de tamaño de fuente para móviles
     const isMobile = width < 768;
     const baseSize = isMobile ? width * 0.25 : 320;
     const scaleFactor = isMobile ? (width / 400) : (width / 1440);
@@ -361,7 +361,7 @@ export const Hero = () => {
 
       <StarField isAbsorbing={isAbsorbing} />
 
-      {/* Black Hole Singularity */}
+      {/* Black Hole Singularity with Dimension Portal */}
       <div 
         onClick={handleBlackHoleClick}
         onMouseEnter={() => setIsHovered(true)}
@@ -385,9 +385,26 @@ export const Hero = () => {
             </text>
           </svg>
         </div>
-        <div className="relative w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full bg-black shadow-[0_0_40px_rgba(248,0,55,0.4),0_0_80px_rgba(82,0,248,0.4)] transition-all duration-500 group-hover:shadow-[0_0_60px_#F80037,0_0_120px_#5200F8]">
+        
+        <div className="relative w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full bg-black shadow-[0_0_40px_rgba(248,0,55,0.4),0_0_80px_rgba(82,0,248,0.4)] transition-all duration-500 group-hover:shadow-[0_0_60px_#F80037,0_0_120px_#5200F8] overflow-hidden">
+          {/* Dimension Portal Preview (Visible on Hover) */}
+          <div className={cn(
+            "absolute inset-0 transition-all duration-1000 ease-in-out pointer-events-none opacity-0 scale-150 rotate-12",
+            isHovered && "opacity-40 scale-100 rotate-0"
+          )}>
+            <img 
+              src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1" 
+              alt="Neocard Dimension"
+              className="w-full h-full object-cover animate-pulse blur-[1px]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+          </div>
+
           <div className="absolute inset-0 rounded-full border border-white/5 animate-spin duration-[15s]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/20 group-hover:text-primary/60 transition-colors">
+          <div className={cn(
+            "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/20 transition-all duration-500",
+            isHovered ? "opacity-100 text-primary scale-125" : "opacity-40 scale-100"
+          )}>
             <Zap className="w-4 h-4 sm:w-6 sm:h-6 animate-pulse" />
           </div>
         </div>
