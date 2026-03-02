@@ -8,6 +8,7 @@ import { FeaturedServices } from '@/components/sections/FeaturedServices';
 import { NFCSection } from '@/components/sections/NFCSection';
 import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
+import { MeticulousWorkSection } from '@/components/sections/MeticulousWorkSection';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { ArrowRight } from 'lucide-react';
@@ -53,6 +54,9 @@ export default function Home() {
 
       {/* Nueva Sección Showreel / Experiencia */}
       <ShowreelSection />
+
+      {/* Nueva Sección de Trabajo Meticuloso */}
+      <MeticulousWorkSection />
 
       {/* CTA Final */}
       <section className="py-24 md:py-32 px-6">
