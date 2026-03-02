@@ -16,20 +16,21 @@ export const CursorFollower = () => {
     window.addEventListener('mousemove', handleMouseMove);
 
     const animate = () => {
-      // Física: Interpolación lineal (lerp) para un movimiento suave y etéreo
-      const ease = 0.08; // Valor menor para más suavizado (inercia)
+      // Física: Interpolación lineal (lerp)
+      // Aumentamos el ease a 0.25 para que esté mucho más cerca del cursor real
+      const ease = 0.25; 
       cursorRef.current.x += (targetRef.current.x - cursorRef.current.x) * ease;
       cursorRef.current.y += (targetRef.current.y - cursorRef.current.y) * ease;
 
-      // Actualizar historial de la estela (más corta y leve)
+      // Actualizar historial de la estela
       setTrail((prev) => {
         const newPoint = { 
           x: cursorRef.current.x, 
           y: cursorRef.current.y, 
           id: Date.now() + Math.random() 
         };
-        // Reducimos el número de puntos para una estela más leve
-        return [...prev.slice(-12), newPoint];
+        // Mantenemos una estela elegante de 10 puntos
+        return [...prev.slice(-10), newPoint];
       });
 
       requestRef.current = requestAnimationFrame(animate);
@@ -45,31 +46,31 @@ export const CursorFollower = () => {
 
   return (
     <>
-      {/* Cabeza de la Estrella (Punto de luz brillante) */}
+      {/* Cabeza de la Estrella (Punto morado vibrante) */}
       <div 
         className="cursor-follower"
         style={{
-          transform: `translate(${cursorRef.current.x - 6}px, ${cursorRef.current.y - 6}px)`,
+          transform: `translate(${cursorRef.current.x - 5}px, ${cursorRef.current.y - 5}px)`,
           position: 'fixed',
           top: 0,
           left: 0,
-          width: '12px',
-          height: '12px',
-          backgroundColor: '#FFF', // Blanco en el centro para efecto estrella
+          width: '10px',
+          height: '10px',
+          backgroundColor: '#5200F8', // Morado marca
           borderRadius: '50%',
           pointerEvents: 'none',
           zIndex: 9999,
           mixBlendMode: 'screen',
-          filter: 'blur(1px)',
-          boxShadow: '0 0 10px #5200F8, 0 0 20px rgba(82, 0, 248, 0.8), 0 0 30px rgba(255, 255, 255, 0.4)',
+          filter: 'blur(0.5px)',
+          boxShadow: '0 0 10px #5200F8, 0 0 20px #5200F8, 0 0 35px rgba(255, 255, 255, 0.5)',
         }}
       />
       
-      {/* Estela de la Estrella (Segmentos tenues y pequeños) */}
+      {/* Estela de la Estrella (Partículas que siguen la trayectoria) */}
       {trail.map((point, index) => {
         const ratio = index / trail.length;
-        const size = 2 + (ratio * 4); // Segmentos mucho más pequeños
-        const opacity = ratio * 0.3; // Mucho más transparente
+        const size = 2 + (ratio * 6);
+        const opacity = ratio * 0.4;
         
         return (
           <div
@@ -88,7 +89,7 @@ export const CursorFollower = () => {
               pointerEvents: 'none',
               zIndex: 9998,
               filter: 'blur(1.5px)',
-              boxShadow: `0 0 ${index}px rgba(82, 0, 248, 0.5)`,
+              boxShadow: `0 0 ${index}px rgba(82, 0, 248, 0.6)`,
             }}
           />
         );
