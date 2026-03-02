@@ -158,7 +158,6 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    // Intelligent font scaling formula
     const baseSize = width < 768 ? 140 : 320;
     const scaleFactor = width < 768 ? (width / 400) : (width / 1440);
     const responsiveFontSize = Math.min(baseSize * scaleFactor * (text.length > 6 ? 0.8 : 1), baseSize);
@@ -262,7 +261,14 @@ const ParticleText = ({ text }: { text: string }) => {
 export const Hero = () => {
   const router = useRouter();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  
   const words = ["CREA", "CONECTA", "AVANZA"];
+  const subtitles = [
+    "Construimos plataformas digitales que transforman negocios.",
+    "Conectamos tu visión con tecnología de alta conversión.",
+    "Impulsamos el crecimiento de tu marca en el ecosistema digital."
+  ];
+  
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isAbsorbing, setIsAbsorbing] = useState(false);
   const [showWhiteOut, setShowWhiteOut] = useState(false);
@@ -330,7 +336,6 @@ export const Hero = () => {
 
       <StarField isAbsorbing={isAbsorbing} />
 
-      {/* Agujero Negro con Texto Rotativo */}
       <div 
         onClick={handleBlackHoleClick}
         className={cn(
@@ -338,10 +343,8 @@ export const Hero = () => {
           isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]"
         )}
       >
-        {/* Resplandor Rotativo (Energy Orbit) */}
         <div className="absolute inset-[-20px] sm:inset-[-40px] rounded-full animate-spin-slow opacity-60 blur-2xl bg-[conic-gradient(from_0deg,#F80037,#5200F8,#F80037)] pointer-events-none" />
         
-        {/* Texto Circular Rotativo */}
         <div className="absolute inset-[-40px] sm:inset-[-60px] md:inset-[-80px] pointer-events-none animate-spin-slow">
           <svg viewBox="0 0 200 200" className="w-full h-full overflow-visible">
             <defs>
@@ -394,17 +397,19 @@ export const Hero = () => {
       >
         <div 
           key={currentWordIndex} 
-          className="w-full min-h-[30vh] sm:min-h-[40vh] md:min-h-[50vh] flex items-center justify-center z-10 text-center"
+          className="w-full min-h-[30vh] sm:min-h-[40vh] md:min-h-[50vh] flex items-center justify-center z-10 text-center overflow-hidden"
         >
-          <div className="w-full h-full animate-slide-word">
+          <div className="w-full h-full animate-slide-up-cycle">
             <ParticleText text={words[currentWordIndex]} />
           </div>
         </div>
         
         <div className="max-w-4xl z-10 flex flex-col items-center gap-6 sm:gap-8 w-full mt-4 relative -top-[300px]">
-          <p className="text-[10px] sm:text-xs md:text-base lg:text-lg text-white/60 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-relaxed text-center px-4 max-w-2xl">
-            Construimos plataformas digitales que transforman negocios.
-          </p>
+          <div key={`sub-${currentWordIndex}`} className="animate-slide-up-cycle">
+            <p className="text-[10px] sm:text-xs md:text-base lg:text-lg text-white/60 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-relaxed text-center px-4 max-w-2xl">
+              {subtitles[currentWordIndex]}
+            </p>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center items-center">
             <Link href="/contacto" className="w-full sm:w-auto flex justify-center">
@@ -419,7 +424,6 @@ export const Hero = () => {
             </Link>
           </div>
 
-          {/* Indicador de scroll justo debajo de los botones */}
           <div 
             className="flex flex-col items-center gap-2 sm:gap-3 cursor-pointer group mt-12 transition-all hover:translate-y-1" 
             onClick={scrollToNextSection}
@@ -433,14 +437,14 @@ export const Hero = () => {
       </div>
 
       <style jsx global>{`
-        @keyframes slide-word-cycle {
-          0% { transform: translateY(40px); opacity: 0; filter: blur(10px); }
-          10% { transform: translateY(0); opacity: 1; filter: blur(0); }
-          90% { transform: translateY(0); opacity: 1; filter: blur(0); }
-          100% { transform: translateY(-40px); opacity: 0; filter: blur(10px); }
+        @keyframes slide-up-cycle {
+          0% { transform: translateY(60px); opacity: 0; filter: blur(10px); }
+          15% { transform: translateY(0); opacity: 1; filter: blur(0); }
+          85% { transform: translateY(0); opacity: 1; filter: blur(0); }
+          100% { transform: translateY(-60px); opacity: 0; filter: blur(10px); }
         }
-        .animate-slide-word {
-          animation: slide-word-cycle 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .animate-slide-up-cycle {
+          animation: slide-up-cycle 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
       `}</style>
     </section>
