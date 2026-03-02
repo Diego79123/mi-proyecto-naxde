@@ -294,9 +294,9 @@ export const Hero = () => {
 
       <StarField />
 
-      {/* Astronauta Candy al frente del texto con z-[20] */}
+      {/* Astronauta Candy al frente del texto con z-[20] - Sin opacidad para visibilidad total */}
       <div className="absolute inset-0 flex items-center justify-center z-[20] pointer-events-none">
-        <div className="relative w-[280px] h-[280px] md:w-[480px] md:h-[480px] opacity-40 float-anim">
+        <div className="relative w-[280px] h-[280px] md:w-[480px] md:h-[480px] float-anim">
           <Image 
             src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=106c2f53-b560-4e16-876f-fd64bd6b1589"
             alt="Astronauta Candy"
