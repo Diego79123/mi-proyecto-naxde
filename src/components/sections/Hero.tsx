@@ -131,7 +131,7 @@ class Particle {
 const ParticleText = ({ text }: { text: string }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particles = useRef<Particle[]>([]);
-  const mouse = useRef({ x: 0, y: 0, radius: 100 });
+  const mouse = useRef({ x: -9999, y: -9999, radius: 100 });
   const animationFrameId = useRef<number>(0);
 
   const init = useCallback(() => {
@@ -149,13 +149,13 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    const fontSize = Math.min(width / 3.5, 240); 
+    const fontSize = Math.min(width / 3, 280); 
     ctx.font = `900 ${fontSize}px sans-serif`;
     
-    // Create Purple to Blue Gradient for the text
+    // Gradient from Purple to Naxde Pink
     const gradient = ctx.createLinearGradient(width * 0.2, 0, width * 0.8, 0);
     gradient.addColorStop(0, '#5200F8'); // Deep Purple
-    gradient.addColorStop(1, '#00C2FF'); // Vibrant Blue
+    gradient.addColorStop(1, '#F80037'); // Naxde Pink
     
     ctx.fillStyle = gradient;
     ctx.textAlign = 'center';
@@ -172,15 +172,14 @@ const ParticleText = ({ text }: { text: string }) => {
         const index = (y * width + x) * 4;
         const alpha = pixels[index + 3];
         if (alpha > 128) {
-          // Get the color sampled from the gradient text
           const r = pixels[index];
           const g = pixels[index + 1];
           const b = pixels[index + 2];
           
           particles.current.push(
             new Particle({
-              x: x, 
-              y: y,
+              x: x, // Instant initial position
+              y: y, // Instant initial position
               originX: x,
               originY: y,
               color: `rgb(${r}, ${g}, ${b})`,
