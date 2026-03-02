@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useEffect, useState, useCallback } from 'react';
@@ -159,12 +160,11 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
-      {/* Capa de Imagen de Fondo 1 (Nebulosa con Parallax 3D Suave) */}
+      {/* Capa de Imagen de Fondo Base (z-0) */}
       <div className={cn(
         "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
         selectedIndex === 0 ? "opacity-100 scale-100" : "opacity-0 scale-95"
       )}>
-        {/* Capa de Fondo (Base) */}
         <div 
           className="absolute inset-0 transition-transform duration-[1000ms] ease-out scale-110"
           style={{ transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)` }}
@@ -178,24 +178,10 @@ export const Hero = () => {
             quality={100}
           />
         </div>
-        {/* Capa Flotante (Parallax Layer) */}
-        <div 
-          className="absolute inset-0 transition-transform duration-[1200ms] ease-out scale-105"
-          style={{ transform: `translate(${mousePos.x * -0.6}px, ${mousePos.y * -0.6}px)` }}
-        >
-          <Image 
-            src={HERO_BG_PARALLAX} 
-            alt="Floating Nebula Elements" 
-            fill 
-            className="object-cover"
-            priority
-            quality={100}
-          />
-        </div>
         <div className="absolute inset-0 bg-[#00001D]/30 backdrop-blur-[1px]" />
       </div>
 
-      {/* Capa de Imagen de Fondo 2 (Asteroide) - Con Filtro Azul */}
+      {/* Capa de Imagen de Fondo Slide 2 (z-0) */}
       <div className={cn(
         "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
         selectedIndex === 1 ? "opacity-100 scale-100" : "opacity-0 scale-95"
@@ -212,7 +198,7 @@ export const Hero = () => {
         <div className="absolute inset-0 bg-blue-500/10 mix-blend-overlay pointer-events-none" />
       </div>
 
-      {/* Capa de Imagen de Fondo 3 (Asteroide 3) */}
+      {/* Capa de Imagen de Fondo Slide 3 (z-0) */}
       <div className={cn(
         "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
         selectedIndex === 2 ? "opacity-100 scale-100" : "opacity-0 scale-95"
@@ -229,12 +215,7 @@ export const Hero = () => {
 
       <StarField />
       
-      <div className={cn(
-        "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[1100px] rounded-full blur-[200px] pointer-events-none transition-all duration-[1500ms] opacity-30 bg-gradient-to-br",
-        slides[selectedIndex].accent,
-        "to-transparent z-[6]"
-      )} />
-      
+      {/* Contenido Principal (z-10) */}
       <div className="flex-1 overflow-hidden z-10" ref={emblaRef}>
         <div className="flex h-full">
           {slides.map((slide, idx) => (
@@ -405,7 +386,27 @@ export const Hero = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-30 flex items-center gap-6">
+      {/* Capa Parallax Frontal (z-30) - PASA POR ENCIMA DE TODO */}
+      <div className={cn(
+        "absolute inset-0 transition-all duration-[3000ms] ease-out z-30 pointer-events-none",
+        selectedIndex === 0 ? "opacity-100 scale-105" : "opacity-0 scale-100"
+      )}>
+        <div 
+          className="absolute inset-0 transition-transform duration-[1200ms] ease-out"
+          style={{ transform: `translate(${mousePos.x * -0.6}px, ${mousePos.y * -0.6}px)` }}
+        >
+          <Image 
+            src={HERO_BG_PARALLAX} 
+            alt="Floating Foreground Elements" 
+            fill 
+            className="object-cover"
+            priority
+            quality={100}
+          />
+        </div>
+      </div>
+
+      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-40 flex items-center gap-6">
         {slides.map((_, i) => (
           <button
             key={i}
@@ -420,7 +421,7 @@ export const Hero = () => {
         ))}
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator (z-40) */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-3 cursor-pointer group" onClick={scrollToNextSection}>
         <div className="w-6 h-10 border-2 border-white/10 rounded-full flex justify-center p-1.5 group-hover:border-primary/50 transition-all duration-300">
           <div className="w-1.5 h-2 bg-primary rounded-full animate-bounce shadow-[0_0_8px_var(--brand-accent)]" />
