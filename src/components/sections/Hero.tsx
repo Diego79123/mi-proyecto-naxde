@@ -4,6 +4,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Mouse } from 'lucide-react';
+import Image from 'next/image';
 
 const StarField = () => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
@@ -285,24 +286,38 @@ export const Hero = () => {
           <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[70%] bg-purple-600/20 blur-[150px] rounded-full animate-pulse duration-[8s]" />
           <div className="absolute bottom-[-15%] left-[-5%] w-[70%] h-[60%] bg-[#F80037]/10 blur-[120px] rounded-full animate-pulse duration-[10s] delay-700" />
           <div className="absolute top-[20%] left-[20%] w-[50%] h-[50%] bg-blue-600/10 blur-[140px] rounded-full animate-pulse duration-[12s] delay-1000" />
-          <div className="absolute top-[40%] right-[10%] w-[40%] h-[40%] bg-indigo-500/15 blur-[130px] rounded-full animate-pulse duration-[9s] delay-300" />
+          <div className="absolute top-[40%] right-[10%] right-[-10%] w-[120%] h-[70%] bg-purple-900/10 blur-[150px] rounded-full opacity-60" />
+          <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-purple-900/10 blur-[150px] rounded-full opacity-60" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(82,0,248,0.05)_0%,transparent_70%)]" />
         </div>
       </div>
 
       <StarField />
 
-      <div className="flex-1 relative flex flex-col items-center justify-center">
+      {/* Astronauta Candy con efecto de gravedad leve */}
+      <div className="absolute inset-0 flex items-center justify-center z-[7] pointer-events-none">
+        <div className="relative w-[280px] h-[280px] md:w-[480px] md:h-[480px] opacity-40 float-anim">
+          <Image 
+            src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=106c2f53-b560-4e16-876f-fd64bd6b1589"
+            alt="Astronauta Candy"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+      </div>
+
+      <div className="flex-1 relative flex flex-col items-center justify-center gap-[10px]">
         {/* Slider de palabras monumental */}
         <div 
           key={currentWordIndex} 
-          className="w-full h-[55vh] flex items-center justify-center z-10 text-center px-6 animate-slide-word"
+          className="w-full h-[40vh] md:h-[50vh] flex items-center justify-center z-10 text-center px-6 animate-slide-word"
         >
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        {/* Eslogan reubicado - Ajustado para quedar visualmente 10px debajo de las partículas */}
-        <div className="max-w-md z-10 -mt-40 md:-mt-48 px-8">
+        {/* Eslogan reubicado - 10px debajo de los textos principales */}
+        <div className="max-w-md z-10 px-8">
           <p className="text-[10px] md:text-xs text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
             Construimos plataformas digitales que transforman negocios.<br />
             Hay movimiento en el futuro.
