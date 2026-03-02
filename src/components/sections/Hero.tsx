@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -313,7 +312,35 @@ export const Hero = () => {
   return (
     <section className="relative h-screen w-full flex flex-col bg-[#00001D] overflow-hidden select-none">
       {showWhiteOut && (
-        <div className="fixed inset-0 z-[10000] bg-white animate-white-out" />
+        <div className="fixed inset-0 z-[10000] bg-[#00001D] flex items-center justify-center overflow-hidden animate-white-out">
+          {/* Singularity Core expansion */}
+          <div className="relative w-[50vh] h-[50vh] rounded-full bg-black shadow-[0_0_150px_#F80037,0_0_300px_#5200F8,inset_0_0_100px_rgba(0,0,0,1)] animate-black-hole flex items-center justify-center">
+            {/* Swirling Event Horizon */}
+            <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_0%,#F80037_50%,transparent_100%)] opacity-40 animate-spin duration-[3s]" />
+            <div className="absolute inset-[15%] bg-[conic-gradient(from_180deg,transparent_0%,#5200F8_50%,transparent_100%)] opacity-30 animate-spin duration-[5s] [animation-direction:reverse]" />
+          </div>
+
+          {/* Light Destellos being absorbed */}
+          <div className="absolute inset-0 pointer-events-none">
+            {Array.from({ length: 60 }).map((_, i) => (
+              <div 
+                key={i}
+                className="absolute w-1 h-1 bg-white rounded-full animate-burst"
+                style={{
+                  left: '50%',
+                  top: '50%',
+                  '--tw-translate-x': `${(Math.random() - 0.5) * 3000}px`,
+                  '--tw-translate-y': `${(Math.random() - 0.5) * 3000}px`,
+                  animationDelay: `${Math.random() * 0.8}s`,
+                  opacity: Math.random()
+                } as any}
+              />
+            ))}
+          </div>
+
+          {/* Gravitational Distortion Rings */}
+          <div className="absolute w-[70vh] h-[70vh] rounded-full border-[30px] border-white/5 backdrop-blur-[40px] animate-black-hole" style={{ animationDelay: '0.1s' }} />
+        </div>
       )}
 
       {/* Nebula Background Effects */}
