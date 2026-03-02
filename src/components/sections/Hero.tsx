@@ -289,7 +289,7 @@ export const Hero = () => {
     if (isAbsorbing) return;
     const interval = setInterval(() => {
       setCurrentWordIndex((prev) => (prev + 1) % words.length);
-    }, 4000);
+    }, 15000);
     return () => clearInterval(interval);
   }, [isAbsorbing]);
 
@@ -438,13 +438,13 @@ export const Hero = () => {
 
       <style jsx global>{`
         @keyframes slide-up-cycle {
-          0% { transform: translateY(60px); opacity: 0; filter: blur(10px); }
-          15% { transform: translateY(0); opacity: 1; filter: blur(0); }
-          85% { transform: translateY(0); opacity: 1; filter: blur(0); }
-          100% { transform: translateY(-60px); opacity: 0; filter: blur(10px); }
+          0% { transform: translateY(100px); opacity: 0; filter: blur(20px); }
+          10% { transform: translateY(0); opacity: 1; filter: blur(0); }
+          90% { transform: translateY(0); opacity: 1; filter: blur(0); }
+          100% { transform: translateY(100px); opacity: 0; filter: blur(20px); }
         }
         .animate-slide-up-cycle {
-          animation: slide-up-cycle 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: slide-up-cycle 15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
       `}</style>
     </section>
