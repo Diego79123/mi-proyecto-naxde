@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState } from 'react';
@@ -47,22 +48,19 @@ export const BottomNav = () => {
               })}
             </div>
 
-            {/* Botón Central "+" Elevado */}
-            <div className="relative -top-8 mx-4">
+            {/* Botón Central "+" Lineal */}
+            <div className="mx-4">
               <button 
                 onClick={() => setIsMenuOpen(true)}
                 className={cn(
-                  "w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500",
-                  "bg-gradient-to-br from-[#5200F8] to-[#F80037] shadow-[0_0_30px_rgba(82,0,248,0.6)]",
-                  "border-4 border-[#050515] hover:scale-110 active:scale-90 relative z-20 group"
+                  "w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500",
+                  "bg-gradient-to-br from-[#5200F8] to-[#F80037] shadow-[0_0_25px_rgba(82,0,248,0.4)]",
+                  "hover:scale-110 active:scale-95 relative z-20 group"
                 )}
               >
-                <Plus className="w-8 h-8 text-white transition-transform duration-500 group-hover:rotate-90" />
+                <Plus className="w-7 h-7 text-white transition-transform duration-500 group-hover:rotate-90" />
                 <div className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-hover:opacity-100 blur-md transition-opacity" />
               </button>
-              <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] font-black text-primary uppercase tracking-[0.3em] whitespace-nowrap">
-                MENU
-              </span>
             </div>
 
             {/* Items Derecha */}

@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -318,7 +319,7 @@ export const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-50 pb-[134px] flex flex-col items-center px-8 text-center">
+      <div className="relative z-50 pb-[154px] flex flex-col items-center px-8 text-center">
         <div 
           className="flex flex-col items-center gap-3 cursor-pointer group" 
           onClick={scrollToNextSection}
@@ -332,11 +333,11 @@ export const Hero = () => {
 
       <style jsx global>{`
         @keyframes slide-word {
-          0% { transform: translateX(50px); opacity: 0; filter: blur(10px); }
+          0% { transform: translateX(30px); opacity: 0; filter: blur(8px); }
           100% { transform: translateX(0); opacity: 1; filter: blur(0); }
         }
         .animate-slide-word {
-          animation: slide-word 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation: slide-word 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
       `}</style>
     </section>
