@@ -418,23 +418,17 @@ export const Hero = () => {
               </Button>
             </Link>
           </div>
-        </div>
-      </div>
 
-      <div className={cn(
-        "relative z-50 pb-[100px] sm:pb-[120px] md:pb-[154px] flex flex-col items-center px-8 text-center transition-all duration-1000",
-        isAbsorbing && "animate-absorb"
-      )}
-      style={{ '--absorb-x': '40vw', '--absorb-y': '20vh' } as any}
-      >
-        <div 
-          className="flex flex-col items-center gap-2 sm:gap-3 cursor-pointer group" 
-          onClick={scrollToNextSection}
-        >
-          <Mouse className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white/30 group-hover:text-primary transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#F80037]" />
-          <span className="text-[8px] md:text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] group-hover:text-white transition-colors">
-            descubre
-          </span>
+          {/* Indicador de scroll justo debajo de los botones */}
+          <div 
+            className="flex flex-col items-center gap-2 sm:gap-3 cursor-pointer group mt-12 transition-all hover:translate-y-1" 
+            onClick={scrollToNextSection}
+          >
+            <Mouse className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white/30 group-hover:text-primary transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#F80037]" />
+            <span className="text-[8px] md:text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] group-hover:text-white transition-colors">
+              desliza
+            </span>
+          </div>
         </div>
       </div>
 
