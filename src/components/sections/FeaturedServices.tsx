@@ -57,12 +57,8 @@ export const FeaturedServices = () => {
   }, []);
 
   // Funciones auxiliares para calcular transformaciones basadas en el progreso
-  // p: progreso actual (0 a 1)
-  // startProgress: en qué punto del scroll de la sección empieza a moverse este elemento específico
   const getTransform = (startProgress: number, speed: number = 100) => {
-    // Normalizamos el progreso relativo al inicio del elemento
     const p = Math.max(0, scrollProgress - startProgress) / (1 - startProgress);
-    // Aplicamos un easing smoothstep para que sea "bien definido" y fluido
     const eased = p * p * (3 - 2 * p); 
     
     return {
@@ -76,18 +72,31 @@ export const FeaturedServices = () => {
   return (
     <section 
       ref={sectionRef}
-      className="py-24 md:py-40 bg-white text-black relative overflow-hidden"
+      className="py-24 md:py-40 bg-white text-black relative overflow-hidden min-h-screen flex flex-col justify-center"
     >
-      {/* Decorative Arc - Reacciona dinámicamente al scroll con alta definición */}
+      {/* Decorative Figure - Rotación cinemática monumental que envuelve toda la pantalla */}
       <div 
-        className="absolute -left-[15%] top-1/2 -translate-y-1/2 w-[70vw] h-[70vw] border-[30px] md:border-[60px] border-[#5200F8]/5 rounded-full pointer-events-none transition-transform duration-500 ease-out will-change-transform"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] border-[1px] border-[#5200F8]/10 rounded-full pointer-events-none will-change-transform flex items-center justify-center"
         style={{ 
-          transform: `translateY(-50%) scale(${0.8 + scrollProgress * 0.2}) rotate(${scrollProgress * 15}deg)`,
-          opacity: scrollProgress 
+          transform: `translate(-50%, -50%) scale(${0.7 + scrollProgress * 0.3}) rotate(${scrollProgress * 360}deg)`,
+          opacity: Math.sin(scrollProgress * Math.PI), // Efecto de campana: aparece al inicio y desaparece al final
+          filter: `blur(${(1 - Math.sin(scrollProgress * Math.PI)) * 20}px)`
         }}
-      />
+      >
+        {/* Aro secundario interno para mayor complejidad */}
+        <div 
+          className="w-[85%] h-[85%] border-[30px] md:border-[80px] border-[#5200F8]/5 rounded-full"
+          style={{ transform: `rotate(${scrollProgress * -180}deg)` }}
+        />
+        
+        {/* Destellos en el perímetro del círculo */}
+        <div className="absolute inset-0 flex items-center justify-center">
+           <div className="w-4 h-4 bg-[#5200F8] rounded-full blur-md animate-pulse absolute top-0" />
+           <div className="w-4 h-4 bg-[#F80037] rounded-full blur-md animate-pulse absolute bottom-0" />
+        </div>
+      </div>
       
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
         <div className="flex flex-col gap-12 mb-24 md:mb-32">
           <div className="space-y-6">
             <span 
@@ -101,36 +110,36 @@ export const FeaturedServices = () => {
             </span>
             
             <h2 className="text-[12vw] md:text-[9vw] font-black leading-[0.85] tracking-tighter uppercase select-none">
-              {/* Línea 1: Desplazamiento desde la izquierda */}
+              {/* Línea 1: Ensamblaje desde la izquierda */}
               <div 
                 className="transition-all duration-700 ease-out will-change-transform"
                 style={{ 
-                  transform: `translateX(${(1 - scrollProgress) * -80}px)`,
+                  transform: `translateX(${(1 - scrollProgress) * -120}px)`,
                   opacity: scrollProgress,
-                  filter: `blur(${(1 - scrollProgress) * 4}px)`
+                  filter: `blur(${(1 - scrollProgress) * 8}px)`
                 }}
               >
                 MÁS ALLÁ
               </div>
-              {/* Línea 2: Desplazamiento desde la derecha con estilo Outline */}
+              {/* Línea 2: Ensamblaje desde la derecha con estilo Outline */}
               <div 
                 className="text-transparent transition-all duration-1000 delay-100 ease-out will-change-transform"
                 style={{ 
                   WebkitTextStroke: '1.5px black',
-                  transform: `translateX(${(1 - scrollProgress) * 80}px)`,
+                  transform: `translateX(${(1 - scrollProgress) * 120}px)`,
                   opacity: scrollProgress,
-                  filter: `blur(${(1 - scrollProgress) * 6}px)`
+                  filter: `blur(${(1 - scrollProgress) * 10}px)`
                 }}
               >
                 DE LAS VISIONES
               </div>
-              {/* Línea 3: Desplazamiento desde abajo */}
+              {/* Línea 3: Ensamblaje desde abajo */}
               <div 
                 className="transition-all duration-700 delay-200 ease-out will-change-transform"
                 style={{ 
-                  transform: `translateY(${(1 - scrollProgress) * 60}px)`,
+                  transform: `translateY(${(1 - scrollProgress) * 100}px)`,
                   opacity: scrollProgress,
-                  filter: `blur(${(1 - scrollProgress) * 2}px)`
+                  filter: `blur(${(1 - scrollProgress) * 6}px)`
                 }}
               >
                 AL ALCANCE
@@ -153,7 +162,6 @@ export const FeaturedServices = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 border-t border-black/5 pt-16">
           {services.map((service, idx) => {
-            // Cada tarjeta tiene un punto de inicio de animación escalonado (idx * 0.05)
             const cardStyle = getTransform(0.1 + (idx * 0.05), 80);
             return (
               <div 
