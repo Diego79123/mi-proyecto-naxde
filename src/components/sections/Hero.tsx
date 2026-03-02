@@ -149,10 +149,15 @@ const ParticleText = ({ text }: { text: string }) => {
     canvas.width = width;
     canvas.height = height;
 
-    // Al ser una palabra más corta (AVANZA), aumentamos el tamaño relativo para máximo impacto
     const fontSize = Math.min(width / 3.5, 240); 
     ctx.font = `900 ${fontSize}px sans-serif`;
-    ctx.fillStyle = '#F84F39';
+    
+    // Create Purple to Blue Gradient for the text
+    const gradient = ctx.createLinearGradient(width * 0.2, 0, width * 0.8, 0);
+    gradient.addColorStop(0, '#5200F8'); // Deep Purple
+    gradient.addColorStop(1, '#00C2FF'); // Vibrant Blue
+    
+    ctx.fillStyle = gradient;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(text, width / 2, height / 2);
@@ -167,13 +172,18 @@ const ParticleText = ({ text }: { text: string }) => {
         const index = (y * width + x) * 4;
         const alpha = pixels[index + 3];
         if (alpha > 128) {
+          // Get the color sampled from the gradient text
+          const r = pixels[index];
+          const g = pixels[index + 1];
+          const b = pixels[index + 2];
+          
           particles.current.push(
             new Particle({
               x: x, 
               y: y,
               originX: x,
               originY: y,
-              color: '#F84F39',
+              color: `rgb(${r}, ${g}, ${b})`,
               size: 2,
               friction: 0.9,
               ease: 0.1
