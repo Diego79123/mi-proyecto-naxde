@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
 
-const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero.png?alt=media&token=894d096d-5c36-48b8-aa50-cce731f640c4";
+const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FHero%20fondo%20asteroide1.webp?alt=media&token=bd74abc5-f125-49d8-9cd6-59a98ea3dad5";
 const HERO_BG_PARALLAX = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero1.png?alt=media&token=24fe3c4d-4cf9-4193-a2b7-6148290b02d3";
 const HERO_BG_ASTEROID = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide.png?alt=media&token=63e277da-ee55-444e-8df7-0988e5783ed7";
 const HERO_BG_ASTEROID_3 = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide3.png?alt=media&token=27bfd71e-552c-4631-962d-06c60990aecb";
