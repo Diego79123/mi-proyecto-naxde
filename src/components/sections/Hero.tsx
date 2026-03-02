@@ -319,14 +319,14 @@ export const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-50 pb-16 flex flex-col items-center px-8 text-center">
+      <div className="relative z-50 pb-[114px] flex flex-col items-center px-8 text-center">
         <div 
           className="flex flex-col items-center gap-3 cursor-pointer group" 
           onClick={scrollToNextSection}
         >
           <Mouse className="w-10 h-10 text-white/30 group-hover:text-primary transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#F80037]" />
           <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] group-hover:text-white transition-colors">
-            explora
+            descubre
           </span>
         </div>
       </div>
