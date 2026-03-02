@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -147,15 +148,24 @@ const ParticleText = ({ text }: { text: string }) => {
 
     particles.current = [];
     
-    const width = canvas.offsetWidth;
-    const height = canvas.offsetHeight;
+    // Reset canvas dimensions to container
+    const parent = canvas.parentElement;
+    if (!parent) return;
+    
+    const width = parent.clientWidth;
+    const height = parent.clientHeight;
     if (width === 0 || height === 0) return;
     
     canvas.width = width;
     canvas.height = height;
 
-    const fontSize = Math.min(width / (text.length * 0.55), 320); 
-    ctx.font = `900 ${fontSize}px sans-serif`;
+    // Responsive font size calculation
+    // More aggressive reduction on smaller widths
+    const maxFontSize = 320;
+    const charFactor = text.length > 6 ? 0.65 : 0.55;
+    const responsiveFontSize = Math.min(width / (text.length * charFactor), maxFontSize);
+    
+    ctx.font = `900 ${responsiveFontSize}px sans-serif`;
     
     const gradient = ctx.createLinearGradient(0, 0, width, 0);
     gradient.addColorStop(0, '#5200F8');
@@ -169,7 +179,8 @@ const ParticleText = ({ text }: { text: string }) => {
     const pixels = ctx.getImageData(0, 0, width, height).data;
     ctx.clearRect(0, 0, width, height);
 
-    const gap = 1;
+    // Dynamic gap for performance vs density
+    const gap = width < 768 ? 2 : 1;
 
     for (let y = 0; y < height; y += gap) {
       for (let x = 0; x < width; x += gap) {
@@ -328,15 +339,15 @@ export const Hero = () => {
 
       <StarField isAbsorbing={isAbsorbing} />
 
-      {/* Black Hole Interactive Element (Static anchor for absorption) */}
+      {/* Black Hole Interactive Element */}
       <div 
         onClick={handleBlackHoleClick}
         className={cn(
-          "absolute right-[8%] top-1/2 -translate-y-1/2 z-[30] cursor-pointer group hidden md:block transition-all duration-500",
+          "absolute right-[5%] md:right-[8%] top-1/2 -translate-y-1/2 z-[30] cursor-pointer group hidden sm:block transition-all duration-500",
           isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]"
         )}
       >
-        <div className="relative w-24 h-24 lg:w-32 lg:h-32 rounded-full bg-black shadow-[0_0_40px_rgba(248,0,55,0.4),0_0_80px_rgba(82,0,248,0.4)] transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_60px_#F80037,0_0_120px_#5200F8]">
+        <div className="relative w-20 h-24 md:w-32 md:h-32 rounded-full bg-black shadow-[0_0_40px_rgba(248,0,55,0.4),0_0_80px_rgba(82,0,248,0.4)] transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_60px_#F80037,0_0_120px_#5200F8]">
           <div className="absolute inset-0 rounded-full border border-white/5 animate-spin duration-[15s]" />
           <div className="absolute inset-[-15px] rounded-full border border-primary/10 blur-md animate-pulse" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/20 group-hover:text-primary/60 transition-colors">
@@ -357,7 +368,7 @@ export const Hero = () => {
       )}
       style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
       >
-        <div className="relative w-[280px] h-[280px] md:w-[480px] md:h-[480px] float-anim">
+        <div className="relative w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] md:w-[480px] md:h-[480px] float-anim">
           <Image 
             src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=2b444080-0b94-4549-a656-6e67dc038512"
             alt="Astronauta Candy"
@@ -370,31 +381,31 @@ export const Hero = () => {
 
       {/* Absorbed Content: UI elements */}
       <div className={cn(
-        "flex-1 relative flex flex-col items-center justify-center gap-[10px] transition-all duration-1000",
+        "flex-1 relative flex flex-col items-center justify-center gap-4 transition-all duration-1000 px-6",
         isAbsorbing && "animate-absorb"
       )}
       style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
       >
         <div 
           key={currentWordIndex} 
-          className="w-full h-[40vh] md:h-[50vh] flex items-center justify-center z-10 text-center px-6 animate-slide-word"
+          className="w-full h-[35vh] sm:h-[40vh] md:h-[50vh] flex items-center justify-center z-10 text-center animate-slide-word"
         >
           <ParticleText text={words[currentWordIndex]} />
         </div>
         
-        <div className="max-w-4xl z-10 px-8 flex flex-col items-center gap-8">
-          <p className="text-sm md:text-lg text-white/60 font-bold tracking-[0.3em] uppercase leading-relaxed text-center">
+        <div className="max-w-4xl z-10 flex flex-col items-center gap-8 w-full">
+          <p className="text-xs sm:text-sm md:text-lg text-white/60 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-relaxed text-center px-4">
             Construimos plataformas digitales que transforman negocios.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">
-            <Link href="/contacto">
-              <Button size="lg" className="h-14 px-10 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-lg font-bold min-w-[180px] transition-all hover:scale-105 active:scale-95">
+            <Link href="/contacto" className="w-full sm:w-auto">
+              <Button size="lg" className="h-14 px-10 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-lg font-bold w-full transition-all hover:scale-105 active:scale-95">
                 Contacta
               </Button>
             </Link>
-            <Link href="/proyectos">
-              <Button size="lg" variant="outline" className="h-14 px-10 border-white/20 hover:bg-white/10 text-white rounded-full text-lg font-bold min-w-[180px] backdrop-blur-sm transition-all hover:border-white/40">
+            <Link href="/proyectos" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="h-14 px-10 border-white/20 hover:bg-white/10 text-white rounded-full text-lg font-bold w-full backdrop-blur-sm transition-all hover:border-white/40">
                 Ver Proyectos
               </Button>
             </Link>
@@ -404,7 +415,7 @@ export const Hero = () => {
 
       {/* Absorbed Content: Footer Discover */}
       <div className={cn(
-        "relative z-50 pb-[154px] flex flex-col items-center px-8 text-center transition-all duration-1000",
+        "relative z-50 pb-[120px] md:pb-[154px] flex flex-col items-center px-8 text-center transition-all duration-1000",
         isAbsorbing && "animate-absorb"
       )}
       style={{ '--absorb-x': '40vw', '--absorb-y': '20vh' } as any}
@@ -413,8 +424,8 @@ export const Hero = () => {
           className="flex flex-col items-center gap-3 cursor-pointer group" 
           onClick={scrollToNextSection}
         >
-          <Mouse className="w-10 h-10 text-white/30 group-hover:text-primary transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#F80037]" />
-          <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] group-hover:text-white transition-colors">
+          <Mouse className="w-8 h-8 md:w-10 md:h-10 text-white/30 group-hover:text-primary transition-all duration-300 group-hover:drop-shadow-[0_0_10px_#F80037]" />
+          <span className="text-[9px] md:text-[10px] font-bold text-white/40 uppercase tracking-[0.3em] group-hover:text-white transition-colors">
             descubre
           </span>
         </div>
