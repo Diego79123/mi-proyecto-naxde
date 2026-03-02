@@ -5,6 +5,7 @@ import './globals.css';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { FloatingActions } from '@/components/layout/FloatingActions';
+import { SocialSidebar } from '@/components/layout/SocialSidebar';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className="font-body antialiased bg-[#00001D]">
         <FirebaseClientProvider>
           {children}
+          <SocialSidebar />
           <FloatingActions />
           <Toaster />
         </FirebaseClientProvider>
