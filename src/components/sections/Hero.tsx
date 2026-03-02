@@ -403,18 +403,16 @@ export const Hero = () => {
       >
         {/* Main Word Animation Container */}
         <div 
-          key={currentWordIndex} 
-          className="w-full min-h-[30vh] sm:min-h-[40vh] md:min-h-[50vh] flex items-center justify-center z-10 text-center overflow-hidden"
+          key={`word-${currentWordIndex}`} 
+          className="w-full min-h-[30vh] sm:min-h-[40vh] md:min-h-[50vh] flex items-center justify-center z-10 text-center overflow-hidden animate-slide-up-cycle"
         >
-          <div className="w-full h-full animate-slide-up-cycle">
-            <ParticleText text={words[currentWordIndex]} />
-          </div>
+          <ParticleText text={words[currentWordIndex]} />
         </div>
         
         {/* Elevatable Sub-content (Paragraph + Buttons + Scroll) */}
         <div className="max-w-4xl z-10 flex flex-col items-center gap-6 sm:gap-8 w-full mt-4 relative -top-[300px]">
-          {/* Sychronized Subtitle Paragraph */}
-          <div key={`sub-${currentWordIndex}`} className="animate-slide-up-cycle">
+          {/* Synchronized Subtitle Paragraph */}
+          <div key={`sub-${currentWordIndex}`} className="animate-slide-up-cycle w-full flex justify-center">
             <p className="text-[10px] sm:text-xs md:text-base lg:text-lg text-white/60 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-relaxed text-center px-4 max-w-2xl">
               {subtitles[currentWordIndex]}
             </p>
@@ -450,12 +448,13 @@ export const Hero = () => {
       <style jsx global>{`
         @keyframes slide-up-cycle {
           0% { transform: translateY(100px); opacity: 0; filter: blur(20px); }
-          10% { transform: translateY(0); opacity: 1; filter: blur(0); }
-          90% { transform: translateY(0); opacity: 1; filter: blur(0); }
+          15% { transform: translateY(0); opacity: 1; filter: blur(0); }
+          85% { transform: translateY(0); opacity: 1; filter: blur(0); }
           100% { transform: translateY(100px); opacity: 0; filter: blur(20px); }
         }
         .animate-slide-up-cycle {
           animation: slide-up-cycle 15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          will-change: transform, opacity;
         }
       `}</style>
     </section>
