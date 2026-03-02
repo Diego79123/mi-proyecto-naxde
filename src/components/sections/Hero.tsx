@@ -11,8 +11,6 @@ import { cn } from '@/lib/utils';
 
 const HERO_BG_IMAGE = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FHero%20fondo%20asteroide1.webp?alt=media&token=bd74abc5-f125-49d8-9cd6-59a98ea3dad5";
 const HERO_BG_PARALLAX = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAsteroide1.webp?alt=media&token=64700fa9-ed0f-4d51-ad26-687cfa5f70e9";
-const HERO_BG_ASTEROID = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide.png?alt=media&token=63e277da-ee55-444e-8df7-0988e5783ed7";
-const HERO_BG_ASTEROID_3 = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FFondo%20hero%20asteroide3.png?alt=media&token=27bfd71e-552c-4631-962d-06c60990aecb";
 
 const slides = [
   {
@@ -160,11 +158,8 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col bg-[#00001D] overflow-hidden">
-      {/* Capa de Imagen de Fondo Base (z-0) */}
-      <div className={cn(
-        "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
-        selectedIndex === 0 ? "opacity-100 scale-100" : "opacity-0 scale-95"
-      )}>
+      {/* Capa de Imagen de Fondo Base (z-0) - Unificada para todos los slides */}
+      <div className="absolute inset-0 z-0">
         <div 
           className="absolute inset-0 transition-transform duration-[1000ms] ease-out scale-110"
           style={{ transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)` }}
@@ -179,38 +174,6 @@ export const Hero = () => {
           />
         </div>
         <div className="absolute inset-0 bg-[#00001D]/30 backdrop-blur-[1px]" />
-      </div>
-
-      {/* Capa de Imagen de Fondo Slide 2 (z-0) */}
-      <div className={cn(
-        "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
-        selectedIndex === 1 ? "opacity-100 scale-100" : "opacity-0 scale-95"
-      )}>
-        <Image 
-          src={HERO_BG_ASTEROID} 
-          alt="Asteroid Background" 
-          fill 
-          className="object-cover"
-          style={{ filter: 'hue-rotate(190deg) saturate(1.2) brightness(0.9)' }}
-          quality={100}
-        />
-        <div className="absolute inset-0 bg-[#00001D]/40 backdrop-blur-[1px]" />
-        <div className="absolute inset-0 bg-blue-500/10 mix-blend-overlay pointer-events-none" />
-      </div>
-
-      {/* Capa de Imagen de Fondo Slide 3 (z-0) */}
-      <div className={cn(
-        "absolute inset-0 transition-all duration-[3000ms] ease-out z-0",
-        selectedIndex === 2 ? "opacity-100 scale-100" : "opacity-0 scale-95"
-      )}>
-        <Image 
-          src={HERO_BG_ASTEROID_3} 
-          alt="Deep Space Asteroid Background" 
-          fill 
-          className="object-cover"
-          quality={100}
-        />
-        <div className="absolute inset-0 bg-[#00001D]/20 backdrop-blur-[1px]" />
       </div>
 
       <StarField />
@@ -386,13 +349,10 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Capa Parallax Frontal (z-30) - PASA POR ENCIMA DE TODO */}
-      <div className={cn(
-        "absolute inset-0 transition-all duration-[3000ms] ease-out z-30 pointer-events-none",
-        selectedIndex === 0 ? "opacity-100 scale-105" : "opacity-0 scale-100"
-      )}>
+      {/* Capa Parallax Frontal (z-30) - Unificada para todos los slides */}
+      <div className="absolute inset-0 z-30 pointer-events-none">
         <div 
-          className="absolute inset-0 transition-transform duration-[1200ms] ease-out"
+          className="absolute inset-0 transition-transform duration-[1200ms] ease-out scale-105"
           style={{ transform: `translate(${mousePos.x * -0.6}px, ${mousePos.y * -0.6}px)` }}
         >
           <Image 
