@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -319,7 +318,7 @@ export const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-50 pb-[114px] flex flex-col items-center px-8 text-center">
+      <div className="relative z-50 pb-[134px] flex flex-col items-center px-8 text-center">
         <div 
           className="flex flex-col items-center gap-3 cursor-pointer group" 
           onClick={scrollToNextSection}

@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState } from 'react';
@@ -24,12 +23,6 @@ export const BottomNav = () => {
       <nav className="fixed bottom-6 left-6 right-6 z-[130] flex justify-center pointer-events-none">
         <div className="relative w-full max-w-4xl h-20 flex items-center bg-[#050515]/95 border border-white/10 rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-[45px] px-4 pointer-events-auto">
           
-          {/* Muesca Visual para el botón central (Sutil) */}
-          <div 
-            className="absolute left-1/2 -translate-x-1/2 -top-4 w-32 h-8 bg-[#050515] -z-10"
-            style={{ clipPath: 'polygon(10% 100%, 90% 100%, 100% 0, 0 0)' }}
-          />
-
           <div className="relative w-full h-full flex items-center justify-between z-10">
             {/* Items Izquierda */}
             <div className="flex-1 flex justify-around">
