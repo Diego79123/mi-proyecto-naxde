@@ -337,13 +337,16 @@ export const Hero = () => {
           isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]"
         )}
       >
+        {/* Resplandor Rotativo */}
+        <div className="absolute inset-[-20px] sm:inset-[-40px] rounded-full animate-spin-slow opacity-60 blur-2xl bg-[conic-gradient(from_0deg,#F80037,#5200F8,#F80037)] pointer-events-none" />
+        
         {/* Texto Circular Rotativo */}
         <div className="absolute inset-[-40px] sm:inset-[-60px] md:inset-[-80px] pointer-events-none animate-spin-slow">
           <svg viewBox="0 0 200 200" className="w-full h-full overflow-visible">
             <defs>
               <path id="circlePath" d="M 100, 100 m -85, 0 a 85,85 0 1,1 170,0 a 85,85 0 1,1 -170,0" />
             </defs>
-            <text className="fill-white text-[10px] font-black tracking-[0.25em] uppercase">
+            <text className="fill-white/40 text-[10px] font-black tracking-[0.25em] uppercase">
               <textPath xlinkHref="#circlePath">
                 PRODUCTO DESTACADO • PRODUCTO DESTACADO • PRODUCTO DESTACADO • 
               </textPath>
