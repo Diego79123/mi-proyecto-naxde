@@ -1,7 +1,7 @@
 
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -67,6 +67,177 @@ const StarField = () => {
   );
 };
 
+interface ParticleProps {
+  x: number;
+  y: number;
+  originX: number;
+  originY: number;
+  color: string;
+  size: number;
+  friction: number;
+  ease: number;
+}
+
+class Particle {
+  x: number;
+  y: number;
+  originX: number;
+  originY: number;
+  color: string;
+  size: number;
+  vx: number;
+  vy: number;
+  friction: number;
+  ease: number;
+
+  constructor({ x, y, originX, originY, color, size, friction, ease }: ParticleProps) {
+    this.x = x;
+    this.y = y;
+    this.originX = originX;
+    this.originY = originY;
+    this.color = color;
+    this.size = size;
+    this.vx = 0;
+    this.vy = 0;
+    this.friction = friction;
+    this.ease = ease;
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+  }
+
+  update(mouse: { x: number; y: number; radius: number }) {
+    const dx = mouse.x - this.x;
+    const dy = mouse.y - this.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const force = (mouse.radius - distance) / mouse.radius;
+
+    if (distance < mouse.radius) {
+      const angle = Math.atan2(dy, dx);
+      this.vx -= Math.cos(angle) * force * 10;
+      this.vy -= Math.sin(angle) * force * 10;
+    }
+
+    this.vx *= this.friction;
+    this.vy *= this.friction;
+
+    this.x += this.vx + (this.originX - this.x) * this.ease;
+    this.y += this.vy + (this.originY - this.y) * this.ease;
+  }
+}
+
+const ParticleText = ({ text }: { text: string }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const particles = useRef<Particle[]>([]);
+  const mouse = useRef({ x: 0, y: 0, radius: 100 });
+  const animationFrameId = useRef<number>(0);
+
+  const init = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    if (!ctx) return;
+
+    // Reset particles
+    particles.current = [];
+    
+    // Set canvas dimensions
+    const width = canvas.offsetWidth;
+    const height = canvas.offsetHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    // Draw text to read pixel data
+    const fontSize = Math.min(width / 10, 120);
+    ctx.font = `900 ${fontSize}px var(--font-poppins)`;
+    ctx.fillStyle = '#F84F39';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, width / 2, height / 2);
+
+    const pixels = ctx.getImageData(0, 0, width, height).data;
+    ctx.clearRect(0, 0, width, height);
+
+    const gap = 4; // Particle spacing
+
+    for (let y = 0; y < height; y += gap) {
+      for (let x = 0; x < width; x += gap) {
+        const index = (y * width + x) * 4;
+        const alpha = pixels[index + 3];
+        if (alpha > 128) {
+          particles.current.push(
+            new Particle({
+              x: Math.random() * width,
+              y: Math.random() * height,
+              originX: x,
+              originY: y,
+              color: '#F84F39',
+              size: 2,
+              friction: 0.95,
+              ease: 0.1
+            })
+          );
+        }
+      }
+    }
+  }, [text]);
+
+  const animate = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    particles.current.forEach((particle) => {
+      particle.update(mouse.current);
+      particle.draw(ctx);
+    });
+
+    animationFrameId.current = requestAnimationFrame(animate);
+  }, []);
+
+  useEffect(() => {
+    init();
+    animate();
+
+    const handleResize = () => {
+      init();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId.current);
+    };
+  }, [init, animate]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (rect) {
+      mouse.current.x = e.clientX - rect.left;
+      mouse.current.y = e.clientY - rect.top;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    mouse.current.x = -9999;
+    mouse.current.y = -9999;
+  };
+
+  return (
+    <canvas
+      ref={canvasRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="w-full h-full max-w-5xl cursor-default"
+    />
+  );
+};
+
 export const Hero = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -84,10 +255,8 @@ export const Hero = () => {
 
   const scrollToNextSection = () => {
     if (typeof window !== 'undefined') {
-      window.scrollTo({
-        top: window.innerHeight,
-        behavior: 'smooth'
-      });
+      const metricsSection = document.querySelector('section.py-12');
+      metricsSection?.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -119,12 +288,10 @@ export const Hero = () => {
         <span className="text-white/40 text-[10px] font-bold tracking-[0.5em] mt-2">01 / 01</span>
       </div>
 
-      {/* 3. Contenedor Central (Texto Monumental) - z-10 */}
+      {/* 3. Contenedor Central (Texto Monumental con Partículas) - z-10 */}
       <div className="flex-1 relative flex items-center justify-center">
-        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none text-center px-6">
-          <h1 className="text-[7vw] md:text-[8vw] font-black text-[#F84F39] leading-none tracking-tighter uppercase opacity-90 select-none">
-            DESARROLLAMOS
-          </h1>
+        <div className="absolute inset-0 flex items-center justify-center z-10 text-center px-6">
+          <ParticleText text="DESARROLLAMOS" />
         </div>
       </div>
 
