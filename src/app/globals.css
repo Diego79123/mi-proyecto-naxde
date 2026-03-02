@@ -141,6 +141,38 @@
     50% { transform: translateY(15px); }
   }
 
+  /* Black Hole Absorption Animation */
+  @keyframes compress-to-black-hole {
+    0% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+      opacity: 1;
+      filter: blur(0px);
+    }
+    100% {
+      transform: translate(var(--absorb-x, 40vw), var(--absorb-y, 0)) scale(0) rotate(180deg);
+      opacity: 0;
+      filter: blur(20px);
+    }
+  }
+
+  .animate-absorb {
+    animation: compress-to-black-hole 1.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+  }
+
+  /* Singular White-Out Transition */
+  @keyframes white-out {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .animate-white-out {
+    animation: white-out 0.8s ease-in forwards;
+  }
+
   /* Asteroid Burst Animations */
   @keyframes asteroid-burst {
     0% {

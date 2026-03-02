@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -7,8 +6,9 @@ import { Mouse, Zap } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
-const StarField = () => {
+const StarField = ({ isAbsorbing }: { isAbsorbing: boolean }) => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
   const [shootingStars, setShootingStars] = useState<{ id: number; top: string; left: string; duration: string; delay: string }[]>([]);
 
@@ -35,7 +35,12 @@ const StarField = () => {
   }, []);
 
   return (
-    <div className="stars-container absolute inset-0 overflow-hidden pointer-events-none z-[5]">
+    <div className={cn(
+      "stars-container absolute inset-0 overflow-hidden pointer-events-none z-[5] transition-all",
+      isAbsorbing && "animate-absorb"
+    )}
+    style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
+    >
       {stars.map((star) => (
         <div
           key={star.id}
@@ -251,7 +256,8 @@ export const Hero = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const words = ["CREA", "CONECTA", "AVANZA"];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [isExpanding, setIsExpanding] = useState(false);
+  const [isAbsorbing, setIsAbsorbing] = useState(false);
+  const [showWhiteOut, setShowWhiteOut] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -266,11 +272,12 @@ export const Hero = () => {
   }, []);
 
   useEffect(() => {
+    if (isAbsorbing) return;
     const interval = setInterval(() => {
       setCurrentWordIndex((prev) => (prev + 1) % words.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isAbsorbing]);
 
   const scrollToNextSection = () => {
     if (typeof window !== 'undefined') {
@@ -280,28 +287,33 @@ export const Hero = () => {
   };
 
   const handleBlackHoleClick = () => {
-    setIsExpanding(true);
+    setIsAbsorbing(true);
+    
+    // Physical compression phase
+    setTimeout(() => {
+      setShowWhiteOut(true);
+    }, 1000);
+
+    // Navigation phase
     setTimeout(() => {
       router.push('/tarjetas-neocard');
-    }, 1200);
+    }, 1800);
   };
 
   return (
     <section className="relative h-screen w-full flex flex-col bg-[#00001D] overflow-hidden select-none">
-      {/* Vortex Transition Overlay */}
-      {isExpanding && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center pointer-events-none">
-          <div className="absolute inset-0 bg-black animate-in fade-in duration-1000" />
-          <div className="relative w-full h-full flex items-center justify-center">
-            <div className="absolute w-[50vh] h-[50vh] rounded-full bg-black shadow-[0_0_150px_#F80037,0_0_300px_#5200F8,inset_0_0_100px_rgba(0,0,0,1)] animate-black-hole flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_0%,#F80037_50%,transparent_100%)] opacity-30 animate-spin duration-[3s]" />
-            </div>
-            <div className="absolute w-[60vh] h-[60vh] rounded-full border-[30px] border-white/5 backdrop-blur-[40px] animate-black-hole" style={{ animationDelay: '0.1s' }} />
-          </div>
-        </div>
+      {/* Singular White-Out Overlay */}
+      {showWhiteOut && (
+        <div className="fixed inset-0 z-[10000] bg-white animate-white-out" />
       )}
 
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Universe Absorption Background Wrapper */}
+      <div className={cn(
+        "absolute inset-0 z-0 pointer-events-none transition-all duration-1000",
+        isAbsorbing && "animate-absorb"
+      )}
+      style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
+      >
         <div 
           className="absolute inset-0 transition-transform duration-[2000ms] ease-out scale-110"
           style={{ transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)` }}
@@ -314,12 +326,15 @@ export const Hero = () => {
         </div>
       </div>
 
-      <StarField />
+      <StarField isAbsorbing={isAbsorbing} />
 
-      {/* Black Hole Interactive Element */}
+      {/* Black Hole Interactive Element (Static anchor for absorption) */}
       <div 
         onClick={handleBlackHoleClick}
-        className="absolute right-[8%] top-1/2 -translate-y-1/2 z-[30] cursor-pointer group hidden md:block"
+        className={cn(
+          "absolute right-[8%] top-1/2 -translate-y-1/2 z-[30] cursor-pointer group hidden md:block transition-all duration-500",
+          isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]"
+        )}
       >
         <div className="relative w-24 h-24 lg:w-32 lg:h-32 rounded-full bg-black shadow-[0_0_40px_rgba(248,0,55,0.4),0_0_80px_rgba(82,0,248,0.4)] transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_60px_#F80037,0_0_120px_#5200F8]">
           <div className="absolute inset-0 rounded-full border border-white/5 animate-spin duration-[15s]" />
@@ -327,13 +342,21 @@ export const Hero = () => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/20 group-hover:text-primary/60 transition-colors">
             <Zap className="w-6 h-6 animate-pulse" />
           </div>
-          <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Saltar al Nexo</span>
-          </div>
+          {!isAbsorbing && (
+            <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Saltar al Nexo</span>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="absolute inset-0 flex items-center justify-center z-[20] pointer-events-none">
+      {/* Absorbed Content: Astronaut */}
+      <div className={cn(
+        "absolute inset-0 flex items-center justify-center z-[20] pointer-events-none transition-all duration-1000",
+        isAbsorbing && "animate-absorb"
+      )}
+      style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
+      >
         <div className="relative w-[280px] h-[280px] md:w-[480px] md:h-[480px] float-anim">
           <Image 
             src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=2b444080-0b94-4549-a656-6e67dc038512"
@@ -345,7 +368,13 @@ export const Hero = () => {
         </div>
       </div>
 
-      <div className="flex-1 relative flex flex-col items-center justify-center gap-[10px]">
+      {/* Absorbed Content: UI elements */}
+      <div className={cn(
+        "flex-1 relative flex flex-col items-center justify-center gap-[10px] transition-all duration-1000",
+        isAbsorbing && "animate-absorb"
+      )}
+      style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
+      >
         <div 
           key={currentWordIndex} 
           className="w-full h-[40vh] md:h-[50vh] flex items-center justify-center z-10 text-center px-6 animate-slide-word"
@@ -373,7 +402,13 @@ export const Hero = () => {
         </div>
       </div>
 
-      <div className="relative z-50 pb-[154px] flex flex-col items-center px-8 text-center">
+      {/* Absorbed Content: Footer Discover */}
+      <div className={cn(
+        "relative z-50 pb-[154px] flex flex-col items-center px-8 text-center transition-all duration-1000",
+        isAbsorbing && "animate-absorb"
+      )}
+      style={{ '--absorb-x': '40vw', '--absorb-y': '20vh' } as any}
+      >
         <div 
           className="flex flex-col items-center gap-3 cursor-pointer group" 
           onClick={scrollToNextSection}
