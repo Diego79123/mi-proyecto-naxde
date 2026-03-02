@@ -401,7 +401,7 @@ export const Hero = () => {
           </div>
         </div>
         
-        <div className="max-w-4xl z-10 flex flex-col items-center gap-6 sm:gap-8 w-full mt-4">
+        <div className="max-w-4xl z-10 flex flex-col items-center gap-6 sm:gap-8 w-full mt-4 relative -top-[300px]">
           <p className="text-[10px] sm:text-xs md:text-base lg:text-lg text-white/60 font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase leading-relaxed text-center px-4 max-w-2xl">
             Construimos plataformas digitales que transforman negocios.
           </p>
