@@ -11,7 +11,6 @@ import { ExtendedServices } from '@/components/sections/ExtendedServices';
 import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { TechStackCarousel } from '@/components/sections/TechStackCarousel';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
-import { ProjectLinksSection } from '@/components/sections/ProjectLinksSection';
 import { ConnectingIdealsSection } from '@/components/sections/ConnectingIdealsSection';
 import { InnovativeApproachSection } from '@/components/sections/InnovativeApproachSection';
 import { Footer } from '@/components/layout/Footer';
@@ -46,8 +45,6 @@ export default function Home() {
       <TechStackCarousel />
 
       <ShowreelSection />
-
-      <ProjectLinksSection />
 
       <ConnectingIdealsSection />
 
