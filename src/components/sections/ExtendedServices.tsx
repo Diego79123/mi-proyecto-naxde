@@ -5,12 +5,7 @@ import React from 'react';
 import { 
   Bot, 
   Cpu, 
-  BarChart3, 
-  ShieldAlert, 
-  Wifi, 
   Star, 
-  Link as LinkIcon, 
-  Cloud, 
   Palette, 
   Layers, 
   Eye, 
@@ -35,40 +30,10 @@ const extraServices = [
     color: "from-purple-500/20 to-pink-500/20"
   },
   {
-    title: "Big Data Predictivo",
-    desc: "Modelos de IA que anticipan tendencias y comportamientos de mercado.",
-    icon: BarChart3,
-    color: "from-orange-500/20 to-yellow-500/20"
-  },
-  {
-    title: "Ciberseguridad",
-    desc: "Blindaje digital y auditorías de seguridad de grado bancario.",
-    icon: ShieldAlert,
-    color: "from-red-500/20 to-primary/20"
-  },
-  {
-    title: "Ecosistema IoT",
-    desc: "Conectamos tu hardware con plataformas de control inteligente.",
-    icon: Wifi,
-    color: "from-green-500/20 to-emerald-500/20"
-  },
-  {
     title: "Fidelización 3.0",
     desc: "Sistemas de puntos y recompensas mediante tecnología NFC/QR.",
     icon: Star,
     color: "from-yellow-500/20 to-amber-500/20"
-  },
-  {
-    title: "Nodos Blockchain",
-    desc: "Soluciones de trazabilidad y smart contracts para transparencia total.",
-    icon: LinkIcon,
-    color: "from-indigo-500/20 to-blue-500/20"
-  },
-  {
-    title: "Arquitectura Cloud",
-    desc: "Infraestructura serverless diseñada para escalar globalmente.",
-    icon: Cloud,
-    color: "from-cyan-500/20 to-blue-500/20"
   },
   {
     title: "Design Systems",
@@ -115,7 +80,7 @@ export const ExtendedServices = () => {
               <span className="text-primary italic">SIN LÍMITES</span>.
             </h2>
             <p className="text-lg md:text-xl text-white/40 leading-relaxed font-medium">
-              Explora nuestra gama completa de servicios diseñados para liderar la transformación digital en Latinoamérica.
+              Explora nuestra gama de servicios diseñados para liderar la transformación digital en Latinoamérica.
             </p>
           </div>
           
