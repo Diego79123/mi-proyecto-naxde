@@ -3,7 +3,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Smartphone, Globe, Zap, Cpu, ArrowRight, CheckCircle2, Leaf, BarChart3, Settings2 } from 'lucide-react';
+import { Smartphone, Globe, Zap, Cpu, ArrowRight, CheckCircle2, Leaf, BarChart3, Settings2, CreditCard } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const services = [
@@ -104,10 +105,12 @@ export const FeaturedServices = () => {
 
   const mockupOpacity = scrollProgress < 0.2 ? 0 : Math.min(1, (scrollProgress - 0.2) * 4) * (1 - Math.max(0, (scrollProgress - 0.95) * 10));
   const mockupBlur = Math.max(0, (0.5 - scrollProgress) * 40);
-  // El celular se achica un poco cuando aparecen los beneficios para dar aire
   const mockupScale = scrollProgress < 0.6 
     ? 0.85 + (scrollProgress * 0.25)
     : 1.0 - ((scrollProgress - 0.6) * 0.15);
+
+  const planesBtnOpacity = Math.max(0, (scrollProgress - 0.94) * 15);
+  const planesBtnY = (1 - planesBtnOpacity) * 40;
 
   return (
     <section 
@@ -237,7 +240,6 @@ export const FeaturedServices = () => {
                     </div>
                     <p className="text-white/50 text-xs md:text-sm leading-relaxed">{benefit.desc}</p>
                     
-                    {/* Indicador de "Señalamiento" al celular */}
                     <div 
                       className={cn(
                         "absolute top-1/2 -translate-y-1/2 w-12 md:w-24 h-px bg-gradient-to-r from-primary/50 to-transparent",
@@ -251,11 +253,35 @@ export const FeaturedServices = () => {
               })}
             </div>
 
+            {/* Escena Final: Botón Planes */}
+            <div 
+              className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 transition-all duration-700 ease-out flex flex-col items-center gap-4"
+              style={{ 
+                opacity: planesBtnOpacity,
+                transform: `translate(-50%, ${planesBtnY}px)`,
+                pointerEvents: planesBtnOpacity > 0.5 ? 'auto' : 'none'
+              }}
+            >
+              <Link href="/tarjetas-neocard#planes">
+                <Button 
+                  size="lg" 
+                  className="h-16 md:h-20 px-12 md:px-16 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-xl md:text-2xl font-black transition-all hover:scale-105 active:scale-95 group"
+                >
+                  <CreditCard className="w-6 h-6 md:w-8 md:h-8 mr-3 text-white group-hover:rotate-12 transition-transform" />
+                  Planes Neocard
+                  <ArrowRight className="w-6 h-6 md:w-8 md:h-8 ml-3 animate-pulse" />
+                </Button>
+              </Link>
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">
+                Elige tu entrada al futuro
+              </p>
+            </div>
+
           </div>
         </div>
       </div>
 
-      {/* Services Bottom Grid - Transición suave al final */}
+      {/* Services Bottom Grid */}
       <div className={cn(
         "relative z-40 max-w-7xl mx-auto px-6 pb-24 transition-all duration-1000",
         scrollProgress < 0.92 ? "opacity-0 translate-y-20" : "opacity-100 translate-y-0"
