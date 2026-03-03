@@ -11,7 +11,6 @@ import { TechStackCarousel } from '@/components/sections/TechStackCarousel';
 import { DisruptiveVisionBanner } from '@/components/sections/DisruptiveVisionBanner';
 import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
-import { InnovativeApproachSection } from '@/components/sections/InnovativeApproachSection';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { ArrowRight } from 'lucide-react';
@@ -47,8 +46,6 @@ export default function Home() {
       <ConfidenceSection />
 
       <ShowreelSection />
-
-      <InnovativeApproachSection />
 
       {/* CTA Final */}
       <section className="py-24 md:py-32 px-6">
