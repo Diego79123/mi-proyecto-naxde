@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, Suspense } from 'react';
 import { MessageCircle, Sparkles, Send, Bot, User, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,13 +14,17 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { generalAssistant } from '@/ai/flows/general-assistant-flow';
 import { cn } from '@/lib/utils';
+import { useSearchParams } from 'next/navigation';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
 
-export const FloatingActions = () => {
+const FloatingActionsContent = () => {
+  const searchParams = useSearchParams();
+  const isMockup = searchParams?.get('mode') === 'mockup';
+  
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: '¡Hola! Soy el asistente inteligente de Naxde. ¿Cómo puedo ayudarte a transformar tu negocio hoy?' }
@@ -53,6 +57,9 @@ export const FloatingActions = () => {
       setIsLoading(false);
     }
   };
+
+  // Ocultar si estamos en modo mockup para el prototipo interactivo
+  if (isMockup) return null;
 
   return (
     <div className="fixed bottom-24 right-6 md:bottom-10 md:right-10 z-[100] flex flex-col gap-4">
@@ -162,5 +169,13 @@ export const FloatingActions = () => {
         </Button>
       </a>
     </div>
+  );
+};
+
+export const FloatingActions = () => {
+  return (
+    <Suspense fallback={null}>
+      <FloatingActionsContent />
+    </Suspense>
   );
 };

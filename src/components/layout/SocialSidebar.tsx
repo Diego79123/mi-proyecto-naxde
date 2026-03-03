@@ -1,11 +1,16 @@
-
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Instagram, Facebook } from 'lucide-react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
-export const SocialSidebar = () => {
+const SocialSidebarContent = () => {
+  const searchParams = useSearchParams();
+  const isMockup = searchParams?.get('mode') === 'mockup';
+
+  if (isMockup) return null;
+
   return (
     <div className="fixed left-6 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-4 p-3 glass-panel rounded-2xl border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)] animate-in fade-in slide-in-from-left duration-1000">
       <Link 
@@ -49,5 +54,13 @@ export const SocialSidebar = () => {
         </span>
       </div>
     </div>
+  );
+};
+
+export const SocialSidebar = () => {
+  return (
+    <Suspense fallback={null}>
+      <SocialSidebarContent />
+    </Suspense>
   );
 };
