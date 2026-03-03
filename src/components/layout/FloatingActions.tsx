@@ -83,7 +83,11 @@ const FloatingActionsContent = () => {
           <SheetHeader className="p-6 border-b border-white/5 bg-white/[0.02]">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center overflow-hidden border border-white/10">
-                <img src={CANDY_AVATAR_URL} alt="Candy Assistant" className="w-full h-full object-cover" />
+                <img 
+                  src={CANDY_AVATAR_URL} 
+                  alt="Candy Assistant" 
+                  className="w-full h-full object-cover scale-[2.8] origin-top translate-y-[5%]" 
+                />
               </div>
               <div>
                 <SheetTitle className="text-white font-headline text-left">Candy Assistant</SheetTitle>
@@ -106,7 +110,11 @@ const FloatingActionsContent = () => {
                     {msg.role === 'user' ? (
                       <User className="w-4 h-4 text-primary" />
                     ) : (
-                      <img src={CANDY_AVATAR_URL} alt="Candy" className="w-full h-full object-cover" />
+                      <img 
+                        src={CANDY_AVATAR_URL} 
+                        alt="Candy" 
+                        className="w-full h-full object-cover scale-[2.8] origin-top translate-y-[5%]" 
+                      />
                     )}
                   </div>
                   <div className={cn(
@@ -122,7 +130,11 @@ const FloatingActionsContent = () => {
               {isLoading && (
                 <div className="flex gap-3 mr-auto">
                   <div className="w-8 h-8 rounded-lg bg-transparent border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
-                    <img src={CANDY_AVATAR_URL} alt="Candy" className="w-full h-full object-cover animate-pulse" />
+                    <img 
+                      src={CANDY_AVATAR_URL} 
+                      alt="Candy" 
+                      className="w-full h-full object-cover animate-pulse scale-[2.8] origin-top translate-y-[5%]" 
+                    />
                   </div>
                   <div className="bg-white/5 p-4 rounded-2xl flex gap-1.5 items-center border border-white/5">
                     <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]" />
