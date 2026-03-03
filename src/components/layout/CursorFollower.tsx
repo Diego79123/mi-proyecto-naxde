@@ -1,14 +1,22 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 
-export const CursorFollower = () => {
+const CursorFollowerContent = () => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const isMockup = searchParams?.get('mode') === 'mockup';
+  
   const cursorRef = useRef({ x: 0, y: 0 });
   const targetRef = useRef({ x: 0, y: 0 });
   const [trail, setTrail] = useState<{ x: number; y: number; id: number }[]>([]);
   const requestRef = useRef<number>(null);
 
   useEffect(() => {
+    // Solo inicializar si estamos en el home y no es modo mockup
+    if (pathname !== '/' || isMockup) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       targetRef.current = { x: e.clientX, y: e.clientY };
     };
@@ -16,20 +24,16 @@ export const CursorFollower = () => {
     window.addEventListener('mousemove', handleMouseMove);
 
     const animate = () => {
-      // Física: Interpolación lineal (lerp)
-      // Ease de 0.25 para mantener la estrella muy cerca del cursor real
       const ease = 0.25; 
       cursorRef.current.x += (targetRef.current.x - cursorRef.current.x) * ease;
       cursorRef.current.y += (targetRef.current.y - cursorRef.current.y) * ease;
 
-      // Actualizar historial de la estela
       setTrail((prev) => {
         const newPoint = { 
           x: cursorRef.current.x, 
           y: cursorRef.current.y, 
           id: Date.now() + Math.random() 
         };
-        // Estela elegante de 12 puntos para mayor fluidez
         return [...prev.slice(-12), newPoint];
       });
 
@@ -42,7 +46,10 @@ export const CursorFollower = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
-  }, []);
+  }, [pathname, isMockup]);
+
+  // No renderizar si no es el home o si es el prototipo
+  if (pathname !== '/' || isMockup) return null;
 
   return (
     <>
@@ -64,14 +71,13 @@ export const CursorFollower = () => {
         }
       `}</style>
 
-      {/* Cabeza de la Estrella (Punto morado con efecto de pulsación) */}
+      {/* Cabeza de la Estrella */}
       <div 
         className="animate-star-pulse"
         style={{
-          transform: `translate(${cursorRef.current.x - 6}px, ${cursorRef.current.y - 6}px)`,
           position: 'fixed',
-          top: 0,
-          left: 0,
+          top: cursorRef.current.y - 6,
+          left: cursorRef.current.x - 6,
           width: '12px',
           height: '12px',
           backgroundColor: '#5200F8',
@@ -79,14 +85,10 @@ export const CursorFollower = () => {
           pointerEvents: 'none',
           zIndex: 9999,
           mixBlendMode: 'screen',
-          left: `${cursorRef.current.x - 6}px`,
-          top: `${cursorRef.current.y - 6}px`,
-          position: 'fixed',
-          transform: 'none' // Manejado por top/left para no interferir con la animación de scale
         }}
       />
       
-      {/* Estela de la Estrella (Partículas que siguen la trayectoria) */}
+      {/* Estela de la Estrella */}
       {trail.map((point, index) => {
         const ratio = index / trail.length;
         const size = 2 + (ratio * 8);
@@ -115,5 +117,13 @@ export const CursorFollower = () => {
         );
       })}
     </>
+  );
+};
+
+export const CursorFollower = () => {
+  return (
+    <Suspense fallback={null}>
+      <CursorFollowerContent />
+    </Suspense>
   );
 };
