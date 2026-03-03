@@ -40,7 +40,7 @@ const StarField = ({ isAbsorbing }: { isAbsorbing: boolean }) => {
       "stars-container absolute inset-0 overflow-hidden pointer-events-none z-[5] transition-all",
       isAbsorbing && "animate-absorb"
     )}
-    style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
+    style={{ '--absorb-x': '40vw', '--absorb-y': '200px' } as any}
     >
       {stars.map((star) => (
         <div
@@ -346,7 +346,7 @@ export const Hero = () => {
         isAbsorbing && "animate-absorb",
         isHovered && "translate-x-[2%] scale-[1.02]"
       )}
-      style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
+      style={{ '--absorb-x': '40vw', '--absorb-y': '200px' } as any}
       >
         <div 
           className="absolute inset-0 transition-transform duration-[2000ms] ease-out scale-110"
@@ -367,7 +367,7 @@ export const Hero = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={cn(
-          "absolute right-[5%] md:right-[8%] lg:right-[10%] top-[70%] sm:top-1/2 -translate-y-1/2 z-[30] cursor-pointer group transition-all duration-1000",
+          "absolute right-[5%] md:right-[8%] lg:right-[10%] top-[calc(70%+200px)] sm:top-[calc(50%+200px)] -translate-y-1/2 z-[30] cursor-pointer group transition-all duration-1000",
           isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]",
           isHovered && "scale-110"
         )}
@@ -417,7 +417,7 @@ export const Hero = () => {
       )}
       style={{ 
         '--absorb-x': '40vw', 
-        '--absorb-y': '0',
+        '--absorb-y': '200px',
         transform: `translate(${mousePos.x * 1.2}px, ${mousePos.y * 1.2}px)`
       } as any}
       >
@@ -438,7 +438,7 @@ export const Hero = () => {
         isAbsorbing && "animate-absorb",
         isHovered && "translate-x-[2%] scale-[0.99]"
       )}
-      style={{ '--absorb-x': '40vw', '--absorb-y': '0' } as any}
+      style={{ '--absorb-x': '40vw', '--absorb-y': '200px' } as any}
       >
         <div 
           key={`word-${currentWordIndex}`} 
