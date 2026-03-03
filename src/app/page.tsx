@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -48,18 +47,13 @@ export default function Home() {
 
       <ShowreelSection />
 
-      {/* CTA Final - Adaptado al diseño de Impacto Digital (Showreel) */}
+      {/* CTA Final - Adaptado al diseño de Impacto Digital (Showreel) pero sin el vórtice solicitado */}
       <section className="py-12 md:py-24 px-6 bg-[#F0F4FF]">
         <div className="max-w-7xl mx-auto relative py-24 md:py-40 px-6 bg-[#0A0520] rounded-[3rem] overflow-hidden group/cta shadow-[0_50px_100px_rgba(0,0,0,0.15)]">
           
-          {/* Background Vortex Layer - Misma estética que Showreel */}
+          {/* Background Layer */}
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 opacity-60 mix-blend-screen">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(248,0,55,0.4)_0%,rgba(82,0,248,0.3)_30%,transparent_70%)] animate-spin-slow duration-[20s]" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle,rgba(255,255,255,0.1)_0%,rgba(168,85,247,0.2)_40%,transparent_80%)] animate-spin-slow duration-[15s] [animation-direction:reverse]" />
-            </div>
-            
-            {/* Noise / Texture */}
+            {/* Noise / Texture remains */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
           </div>
 
