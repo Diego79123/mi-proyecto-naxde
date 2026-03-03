@@ -4,8 +4,19 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, ArrowUp, Plus, Minus } from 'lucide-react';
+import { 
+  Instagram, 
+  Facebook, 
+  Linkedin, 
+  Twitter, 
+  Send, 
+  ArrowUp,
+  Globe,
+  ShieldCheck,
+  Heart
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 
@@ -14,97 +25,161 @@ export const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const footerLinks = [
+    {
+      title: "ECOSISTEMA",
+      links: [
+        { name: "Plataforma ERP", href: "/servicios" },
+        { name: "Naxde Studio", href: "/servicios" },
+        { name: "Punto de Venta", href: "/servicios" },
+        { name: "CRM & Leads", href: "/servicios" },
+        { name: "E-commerce", href: "/servicios" }
+      ]
+    },
+    {
+      title: "EMPRESA",
+      links: [
+        { name: "Sobre Nosotros", href: "/sobre-nosotros" },
+        { name: "Casos de Éxito", href: "/proyectos" },
+        { name: "Blog Táctico", href: "/proyectos" },
+        { name: "Carreras", href: "/contacto" },
+        { name: "Ventas", href: "/contacto" }
+      ]
+    },
+    {
+      title: "RECURSOS",
+      links: [
+        { name: "Documentación", href: "/servicios" },
+        { name: "Academia Naxde", href: "/servicios" },
+        { name: "Centro de Ayuda", href: "/contacto" },
+        { name: "API Status", href: "/servicios" },
+        { name: "Comunidad", href: "/sobre-nosotros" }
+      ]
+    },
+    {
+      title: "LEGAL",
+      links: [
+        { name: "Privacidad", href: "/sobre-nosotros" },
+        { name: "Términos", href: "/sobre-nosotros" },
+        { name: "Seguridad", href: "/sobre-nosotros" },
+        { name: "Cookies", href: "/sobre-nosotros" }
+      ]
+    }
+  ];
+
   return (
-    <footer className="bg-white text-black pt-12 pb-16 md:pb-12 px-6 md:px-12 border-t border-black/5 relative">
-      {/* Top Header of Footer */}
-      <div className="max-w-[1600px] mx-auto flex justify-between items-center mb-24 md:mb-40">
-        <Link href="/" className="flex items-center">
-          <h2 className="text-2xl font-black tracking-tighter uppercase italic">NAXDE</h2>
-        </Link>
-        
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-full bg-[#F0F4FF] flex items-center justify-center text-black">
-            <Minus className="w-4 h-4" />
-          </div>
-          <Link href="/contacto">
-            <button className="px-6 md:px-8 h-12 rounded-full bg-[#0A0520] text-white text-[10px] font-black uppercase tracking-[0.2em] hover:bg-primary transition-all">
-              VAMOS A HABLAR
-            </button>
-          </Link>
-          <button className="px-6 h-12 rounded-full bg-[#F0F4FF] text-black text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-2">
-            MENÚ <div className="flex gap-0.5"><div className="w-1 h-1 bg-black rounded-full"/><div className="w-1 h-1 bg-black rounded-full"/></div>
-          </button>
-        </div>
-      </div>
-
-      <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 mb-32">
-        {/* Col 1: Address */}
-        <div className="md:col-span-3 space-y-1">
-          <p className="text-sm font-medium text-black/80">Calle 154 # 103B - 76</p>
-          <p className="text-sm font-medium text-black/80">Bogotá, Colombia</p>
-          <p className="text-sm font-medium text-black/80">Región LATAM</p>
-        </div>
-
-        {/* Col 2: Socials & Emails */}
-        <div className="md:col-span-3 space-y-12">
-          <div className="flex flex-col gap-1">
-            <Link href="#" className="text-sm font-medium text-black/80 hover:text-primary transition-colors">Twitter / X</Link>
-            <Link href="#" className="text-sm font-medium text-black/80 hover:text-primary transition-colors">Instagram</Link>
-            <Link href="#" className="text-sm font-medium text-black/80 hover:text-primary transition-colors">Linkedin</Link>
-          </div>
-
-          <div className="space-y-6">
-            <div className="space-y-1">
-              <p className="text-[10px] font-black uppercase tracking-widest text-black/40">Consultas generales</p>
-              <Link href="mailto:hola@naxde.com" className="text-sm font-bold hover:text-primary transition-colors">hola@naxde.co</Link>
-            </div>
-            <div className="space-y-1">
-              <p className="text-[10px] font-black uppercase tracking-widest text-black/40">Nuevos negocios</p>
-              <Link href="mailto:negocios@naxde.com" className="text-sm font-bold hover:text-primary transition-colors">negocios@naxde.co</Link>
+    <footer className="bg-[#00001D] text-white pt-24 pb-12 px-6 md:px-12 border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        {/* Top Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
+          {/* Brand Info */}
+          <div className="lg:col-span-5 space-y-8">
+            <Link href="/" className="inline-block">
+              <div className="relative h-10 w-32">
+                <Image src={LOGO_URL} alt="Naxde Logo" fill className="object-contain" />
+              </div>
+            </Link>
+            <p className="text-white/50 text-lg leading-relaxed max-w-sm font-medium">
+              Gestionamos el futuro de las empresas mediante inteligencia artificial generativa y un ecosistema táctico sin fricciones.
+            </p>
+            <div className="flex items-center gap-3">
+              {[
+                { icon: Instagram, href: "#" },
+                { icon: Twitter, href: "#" },
+                { icon: Facebook, href: "#" },
+                { icon: Linkedin, href: "#" }
+              ].map((social, idx) => (
+                <Link 
+                  key={idx} 
+                  href={social.href}
+                  className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-white/40 hover:text-primary hover:bg-white/[0.08] transition-all group"
+                >
+                  <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                </Link>
+              ))}
             </div>
           </div>
+
+          {/* Subscription Box */}
+          <div className="lg:col-span-7">
+            <div className="p-8 md:p-12 rounded-[2.5rem] bg-white/[0.02] border border-white/5 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-8 text-white/[0.03] pointer-events-none">
+                <Send className="w-24 h-24 rotate-[-15deg]" />
+              </div>
+              
+              <div className="relative z-10 space-y-8">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-headline font-bold text-white mb-2">Únete al pulso tecnológico</h3>
+                  <p className="text-white/40 text-sm">Recibe actualizaciones sobre nuevos módulos, IA insights y ofertas exclusivas.</p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <input 
+                    type="email" 
+                    placeholder="tu@empresa.com" 
+                    className="flex-1 h-14 bg-black/40 rounded-2xl px-6 text-sm border border-white/5 focus:outline-none focus:border-primary/30 transition-all"
+                  />
+                  <Button className="h-14 px-10 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all">
+                    SUSCRIBIRME <Send className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+                
+                <p className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">
+                  RESPETAMOS TU PRIVACIDAD. SIN SPAM, SOLO TECNOLOGÍA PURA.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Col 3: Subscription */}
-        <div className="md:col-span-6 space-y-10">
-          <h3 className="text-4xl md:text-[4.5rem] font-medium tracking-tight leading-[1.1] max-w-lg">
-            Suscríbete a nuestro boletín informativo
-          </h3>
-          
-          <div className="relative group max-w-md">
-            <input 
-              type="email" 
-              placeholder="Tu correo electrónico" 
-              className="w-full h-16 md:h-20 bg-[#F0F4FF] rounded-2xl md:rounded-3xl px-8 text-sm md:text-base outline-none focus:ring-1 focus:ring-primary/20 transition-all"
-            />
-            <button className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center hover:translate-x-1 transition-transform">
-              <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
+        {/* Middle Section: Links */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-24 border-t border-white/5 pt-20">
+          {footerLinks.map((col, idx) => (
+            <div key={idx} className="space-y-8">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-[#8B5CF6]">{col.title}</h4>
+              <ul className="space-y-4">
+                {col.links.map((link, lIdx) => (
+                  <li key={lIdx}>
+                    <Link href={link.href} className="text-sm font-medium text-white/40 hover:text-white transition-colors">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-12 border-t border-white/5 flex flex-col lg:flex-row justify-between items-center gap-8">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">
+              © {new Date().getFullYear()} NAXDE TECHNOLOGIES INC.
+            </p>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/5">
+                <Globe className="w-3 h-3 text-white/40" />
+                <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">DE LATAM PARA EL MUNDO</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/5">
+                <ShieldCheck className="w-3 h-3 text-white/40" />
+                <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">CLOUD SECURITY PROTOCOL V2.0</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/20">
+            DESARROLLADO CON EL <Heart className="w-3 h-3 text-primary fill-primary" /> POR NAXDE
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="max-w-[1600px] mx-auto pt-12 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-8">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-black/40">
-          © {new Date().getFullYear()} NAXDE Digital Hub
-        </p>
-        
-        <Link href="#" className="text-[10px] font-bold uppercase tracking-widest text-black/40 hover:text-black transition-colors">
-          I+D: laboratorios.naxde.co
-        </Link>
-
-        <p className="text-[10px] font-bold uppercase tracking-widest text-black/40">
-          Creado por Naxde Studio ❤️
-        </p>
-      </div>
-
-      {/* Back to top button */}
+      {/* Scroll to Top */}
       <button 
         onClick={scrollToTop}
-        className="fixed bottom-8 left-8 md:bottom-12 md:left-12 w-14 h-14 md:w-16 md:h-16 rounded-full bg-black text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-[150] group"
+        className="fixed bottom-24 left-6 md:bottom-12 md:left-12 w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/10 text-white/40 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all z-[150] backdrop-blur-xl group"
       >
-        <ArrowUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
+        <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
       </button>
     </footer>
   );
