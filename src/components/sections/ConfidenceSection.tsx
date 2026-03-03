@@ -1,27 +1,31 @@
+
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
-const DNAHelix = () => {
+const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
   const [points, setPoints] = useState<{ x: number; y1: number; y2: number; phase: number }[]>([]);
 
   useEffect(() => {
-    // Generar puntos para la estructura del ADN
-    const newPoints = Array.from({ length: 24 }).map((_, i) => ({
-      x: i * 4.2, 
+    // Generar puntos para la estructura del ADN con más densidad para definición
+    const newPoints = Array.from({ length: 32 }).map((_, i) => ({
+      x: i * 3.2, 
       y1: 0,
       y2: 0,
-      phase: i * 0.35,
+      phase: i * 0.3,
     }));
     setPoints(newPoints);
   }, []);
 
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-40">
-      <div className="relative w-full h-full flex items-center justify-center transform -rotate-[25deg] scale-150">
-        <svg viewBox="0 0 100 40" className="w-[120%] h-auto overflow-visible">
+    <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-30">
+      <div className={cn(
+        "relative w-full h-full flex items-center justify-center transform -rotate-[20deg] scale-150 transition-all duration-1000",
+        isHovered ? "scale-[1.6] opacity-100" : "scale-150 opacity-60"
+      )}>
+        <svg viewBox="0 0 100 40" className="w-[130%] h-auto overflow-visible">
           <defs>
             <linearGradient id="strand1" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#F80037" />
@@ -31,71 +35,77 @@ const DNAHelix = () => {
               <stop offset="0%" stopColor="#5200F8" />
               <stop offset="100%" stopColor="#F80037" />
             </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="0.5" result="coloredBlur" />
+            <filter id="glow-dna">
+              <feGaussianBlur stdDeviation="0.3" result="blur" />
               <feMerge>
-                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
           </defs>
 
-          {/* DNA Ladder Bars */}
+          {/* DNA Ladder Bars - Thinner and more defined */}
           {points.map((p, i) => (
             <line 
               key={`line-${i}`}
               x1={p.x} 
-              y1={20 + Math.sin(p.phase) * 10}
+              y1={20 + Math.sin(p.phase) * (isHovered ? 12 : 10)}
               x2={p.x} 
-              y2={20 + Math.sin(p.phase + Math.PI) * 10}
+              y2={20 + Math.sin(p.phase + Math.PI) * (isHovered ? 12 : 10)}
               stroke="white"
-              strokeWidth="0.15"
-              className="animate-dna-pulse"
-              style={{ 
-                animationDelay: `${i * 0.1}s`,
-                opacity: 0.3
-              } as any}
+              strokeWidth="0.06"
+              className={cn(
+                "transition-all duration-1000",
+                isHovered ? "opacity-40 animate-pulse" : "opacity-20"
+              )}
+              style={{ animationDelay: `${i * 0.05}s` } as any}
             />
           ))}
 
-          {/* Strand 1 (Spiral) */}
+          {/* Strand 1 (Spiral) - Thinner line */}
           <path 
-            d={`M ${points.map(p => `${p.x},${20 + Math.sin(p.phase) * 10}`).join(' L ')}`}
+            d={`M ${points.map(p => `${p.x},${20 + Math.sin(p.phase) * (isHovered ? 12 : 10)}`).join(' L ')}`}
             fill="none"
             stroke="url(#strand1)"
-            strokeWidth="0.8"
+            strokeWidth="0.4"
             strokeLinecap="round"
-            filter="url(#glow)"
-            className="animate-dna-float"
+            filter="url(#glow-dna)"
+            className={cn(
+              "transition-all duration-1000",
+              isHovered ? "animate-dna-fast" : "animate-dna-float"
+            )}
           />
 
-          {/* Strand 2 (Spiral Offset) */}
+          {/* Strand 2 (Spiral Offset) - Thinner line */}
           <path 
-            d={`M ${points.map(p => `${p.x},${20 + Math.sin(p.phase + Math.PI) * 10}`).join(' L ')}`}
+            d={`M ${points.map(p => `${p.x},${20 + Math.sin(p.phase + Math.PI) * (isHovered ? 12 : 10)}`).join(' L ')}`}
             fill="none"
             stroke="url(#strand2)"
-            strokeWidth="0.8"
+            strokeWidth="0.4"
             strokeLinecap="round"
-            filter="url(#glow)"
-            className="animate-dna-float"
+            filter="url(#glow-dna)"
+            className={cn(
+              "transition-all duration-1000",
+              isHovered ? "animate-dna-fast" : "animate-dna-float"
+            )}
             style={{ animationDelay: '0.5s' } as any}
           />
 
-          {/* Decorative Particles / Nodes */}
+          {/* Decorative Particles / Nodes - More precise */}
           {points.map((p, i) => (
             <React.Fragment key={`nodes-${i}`}>
               <circle 
                 cx={p.x} 
-                cy={20 + Math.sin(p.phase) * 10} 
-                r="0.4" 
+                cy={20 + Math.sin(p.phase) * (isHovered ? 12 : 10)} 
+                r={isHovered ? "0.3" : "0.2"} 
                 fill="#F80037"
                 className="animate-pulse"
                 style={{ animationDelay: `${i * 0.1}s` } as any}
               />
               <circle 
                 cx={p.x} 
-                cy={20 + Math.sin(p.phase + Math.PI) * 10} 
-                r="0.4" 
+                cy={20 + Math.sin(p.phase + Math.PI) * (isHovered ? 12 : 10)} 
+                r={isHovered ? "0.3" : "0.2"} 
                 fill="#5200F8"
                 className="animate-pulse"
                 style={{ animationDelay: `${i * 0.1 + 0.5}s` } as any}
@@ -107,18 +117,18 @@ const DNAHelix = () => {
 
       <style jsx global>{`
         @keyframes dna-float {
-          0%, 100% { transform: translateY(0) scaleY(1); }
-          50% { transform: translateY(-1px) scaleY(1.05); }
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-2px); }
+        }
+        @keyframes dna-fast {
+          0%, 100% { transform: translateY(0); stroke-width: 0.5; }
+          50% { transform: translateY(-4px); stroke-width: 0.7; }
         }
         .animate-dna-float {
           animation: dna-float 4s infinite ease-in-out;
         }
-        @keyframes dna-pulse {
-          0%, 100% { opacity: 0.1; }
-          50% { opacity: 0.5; }
-        }
-        .animate-dna-pulse {
-          animation: dna-pulse 3s infinite ease-in-out;
+        .animate-dna-fast {
+          animation: dna-fast 1.5s infinite ease-in-out;
         }
       `}</style>
     </div>
@@ -128,6 +138,7 @@ const DNAHelix = () => {
 export const ConfidenceSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -145,9 +156,11 @@ export const ConfidenceSection = () => {
   return (
     <section 
       ref={sectionRef}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className="py-24 md:py-40 bg-[#F0F4FF] text-black relative overflow-hidden min-h-screen flex flex-col justify-center"
     >
-      <DNAHelix />
+      <DNAHelix isHovered={isHovered} />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
         <div className="mb-20 overflow-hidden">
@@ -196,7 +209,7 @@ export const ConfidenceSection = () => {
             }}
           >
             <div className="space-y-8">
-              <p className="text-xl md:text-3xl font-medium leading-[1.4] text-black/80 tracking-tight">
+              <p className="text-xl md:text-3xl font-medium leading-[1.4] text-black/80 tracking-tight text-justify">
                 Naxde es un ecosistema de producción digital de vanguardia que da vida a tus ideas mediante diseños visualmente cautivadores y experiencias inmersivas. Con nuestro talentoso equipo, trascendemos los límites resolviendo problemas complejos y ofreciendo soluciones a medida que superan las expectativas y cautivan al público regional.
               </p>
             </div>
