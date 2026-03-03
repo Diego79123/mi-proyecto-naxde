@@ -3,7 +3,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Smartphone, Globe, Zap, Cpu, ArrowRight } from 'lucide-react';
+import { Smartphone, Globe, Zap, Cpu, ArrowRight, CheckCircle2, Leaf, BarChart3, Settings2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const services = [
@@ -29,6 +29,49 @@ const services = [
   }
 ];
 
+const benefits = [
+  { 
+    id: 1,
+    title: "Networking Pro", 
+    desc: "Conecta instantáneamente con un toque NFC.", 
+    icon: Zap, 
+    side: 'left',
+    top: '15%',
+    start: 0.60,
+    end: 0.75
+  },
+  { 
+    id: 2,
+    title: "Eco-Friendly", 
+    desc: "Elimina el desperdicio de tarjetas de papel.", 
+    icon: Leaf, 
+    side: 'right',
+    top: '25%',
+    start: 0.68,
+    end: 0.83
+  },
+  { 
+    id: 3,
+    title: "Control Total", 
+    desc: "Actualiza tu perfil en tiempo real 24/7.", 
+    icon: Settings2, 
+    side: 'left',
+    top: '55%',
+    start: 0.76,
+    end: 0.91
+  },
+  { 
+    id: 4,
+    title: "Métricas", 
+    desc: "Mide el impacto de tu red de contactos.", 
+    icon: BarChart3, 
+    side: 'right',
+    top: '65%',
+    start: 0.84,
+    end: 0.99
+  }
+];
+
 export const FeaturedServices = () => {
   const containerRef = useRef<HTMLElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -40,7 +83,6 @@ export const FeaturedServices = () => {
       const windowHeight = window.innerHeight;
       const totalHeight = rect.height;
       
-      // Calculate progress from 0 to 1 as we scroll through the 250vh section
       const progress = Math.max(0, Math.min(1, -rect.top / (totalHeight - windowHeight)));
       setScrollProgress(progress);
     };
@@ -51,33 +93,37 @@ export const FeaturedServices = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Animación de las escenas con solapamiento suave
-  // Escena 1: Texto (0.0 a 0.6)
-  // Escena 2: Mockup (0.3 a 1.0)
+  // Animación de las escenas
+  // 0.0 - 0.35: Texto monumental
+  // 0.30 - 0.65: Transición a Celular
+  // 0.60 - 1.0: Beneficios orbitando
   
-  const textOpacity = Math.max(0, 1 - scrollProgress * 1.8); 
-  const textBlur = Math.min(20, scrollProgress * 40);
-  const textScale = 1.1 - scrollProgress * 0.15;
+  const textOpacity = Math.max(0, 1 - scrollProgress * 3); 
+  const textBlur = Math.min(20, scrollProgress * 50);
+  const textScale = 1.1 - scrollProgress * 0.2;
 
-  const mockupOpacity = Math.max(0, (scrollProgress - 0.25) * 2.5);
-  const mockupBlur = Math.max(0, (0.65 - scrollProgress) * 30);
-  const mockupScale = 0.85 + (scrollProgress * 0.15);
+  const mockupOpacity = scrollProgress < 0.2 ? 0 : Math.min(1, (scrollProgress - 0.2) * 4) * (1 - Math.max(0, (scrollProgress - 0.95) * 10));
+  const mockupBlur = Math.max(0, (0.5 - scrollProgress) * 40);
+  // El celular se achica un poco cuando aparecen los beneficios para dar aire
+  const mockupScale = scrollProgress < 0.6 
+    ? 0.85 + (scrollProgress * 0.25)
+    : 1.0 - ((scrollProgress - 0.6) * 0.15);
 
   return (
     <section 
       ref={containerRef}
       id="featured-services"
-      className="relative h-[250vh] bg-[#00001D] text-white"
+      className="relative h-[400vh] bg-[#00001D] text-white"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         
-        {/* Background Nebula - Constante en toda la sección */}
+        {/* Background Nebula */}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
           <div className="absolute top-[20%] right-[-10%] w-[70%] h-[60%] bg-purple-600/10 blur-[150px] rounded-full" />
           <div className="absolute bottom-[10%] left-[-5%] w-[60%] h-[50%] bg-[#F80037]/5 blur-[120px] rounded-full" />
         </div>
 
-        {/* Decorative Orbital Figure - Flote suave unificado */}
+        {/* Decorative Orbital Figure */}
         <div 
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] border-[1px] border-white/5 rounded-full pointer-events-none flex items-center justify-center opacity-20"
         >
@@ -86,11 +132,11 @@ export const FeaturedServices = () => {
         
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full h-full flex items-center justify-center">
           
-          <div className="relative w-full h-full max-w-5xl flex items-center justify-center">
+          <div className="relative w-full h-full flex items-center justify-center">
             
-            {/* Escena 1: Texto Monumental (Se difumina hacia el fondo) */}
+            {/* Escena 1: Texto Monumental */}
             <div 
-              className="absolute inset-0 flex flex-col items-center justify-center text-center space-y-8 transition-all duration-700 ease-out"
+              className="absolute inset-0 flex flex-col items-center justify-center text-center space-y-8 transition-all duration-500 ease-out"
               style={{ 
                 opacity: textOpacity,
                 transform: `scale(${textScale})`,
@@ -115,9 +161,9 @@ export const FeaturedServices = () => {
               </div>
             </div>
 
-            {/* Escena 2: Mockup Interactivo (Emerge desde el desenfoque) */}
+            {/* Escena 2: Mockup Interactivo Centrado */}
             <div 
-              className="absolute inset-0 flex items-center justify-center transition-all duration-700 ease-out"
+              className="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out z-20"
               style={{ 
                 opacity: mockupOpacity,
                 transform: `scale(${mockupScale})`,
@@ -125,7 +171,7 @@ export const FeaturedServices = () => {
                 pointerEvents: mockupOpacity < 0.1 ? 'none' : 'auto'
               }}
             >
-              <div className="relative w-[280px] h-[580px] md:w-[360px] md:h-[720px] bg-black rounded-[3.5rem] border-[12px] border-white/10 shadow-[0_0_120px_rgba(0,0,0,0.9)] overflow-hidden z-20 group">
+              <div className="relative w-[280px] h-[580px] md:w-[340px] md:h-[680px] bg-black rounded-[3.5rem] border-[12px] border-white/10 shadow-[0_0_120px_rgba(0,0,0,0.9)] overflow-hidden group">
                 
                 {/* Dynamic Island */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-8 bg-black rounded-b-[2rem] z-50 flex items-center justify-center gap-3">
@@ -157,8 +203,52 @@ export const FeaturedServices = () => {
                 <div className="absolute -right-[12px] top-52 w-[4px] h-12 bg-white/20 rounded-l-lg shadow-lg" />
               </div>
 
-              {/* Background Glow dinámico */}
+              {/* Background Glow */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] -z-10 animate-pulse" />
+            </div>
+
+            {/* Escena 3: Tarjetas de Beneficios */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none">
+              {benefits.map((benefit) => {
+                const cardProgress = Math.max(0, Math.min(1, (scrollProgress - benefit.start) / (benefit.end - benefit.start)));
+                const cardOpacity = cardProgress;
+                const cardX = benefit.side === 'left' ? (1 - cardProgress) * -100 : (1 - cardProgress) * 100;
+                
+                return (
+                  <div 
+                    key={benefit.id}
+                    className={cn(
+                      "absolute w-[220px] md:w-[280px] p-6 glass-card rounded-3xl border border-white/10 transition-all duration-500 ease-out",
+                      benefit.side === 'left' ? "left-0 md:left-[5%]" : "right-0 md:right-[5%]"
+                    )}
+                    style={{ 
+                      top: benefit.top,
+                      opacity: cardOpacity,
+                      transform: `translateX(${cardX}px)`,
+                      pointerEvents: cardOpacity > 0.5 ? 'auto' : 'none',
+                      zIndex: 30
+                    }}
+                  >
+                    <div className="flex items-center gap-4 mb-3">
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <benefit.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <h4 className="font-bold text-sm md:text-base uppercase tracking-widest">{benefit.title}</h4>
+                    </div>
+                    <p className="text-white/50 text-xs md:text-sm leading-relaxed">{benefit.desc}</p>
+                    
+                    {/* Indicador de "Señalamiento" al celular */}
+                    <div 
+                      className={cn(
+                        "absolute top-1/2 -translate-y-1/2 w-12 md:w-24 h-px bg-gradient-to-r from-primary/50 to-transparent",
+                        benefit.side === 'left' ? "left-full ml-4" : "right-full mr-4 rotate-180"
+                      )}
+                    >
+                      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-glow-accent animate-pulse" />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
           </div>
@@ -167,8 +257,8 @@ export const FeaturedServices = () => {
 
       {/* Services Bottom Grid - Transición suave al final */}
       <div className={cn(
-        "relative z-30 max-w-7xl mx-auto px-6 pb-24 transition-all duration-1000",
-        scrollProgress < 0.85 ? "opacity-0 translate-y-20" : "opacity-100 translate-y-0"
+        "relative z-40 max-w-7xl mx-auto px-6 pb-24 transition-all duration-1000",
+        scrollProgress < 0.92 ? "opacity-0 translate-y-20" : "opacity-100 translate-y-0"
       )}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 border-t border-white/10 pt-16">
           {services.map((service, idx) => (
