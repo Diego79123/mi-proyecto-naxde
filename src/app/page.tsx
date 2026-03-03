@@ -6,6 +6,7 @@ import { Header } from '@/components/layout/Header';
 import { Hero } from '@/components/sections/Hero';
 import { FeaturedServices } from '@/components/sections/FeaturedServices';
 import { WebDesignInteractive } from '@/components/sections/WebDesignInteractive';
+import { AppDesignInteractive } from '@/components/sections/AppDesignInteractive';
 import { NFCSection } from '@/components/sections/NFCSection';
 import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
@@ -29,8 +30,11 @@ export default function Home() {
       {/* Sección Prototipo Smartphone (Neocards) */}
       <FeaturedServices />
 
-      {/* NUEVA Sección Prototipo Laptop (Web Design) */}
+      {/* Sección Prototipo Laptop (Web Design) */}
       <WebDesignInteractive />
+
+      {/* NUEVA Sección Prototipo Tablet (App Design) */}
+      <AppDesignInteractive />
       
       <NFCSection />
 
