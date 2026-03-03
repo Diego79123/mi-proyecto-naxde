@@ -61,11 +61,11 @@ export const FeaturedServices = () => {
         <div className="absolute bottom-[10%] left-[-5%] w-[60%] h-[50%] bg-[#F80037]/5 blur-[120px] rounded-full animate-pulse duration-[10s] delay-700" />
       </div>
 
-      {/* Decorative Orbital Figure - Continuous Rotation */}
+      {/* Decorative Orbital Figure - Static (Rotation Removed) */}
       <div 
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] border-[1px] border-white/5 rounded-full pointer-events-none will-change-transform flex items-center justify-center"
         style={{ 
-          transform: `translate(-50%, -50%) rotate(${scrollProgress * 360}deg)`,
+          transform: 'translate(-50%, -50%)',
           opacity: Math.sin(scrollProgress * Math.PI)
         }}
       >
@@ -96,10 +96,10 @@ export const FeaturedServices = () => {
             </div>
           </div>
 
-          {/* Right Column: Visual Composition */}
+          {/* Right Column: Visual Composition - Smartphone Only */}
           <div className="relative h-[500px] md:h-[750px] w-full flex items-center justify-center">
             {/* Phone Mockup Background */}
-            <div className="relative w-[280px] h-[580px] md:w-[320px] md:h-[650px] bg-gradient-to-b from-[#1A1A3A] to-[#0A0520] rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center pt-6 group-hover:scale-105 transition-transform duration-700 animate-float">
+            <div className="relative w-[280px] h-[580px] md:w-[320px] md:h-[650px] bg-gradient-to-b from-[#1A1A3A] to-[#0A0520] rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center pt-6 transition-all duration-700 animate-float">
               {/* Notch */}
               <div className="w-24 h-6 bg-black rounded-full mb-8" />
               <div className="w-full flex-1 flex items-center justify-center opacity-20">
