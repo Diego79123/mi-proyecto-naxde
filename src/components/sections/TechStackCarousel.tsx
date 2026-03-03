@@ -18,35 +18,11 @@ const technologies = [
 
 export const TechStackCarousel = () => {
   return (
-    <section className="py-24 bg-[#0A0520] overflow-hidden relative">
-      {/* Background Vortex Effects based on user image */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 opacity-40 mix-blend-screen">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(248,0,55,0.3)_0%,rgba(82,0,248,0.2)_30%,transparent_70%)] animate-spin-slow duration-[30s]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle,rgba(168,85,247,0.1)_0%,rgba(0,0,29,0.4)_50%,transparent_80%)] animate-spin-slow duration-[25s] [animation-direction:reverse]" />
-        </div>
-        
-        {/* Floating translucent shapes (polygons) */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-           {[...Array(6)].map((_, i) => (
-             <div 
-               key={i}
-               className="absolute bg-white/10 backdrop-blur-sm animate-pulse"
-               style={{
-                 width: `${Math.random() * 100 + 50}px`,
-                 height: `${Math.random() * 100 + 50}px`,
-                 top: `${Math.random() * 100}%`,
-                 left: `${Math.random() * 100}%`,
-                 clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
-                 transform: `rotate(${Math.random() * 360}deg)`,
-                 animationDuration: `${Math.random() * 10 + 5}s`
-               } as any}
-             />
-           ))}
-        </div>
-
-        {/* Noise Texture */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+    <section className="py-24 bg-[#00001D] overflow-hidden relative">
+      {/* Background Subtle Effects */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle,rgba(248,0,55,0.03)_0%,transparent_70%)]" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 mb-16 text-center relative z-10">
@@ -67,10 +43,10 @@ export const TechStackCarousel = () => {
                 <img 
                   src={tech.logo} 
                   alt={tech.name} 
-                  className="w-full h-full object-contain brightness-0 invert opacity-60 group-hover/item:opacity-100 group-hover/item:brightness-100 group-hover/item:invert-0 transition-all duration-500"
+                  className="w-full h-full object-contain brightness-0 invert opacity-40 group-hover/item:opacity-100 group-hover/item:brightness-100 group-hover/item:invert-0 transition-all duration-500"
                 />
               </div>
-              <span className="text-white/10 group-hover/item:text-white/60 font-black text-3xl md:text-5xl transition-colors duration-500 uppercase italic select-none">
+              <span className="text-white/10 group-hover/item:text-white/40 font-black text-3xl md:text-5xl transition-colors duration-500 uppercase italic select-none">
                 {tech.name}
               </span>
             </div>
