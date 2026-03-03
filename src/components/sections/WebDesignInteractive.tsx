@@ -168,7 +168,7 @@ export const WebDesignInteractive = () => {
                     {/* Screen Content */}
                     <div className="absolute inset-0 rounded-lg overflow-hidden bg-[#00001D]">
                       <iframe 
-                        src="/preview/web-design" 
+                        src="/preview/web-design?mode=mockup" 
                         className="w-full h-full border-none no-scrollbar"
                         title="Naxde Web Design Preview"
                         style={{ opacity: openProgress > 0.2 ? 1 : 0, transition: 'opacity 0.5s' }}
