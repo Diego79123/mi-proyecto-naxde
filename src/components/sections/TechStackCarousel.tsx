@@ -18,7 +18,7 @@ const technologies = [
 
 export const TechStackCarousel = () => {
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-24 bg-neutral-100 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
         <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4">Nuestros Aliados</h2>
         <p className="text-3xl md:text-4xl font-headline font-bold text-black tracking-tighter">TECNOLOGÍAS DE VANGUARDIA</p>
