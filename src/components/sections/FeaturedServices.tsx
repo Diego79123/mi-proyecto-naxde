@@ -73,26 +73,97 @@ export const FeaturedServices = () => {
       </div>
       
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-        <div className="flex flex-col gap-12 mb-24 md:mb-32">
-          <div className="space-y-6">
-            <span className="inline-block px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-primary bg-white/5 backdrop-blur-sm">
-              Ecosistema Naxde
-            </span>
-            
-            <h2 className="text-[12vw] md:text-[9vw] font-black leading-[0.85] tracking-tighter uppercase select-none">
-              <div>MÁS ALLÁ</div>
-              <div className="text-transparent" style={{ WebkitTextStroke: '1.5px white' }}>DE LAS VISIONES</div>
-              <div>AL ALCANCE</div>
-            </h2>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center mb-24 md:mb-32">
           
-          <div className="max-w-3xl">
-            <p className="text-xl md:text-3xl font-medium leading-tight text-white/60 italic">
-              Combinamos ingeniería de alto nivel con diseño vanguardista para crear productos que dominan el mercado digital.
-            </p>
+          {/* Left Column: Text Content */}
+          <div className="space-y-12">
+            <div className="space-y-6">
+              <span className="inline-block px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-primary bg-white/5 backdrop-blur-sm">
+                Ecosistema Naxde
+              </span>
+              
+              <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] font-black leading-[0.9] tracking-tighter uppercase select-none">
+                <div>MÁS ALLÁ</div>
+                <div className="text-transparent" style={{ WebkitTextStroke: '1.5px white' }}>DE LAS VISIONES</div>
+                <div>AL ALCANCE</div>
+              </h2>
+            </div>
+            
+            <div className="max-w-xl">
+              <p className="text-xl md:text-2xl font-medium leading-tight text-white/60 italic">
+                Combinamos ingeniería de alto nivel con diseño vanguardista para crear productos que dominan el mercado digital.
+              </p>
+            </div>
+          </div>
+
+          {/* Right Column: Visual Composition */}
+          <div className="relative h-[500px] md:h-[750px] w-full flex items-center justify-center">
+            {/* Phone Mockup Background */}
+            <div className="relative w-[280px] h-[580px] md:w-[320px] md:h-[650px] bg-gradient-to-b from-[#1A1A3A] to-[#0A0520] rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center pt-6">
+              {/* Notch */}
+              <div className="w-24 h-6 bg-black rounded-full mb-8" />
+              <div className="w-full flex-1 flex items-center justify-center opacity-20">
+                <Zap className="w-24 h-24 text-primary" />
+              </div>
+            </div>
+
+            {/* Metrics Card (Floating Top-Left) */}
+            <div className="absolute top-10 left-0 md:-left-8 z-20 w-56 md:w-64 glass-panel p-6 rounded-[2rem] border-white/10 shadow-2xl animate-float">
+              <div className="space-y-4">
+                <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Metrics</div>
+                <div className="space-y-1">
+                  <div className="text-3xl md:text-4xl font-black text-white">98.4%</div>
+                  <div className="text-[10px] font-black text-[#5200F8] uppercase">+12% Performance</div>
+                </div>
+                {/* Micro Bar Chart */}
+                <div className="flex items-end gap-1.5 h-12 pt-2">
+                  {[40, 65, 85, 50, 100, 60, 80].map((h, i) => (
+                    <div 
+                      key={i} 
+                      className="flex-1 bg-gradient-to-t from-[#5200F8] to-[#F80037] rounded-sm transition-all duration-1000" 
+                      style={{ height: `${h}%` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Interface Design Card (Floating Middle-Right) */}
+            <div className="absolute bottom-20 -right-4 md:-right-12 z-20 w-64 md:w-80 glass-panel p-4 md:p-5 rounded-[2.5rem] border-white/10 shadow-2xl animate-float" style={{ animationDelay: '1s' }}>
+              <div className="space-y-5">
+                <div className="aspect-[4/3] rounded-[1.8rem] overflow-hidden bg-white/5 border border-white/10">
+                  <img 
+                    src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800" 
+                    alt="Interface Preview" 
+                    className="w-full h-full object-cover"
+                    data-ai-hint="scenic landscape"
+                  />
+                </div>
+                <div className="space-y-2 px-2 pb-2">
+                  <div className="w-12 h-1 bg-primary rounded-full mb-3" />
+                  <h4 className="text-sm font-black text-white uppercase tracking-wider">Interface Design</h4>
+                  <p className="text-[10px] font-medium text-white/40 leading-relaxed">Sistemas de diseño escalables con estética futurista premium.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Rocky Surface (Bottom Background) */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[140%] h-40 z-10 pointer-events-none">
+              <div 
+                className="w-full h-full grayscale brightness-[0.4] contrast-[1.2]"
+                style={{ 
+                  backgroundImage: 'url("https://images.unsplash.com/photo-1516331138075-f3adc1e149cd?q=80&w=1200")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'top center',
+                  maskImage: 'linear-gradient(to top, black 20%, transparent)',
+                  WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent)'
+                }}
+              />
+            </div>
           </div>
         </div>
 
+        {/* Services Bottom Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 border-t border-white/10 pt-16">
           {services.map((service, idx) => (
             <div key={idx} className="group space-y-6">
@@ -115,6 +186,16 @@ export const FeaturedServices = () => {
           ))}
         </div>
       </div>
+
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
+        }
+        .animate-float {
+          animation: float 6s infinite ease-in-out;
+        }
+      `}</style>
     </section>
   );
 };
