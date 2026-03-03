@@ -4,6 +4,7 @@ import React, { Suspense } from 'react';
 import { Instagram, Facebook } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const SocialSidebarContent = () => {
   const searchParams = useSearchParams();
@@ -12,7 +13,11 @@ const SocialSidebarContent = () => {
   if (isMockup) return null;
 
   return (
-    <div className="fixed left-6 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-4 p-3 glass-panel rounded-2xl border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)] animate-in fade-in slide-in-from-left duration-1000">
+    <div className={cn(
+      "fixed left-6 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-4 p-3",
+      "bg-blue-950/20 backdrop-blur-xl rounded-2xl border border-white/10",
+      "shadow-[0_0_25px_rgba(0,0,0,0.3)] animate-in fade-in slide-in-from-left duration-1000"
+    )}>
       <Link 
         href="https://instagram.com" 
         target="_blank" 
