@@ -248,7 +248,7 @@ export const FeaturedServices = () => {
 
             {/* Escena Final: Botón Planes */}
             <div 
-              className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 transition-all duration-700 ease-out flex flex-col items-center gap-4"
+              className="absolute bottom-[140px] left-1/2 -translate-x-1/2 z-50 transition-all duration-700 ease-out flex flex-col items-center gap-4"
               style={{ 
                 opacity: planesBtnOpacity,
                 transform: `translate(-50%, ${planesBtnY}px)`,
