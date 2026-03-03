@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -12,7 +11,6 @@ import { TechStackCarousel } from '@/components/sections/TechStackCarousel';
 import { DisruptiveVisionBanner } from '@/components/sections/DisruptiveVisionBanner';
 import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
-import { ConnectingIdealsSection } from '@/components/sections/ConnectingIdealsSection';
 import { InnovativeApproachSection } from '@/components/sections/InnovativeApproachSection';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
@@ -49,8 +47,6 @@ export default function Home() {
       <ConfidenceSection />
 
       <ShowreelSection />
-
-      <ConnectingIdealsSection />
 
       <InnovativeApproachSection />
 
