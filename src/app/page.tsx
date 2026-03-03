@@ -8,7 +8,6 @@ import { FeaturedServices } from '@/components/sections/FeaturedServices';
 import { WebDesignInteractive } from '@/components/sections/WebDesignInteractive';
 import { AppDesignInteractive } from '@/components/sections/AppDesignInteractive';
 import { ExtendedServices } from '@/components/sections/ExtendedServices';
-import { NFCSection } from '@/components/sections/NFCSection';
 import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
 import { MeticulousWorkSection } from '@/components/sections/MeticulousWorkSection';
@@ -40,8 +39,6 @@ export default function Home() {
       {/* Nueva Sección: Ecosistema Completo de Servicios */}
       <ExtendedServices />
       
-      <NFCSection />
-
       <ConfidenceSection />
 
       <ShowreelSection />
