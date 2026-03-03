@@ -1,8 +1,85 @@
+
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+
+const DNAHelix = () => {
+  const [dots, setDots] = useState<{ x: number; phase: number; size: number }[]>([]);
+
+  useEffect(() => {
+    // Generar puntos para la estructura del ADN
+    const newDots = Array.from({ length: 20 }).map((_, i) => ({
+      x: i * 5, // Espaciado horizontal
+      phase: i * 0.4, // Fase para el movimiento ondulatorio
+      size: Math.random() * 2 + 2
+    }));
+    setDots(newDots);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-30">
+      <div className="relative w-full h-[600px] flex items-center justify-center transform -rotate-12">
+        <svg viewBox="0 0 100 40" className="w-[150%] h-auto overflow-visible">
+          {/* Strands and Connections */}
+          {dots.map((dot, i) => (
+            <React.Fragment key={i}>
+              {/* Connecting Bars (Molecular Structure) */}
+              <line 
+                x1={dot.x} 
+                y1={20 + Math.sin(dot.phase) * 12}
+                x2={dot.x} 
+                y2={20 + Math.sin(dot.phase + Math.PI) * 12}
+                stroke="#5200F8"
+                strokeWidth="0.2"
+                className="animate-dna-pulse"
+                style={{ animationDelay: `${i * 0.1}s` } as any}
+              />
+              
+              {/* Strand 1 Nodes */}
+              <circle 
+                cx={dot.x} 
+                cy={20 + Math.sin(dot.phase) * 12} 
+                r={dot.size * 0.15} 
+                fill="#F80037"
+                className="animate-dna-float"
+                style={{ animationDelay: `${i * 0.1}s` } as any}
+              />
+              
+              {/* Strand 2 Nodes */}
+              <circle 
+                cx={dot.x} 
+                cy={20 + Math.sin(dot.phase + Math.PI) * 12} 
+                r={dot.size * 0.15} 
+                fill="#5200F8"
+                className="animate-dna-float"
+                style={{ animationDelay: `${i * 0.1 + 0.5}s` } as any}
+              />
+            </React.Fragment>
+          ))}
+        </svg>
+      </div>
+
+      <style jsx global>{`
+        @keyframes dna-wave {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        .animate-dna-float {
+          animation: dna-wave 3s infinite ease-in-out;
+        }
+        @keyframes dna-pulse {
+          0%, 100% { opacity: 0.2; stroke-width: 0.1; }
+          50% { opacity: 0.8; stroke-width: 0.3; }
+        }
+        .animate-dna-pulse {
+          animation: dna-pulse 3s infinite ease-in-out;
+        }
+      `}</style>
+    </div>
+  );
+};
 
 export const ConfidenceSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -26,33 +103,9 @@ export const ConfidenceSection = () => {
       ref={sectionRef}
       className="py-24 md:py-40 bg-[#F0F4FF] text-black relative overflow-hidden min-h-screen flex flex-col justify-center"
     >
-      {/* Wavy Background Line - Figura orgánica monumental */}
-      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-visible">
-        <svg 
-          viewBox="0 0 1440 800" 
-          className="w-[150%] h-[150%] transition-transform duration-1000 ease-out"
-          style={{ transform: `scale(${1 + scrollProgress * 0.1}) rotate(${scrollProgress * 5}deg)` }}
-        >
-          <path 
-            d="M-100,400 C200,100 400,700 700,400 C1000,100 1200,700 1500,400" 
-            fill="none" 
-            stroke="#5200F8" 
-            strokeWidth="60" 
-            strokeLinecap="round"
-            className="opacity-[0.08]"
-          />
-          <path 
-            d="M-150,450 C150,150 350,750 650,450 C950,150 1150,750 1450,450" 
-            fill="none" 
-            stroke="#5200F8" 
-            strokeWidth="2" 
-            className="opacity-20"
-          />
-        </svg>
-      </div>
+      <DNAHelix />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-        {/* Header Monumental partially visible at top */}
         <div className="mb-20 overflow-hidden">
            <h2 
              className="text-[12vw] md:text-[10vw] font-black leading-none tracking-tighter uppercase transition-transform duration-1000"
@@ -100,7 +153,7 @@ export const ConfidenceSection = () => {
           >
             <div className="space-y-8">
               <p className="text-xl md:text-3xl font-medium leading-[1.4] text-black/80 tracking-tight">
-                Naxde es un ecosistema de producción digital Delaware vanguardia que da vida a tus ideas mediante diseños visualmente cautivadores y experiencias inmersivas. Con nuestro talentoso equipo, trascendemos los límites resolviendo problemas complejos y ofreciendo soluciones a medida que superan las expectativas y cautivan al público regional.
+                Naxde es un ecosistema de producción digital de vanguardia que da vida a tus ideas mediante diseños visualmente cautivadores y experiencias inmersivas. Con nuestro talentoso equipo, trascendemos los límites resolviendo problemas complejos y ofreciendo soluciones a medida que superan las expectativas y cautivan al público regional.
               </p>
             </div>
 
