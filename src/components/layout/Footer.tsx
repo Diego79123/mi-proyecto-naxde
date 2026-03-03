@@ -102,7 +102,7 @@ export const Footer = () => {
       {/* Back to top button */}
       <button 
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 md:bottom-12 md:right-12 w-14 h-14 md:w-16 md:h-16 rounded-full bg-black text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-[150] group"
+        className="fixed bottom-8 left-8 md:bottom-12 md:left-12 w-14 h-14 md:w-16 md:h-16 rounded-full bg-black text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-[150] group"
       >
         <ArrowUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
       </button>
