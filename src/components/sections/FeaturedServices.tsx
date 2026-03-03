@@ -51,17 +51,16 @@ export const FeaturedServices = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Animation values based on scrollProgress
-  // 0.0 - 0.3: Text is centered and huge
-  // 0.3 - 0.7: Transition phase (text moves left, phone slides in)
-  // 0.7 - 1.0: Final layout stable
+  // Animación de las escenas:
+  // 0.0 - 0.4: Escena 1 (Texto centrado)
+  // 0.4 - 0.6: Transición
+  // 0.6 - 1.0: Escena 2 (Celular centrado)
   
-  const isInitial = scrollProgress < 0.25;
-  const showContent = scrollProgress > 0.35;
+  const textOpacity = Math.max(0, 1 - scrollProgress * 2.5); // Desaparece al 40% del scroll
+  const mockupOpacity = Math.max(0, (scrollProgress - 0.4) * 2.5); // Aparece después del 40% del scroll
   
-  // Title Animation Calculations
-  const titleScale = isInitial ? 1.2 : 1;
-  const titleX = !showContent ? 0 : -25; // Simple toggle or smooth? Let's use CSS transitions for smoothness
+  const textScale = 1.1 - scrollProgress * 0.1;
+  const mockupScale = 0.9 + (scrollProgress * 0.1);
 
   return (
     <section 
@@ -71,7 +70,7 @@ export const FeaturedServices = () => {
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         
-        {/* Space Nebula Background Continuity */}
+        {/* Background Nebula */}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
           <div className="absolute top-[20%] right-[-10%] w-[70%] h-[60%] bg-purple-600/10 blur-[150px] rounded-full" />
           <div className="absolute bottom-[10%] left-[-5%] w-[60%] h-[50%] bg-[#F80037]/5 blur-[120px] rounded-full" />
@@ -79,114 +78,94 @@ export const FeaturedServices = () => {
 
         {/* Decorative Orbital Figure */}
         <div 
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] border-[1px] border-white/5 rounded-full pointer-events-none flex items-center justify-center animate-float-slow opacity-20"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] border-[1px] border-white/5 rounded-full pointer-events-none flex items-center justify-center opacity-20"
         >
-          <div className="w-[85%] h-[85%] border-[30px] md:border-[80px] border-white/5 rounded-full" />
+          <div className="w-[85%] h-[85%] border-[30px] md:border-[80px] border-white/5 rounded-full animate-float-slow" />
         </div>
         
-        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full h-full">
-          <div className="relative w-full h-full flex items-center justify-center">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full h-full flex items-center justify-center">
+          
+          <div className="relative w-full h-full max-w-5xl flex items-center justify-center">
             
-            {/* Main Content Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center w-full">
+            {/* Escena 1: Texto Monumental Centrado */}
+            <div 
+              className="absolute inset-0 flex flex-col items-center justify-center text-center space-y-8 transition-all duration-500 ease-out"
+              style={{ 
+                opacity: textOpacity,
+                transform: `scale(${textScale})`,
+                pointerEvents: textOpacity < 0.1 ? 'none' : 'auto'
+              }}
+            >
+              <span className="inline-block px-4 py-1.5 rounded-full border border-primary/30 text-[10px] font-black uppercase tracking-[0.3em] text-primary bg-primary/5 backdrop-blur-sm">
+                Prototipo en Tiempo Real
+              </span>
               
-              {/* Text Block - Animates from center to left */}
-              <div 
-                className={cn(
-                  "transition-all duration-1000 ease-out z-20",
-                  !showContent ? "col-span-2 text-center" : "col-span-1 text-left"
-                )}
-                style={{
-                  transform: !showContent 
-                    ? `scale(${1.2 - scrollProgress * 0.5})` 
-                    : `translateX(0) scale(1)`,
-                }}
-              >
-                <div className="space-y-8">
-                  <div className={cn(
-                    "transition-all duration-700",
-                    !showContent ? "opacity-0 -translate-y-4" : "opacity-100 translate-y-0"
-                  )}>
-                    <span className="inline-block px-4 py-1.5 rounded-full border border-primary/30 text-[10px] font-black uppercase tracking-[0.3em] text-primary bg-primary/5 backdrop-blur-sm">
-                      Prototipo en Tiempo Real
-                    </span>
-                  </div>
-                  
-                  <h2 className={cn(
-                    "font-black leading-[0.85] tracking-tighter uppercase select-none transition-all duration-1000",
-                    !showContent 
-                      ? "text-6xl sm:text-8xl md:text-[10rem] lg:text-[12rem]" 
-                      : "text-5xl sm:text-6xl md:text-7xl lg:text-[6.5rem]"
-                  )}>
-                    <div>EXPERIENCIA</div>
-                    <div className="text-transparent" style={{ WebkitTextStroke: '1.5px white' }}>INTERACTIVA</div>
-                    <div>PROTOTIPO</div>
-                  </h2>
+              <h2 className="font-black leading-[0.85] tracking-tighter uppercase select-none text-6xl sm:text-8xl md:text-[10rem] lg:text-[12rem]">
+                <div>EXPERIENCIA</div>
+                <div className="text-transparent" style={{ WebkitTextStroke: '1.5px white' }}>INTERACTIVA</div>
+                <div>PROTOTIPO</div>
+              </h2>
 
-                  <div className={cn(
-                    "max-w-xl transition-all duration-1000 delay-300",
-                    !showContent ? "opacity-0 translate-y-10" : "opacity-100 translate-y-0",
-                    !showContent ? "mx-auto" : "mx-0"
-                  )}>
-                    <p className="text-xl md:text-2xl font-medium leading-tight text-white/60 italic">
-                      Interactúa con nuestra tecnología Neocard. Este es un prototipo funcional del ecosistema que construimos para líderes y empresas de alto nivel.
-                    </p>
-                  </div>
-                </div>
+              <div className="max-w-2xl mx-auto">
+                <p className="text-xl md:text-2xl font-medium leading-tight text-white/60 italic">
+                  Interactúa con nuestra tecnología Neocard. Este es un prototipo funcional del ecosistema que construimos para líderes y empresas de alto nivel.
+                </p>
               </div>
-
-              {/* Visual Mockup - Reveals on scroll */}
-              <div 
-                className={cn(
-                  "relative flex items-center justify-center transition-all duration-1000 ease-out",
-                  !showContent ? "opacity-0 translate-y-40 scale-90" : "opacity-100 translate-y-0 scale-100"
-                )}
-              >
-                <div className="relative w-[280px] h-[580px] md:w-[360px] md:h-[720px] bg-black rounded-[3.5rem] border-[12px] border-white/10 shadow-[0_0_120px_rgba(0,0,0,0.9)] overflow-hidden z-20 group">
-                  
-                  {/* Dynamic Island */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-8 bg-black rounded-b-[2rem] z-50 flex items-center justify-center gap-3">
-                    <div className="w-12 h-1.5 bg-white/5 rounded-full" />
-                    <div className="w-2.5 h-2.5 bg-white/10 rounded-full" />
-                  </div>
-
-                  {/* Iframe Content */}
-                  <div className="absolute inset-0 rounded-[2.8rem] overflow-hidden bg-[#00001D]">
-                    <iframe 
-                      src="/tarjetas-neocard/oscar-rivera?mode=mockup" 
-                      className="border-none select-none no-scrollbar origin-top-left"
-                      title="Oscar Rivera Neocard Prototype"
-                      style={{ 
-                        width: '111.11%',
-                        height: '111.11%',
-                        transform: 'scale(0.9)',
-                        scrollbarWidth: 'none',
-                        msOverflowStyle: 'none'
-                      }}
-                    />
-                  </div>
-
-                  <div className="absolute inset-0 pointer-events-none z-40 bg-gradient-to-tr from-white/[0.02] via-transparent to-white/[0.05]" />
-                  
-                  {/* Device Hardware Buttons */}
-                  <div className="absolute -left-[12px] top-32 w-[4px] h-16 bg-white/20 rounded-r-lg shadow-lg" />
-                  <div className="absolute -right-[12px] top-24 w-[4px] h-24 bg-white/20 rounded-l-lg shadow-lg" />
-                  <div className="absolute -right-[12px] top-52 w-[4px] h-12 bg-white/20 rounded-l-lg shadow-lg" />
-                </div>
-
-                {/* Background Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] -z-10 animate-pulse" />
-              </div>
-
             </div>
+
+            {/* Escena 2: Mockup Interactivo Centrado */}
+            <div 
+              className="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out"
+              style={{ 
+                opacity: mockupOpacity,
+                transform: `scale(${mockupScale}) translateY(${(1 - scrollProgress) * 40}px)`,
+                pointerEvents: mockupOpacity < 0.1 ? 'none' : 'auto'
+              }}
+            >
+              <div className="relative w-[280px] h-[580px] md:w-[360px] md:h-[720px] bg-black rounded-[3.5rem] border-[12px] border-white/10 shadow-[0_0_120px_rgba(0,0,0,0.9)] overflow-hidden z-20 group">
+                
+                {/* Dynamic Island */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-8 bg-black rounded-b-[2rem] z-50 flex items-center justify-center gap-3">
+                  <div className="w-12 h-1.5 bg-white/5 rounded-full" />
+                  <div className="w-2.5 h-2.5 bg-white/10 rounded-full" />
+                </div>
+
+                {/* Iframe Content */}
+                <div className="absolute inset-0 rounded-[2.8rem] overflow-hidden bg-[#00001D]">
+                  <iframe 
+                    src="/tarjetas-neocard/oscar-rivera?mode=mockup" 
+                    className="border-none select-none no-scrollbar origin-top-left"
+                    title="Oscar Rivera Neocard Prototype"
+                    style={{ 
+                      width: '111.11%',
+                      height: '111.11%',
+                      transform: 'scale(0.9)',
+                      scrollbarWidth: 'none',
+                      msOverflowStyle: 'none'
+                    }}
+                  />
+                </div>
+
+                <div className="absolute inset-0 pointer-events-none z-40 bg-gradient-to-tr from-white/[0.02] via-transparent to-white/[0.05]" />
+                
+                {/* Device Hardware Buttons */}
+                <div className="absolute -left-[12px] top-32 w-[4px] h-16 bg-white/20 rounded-r-lg shadow-lg" />
+                <div className="absolute -right-[12px] top-24 w-[4px] h-24 bg-white/20 rounded-l-lg shadow-lg" />
+                <div className="absolute -right-[12px] top-52 w-[4px] h-12 bg-white/20 rounded-l-lg shadow-lg" />
+              </div>
+
+              {/* Background Glow */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] -z-10 animate-pulse" />
+            </div>
+
           </div>
         </div>
       </div>
 
-      {/* Services Bottom Grid - Appears after the animation sequence */}
+      {/* Services Bottom Grid - Aparece solo al final del recorrido */}
       <div className={cn(
         "relative z-30 max-w-7xl mx-auto px-6 pb-24 transition-all duration-1000",
-        scrollProgress < 0.8 ? "opacity-0 translate-y-20" : "opacity-100 translate-y-0"
+        scrollProgress < 0.9 ? "opacity-0 translate-y-20" : "opacity-100 translate-y-0"
       )}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 border-t border-white/10 pt-16">
           {services.map((service, idx) => (
@@ -213,8 +192,8 @@ export const FeaturedServices = () => {
 
       <style jsx global>{`
         @keyframes float-slow {
-          0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-          50% { transform: translate(-50%, -50%) translateY(-30px); }
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-30px); }
         }
         .animate-float-slow {
           animation: float-slow 10s infinite ease-in-out;
