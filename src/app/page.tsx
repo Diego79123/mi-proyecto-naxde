@@ -8,8 +8,9 @@ import { FeaturedServices } from '@/components/sections/FeaturedServices';
 import { WebDesignInteractive } from '@/components/sections/WebDesignInteractive';
 import { AppDesignInteractive } from '@/components/sections/AppDesignInteractive';
 import { ExtendedServices } from '@/components/sections/ExtendedServices';
-import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { TechStackCarousel } from '@/components/sections/TechStackCarousel';
+import { DisruptiveVisionBanner } from '@/components/sections/DisruptiveVisionBanner';
+import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
 import { ConnectingIdealsSection } from '@/components/sections/ConnectingIdealsSection';
 import { InnovativeApproachSection } from '@/components/sections/InnovativeApproachSection';
@@ -35,8 +36,14 @@ export default function Home() {
       {/* Sección Prototipo Tablet (App Design) */}
       <AppDesignInteractive />
 
-      {/* Ecosistema Completo de Servicios */}
+      {/* Ecosistema Completo de Servicios (Grid) */}
       <ExtendedServices />
+
+      {/* Carrusel de Logos Tecnológicos - Posicionado arriba del banner disruptivo */}
+      <TechStackCarousel />
+
+      {/* Banner de Visión Disruptiva (Extraído de ExtendedServices) */}
+      <DisruptiveVisionBanner />
       
       {/* Sección ADN con animación técnica e interactiva */}
       <ConfidenceSection />
@@ -46,9 +53,6 @@ export default function Home() {
       <ConnectingIdealsSection />
 
       <InnovativeApproachSection />
-
-      {/* Carrusel de Logos Tecnológicos - Reubicado antes del CTA Final */}
-      <TechStackCarousel />
 
       {/* CTA Final */}
       <section className="py-24 md:py-32 px-6">

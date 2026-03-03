@@ -150,31 +150,6 @@ export const ExtendedServices = () => {
             <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-500/20 blur-[50px] rounded-full group-hover:bg-blue-500/40 transition-all duration-1000" />
           </Link>
         </div>
-
-        {/* CTA Banner */}
-        <div className="mt-24 p-12 md:p-20 rounded-[3.5rem] bg-gradient-to-r from-primary/10 via-secondary/10 to-transparent border border-white/5 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[100px] rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-[2s]" />
-          
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h3 className="text-3xl md:text-5xl font-headline font-black text-white leading-tight uppercase tracking-tighter">
-                ¿TIENES UNA VISIÓN <br />
-                <span className="text-primary">DISRUPTIVA?</span>
-              </h3>
-              <p className="text-lg text-white/50 leading-relaxed">
-                Nuestra ingeniería y creatividad están a tu servicio para construir el próximo gran hito digital de tu industria.
-              </p>
-            </div>
-            <div className="flex justify-start lg:justify-end">
-              <Link href="/contacto">
-                <Button size="lg" className="h-20 px-12 bg-primary hover:bg-primary/90 text-white rounded-full text-xl font-black neon-accent shadow-glow-accent transition-all hover:scale-105 active:scale-95">
-                  Cotizar Proyecto
-                  <ArrowRight className="w-6 h-6 ml-3" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
