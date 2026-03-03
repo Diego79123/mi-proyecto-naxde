@@ -11,7 +11,8 @@ import {
   Eye, 
   Users,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  Headset
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -119,6 +120,35 @@ export const ExtendedServices = () => {
               </div>
             </div>
           ))}
+
+          {/* Tarjeta CTA: Asesoría Personalizada */}
+          <Link 
+            href="/contacto" 
+            className="group relative p-8 rounded-[2.5rem] bg-gradient-to-br from-violet-600/10 to-blue-600/10 border border-violet-500/20 hover:border-violet-400 transition-all duration-500 overflow-hidden flex flex-col justify-between"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-violet-600/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            <div className="relative z-10 space-y-6">
+              <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg border border-white/5">
+                <Headset className="w-7 h-7 text-white" />
+              </div>
+              
+              <div className="space-y-3">
+                <h3 className="text-xl font-headline font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-blue-400 transition-all">Asesoría Pro</h3>
+                <p className="text-sm text-white/50 leading-relaxed group-hover:text-white/70 transition-colors">
+                  ¿Tienes un proyecto en mente? Habla con nuestro equipo comercial para una solución a medida.
+                </p>
+              </div>
+
+              <div className="pt-4 flex items-center gap-3 text-blue-400 font-bold text-[10px] uppercase tracking-[0.2em] group-hover:gap-5 transition-all">
+                Consultar con Ventas
+                <ArrowRight className="w-4 h-4" />
+              </div>
+            </div>
+
+            {/* Glow decorativo interno */}
+            <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-500/20 blur-[50px] rounded-full group-hover:bg-blue-500/40 transition-all duration-1000" />
+          </Link>
         </div>
 
         {/* CTA Banner */}
