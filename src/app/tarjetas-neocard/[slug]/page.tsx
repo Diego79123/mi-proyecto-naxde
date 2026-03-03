@@ -52,12 +52,14 @@ interface DigitalCardPageProps {
 
 type SectionType = 'inicio' | 'ubicacion' | 'logros';
 
-const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
+const SpaceBackground = ({ isOscar, isMockup }: { isOscar: boolean; isMockup: boolean }) => {
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: string; duration: string }[]>([]);
   const [shootingStars, setShootingStars] = useState<{ id: number; top: string; left: string; duration: string; delay: string }[]>([]);
   const [gyro, setGyro] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    if (isMockup) return; // No inicializar efectos si es mockup
+
     const starCount = 160;
     const newStars = Array.from({ length: starCount }).map((_, i) => ({
       id: i,
@@ -97,7 +99,12 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
         window.removeEventListener('deviceorientation', handleOrientation);
       }
     };
-  }, []);
+  }, [isMockup]);
+
+  // Si es mockup, solo devolver el fondo azul sólido
+  if (isMockup) {
+    return <div className="fixed inset-0 bg-[#00001D] -z-10" />;
+  }
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
@@ -309,7 +316,7 @@ END:VCARD`;
       "w-full bg-transparent text-white flex flex-col items-center relative font-body selection:bg-primary/30 no-scrollbar",
       isMockup ? "h-full overflow-y-auto" : "h-[100dvh] overflow-hidden"
     )}>
-      <SpaceBackground isOscar={slug === 'oscar-rivera'} />
+      <SpaceBackground isOscar={slug === 'oscar-rivera'} isMockup={isMockup} />
       {!isMockup && <Header />}
 
       <div className={cn(
