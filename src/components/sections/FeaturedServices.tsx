@@ -95,20 +95,41 @@ export const FeaturedServices = () => {
             </div>
           </div>
 
-          {/* Right Column: Visual Composition - Smartphone Only */}
-          <div className="relative h-[500px] md:h-[750px] w-full flex items-center justify-center">
-            {/* Phone Mockup Background - ONLY FLOATS, NO ROTATION */}
-            <div className="relative w-[280px] h-[580px] md:w-[320px] md:h-[650px] bg-gradient-to-b from-[#1A1A3A] to-[#0A0520] rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center pt-6 animate-float">
-              {/* Notch */}
-              <div className="w-24 h-6 bg-black rounded-full mb-8" />
-              <div className="w-full flex-1 flex items-center justify-center opacity-20">
-                <Zap className="w-24 h-24 text-primary" />
+          {/* Right Column: Visual Composition - Real Interactive Prototype */}
+          <div className="relative h-[600px] md:h-[850px] w-full flex items-center justify-center">
+            {/* Phone Mockup Frame */}
+            <div className="relative w-[280px] h-[580px] md:w-[340px] md:h-[680px] bg-black rounded-[3.5rem] border-[10px] border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.8)] overflow-hidden animate-float z-20 group">
+              
+              {/* Notch / Speaker */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-50 flex items-center justify-center gap-2">
+                <div className="w-10 h-1 bg-white/5 rounded-full" />
+                <div className="w-2 h-2 bg-white/5 rounded-full" />
               </div>
-              {/* Screen Content Simulation */}
-              <div className="absolute inset-[10px] rounded-[2.8rem] border border-white/5 overflow-hidden">
-                <div className="w-full h-full bg-gradient-to-tr from-primary/10 via-transparent to-secondary/10" />
+
+              {/* Screen Content - Interactive Iframe */}
+              <div className="absolute inset-0 rounded-[2.8rem] overflow-hidden bg-[#00001D]">
+                <iframe 
+                  src="/tarjetas-neocard/oscar-rivera" 
+                  className="w-full h-full border-none select-none no-scrollbar"
+                  title="Oscar Rivera Neocard Prototype"
+                  style={{ 
+                    // El iframe carga la ruta real del componente Neocard
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none'
+                  }}
+                />
               </div>
+
+              {/* Reflection Shine */}
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/[0.03] via-transparent to-transparent z-40" />
+              
+              {/* Device Buttons Decor */}
+              <div className="absolute -left-[10px] top-32 w-[3px] h-16 bg-white/10 rounded-r-full" />
+              <div className="absolute -right-[10px] top-24 w-[3px] h-24 bg-white/10 rounded-l-full" />
             </div>
+
+            {/* Background Glow for the Phone */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-primary/20 rounded-full blur-[120px] -z-10 animate-pulse" />
           </div>
         </div>
 
@@ -139,7 +160,7 @@ export const FeaturedServices = () => {
       <style jsx global>{`
         @keyframes float {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
+          50% { transform: translateY(-15px); }
         }
         @keyframes float-slow {
           0%, 100% { transform: translate(-50%, -50%) translateY(0); }
@@ -150,6 +171,9 @@ export const FeaturedServices = () => {
         }
         .animate-float-slow {
           animation: float-slow 10s infinite ease-in-out;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
     </section>
