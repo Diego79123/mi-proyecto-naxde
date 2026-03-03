@@ -7,6 +7,7 @@ import { Hero } from '@/components/sections/Hero';
 import { FeaturedServices } from '@/components/sections/FeaturedServices';
 import { WebDesignInteractive } from '@/components/sections/WebDesignInteractive';
 import { AppDesignInteractive } from '@/components/sections/AppDesignInteractive';
+import { ExtendedServices } from '@/components/sections/ExtendedServices';
 import { NFCSection } from '@/components/sections/NFCSection';
 import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
@@ -33,8 +34,11 @@ export default function Home() {
       {/* Sección Prototipo Laptop (Web Design) */}
       <WebDesignInteractive />
 
-      {/* NUEVA Sección Prototipo Tablet (App Design) */}
+      {/* Sección Prototipo Tablet (App Design) */}
       <AppDesignInteractive />
+
+      {/* Nueva Sección: Ecosistema Completo de Servicios */}
+      <ExtendedServices />
       
       <NFCSection />
 
