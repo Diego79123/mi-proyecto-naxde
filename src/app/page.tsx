@@ -14,7 +14,7 @@ import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Plus } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -48,46 +48,77 @@ export default function Home() {
 
       <ShowreelSection />
 
-      {/* CTA Final - Rediseñado para ser más elegante y futurista */}
-      <section className="py-24 md:py-48 px-6 bg-[#00001D] relative overflow-hidden">
-        {/* Glow de fondo para profundidad */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] -z-0" />
-        
-        <div className="max-w-7xl mx-auto text-center space-y-12 md:space-y-20 relative z-10">
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-4">
-              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60">Siguiente Frecuencia</span>
+      {/* CTA Final - Adaptado al diseño de Impacto Digital (Showreel) */}
+      <section className="py-12 md:py-24 px-6 bg-[#F0F4FF]">
+        <div className="max-w-7xl mx-auto relative py-24 md:py-40 px-6 bg-[#0A0520] rounded-[3rem] overflow-hidden group/cta shadow-[0_50px_100px_rgba(0,0,0,0.15)]">
+          
+          {/* Background Vortex Layer - Misma estética que Showreel */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 opacity-60 mix-blend-screen">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(248,0,55,0.4)_0%,rgba(82,0,248,0.3)_30%,transparent_70%)] animate-spin-slow duration-[20s]" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle,rgba(255,255,255,0.1)_0%,rgba(168,85,247,0.2)_40%,transparent_80%)] animate-spin-slow duration-[15s] [animation-direction:reverse]" />
             </div>
             
-            <h3 className="text-5xl sm:text-7xl md:text-[8rem] lg:text-[10rem] font-headline font-black text-white leading-[0.85] tracking-tighter uppercase">
-              DE LA <span className="text-transparent italic" style={{ WebkitTextStroke: '1.5px white' }}>IMAGINACIÓN</span> <br />
-              A LA <span className="text-primary">SINGULARIDAD.</span>
-            </h3>
-            
-            <p className="text-xl md:text-3xl font-medium leading-tight text-white/40 max-w-3xl mx-auto italic">
-              No seguimos el ritmo de la industria, definimos su próxima frecuencia. Tu visión merece una ingeniería que no conozca límites.
-            </p>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 md:gap-10 pt-8">
-            <Link href="/contacto" className="w-full sm:w-auto">
-              <Button size="lg" className="h-20 md:h-24 px-12 md:px-20 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-xl md:text-3xl font-black w-full transition-all hover:scale-105 active:scale-95 shadow-glow-accent group">
-                Iniciar Proyecto
-                <ArrowRight className="w-8 h-8 md:w-10 md:h-10 ml-4 group-hover:translate-x-2 transition-transform" />
-              </Button>
-            </Link>
-            <Link href="/servicios" className="w-full sm:w-auto">
-              <Button size="lg" variant="outline" className="h-20 md:h-24 px-12 md:px-16 border-white/10 hover:bg-white/5 text-white rounded-full text-xl md:text-2xl font-bold w-full backdrop-blur-md transition-all">
-                Explorar Soluciones
-              </Button>
-            </Link>
+            {/* Noise / Texture */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
           </div>
 
-          <div className="pt-12 md:pt-20">
-            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">
-              NAXDE STUDIO • BOGOTÁ • LATAM
-            </p>
+          {/* Asteroides / Polígonos Decorativos */}
+          <div className="absolute inset-0 z-5 pointer-events-none opacity-30">
+            <div className="absolute top-[10%] left-[10%] w-20 h-20 bg-white/10 backdrop-blur-[2px] border border-white/5 rotate-12" style={{ clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)' }} />
+            <div className="absolute bottom-[20%] right-[10%] w-28 h-28 bg-white/10 backdrop-blur-[2px] border border-white/5 -rotate-12" style={{ clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)' }} />
+            <div className="absolute top-[60%] left-[5%] w-12 h-12 bg-white/10 backdrop-blur-[2px] border border-white/5 rotate-45" style={{ clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)' }} />
+          </div>
+
+          {/* Interface Elements like Showreel */}
+          <div className="absolute top-12 left-12 z-20 flex items-center gap-2 opacity-40">
+            <h3 className="text-sm font-black text-white tracking-tighter uppercase italic">NAXDE</h3>
+            <Plus className="w-3 h-3 text-white" />
+          </div>
+
+          <div className="absolute bottom-12 right-12 z-20 flex gap-1 opacity-20">
+            <div className="w-1 h-1 bg-white rounded-full" />
+            <div className="w-1 h-1 bg-white rounded-full" />
+            <div className="w-1 h-1 bg-white rounded-full" />
+            <div className="w-1 h-1 bg-white rounded-full" />
+          </div>
+          
+          <div className="max-w-5xl mx-auto text-center space-y-12 md:space-y-20 relative z-10">
+            <div className="space-y-8">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-4">
+                <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60">Siguiente Frecuencia</span>
+              </div>
+              
+              <h3 className="text-5xl sm:text-7xl md:text-[8rem] lg:text-[9rem] font-headline font-black text-white leading-[0.85] tracking-tighter uppercase">
+                DE LA <span className="text-transparent italic" style={{ WebkitTextStroke: '1.5px white' }}>IMAGINACIÓN</span> <br />
+                A LA <span className="text-primary">SINGULARIDAD.</span>
+              </h3>
+              
+              <p className="text-xl md:text-3xl font-medium leading-tight text-white/40 max-w-3xl mx-auto italic">
+                No seguimos el ritmo de la industria, definimos su próxima frecuencia. Tu visión merece una ingeniería que no conozca límites.
+              </p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-6 md:gap-10 pt-8">
+              <Link href="/contacto" className="w-full sm:w-auto">
+                <Button size="lg" className="h-20 md:h-24 px-12 md:px-20 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-xl md:text-3xl font-black w-full transition-all hover:scale-105 active:scale-95 shadow-glow-accent group">
+                  Iniciar Proyecto
+                  <ArrowRight className="w-8 h-8 md:w-10 md:h-10 ml-4 group-hover:translate-x-2 transition-transform" />
+                </Button>
+              </Link>
+              <Link href="/servicios" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="h-20 md:h-24 px-12 md:px-16 border-white/10 hover:bg-white/5 text-white rounded-full text-xl md:text-2xl font-bold w-full backdrop-blur-md transition-all">
+                  Explorar Soluciones
+                </Button>
+              </Link>
+            </div>
+
+            <div className="pt-12 md:pt-20">
+              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">
+                NAXDE STUDIO • BOGOTÁ • LATAM
+              </p>
+            </div>
           </div>
         </div>
       </section>
