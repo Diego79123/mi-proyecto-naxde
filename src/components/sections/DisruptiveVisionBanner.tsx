@@ -45,12 +45,12 @@ export const DisruptiveVisionBanner = () => {
           
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            {/* Candy volando hacia la escena */}
+            {/* Candy volando hacia la escena - Ahora se mantiene estática después del movimiento */}
             <div className={cn(
               "lg:col-span-5 flex flex-col items-center lg:items-start transition-all duration-1000 ease-out",
               isVisible ? "translate-x-0 opacity-100 scale-100" : "-translate-x-20 opacity-0 scale-90"
             )}>
-              <div className="relative w-[220px] h-[220px] md:w-[320px] md:h-[320px] animate-float">
+              <div className="relative w-[220px] h-[220px] md:w-[320px] md:h-[320px]">
                 <Image 
                   src={CANDY_URL}
                   alt="Candy Astronauta"
@@ -110,16 +110,6 @@ export const DisruptiveVisionBanner = () => {
           </div>
         </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes floating {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(2deg); }
-        }
-        .animate-float {
-          animation: floating 5s infinite ease-in-out;
-        }
-      `}</style>
     </section>
   );
 };
