@@ -99,65 +99,16 @@ export const FeaturedServices = () => {
           {/* Right Column: Visual Composition */}
           <div className="relative h-[500px] md:h-[750px] w-full flex items-center justify-center">
             {/* Phone Mockup Background */}
-            <div className="relative w-[280px] h-[580px] md:w-[320px] md:h-[650px] bg-gradient-to-b from-[#1A1A3A] to-[#0A0520] rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center pt-6">
+            <div className="relative w-[280px] h-[580px] md:w-[320px] md:h-[650px] bg-gradient-to-b from-[#1A1A3A] to-[#0A0520] rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center pt-6 group-hover:scale-105 transition-transform duration-700 animate-float">
               {/* Notch */}
               <div className="w-24 h-6 bg-black rounded-full mb-8" />
               <div className="w-full flex-1 flex items-center justify-center opacity-20">
                 <Zap className="w-24 h-24 text-primary" />
               </div>
-            </div>
-
-            {/* Metrics Card (Floating Top-Left) */}
-            <div className="absolute top-10 left-0 md:-left-8 z-20 w-56 md:w-64 glass-panel p-6 rounded-[2rem] border-white/10 shadow-2xl animate-float">
-              <div className="space-y-4">
-                <div className="space-y-1">
-                  <div className="text-3xl md:text-4xl font-black text-white">98.4%</div>
-                  <div className="text-[10px] font-black text-[#5200F8] uppercase">+12% Performance</div>
-                </div>
-                {/* Micro Bar Chart */}
-                <div className="flex items-end gap-1.5 h-12 pt-2">
-                  {[40, 65, 85, 50, 100, 60, 80].map((h, i) => (
-                    <div 
-                      key={i} 
-                      className="flex-1 bg-gradient-to-t from-[#5200F8] to-[#F80037] rounded-sm transition-all duration-1000" 
-                      style={{ height: `${h}%` }}
-                    />
-                  ))}
-                </div>
+              {/* Screen Content Simulation */}
+              <div className="absolute inset-[10px] rounded-[2.8rem] border border-white/5 overflow-hidden">
+                <div className="w-full h-full bg-gradient-to-tr from-primary/10 via-transparent to-secondary/10" />
               </div>
-            </div>
-
-            {/* Interface Design Card (Floating Middle-Right) */}
-            <div className="absolute bottom-20 -right-4 md:-right-12 z-20 w-64 md:w-80 glass-panel p-4 md:p-5 rounded-[2.5rem] border-white/10 shadow-2xl animate-float" style={{ animationDelay: '1s' }}>
-              <div className="space-y-5">
-                <div className="aspect-[4/3] rounded-[1.8rem] overflow-hidden bg-white/5 border border-white/10">
-                  <img 
-                    src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800" 
-                    alt="Interface Preview" 
-                    className="w-full h-full object-cover"
-                    data-ai-hint="scenic landscape"
-                  />
-                </div>
-                <div className="space-y-2 px-2 pb-2">
-                  <div className="w-12 h-1 bg-primary rounded-full mb-3" />
-                  <h4 className="text-sm font-black text-white uppercase tracking-wider">Interface Design</h4>
-                  <p className="text-[10px] font-medium text-white/40 leading-relaxed">Sistemas de diseño escalables con estética futurista premium.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Rocky Surface (Bottom Background) */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[140%] h-40 z-10 pointer-events-none">
-              <div 
-                className="w-full h-full grayscale brightness-[0.4] contrast-[1.2]"
-                style={{ 
-                  backgroundImage: 'url("https://images.unsplash.com/photo-1516331138075-f3adc1e149cd?q=80&w=1200")',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'top center',
-                  maskImage: 'linear-gradient(to top, black 20%, transparent)',
-                  WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent)'
-                }}
-              />
             </div>
           </div>
         </div>
