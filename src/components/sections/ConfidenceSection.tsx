@@ -11,7 +11,7 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
   useEffect(() => {
     let frame: number;
     const animate = (t: number) => {
-      // Animación más lenta aumentando los divisores
+      // Animación pausada y elegante, acelera en hover
       setTime(t / (isHovered ? 1000 : 3000));
       frame = requestAnimationFrame(animate);
     };
@@ -28,7 +28,7 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
         isHovered ? "scale-110" : "scale-100"
       )}>
         <svg viewBox="0 0 100 120" className="h-[150%] w-auto overflow-visible">
-          {/* Main Wavy Strand (Rail 1) */}
+          {/* Hebra 1: Línea continua sinusoide */}
           <path 
             d={`M ${Array.from({ length: 121 }).map((_, i) => {
               const y = i;
@@ -42,7 +42,7 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
             strokeLinecap="round"
           />
 
-          {/* Rungs and Nodes (Rail 2 with dots) */}
+          {/* Peldaños y Nodos: Estructura molecular solicitada */}
           {Array.from({ length: rungs }).map((_, i) => {
             const y = 5 + (i / (rungs - 1)) * 110;
             const phase = (y / 30) * Math.PI * 2 + time;
@@ -51,7 +51,7 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
 
             return (
               <g key={i}>
-                {/* Horizontal Rung */}
+                {/* Peldaño Horizontal */}
                 <line 
                   x1={xLeft} 
                   y1={y} 
@@ -60,7 +60,7 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
                   stroke="black" 
                   strokeWidth="0.6" 
                 />
-                {/* Node (Circle) on the left side of the rung */}
+                {/* Nodo en el extremo de la hebra secundaria */}
                 <circle 
                   cx={xLeft} 
                   cy={y} 
@@ -114,7 +114,6 @@ export const ConfidenceSection = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Visual Block - Columna Izquierda */}
           <div 
             className="relative group transition-all duration-1000"
             style={{ 
@@ -122,7 +121,6 @@ export const ConfidenceSection = () => {
               transform: `translateX(${(1 - scrollProgress) * -100}px)`
             }}
           >
-            <div className="absolute -inset-6 bg-[#5200F8]/5 blur-3xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             <div className="relative aspect-[4/3] md:aspect-video rounded-[2.5rem] overflow-hidden border border-black/5 shadow-[0_40px_100px_rgba(0,0,0,0.1)] group-hover:scale-[1.02] transition-transform duration-700">
               <img 
                 src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000" 
@@ -132,16 +130,9 @@ export const ConfidenceSection = () => {
               />
               <div className="absolute inset-0 bg-[#5200F8]/30 mix-blend-multiply opacity-60" />
               <div className="absolute inset-0 bg-gradient-to-tr from-[#5200F8]/40 to-transparent" />
-              
-              {/* Pulsing Core */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-24 h-24 md:w-40 md:h-40 rounded-full border-[1px] border-white/30 animate-ping duration-[3s]" />
-                <div className="absolute w-16 h-16 md:w-24 md:h-24 rounded-full border-[1px] border-white/20 animate-ping duration-[2s]" />
-              </div>
             </div>
           </div>
 
-          {/* Text Content - Columna Derecha */}
           <div 
             className="space-y-10 transition-all duration-1000 delay-200"
             style={{ 
@@ -157,7 +148,7 @@ export const ConfidenceSection = () => {
 
             <div className="pt-4">
               <Link href="/sobre-nosotros">
-                <button className="h-14 px-8 bg-white border border-black/5 rounded-full flex items-center gap-4 hover:bg-black hover:text-white transition-all duration-500 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(82,0,248,0.2)] group">
+                <button className="h-14 px-8 bg-white border border-black/5 rounded-full flex items-center gap-4 hover:bg-black hover:text-white transition-all duration-500 shadow-[0_10px_30px_rgba(0,0,0,0.05)] group">
                   <div className="w-2.5 h-2.5 rounded-full bg-black group-hover:bg-[#5200F8] transition-colors" />
                   <span className="text-[10px] font-black uppercase tracking-[0.3em]">Sobre Nosotros</span>
                 </button>

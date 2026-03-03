@@ -9,6 +9,7 @@ import { WebDesignInteractive } from '@/components/sections/WebDesignInteractive
 import { AppDesignInteractive } from '@/components/sections/AppDesignInteractive';
 import { ExtendedServices } from '@/components/sections/ExtendedServices';
 import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
+import { TechStackCarousel } from '@/components/sections/TechStackCarousel';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
 import { ProjectLinksSection } from '@/components/sections/ProjectLinksSection';
 import { ConnectingIdealsSection } from '@/components/sections/ConnectingIdealsSection';
@@ -35,10 +36,14 @@ export default function Home() {
       {/* Sección Prototipo Tablet (App Design) */}
       <AppDesignInteractive />
 
-      {/* Nueva Sección: Ecosistema Completo de Servicios */}
+      {/* Ecosistema Completo de Servicios */}
       <ExtendedServices />
       
+      {/* Sección ADN con animación técnica e interactiva */}
       <ConfidenceSection />
+
+      {/* Carrusel de Logos Tecnológicos */}
+      <TechStackCarousel />
 
       <ShowreelSection />
 
