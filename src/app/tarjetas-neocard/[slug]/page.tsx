@@ -149,7 +149,7 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
 export default function DigitalCardPage({ params }: DigitalCardPageProps) {
   const { slug } = use(params);
   const searchParams = useSearchParams();
-  const isMockup = searchParams.get('mode') === 'mockup';
+  const isMockup = searchParams?.get('mode') === 'mockup';
   
   const db = useFirestore();
   const [activeSection, setActiveSection] = useState<SectionType>('inicio');
@@ -305,13 +305,16 @@ END:VCARD`;
   ];
 
   return (
-    <main className="h-[100dvh] w-full bg-transparent text-white flex flex-col items-center overflow-hidden relative font-body selection:bg-primary/30">
+    <main className={cn(
+      "w-full bg-transparent text-white flex flex-col items-center relative font-body selection:bg-primary/30 no-scrollbar",
+      isMockup ? "h-full overflow-y-auto" : "h-[100dvh] overflow-hidden"
+    )}>
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
       {!isMockup && <Header />}
 
       <div className={cn(
-        "w-full max-w-lg flex flex-col items-center px-6 pb-20 space-y-6 transition-all duration-[700ms] h-full justify-center",
-        isMockup ? "pt-10" : "pt-24",
+        "w-full max-w-lg flex flex-col items-center px-6 pb-32 space-y-6 transition-all duration-[700ms]",
+        isMockup ? "pt-4 justify-start" : "pt-24 justify-center h-full",
         activeSection !== 'inicio' ? "blur-xl opacity-20 scale-[0.9] pointer-events-none" : "blur-0 opacity-100 scale-100"
       )}>
         <section className="flex flex-col items-center text-center space-y-4">

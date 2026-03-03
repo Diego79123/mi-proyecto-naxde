@@ -95,10 +95,6 @@ export const FeaturedServices = () => {
   }, []);
 
   // Animación de las escenas
-  // 0.0 - 0.35: Texto monumental
-  // 0.30 - 0.65: Transición a Celular
-  // 0.60 - 1.0: Beneficios orbitando
-  
   const textOpacity = Math.max(0, 1 - scrollProgress * 3); 
   const textBlur = Math.min(20, scrollProgress * 50);
   const textScale = 1.1 - scrollProgress * 0.2;
@@ -186,12 +182,9 @@ export const FeaturedServices = () => {
                 <div className="absolute inset-0 rounded-[2.8rem] overflow-hidden bg-[#00001D]">
                   <iframe 
                     src="/tarjetas-neocard/oscar-rivera?mode=mockup" 
-                    className="border-none select-none no-scrollbar origin-top-left"
+                    className="w-full h-full border-none select-none no-scrollbar"
                     title="Oscar Rivera Neocard Prototype"
                     style={{ 
-                      width: '111.11%',
-                      height: '111.11%',
-                      transform: 'scale(0.9)',
                       scrollbarWidth: 'none',
                       msOverflowStyle: 'none'
                     }}
