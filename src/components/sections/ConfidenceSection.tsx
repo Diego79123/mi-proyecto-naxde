@@ -11,7 +11,8 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
   useEffect(() => {
     let frame: number;
     const animate = (t: number) => {
-      setTime(t / (isHovered ? 400 : 1200));
+      // Animación más lenta aumentando los divisores
+      setTime(t / (isHovered ? 1000 : 3000));
       frame = requestAnimationFrame(animate);
     };
     frame = requestAnimationFrame(animate);
@@ -23,7 +24,7 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
   return (
     <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-[0.08]">
       <div className={cn(
-        "relative w-full h-full flex items-center justify-center transform -rotate-[12deg] transition-all duration-1000",
+        "relative w-full h-full flex items-center justify-center transform -rotate-[25deg] transition-all duration-1000",
         isHovered ? "scale-110" : "scale-100"
       )}>
         <svg viewBox="0 0 100 120" className="h-[150%] w-auto overflow-visible">
@@ -37,7 +38,7 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
             }).join(' L ')}`}
             fill="none"
             stroke="black"
-            strokeWidth="1.2"
+            strokeWidth="0.8"
             strokeLinecap="round"
           />
 
@@ -57,13 +58,13 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
                   x2={xRight} 
                   y2={y} 
                   stroke="black" 
-                  strokeWidth="1" 
+                  strokeWidth="0.6" 
                 />
                 {/* Node (Circle) on the left side of the rung */}
                 <circle 
                   cx={xLeft} 
                   cy={y} 
-                  r="2.5" 
+                  r="1.8" 
                   fill="black" 
                 />
               </g>
