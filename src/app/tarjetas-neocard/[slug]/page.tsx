@@ -314,7 +314,7 @@ END:VCARD`;
 
       <div className={cn(
         "w-full max-w-lg flex flex-col items-center px-6 pb-32 space-y-6 transition-all duration-[700ms]",
-        isMockup ? "pt-4 justify-start" : "pt-24 justify-center h-full",
+        isMockup ? "pt-20 justify-start" : "pt-24 justify-center h-full",
         activeSection !== 'inicio' ? "blur-xl opacity-20 scale-[0.9] pointer-events-none" : "blur-0 opacity-100 scale-100"
       )}>
         <section className="flex flex-col items-center text-center space-y-4">
