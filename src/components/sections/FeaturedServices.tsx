@@ -61,11 +61,10 @@ export const FeaturedServices = () => {
         <div className="absolute bottom-[10%] left-[-5%] w-[60%] h-[50%] bg-[#F80037]/5 blur-[120px] rounded-full animate-pulse duration-[10s] delay-700" />
       </div>
 
-      {/* Decorative Orbital Figure - Static (Rotation Removed) */}
+      {/* Decorative Orbital Figure - Static & Floating */}
       <div 
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] border-[1px] border-white/5 rounded-full pointer-events-none will-change-transform flex items-center justify-center"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] border-[1px] border-white/5 rounded-full pointer-events-none will-change-transform flex items-center justify-center animate-float-slow"
         style={{ 
-          transform: 'translate(-50%, -50%)',
           opacity: Math.sin(scrollProgress * Math.PI)
         }}
       >
@@ -98,8 +97,8 @@ export const FeaturedServices = () => {
 
           {/* Right Column: Visual Composition - Smartphone Only */}
           <div className="relative h-[500px] md:h-[750px] w-full flex items-center justify-center">
-            {/* Phone Mockup Background */}
-            <div className="relative w-[280px] h-[580px] md:w-[320px] md:h-[650px] bg-gradient-to-b from-[#1A1A3A] to-[#0A0520] rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center pt-6 transition-all duration-700 animate-float">
+            {/* Phone Mockup Background - ONLY FLOATS, NO ROTATION */}
+            <div className="relative w-[280px] h-[580px] md:w-[320px] md:h-[650px] bg-gradient-to-b from-[#1A1A3A] to-[#0A0520] rounded-[3.5rem] border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center pt-6 animate-float">
               {/* Notch */}
               <div className="w-24 h-6 bg-black rounded-full mb-8" />
               <div className="w-full flex-1 flex items-center justify-center opacity-20">
@@ -142,8 +141,15 @@ export const FeaturedServices = () => {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-20px); }
         }
+        @keyframes float-slow {
+          0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+          50% { transform: translate(-50%, -50%) translateY(-30px); }
+        }
         .animate-float {
           animation: float 6s infinite ease-in-out;
+        }
+        .animate-float-slow {
+          animation: float-slow 10s infinite ease-in-out;
         }
       `}</style>
     </section>
