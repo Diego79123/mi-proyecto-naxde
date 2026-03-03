@@ -47,49 +47,48 @@ export default function Home() {
 
       <ShowreelSection />
 
-      {/* CTA Final - Adaptado al diseño de Impacto Digital (Showreel) pero sin el vórtice solicitado */}
+      {/* CTA Final - Integrado al fondo gris de la sección para una estética más limpia */}
       <section className="py-12 md:py-24 px-6 bg-[#F0F4FF]">
-        <div className="max-w-7xl mx-auto relative py-24 md:py-40 px-6 bg-[#0A0520] rounded-[3rem] overflow-hidden group/cta shadow-[0_50px_100px_rgba(0,0,0,0.15)]">
+        <div className="max-w-7xl mx-auto relative py-24 md:py-40 px-6 rounded-[3rem] overflow-hidden group/cta">
           
-          {/* Background Layer */}
+          {/* Background Layer - Texture subtle */}
           <div className="absolute inset-0 z-0">
-            {/* Noise / Texture remains */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
           </div>
 
-          {/* Asteroides / Polígonos Decorativos */}
-          <div className="absolute inset-0 z-5 pointer-events-none opacity-30">
-            <div className="absolute top-[10%] left-[10%] w-20 h-20 bg-white/10 backdrop-blur-[2px] border border-white/5 rotate-12" style={{ clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)' }} />
-            <div className="absolute bottom-[20%] right-[10%] w-28 h-28 bg-white/10 backdrop-blur-[2px] border border-white/5 -rotate-12" style={{ clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)' }} />
-            <div className="absolute top-[60%] left-[5%] w-12 h-12 bg-white/10 backdrop-blur-[2px] border border-white/5 rotate-45" style={{ clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)' }} />
+          {/* Asteroides / Polígonos Decorativos - Ajustados para fondo claro */}
+          <div className="absolute inset-0 z-5 pointer-events-none opacity-10">
+            <div className="absolute top-[10%] left-[10%] w-20 h-20 bg-black/10 border border-black/5 rotate-12" style={{ clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)' }} />
+            <div className="absolute bottom-[20%] right-[10%] w-28 h-28 bg-black/10 border border-black/5 -rotate-12" style={{ clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)' }} />
+            <div className="absolute top-[60%] left-[5%] w-12 h-12 bg-black/10 border border-black/5 rotate-45" style={{ clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)' }} />
           </div>
 
-          {/* Interface Elements like Showreel */}
+          {/* Interface Elements */}
           <div className="absolute top-12 left-12 z-20 flex items-center gap-2 opacity-40">
-            <h3 className="text-sm font-black text-white tracking-tighter uppercase italic">NAXDE</h3>
-            <Plus className="w-3 h-3 text-white" />
+            <h3 className="text-sm font-black text-black tracking-tighter uppercase italic">NAXDE</h3>
+            <Plus className="w-3 h-3 text-black" />
           </div>
 
           <div className="absolute bottom-12 right-12 z-20 flex gap-1 opacity-20">
-            <div className="w-1 h-1 bg-white rounded-full" />
-            <div className="w-1 h-1 bg-white rounded-full" />
-            <div className="w-1 h-1 bg-white rounded-full" />
-            <div className="w-1 h-1 bg-white rounded-full" />
+            <div className="w-1 h-1 bg-black rounded-full" />
+            <div className="w-1 h-1 bg-black rounded-full" />
+            <div className="w-1 h-1 bg-black rounded-full" />
+            <div className="w-1 h-1 bg-black rounded-full" />
           </div>
           
           <div className="max-w-5xl mx-auto text-center space-y-12 md:space-y-20 relative z-10">
             <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-4">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/5 border border-black/10 backdrop-blur-md mb-4">
                 <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60">Siguiente Frecuencia</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-black/60">Siguiente Frecuencia</span>
               </div>
               
-              <h3 className="text-5xl sm:text-7xl md:text-[8rem] lg:text-[9rem] font-headline font-black text-white leading-[0.85] tracking-tighter uppercase">
-                DE LA <span className="text-transparent italic" style={{ WebkitTextStroke: '1.5px white' }}>IMAGINACIÓN</span> <br />
+              <h3 className="text-5xl sm:text-7xl md:text-[8rem] lg:text-[9rem] font-headline font-black text-black leading-[0.85] tracking-tighter uppercase">
+                DE LA <span className="text-transparent italic" style={{ WebkitTextStroke: '1.5px black' }}>IMAGINACIÓN</span> <br />
                 A LA <span className="text-primary">SINGULARIDAD.</span>
               </h3>
               
-              <p className="text-xl md:text-3xl font-medium leading-tight text-white/40 max-w-3xl mx-auto italic">
+              <p className="text-xl md:text-3xl font-medium leading-tight text-black/40 max-w-3xl mx-auto italic">
                 No seguimos el ritmo de la industria, definimos su próxima frecuencia. Tu visión merece una ingeniería que no conozca límites.
               </p>
             </div>
@@ -102,14 +101,14 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/servicios" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="h-20 md:h-24 px-12 md:px-16 border-white/10 hover:bg-white/5 text-white rounded-full text-xl md:text-2xl font-bold w-full backdrop-blur-md transition-all">
+                <Button size="lg" variant="outline" className="h-20 md:h-24 px-12 md:px-16 border-black/10 hover:bg-black/5 text-black rounded-full text-xl md:text-2xl font-bold w-full backdrop-blur-md transition-all">
                   Explorar Soluciones
                 </Button>
               </Link>
             </div>
 
             <div className="pt-12 md:pt-20">
-              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">
+              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-black/20">
                 NAXDE STUDIO • BOGOTÁ • LATAM
               </p>
             </div>
