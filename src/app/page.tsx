@@ -41,14 +41,14 @@ export default function Home() {
       {/* Sección ADN con animación técnica e interactiva */}
       <ConfidenceSection />
 
-      {/* Carrusel de Logos Tecnológicos */}
-      <TechStackCarousel />
-
       <ShowreelSection />
 
       <ConnectingIdealsSection />
 
       <InnovativeApproachSection />
+
+      {/* Carrusel de Logos Tecnológicos - Reubicado antes del CTA Final */}
+      <TechStackCarousel />
 
       {/* CTA Final */}
       <section className="py-24 md:py-32 px-6">
