@@ -86,7 +86,7 @@ const FloatingActionsContent = () => {
                 <img 
                   src={CANDY_AVATAR_URL} 
                   alt="Candy Assistant" 
-                  className="w-full h-full object-cover scale-[2.5] origin-center" 
+                  className="w-full h-full object-contain" 
                 />
               </div>
               <div>
@@ -113,7 +113,7 @@ const FloatingActionsContent = () => {
                       <img 
                         src={CANDY_AVATAR_URL} 
                         alt="Candy" 
-                        className="w-full h-full object-cover scale-[2.5] origin-center" 
+                        className="w-full h-full object-contain" 
                       />
                     )}
                   </div>
@@ -133,7 +133,7 @@ const FloatingActionsContent = () => {
                     <img 
                       src={CANDY_AVATAR_URL} 
                       alt="Candy" 
-                      className="w-full h-full object-cover animate-pulse scale-[2.5] origin-center" 
+                      className="w-full h-full object-contain animate-pulse" 
                     />
                   </div>
                   <div className="bg-white/5 p-4 rounded-2xl flex gap-1.5 items-center border border-white/5">
