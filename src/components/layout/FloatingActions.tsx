@@ -21,13 +21,15 @@ interface Message {
   content: string;
 }
 
+const CANDY_AVATAR_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=2b444080-0b94-4549-a656-6e67dc038512";
+
 const FloatingActionsContent = () => {
   const searchParams = useSearchParams();
   const isMockup = searchParams?.get('mode') === 'mockup';
   
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: '¡Hola! Soy el asistente inteligente de Naxde. ¿Cómo puedo ayudarte a transformar tu negocio hoy?' }
+    { role: 'assistant', content: '¡Hola! Soy Candy, tu asistente inteligente de Naxde. ¿Cómo puedo ayudarte a transformar tu negocio hoy?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -80,12 +82,12 @@ const FloatingActionsContent = () => {
         <SheetContent side="right" className="w-full sm:max-w-[440px] bg-[#00001D]/95 border-l border-white/10 backdrop-blur-2xl p-0 flex flex-col">
           <SheetHeader className="p-6 border-b border-white/5 bg-white/[0.02]">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center overflow-hidden border border-white/10">
+                <img src={CANDY_AVATAR_URL} alt="Candy Assistant" className="w-full h-full object-cover" />
               </div>
               <div>
-                <SheetTitle className="text-white font-headline text-left">Asistente Naxde</SheetTitle>
-                <p className="text-[10px] text-primary font-bold uppercase tracking-widest text-left">Inteligencia Artificial</p>
+                <SheetTitle className="text-white font-headline text-left">Candy Assistant</SheetTitle>
+                <p className="text-[10px] text-primary font-bold uppercase tracking-widest text-left">Naxde Guía Inteligente</p>
               </div>
             </div>
           </SheetHeader>
@@ -98,10 +100,14 @@ const FloatingActionsContent = () => {
                   msg.role === 'user' ? "ml-auto flex-row-reverse" : "mr-auto"
                 )}>
                   <div className={cn(
-                    "w-8 h-8 rounded-lg flex items-center justify-center shrink-0",
-                    msg.role === 'user' ? "bg-primary/20" : "bg-white/10"
+                    "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 overflow-hidden",
+                    msg.role === 'user' ? "bg-primary/20" : "bg-transparent border border-white/10"
                   )}>
-                    {msg.role === 'user' ? <User className="w-4 h-4 text-primary" /> : <Bot className="w-4 h-4 text-white/60" />}
+                    {msg.role === 'user' ? (
+                      <User className="w-4 h-4 text-primary" />
+                    ) : (
+                      <img src={CANDY_AVATAR_URL} alt="Candy" className="w-full h-full object-cover" />
+                    )}
                   </div>
                   <div className={cn(
                     "p-4 rounded-2xl text-sm leading-relaxed",
@@ -115,8 +121,8 @@ const FloatingActionsContent = () => {
               ))}
               {isLoading && (
                 <div className="flex gap-3 mr-auto">
-                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
-                    <Bot className="w-4 h-4 text-white/60 animate-pulse" />
+                  <div className="w-8 h-8 rounded-lg bg-transparent border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
+                    <img src={CANDY_AVATAR_URL} alt="Candy" className="w-full h-full object-cover animate-pulse" />
                   </div>
                   <div className="bg-white/5 p-4 rounded-2xl flex gap-1.5 items-center border border-white/5">
                     <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]" />
