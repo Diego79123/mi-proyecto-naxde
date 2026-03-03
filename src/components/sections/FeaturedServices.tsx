@@ -110,7 +110,6 @@ export const FeaturedServices = () => {
             {/* Metrics Card (Floating Top-Left) */}
             <div className="absolute top-10 left-0 md:-left-8 z-20 w-56 md:w-64 glass-panel p-6 rounded-[2rem] border-white/10 shadow-2xl animate-float">
               <div className="space-y-4">
-                <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Metrics</div>
                 <div className="space-y-1">
                   <div className="text-3xl md:text-4xl font-black text-white">98.4%</div>
                   <div className="text-[10px] font-black text-[#5200F8] uppercase">+12% Performance</div>
