@@ -97,8 +97,8 @@ export const FeaturedServices = () => {
 
           {/* Right Column: Visual Composition - Real Interactive Prototype */}
           <div className="relative h-[600px] md:h-[850px] w-full flex items-center justify-center">
-            {/* Phone Mockup Frame */}
-            <div className="relative w-[280px] h-[580px] md:w-[340px] md:h-[680px] bg-black rounded-[3.5rem] border-[10px] border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.8)] overflow-hidden animate-float z-20 group">
+            {/* Phone Mockup Frame - Completely Static as requested */}
+            <div className="relative w-[280px] h-[580px] md:w-[340px] md:h-[680px] bg-black rounded-[3.5rem] border-[10px] border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.8)] overflow-hidden z-20 group">
               
               {/* Notch / Speaker */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-50 flex items-center justify-center gap-2">
@@ -113,7 +113,6 @@ export const FeaturedServices = () => {
                   className="w-full h-full border-none select-none no-scrollbar"
                   title="Oscar Rivera Neocard Prototype"
                   style={{ 
-                    // El iframe carga la ruta real del componente Neocard
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none'
                   }}
@@ -158,16 +157,9 @@ export const FeaturedServices = () => {
       </div>
 
       <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-15px); }
-        }
         @keyframes float-slow {
           0%, 100% { transform: translate(-50%, -50%) translateY(0); }
           50% { transform: translate(-50%, -50%) translateY(-30px); }
-        }
-        .animate-float {
-          animation: float 6s infinite ease-in-out;
         }
         .animate-float-slow {
           animation: float-slow 10s infinite ease-in-out;
