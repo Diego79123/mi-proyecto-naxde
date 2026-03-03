@@ -40,6 +40,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Header } from '@/components/layout/Header';
+import { useSearchParams } from 'next/navigation';
 
 const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 const OSCAR_PROFILE_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1";
@@ -147,6 +148,9 @@ const SpaceBackground = ({ isOscar }: { isOscar: boolean }) => {
 
 export default function DigitalCardPage({ params }: DigitalCardPageProps) {
   const { slug } = use(params);
+  const searchParams = useSearchParams();
+  const isMockup = searchParams.get('mode') === 'mockup';
+  
   const db = useFirestore();
   const [activeSection, setActiveSection] = useState<SectionType>('inicio');
   const [member, setMember] = useState<any>(null);
@@ -303,10 +307,11 @@ END:VCARD`;
   return (
     <main className="h-[100dvh] w-full bg-transparent text-white flex flex-col items-center overflow-hidden relative font-body selection:bg-primary/30">
       <SpaceBackground isOscar={slug === 'oscar-rivera'} />
-      <Header />
+      {!isMockup && <Header />}
 
       <div className={cn(
-        "w-full max-w-lg flex flex-col items-center px-6 pt-24 pb-20 space-y-6 transition-all duration-[700ms] h-full justify-center",
+        "w-full max-w-lg flex flex-col items-center px-6 pb-20 space-y-6 transition-all duration-[700ms] h-full justify-center",
+        isMockup ? "pt-10" : "pt-24",
         activeSection !== 'inicio' ? "blur-xl opacity-20 scale-[0.9] pointer-events-none" : "blur-0 opacity-100 scale-100"
       )}>
         <section className="flex flex-col items-center text-center space-y-4">

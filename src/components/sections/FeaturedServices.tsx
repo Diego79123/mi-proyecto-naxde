@@ -103,7 +103,7 @@ export const FeaturedServices = () => {
           {/* Right Column: Visual Composition - Real Interactive Prototype */}
           <div className="relative h-[600px] md:h-[850px] w-full flex items-center justify-center">
             
-            {/* Phone Mockup Frame - Completely Static */}
+            {/* Phone Mockup Frame - Static & Premium */}
             <div className="relative w-[280px] h-[580px] md:w-[360px] md:h-[720px] bg-black rounded-[3.5rem] border-[12px] border-white/10 shadow-[0_0_120px_rgba(0,0,0,0.9)] overflow-hidden z-20 group">
               
               {/* Dynamic Island / Notch */}
@@ -112,13 +112,16 @@ export const FeaturedServices = () => {
                 <div className="w-2.5 h-2.5 bg-white/10 rounded-full" />
               </div>
 
-              {/* Screen Content - Interactive Iframe */}
+              {/* Screen Content - Interactive Iframe with Scaling for complete view */}
               <div className="absolute inset-0 rounded-[2.8rem] overflow-hidden bg-[#00001D]">
                 <iframe 
-                  src="/tarjetas-neocard/oscar-rivera" 
-                  className="w-full h-full border-none select-none no-scrollbar"
+                  src="/tarjetas-neocard/oscar-rivera?mode=mockup" 
+                  className="border-none select-none no-scrollbar origin-top-left"
                   title="Oscar Rivera Neocard Prototype"
                   style={{ 
+                    width: '111.11%',
+                    height: '111.11%',
+                    transform: 'scale(0.9)',
                     scrollbarWidth: 'none',
                     msOverflowStyle: 'none'
                   }}
