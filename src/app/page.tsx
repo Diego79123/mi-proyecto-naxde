@@ -65,7 +65,6 @@ export default function Home() {
 
           {/* Interface Elements */}
           <div className="absolute top-12 left-12 z-20 flex items-center gap-2 opacity-40">
-            <h3 className="text-sm font-black text-black tracking-tighter uppercase italic">NAXDE</h3>
             <Plus className="w-3 h-3 text-black" />
           </div>
 
