@@ -5,6 +5,7 @@ import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Hero } from '@/components/sections/Hero';
 import { FeaturedServices } from '@/components/sections/FeaturedServices';
+import { WebDesignInteractive } from '@/components/sections/WebDesignInteractive';
 import { NFCSection } from '@/components/sections/NFCSection';
 import { ConfidenceSection } from '@/components/sections/ConfidenceSection';
 import { ShowreelSection } from '@/components/sections/ShowreelSection';
@@ -25,26 +26,24 @@ export default function Home() {
       
       <Hero />
       
+      {/* Sección Prototipo Smartphone (Neocards) */}
       <FeaturedServices />
+
+      {/* NUEVA Sección Prototipo Laptop (Web Design) */}
+      <WebDesignInteractive />
       
       <NFCSection />
 
-      {/* Nueva Sección de Identidad y Confianza (Estilo Lusion) */}
       <ConfidenceSection />
 
-      {/* Nueva Sección Showreel / Experiencia */}
       <ShowreelSection />
 
-      {/* Nueva Sección de Trabajo Meticuloso */}
       <MeticulousWorkSection />
 
-      {/* Nueva Sección de Enlaces de Proyectos (Minimalista) */}
       <ProjectLinksSection />
 
-      {/* Nueva Sección Connecting Ideals (Imagen Referencia) */}
       <ConnectingIdealsSection />
 
-      {/* Nueva Sección Enfoque Innovador (Referencia Astronauta/Texto) */}
       <InnovativeApproachSection />
 
       {/* CTA Final */}
