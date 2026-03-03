@@ -6,131 +6,71 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
-  const [points, setPoints] = useState<{ x: number; y1: number; y2: number; phase: number }[]>([]);
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
-    // Generar puntos para la estructura del ADN con más densidad para definición
-    const newPoints = Array.from({ length: 32 }).map((_, i) => ({
-      x: i * 3.2, 
-      y1: 0,
-      y2: 0,
-      phase: i * 0.3,
-    }));
-    setPoints(newPoints);
-  }, []);
+    let frame: number;
+    const animate = (t: number) => {
+      setTime(t / (isHovered ? 400 : 1200));
+      frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [isHovered]);
+
+  const rungs = 24;
 
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-30">
+    <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-[0.08]">
       <div className={cn(
-        "relative w-full h-full flex items-center justify-center transform -rotate-[20deg] scale-150 transition-all duration-1000",
-        isHovered ? "scale-[1.6] opacity-100" : "scale-150 opacity-60"
+        "relative w-full h-full flex items-center justify-center transform -rotate-[12deg] transition-all duration-1000",
+        isHovered ? "scale-110" : "scale-100"
       )}>
-        <svg viewBox="0 0 100 40" className="w-[130%] h-auto overflow-visible">
-          <defs>
-            <linearGradient id="strand1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#F80037" />
-              <stop offset="100%" stopColor="#5200F8" />
-            </linearGradient>
-            <linearGradient id="strand2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#5200F8" />
-              <stop offset="100%" stopColor="#F80037" />
-            </linearGradient>
-            <filter id="glow-dna">
-              <feGaussianBlur stdDeviation="0.3" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          {/* DNA Ladder Bars - Thinner and more defined */}
-          {points.map((p, i) => (
-            <line 
-              key={`line-${i}`}
-              x1={p.x} 
-              y1={20 + Math.sin(p.phase) * (isHovered ? 12 : 10)}
-              x2={p.x} 
-              y2={20 + Math.sin(p.phase + Math.PI) * (isHovered ? 12 : 10)}
-              stroke="white"
-              strokeWidth="0.06"
-              className={cn(
-                "transition-all duration-1000",
-                isHovered ? "opacity-40 animate-pulse" : "opacity-20"
-              )}
-              style={{ animationDelay: `${i * 0.05}s` } as any}
-            />
-          ))}
-
-          {/* Strand 1 (Spiral) - Thinner line */}
+        <svg viewBox="0 0 100 120" className="h-[150%] w-auto overflow-visible">
+          {/* Main Wavy Strand (Rail 1) */}
           <path 
-            d={`M ${points.map(p => `${p.x},${20 + Math.sin(p.phase) * (isHovered ? 12 : 10)}`).join(' L ')}`}
+            d={`M ${Array.from({ length: 121 }).map((_, i) => {
+              const y = i;
+              const phase = (i / 30) * Math.PI * 2 + time;
+              const x = 50 + Math.sin(phase) * 20;
+              return `${x},${y}`;
+            }).join(' L ')}`}
             fill="none"
-            stroke="url(#strand1)"
-            strokeWidth="0.4"
+            stroke="black"
+            strokeWidth="1.2"
             strokeLinecap="round"
-            filter="url(#glow-dna)"
-            className={cn(
-              "transition-all duration-1000",
-              isHovered ? "animate-dna-fast" : "animate-dna-float"
-            )}
           />
 
-          {/* Strand 2 (Spiral Offset) - Thinner line */}
-          <path 
-            d={`M ${points.map(p => `${p.x},${20 + Math.sin(p.phase + Math.PI) * (isHovered ? 12 : 10)}`).join(' L ')}`}
-            fill="none"
-            stroke="url(#strand2)"
-            strokeWidth="0.4"
-            strokeLinecap="round"
-            filter="url(#glow-dna)"
-            className={cn(
-              "transition-all duration-1000",
-              isHovered ? "animate-dna-fast" : "animate-dna-float"
-            )}
-            style={{ animationDelay: '0.5s' } as any}
-          />
+          {/* Rungs and Nodes (Rail 2 with dots) */}
+          {Array.from({ length: rungs }).map((_, i) => {
+            const y = 5 + (i / (rungs - 1)) * 110;
+            const phase = (y / 30) * Math.PI * 2 + time;
+            const xRight = 50 + Math.sin(phase) * 20;
+            const xLeft = 50 + Math.sin(phase + Math.PI) * 20;
 
-          {/* Decorative Particles / Nodes - More precise */}
-          {points.map((p, i) => (
-            <React.Fragment key={`nodes-${i}`}>
-              <circle 
-                cx={p.x} 
-                cy={20 + Math.sin(p.phase) * (isHovered ? 12 : 10)} 
-                r={isHovered ? "0.3" : "0.2"} 
-                fill="#F80037"
-                className="animate-pulse"
-                style={{ animationDelay: `${i * 0.1}s` } as any}
-              />
-              <circle 
-                cx={p.x} 
-                cy={20 + Math.sin(p.phase + Math.PI) * (isHovered ? 12 : 10)} 
-                r={isHovered ? "0.3" : "0.2"} 
-                fill="#5200F8"
-                className="animate-pulse"
-                style={{ animationDelay: `${i * 0.1 + 0.5}s` } as any}
-              />
-            </React.Fragment>
-          ))}
+            return (
+              <g key={i}>
+                {/* Horizontal Rung */}
+                <line 
+                  x1={xLeft} 
+                  y1={y} 
+                  x2={xRight} 
+                  y2={y} 
+                  stroke="black" 
+                  strokeWidth="1" 
+                />
+                {/* Node (Circle) on the left side of the rung */}
+                <circle 
+                  cx={xLeft} 
+                  cy={y} 
+                  r="2.5" 
+                  fill="black" 
+                />
+              </g>
+            );
+          })}
         </svg>
       </div>
-
-      <style jsx global>{`
-        @keyframes dna-float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-2px); }
-        }
-        @keyframes dna-fast {
-          0%, 100% { transform: translateY(0); stroke-width: 0.5; }
-          50% { transform: translateY(-4px); stroke-width: 0.7; }
-        }
-        .animate-dna-float {
-          animation: dna-float 4s infinite ease-in-out;
-        }
-        .animate-dna-fast {
-          animation: dna-fast 1.5s infinite ease-in-out;
-        }
-      `}</style>
     </div>
   );
 };

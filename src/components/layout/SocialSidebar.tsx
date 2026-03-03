@@ -16,7 +16,7 @@ const SocialSidebarContent = () => {
   return (
     <div className={cn(
       "fixed left-6 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-4 p-3",
-      "bg-[#00001D] border border-white/20",
+      "bg-[#00001D] border border-white/20 opacity-100",
       "shadow-[0_0_30px_rgba(0,0,0,0.8)] animate-in fade-in slide-in-from-left duration-1000 rounded-2xl"
     )}>
       <Link 
