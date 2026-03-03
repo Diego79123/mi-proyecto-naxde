@@ -68,7 +68,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#00001D] text-white pt-24 pb-12 px-6 md:px-12 border-t border-white/5">
+    <footer className="bg-[#00001D] text-white pt-24 pb-32 md:pb-40 px-6 md:px-12 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
         {/* Top Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
@@ -150,7 +150,7 @@ export const Footer = () => {
           ))}
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Bar - Posicionada más arriba gracias al pb-32 del contenedor principal */}
         <div className="pt-12 border-t border-white/5 flex flex-col lg:flex-row justify-between items-center gap-8">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">
@@ -174,10 +174,10 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Scroll to Top */}
+      {/* Scroll to Top - Ajustado para no chocar con el nav */}
       <button 
         onClick={scrollToTop}
-        className="fixed bottom-24 left-6 md:bottom-12 md:left-12 w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/10 text-white/40 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all z-[150] backdrop-blur-xl group"
+        className="fixed bottom-32 left-6 md:bottom-32 md:left-12 w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/10 text-white/40 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all z-[150] backdrop-blur-xl group"
       >
         <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
       </button>
