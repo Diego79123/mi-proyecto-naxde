@@ -51,16 +51,17 @@ export const FeaturedServices = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Animación de las escenas:
-  // 0.0 - 0.4: Escena 1 (Texto centrado)
-  // 0.4 - 0.6: Transición
-  // 0.6 - 1.0: Escena 2 (Celular centrado)
+  // Animación de las escenas con solapamiento suave
+  // Escena 1: Texto (0.0 a 0.6)
+  // Escena 2: Mockup (0.3 a 1.0)
   
-  const textOpacity = Math.max(0, 1 - scrollProgress * 2.5); // Desaparece al 40% del scroll
-  const mockupOpacity = Math.max(0, (scrollProgress - 0.4) * 2.5); // Aparece después del 40% del scroll
-  
-  const textScale = 1.1 - scrollProgress * 0.1;
-  const mockupScale = 0.9 + (scrollProgress * 0.1);
+  const textOpacity = Math.max(0, 1 - scrollProgress * 1.8); 
+  const textBlur = Math.min(20, scrollProgress * 40);
+  const textScale = 1.1 - scrollProgress * 0.15;
+
+  const mockupOpacity = Math.max(0, (scrollProgress - 0.25) * 2.5);
+  const mockupBlur = Math.max(0, (0.65 - scrollProgress) * 30);
+  const mockupScale = 0.85 + (scrollProgress * 0.15);
 
   return (
     <section 
@@ -70,13 +71,13 @@ export const FeaturedServices = () => {
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         
-        {/* Background Nebula */}
+        {/* Background Nebula - Constante en toda la sección */}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
           <div className="absolute top-[20%] right-[-10%] w-[70%] h-[60%] bg-purple-600/10 blur-[150px] rounded-full" />
           <div className="absolute bottom-[10%] left-[-5%] w-[60%] h-[50%] bg-[#F80037]/5 blur-[120px] rounded-full" />
         </div>
 
-        {/* Decorative Orbital Figure */}
+        {/* Decorative Orbital Figure - Flote suave unificado */}
         <div 
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] border-[1px] border-white/5 rounded-full pointer-events-none flex items-center justify-center opacity-20"
         >
@@ -87,12 +88,13 @@ export const FeaturedServices = () => {
           
           <div className="relative w-full h-full max-w-5xl flex items-center justify-center">
             
-            {/* Escena 1: Texto Monumental Centrado */}
+            {/* Escena 1: Texto Monumental (Se difumina hacia el fondo) */}
             <div 
-              className="absolute inset-0 flex flex-col items-center justify-center text-center space-y-8 transition-all duration-500 ease-out"
+              className="absolute inset-0 flex flex-col items-center justify-center text-center space-y-8 transition-all duration-700 ease-out"
               style={{ 
                 opacity: textOpacity,
                 transform: `scale(${textScale})`,
+                filter: `blur(${textBlur}px)`,
                 pointerEvents: textOpacity < 0.1 ? 'none' : 'auto'
               }}
             >
@@ -108,17 +110,18 @@ export const FeaturedServices = () => {
 
               <div className="max-w-2xl mx-auto">
                 <p className="text-xl md:text-2xl font-medium leading-tight text-white/60 italic">
-                  Interactúa con nuestra tecnología Neocard. Este es un prototipo funcional del ecosistema que construimos para líderes y empresas de alto nivel.
+                  Interactúa con nuestra tecnología Neocard. Un prototipo funcional del ecosistema que construimos para líderes y empresas.
                 </p>
               </div>
             </div>
 
-            {/* Escena 2: Mockup Interactivo Centrado */}
+            {/* Escena 2: Mockup Interactivo (Emerge desde el desenfoque) */}
             <div 
-              className="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out"
+              className="absolute inset-0 flex items-center justify-center transition-all duration-700 ease-out"
               style={{ 
                 opacity: mockupOpacity,
-                transform: `scale(${mockupScale}) translateY(${(1 - scrollProgress) * 40}px)`,
+                transform: `scale(${mockupScale})`,
+                filter: `blur(${mockupBlur}px)`,
                 pointerEvents: mockupOpacity < 0.1 ? 'none' : 'auto'
               }}
             >
@@ -154,7 +157,7 @@ export const FeaturedServices = () => {
                 <div className="absolute -right-[12px] top-52 w-[4px] h-12 bg-white/20 rounded-l-lg shadow-lg" />
               </div>
 
-              {/* Background Glow */}
+              {/* Background Glow dinámico */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] -z-10 animate-pulse" />
             </div>
 
@@ -162,10 +165,10 @@ export const FeaturedServices = () => {
         </div>
       </div>
 
-      {/* Services Bottom Grid - Aparece solo al final del recorrido */}
+      {/* Services Bottom Grid - Transición suave al final */}
       <div className={cn(
         "relative z-30 max-w-7xl mx-auto px-6 pb-24 transition-all duration-1000",
-        scrollProgress < 0.9 ? "opacity-0 translate-y-20" : "opacity-100 translate-y-0"
+        scrollProgress < 0.85 ? "opacity-0 translate-y-20" : "opacity-100 translate-y-0"
       )}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 border-t border-white/10 pt-16">
           {services.map((service, idx) => (
