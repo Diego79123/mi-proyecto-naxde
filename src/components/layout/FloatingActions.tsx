@@ -21,7 +21,7 @@ interface Message {
   content: string;
 }
 
-const CANDY_AVATAR_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=2b444080-0b94-4549-a656-6e67dc038512";
+const CANDY_AVATAR_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FUsuarios%2FUsuarios.webp?alt=media&token=9038b70a-676e-46ff-8808-b9271f69aa32";
 
 const FloatingActionsContent = () => {
   const searchParams = useSearchParams();
@@ -86,7 +86,7 @@ const FloatingActionsContent = () => {
                 <img 
                   src={CANDY_AVATAR_URL} 
                   alt="Candy Assistant" 
-                  className="w-full h-full object-cover scale-[2.8] origin-top translate-y-[5%]" 
+                  className="w-full h-full object-cover scale-[2.5] origin-center" 
                 />
               </div>
               <div>
@@ -113,7 +113,7 @@ const FloatingActionsContent = () => {
                       <img 
                         src={CANDY_AVATAR_URL} 
                         alt="Candy" 
-                        className="w-full h-full object-cover scale-[2.8] origin-top translate-y-[5%]" 
+                        className="w-full h-full object-cover scale-[2.5] origin-center" 
                       />
                     )}
                   </div>
@@ -133,7 +133,7 @@ const FloatingActionsContent = () => {
                     <img 
                       src={CANDY_AVATAR_URL} 
                       alt="Candy" 
-                      className="w-full h-full object-cover animate-pulse scale-[2.8] origin-top translate-y-[5%]" 
+                      className="w-full h-full object-cover animate-pulse scale-[2.5] origin-center" 
                     />
                   </div>
                   <div className="bg-white/5 p-4 rounded-2xl flex gap-1.5 items-center border border-white/5">
