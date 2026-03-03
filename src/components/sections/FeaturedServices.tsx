@@ -74,36 +74,42 @@ export const FeaturedServices = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center mb-24 md:mb-32">
           
-          {/* Left Column: Text Content */}
+          {/* Left Column: Text Content adapted to the showcase */}
           <div className="space-y-12">
             <div className="space-y-6">
-              <span className="inline-block px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-[0.3em] text-primary bg-white/5 backdrop-blur-sm">
-                Ecosistema Naxde
+              <span className="inline-block px-4 py-1.5 rounded-full border border-primary/30 text-[10px] font-black uppercase tracking-[0.3em] text-primary bg-primary/5 backdrop-blur-sm">
+                Prototipo en Tiempo Real
               </span>
               
               <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] font-black leading-[0.9] tracking-tighter uppercase select-none">
-                <div>MÁS ALLÁ</div>
-                <div className="text-transparent" style={{ WebkitTextStroke: '1.5px white' }}>DE LAS VISIONES</div>
-                <div>AL ALCANCE</div>
+                <div>EXPERIENCIA</div>
+                <div className="text-transparent" style={{ WebkitTextStroke: '1.5px white' }}>INTERACTIVA</div>
+                <div>PROTOTIPO</div>
               </h2>
             </div>
             
             <div className="max-w-xl">
               <p className="text-xl md:text-2xl font-medium leading-tight text-white/60 italic">
-                Combinamos ingeniería de alto nivel con diseño vanguardista para crear productos que dominan el mercado digital.
+                Interactúa con nuestra tecnología Neocard. Este es un prototipo funcional del ecosistema que construimos para líderes y empresas de alto nivel.
               </p>
+            </div>
+
+            <div className="flex items-center gap-4 text-primary font-bold uppercase tracking-widest text-xs">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#F80037]" />
+              Demo Activa: Perfil Oscar Rivera
             </div>
           </div>
 
           {/* Right Column: Visual Composition - Real Interactive Prototype */}
           <div className="relative h-[600px] md:h-[850px] w-full flex items-center justify-center">
-            {/* Phone Mockup Frame - Completely Static as requested */}
-            <div className="relative w-[280px] h-[580px] md:w-[340px] md:h-[680px] bg-black rounded-[3.5rem] border-[10px] border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.8)] overflow-hidden z-20 group">
+            
+            {/* Phone Mockup Frame - Completely Static */}
+            <div className="relative w-[280px] h-[580px] md:w-[360px] md:h-[720px] bg-black rounded-[3.5rem] border-[12px] border-white/10 shadow-[0_0_120px_rgba(0,0,0,0.9)] overflow-hidden z-20 group">
               
-              {/* Notch / Speaker */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-50 flex items-center justify-center gap-2">
-                <div className="w-10 h-1 bg-white/5 rounded-full" />
-                <div className="w-2 h-2 bg-white/5 rounded-full" />
+              {/* Dynamic Island / Notch */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-8 bg-black rounded-b-[2rem] z-50 flex items-center justify-center gap-3">
+                <div className="w-12 h-1.5 bg-white/5 rounded-full" />
+                <div className="w-2.5 h-2.5 bg-white/10 rounded-full" />
               </div>
 
               {/* Screen Content - Interactive Iframe */}
@@ -119,16 +125,19 @@ export const FeaturedServices = () => {
                 />
               </div>
 
-              {/* Reflection Shine */}
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/[0.03] via-transparent to-transparent z-40" />
+              {/* Reflection Shine Layer */}
+              <div className="absolute inset-0 pointer-events-none z-40 bg-gradient-to-tr from-white/[0.02] via-transparent to-white/[0.05]" />
+              <div className="absolute top-[-100%] left-[-100%] w-[300%] h-[300%] bg-gradient-to-br from-white/[0.03] via-transparent to-transparent rotate-45 pointer-events-none z-40" />
               
-              {/* Device Buttons Decor */}
-              <div className="absolute -left-[10px] top-32 w-[3px] h-16 bg-white/10 rounded-r-full" />
-              <div className="absolute -right-[10px] top-24 w-[3px] h-24 bg-white/10 rounded-l-full" />
+              {/* Device Buttons (Hardware detail) */}
+              <div className="absolute -left-[12px] top-32 w-[4px] h-16 bg-white/20 rounded-r-lg shadow-lg" />
+              <div className="absolute -right-[12px] top-24 w-[4px] h-24 bg-white/20 rounded-l-lg shadow-lg" />
+              <div className="absolute -right-[12px] top-52 w-[4px] h-12 bg-white/20 rounded-l-lg shadow-lg" />
             </div>
 
             {/* Background Glow for the Phone */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-primary/20 rounded-full blur-[120px] -z-10 animate-pulse" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] -z-10 animate-pulse" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[600px] bg-blue-600/10 rounded-full blur-[100px] -z-10" />
           </div>
         </div>
 
@@ -147,7 +156,7 @@ export const FeaturedServices = () => {
 
               <div className="pt-4">
                 <Link href="/servicios" className="inline-flex items-center gap-3 text-white/60 font-black text-xs uppercase tracking-[0.2em] hover:text-primary hover:gap-5 transition-all group/link">
-                  Explorar
+                  Ver Detalles
                   <ArrowRight className="w-4 h-4 text-primary" />
                 </Link>
               </div>
