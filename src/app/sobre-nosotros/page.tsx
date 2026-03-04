@@ -53,7 +53,6 @@ export default function SobreNosotrosPage() {
     });
   }, [api]);
 
-  // Equipo extendido para la visualización del diseño solicitado
   const mockTeam = [
     {
       id: 'oscar-rivera',
@@ -180,8 +179,8 @@ export default function SobreNosotrosPage() {
       <section className="py-24 md:py-40 bg-black overflow-hidden">
         <div className="max-w-screen-2xl mx-auto">
           <div className="px-6 mb-16 space-y-4">
-            <h2 className="text-primary font-bold uppercase tracking-[0.4em] text-xs">Ecosistema Naxde</h2>
-            <h3 className="text-4xl md:text-6xl font-headline font-black text-white uppercase leading-none">Arquitectos de la <span className="text-primary italic">Singularidad</span></h3>
+            <h2 className="text-primary font-bold uppercase tracking-[0.4em] text-xs">Equipo de Trabajo</h2>
+            <h3 className="text-4xl md:text-6xl font-headline font-black text-white uppercase leading-none">Las Mentes Detrás de <span className="text-primary italic">Naxde</span></h3>
           </div>
 
           <Carousel 
