@@ -1,10 +1,11 @@
+
 "use client"
 
 import React, { useState } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
-import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageCircle, Sparkles, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -38,15 +39,15 @@ export default function ContactoPage() {
       addDocumentNonBlocking(leadsRef, data);
       
       toast({
-        title: "Mensaje Enviado",
-        description: "Tu solicitud ha sido recibida. Un consultor experto te contactará pronto.",
+        title: "MISIÓN RECIBIDA",
+        description: "Tu visión está siendo procesada por nuestros arquitectos digitales.",
       });
       (e.target as HTMLFormElement).reset();
     } catch (err) {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "No se pudo enviar el mensaje. Por favor, intenta vía WhatsApp.",
+        title: "ERROR DE CONEXIÓN",
+        description: "El canal de comunicación ha fallado. Por favor, usa WhatsApp.",
       });
     } finally {
       setLoading(false);
@@ -54,85 +55,84 @@ export default function ContactoPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background text-white">
+    <main className="min-h-screen bg-[#00001D] text-white font-body selection:bg-primary/30">
       <Header />
 
-      <section className="pt-40 pb-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-4 mb-20">
-            <h1 className="text-5xl md:text-8xl font-headline font-bold tracking-tighter leading-none">
-              HABLEMOS DEL <span className="text-primary italic">FUTURO</span>.
-            </h1>
-            <p className="text-white/50 text-xl max-w-2xl mx-auto leading-relaxed">
-              Estamos listos para transformar tu negocio. Encuéntranos en Bogotá o escríbenos directamente desde cualquier lugar de LATAM.
-            </p>
+      <section className="pt-40 pb-24 px-6 relative overflow-hidden text-center">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" />
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">Canal de Enlace</span>
           </div>
+          <h1 className="text-5xl md:text-8xl font-headline font-black tracking-tighter leading-[0.9] uppercase">
+            HABLEMOS DEL <br /> <span className="text-primary italic">FUTURO</span>.
+          </h1>
+          <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed font-medium">
+            Tu visión merece una ingeniería que no conozca límites. Estamos listos para aterrizar tu próximo gran proyecto digital.
+          </p>
+        </div>
+      </section>
 
+      <section className="pb-24 px-6">
+        <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
-            <div className="glass-card p-10 rounded-[2.5rem] space-y-6 text-center border border-white/5">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
-                <MapPin className="w-8 h-8 text-primary" />
+            {[
+              { title: "Ubicación", content: "Calle 154 # 103B - 76\nBogotá, Colombia", icon: MapPin, action: "VER EN MAPS", href: "https://maps.app.goo.gl/tvQx2QB3CXvPcGEX6" },
+              { title: "WhatsApp Pro", content: "Asesoría técnica inmediata\nCanal prioritario", icon: MessageCircle, action: "CHAT DIRECTO", href: "https://wa.me/57315001001", highlight: true },
+              { title: "Email", content: "Ventas y Consultas\ndesarrollonaxde@gmail.com", icon: Mail, action: "ENVIAR CORREO", href: "mailto:desarrollonaxde@gmail.com" }
+            ].map((item, idx) => (
+              <div key={idx} className={cn(
+                "glass-card p-12 rounded-[3rem] space-y-8 text-center border border-white/5 transition-all duration-500",
+                item.highlight && "border-primary/20 shadow-glow-accent"
+              )}>
+                <div className="w-20 h-20 rounded-[2rem] bg-white/5 flex items-center justify-center mx-auto border border-white/5 group-hover:scale-110 transition-transform">
+                  <item.icon className="w-10 h-10 text-primary" />
+                </div>
+                <div className="space-y-4">
+                  <h3 className="font-headline font-black text-2xl uppercase tracking-tight">{item.title}</h3>
+                  <p className="text-white/50 font-medium whitespace-pre-line leading-relaxed">{item.content}</p>
+                </div>
+                <Button variant={item.highlight ? "default" : "outline"} className={cn(
+                  "w-full h-14 rounded-full font-black uppercase tracking-widest text-xs transition-all",
+                  item.highlight ? "bg-primary hover:bg-primary/90 text-white neon-accent" : "border-white/10 hover:bg-white/5"
+                )} asChild>
+                  <a href={item.href} target="_blank">{item.action}</a>
+                </Button>
               </div>
-              <h3 className="font-headline font-bold text-2xl">Ubicación</h3>
-              <p className="text-white/60">Calle 154 # 103B - 76<br />Bogotá, Colombia</p>
-              <Button variant="outline" className="w-full rounded-full border-white/10 hover:bg-white/5" asChild>
-                <a href="https://maps.app.goo.gl/cy8VBTKF9QKhdb27A" target="_blank">Ver en Maps</a>
-              </Button>
-            </div>
-
-            <div className="glass-card p-10 rounded-[2.5rem] space-y-6 text-center border border-white/5">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
-                <MessageCircle className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-headline font-bold text-2xl">WhatsApp</h3>
-              <p className="text-white/60">Asesoría técnica inmediata<br />Disponible para toda la región</p>
-              <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full neon-accent" asChild>
-                <a href="https://wa.me/57315001001" target="_blank">Chat Directo</a>
-              </Button>
-            </div>
-
-            <div className="glass-card p-10 rounded-[2.5rem] space-y-6 text-center border border-white/5">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
-                <Mail className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-headline font-bold text-2xl">Email</h3>
-              <p className="text-white/60">Consultas técnicas y ventas<br />Respuesta en menos de 24h</p>
-              <Button variant="outline" className="w-full rounded-full border-white/10 hover:bg-white/5" asChild>
-                <a href="mailto:desarrollonaxde@gmail.com">Enviar Correo</a>
-              </Button>
-            </div>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="glass-card p-12 rounded-[3rem] border border-white/10">
-              <h2 className="text-3xl font-headline font-bold mb-8">Cuéntanos tu visión</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 px-1">Nombre Completo</label>
-                    <Input name="name" required placeholder="Ej: Juan Pérez" className="bg-white/5 border-white/10 rounded-xl h-14 focus:border-primary/50" />
+            <div className="glass-card p-12 md:p-16 rounded-[4rem] border border-white/5">
+              <h2 className="text-4xl font-headline font-black mb-10 uppercase tracking-tighter">CUÉNTANOS TU <span className="text-primary italic">VISIÓN</span></h2>
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Nombre Completo</label>
+                    <Input name="name" required placeholder="Ej: Juan Pérez" className="bg-white/5 border-white/10 rounded-2xl h-16 focus:border-primary/50 text-lg font-medium" />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 px-1">Email Corporativo</label>
-                    <Input name="email" type="email" required placeholder="nombre@empresa.com" className="bg-white/5 border-white/10 rounded-xl h-14 focus:border-primary/50" />
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Email Corporativo</label>
+                    <Input name="email" type="email" required placeholder="nombre@empresa.com" className="bg-white/5 border-white/10 rounded-2xl h-16 focus:border-primary/50 text-lg font-medium" />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 px-1">Teléfono / WhatsApp</label>
-                  <Input name="phone" placeholder="+57 300 000 0000" className="bg-white/5 border-white/10 rounded-xl h-14 focus:border-primary/50" />
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">WhatsApp / Teléfono</label>
+                  <Input name="phone" placeholder="+57 300 000 0000" className="bg-white/5 border-white/10 rounded-2xl h-16 focus:border-primary/50 text-lg font-medium" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 px-1">Tu Mensaje</label>
-                  <Textarea name="message" required placeholder="Describe brevemente tu proyecto o necesidad..." className="bg-white/5 border-white/10 rounded-xl min-h-[180px] focus:border-primary/50 text-lg" />
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 px-1">Tu Proyecto</label>
+                  <Textarea name="message" required placeholder="Describe tu necesidad o reto tecnológico..." className="bg-white/5 border-white/10 rounded-[2rem] min-h-[200px] focus:border-primary/50 text-lg font-medium leading-relaxed" />
                 </div>
-                <Button type="submit" disabled={loading} className="w-full h-16 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-xl font-bold transition-all">
-                  {loading ? "Procesando..." : "Enviar Propuesta"}
-                  {!loading && <Send className="w-6 h-6 ml-2" />}
+                <Button type="submit" disabled={loading} className="w-full h-20 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-xl font-black uppercase tracking-widest transition-all hover:scale-[1.02] shadow-glow-accent group">
+                  {loading ? "PROCESANDO..." : "INICIAR ATERRIZAJE"}
+                  {!loading && <Send className="w-6 h-6 ml-4 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />}
                 </Button>
               </form>
             </div>
 
-            <div className="h-[600px] lg:h-auto glass-card rounded-[3rem] border border-white/10 overflow-hidden relative">
+            <div className="h-[600px] lg:h-auto glass-card rounded-[4rem] border border-white/5 overflow-hidden relative shadow-2xl">
               <iframe 
                 src="https://www.google.com/maps?q=Calle+154+103B-76+Bogota&output=embed" 
                 width="100%" 
@@ -142,9 +142,9 @@ export default function ContactoPage() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-              <div className="absolute top-8 left-8 glass-panel px-6 py-3 rounded-full border border-primary/30 flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full bg-primary animate-pulse shadow-[0_0_12px_#F80037]" />
-                <span className="text-sm font-bold text-white tracking-widest uppercase">Sede Central Bogotá</span>
+              <div className="absolute top-10 left-10 glass-panel px-8 py-4 rounded-full border border-primary/30 flex items-center gap-4">
+                <div className="w-4 h-4 rounded-full bg-primary animate-pulse shadow-glow-accent" />
+                <span className="text-[10px] font-black text-white tracking-[0.4em] uppercase">Sede Central Bogotá</span>
               </div>
             </div>
           </div>
