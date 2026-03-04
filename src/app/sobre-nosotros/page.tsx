@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -155,7 +156,7 @@ export default function SobreNosotrosPage() {
             {[
               { 
                 title: "Propósito Superior", 
-                desc: "Construimos país y futuro bajo los fundamentos de Dios.", 
+                desc: "Construimos país y futuro con integridad y propósito superior.", 
                 icon: Heart 
               },
               { title: "Innovación Radical", desc: "No seguimos tendencias, las creamos.", icon: Zap },
