@@ -7,17 +7,20 @@ import { cn } from '@/lib/utils';
 
 const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
   const [time, setTime] = useState(0);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    setHasMounted(true);
     let frame: number;
     const animate = (t: number) => {
-      // Animación pausada y elegante, acelera en hover
       setTime(t / (isHovered ? 1000 : 3000));
       frame = requestAnimationFrame(animate);
     };
     frame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frame);
   }, [isHovered]);
+
+  if (!hasMounted) return null;
 
   const rungs = 24;
 
@@ -33,7 +36,7 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
             d={`M ${Array.from({ length: 121 }).map((_, i) => {
               const y = i;
               const phase = (i / 30) * Math.PI * 2 + time;
-              const x = 50 + Math.sin(phase) * 20;
+              const x = (50 + Math.sin(phase) * 20).toFixed(4);
               return `${x},${y}`;
             }).join(' L ')}`}
             fill="none"
@@ -46,24 +49,22 @@ const DNAHelix = ({ isHovered }: { isHovered: boolean }) => {
           {Array.from({ length: rungs }).map((_, i) => {
             const y = 5 + (i / (rungs - 1)) * 110;
             const phase = (y / 30) * Math.PI * 2 + time;
-            const xRight = 50 + Math.sin(phase) * 20;
-            const xLeft = 50 + Math.sin(phase + Math.PI) * 20;
+            const xRight = (50 + Math.sin(phase) * 20).toFixed(4);
+            const xLeft = (50 + Math.sin(phase + Math.PI) * 20).toFixed(4);
 
             return (
               <g key={i}>
-                {/* Peldaño Horizontal */}
                 <line 
                   x1={xLeft} 
-                  y1={y} 
+                  y1={y.toFixed(4)} 
                   x2={xRight} 
-                  y2={y} 
+                  y2={y.toFixed(4)} 
                   stroke="black" 
                   strokeWidth="0.6" 
                 />
-                {/* Nodo en el extremo de la hebra secundaria */}
                 <circle 
                   cx={xLeft} 
-                  cy={y} 
+                  cy={y.toFixed(4)} 
                   r="1.8" 
                   fill="black" 
                 />
@@ -80,14 +81,14 @@ export const ConfidenceSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    setHasMounted(true);
     const handleScroll = () => {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
-      // Progresión de entrada: desde que el tope entra al viewport hasta que el scroll avanza
       const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight * 0.8)));
       setScrollProgress(progress);
     };
@@ -104,20 +105,17 @@ export const ConfidenceSection = () => {
       onMouseLeave={() => setIsHovered(false)}
       className="relative min-h-screen bg-[#F0F4FF] overflow-hidden"
     >
-      {/* 
-        CAPA DE TRANSICIÓN: "THE SINGULARITY GATE"
-        Crea un efecto de apertura circular masiva que revela el nuevo espacio limpio.
-      */}
+      {/* CAPA DE TRANSICIÓN: "THE SINGULARITY GATE" */}
       <div 
         className="absolute inset-0 z-[60] pointer-events-none"
         style={{ 
-          background: `radial-gradient(circle at center, transparent ${scrollProgress * 150}%, #00001D ${scrollProgress * 150}%)`,
+          background: hasMounted ? `radial-gradient(circle at center, transparent ${scrollProgress * 150}%, #00001D ${scrollProgress * 150}%)` : '#00001D',
           opacity: scrollProgress > 0.98 ? 0 : 1,
-          transition: 'opacity(0.4s ease-out)'
+          transition: 'opacity 0.4s ease-out'
         }}
       />
 
-      {/* Efectos de HUD técnico durante la transición de apertura */}
+      {/* Efectos de HUD técnico */}
       <div 
         className="absolute inset-0 z-[61] pointer-events-none flex items-center justify-center"
         style={{ 
@@ -128,8 +126,6 @@ export const ConfidenceSection = () => {
       >
         <div className="w-[70vw] h-[70vw] rounded-full border border-[#5200F8]/20 animate-spin-slow" />
         <div className="absolute w-[65vw] h-[65vw] rounded-full border border-[#F80037]/10 animate-spin-slow [animation-direction:reverse]" />
-        
-        {/* Línea de escaneo láser de entrada */}
         <div 
           className="absolute w-full h-[2px] bg-primary/40 shadow-[0_0_20px_#F80037]" 
           style={{ 
@@ -139,7 +135,7 @@ export const ConfidenceSection = () => {
         />
       </div>
 
-      {/* Contenedor de Contenido con Revelación Elegante */}
+      {/* Contenedor de Contenido */}
       <div 
         className="relative z-10 w-full min-h-screen flex flex-col justify-center py-24 md:py-40"
         style={{ 

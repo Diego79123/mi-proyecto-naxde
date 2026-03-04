@@ -7,27 +7,32 @@ import { cn } from '@/lib/utils';
 
 export const ShowreelSection = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [asteroids, setAsteroids] = useState<any[]>([]);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    setHasMounted(true);
     const handleMouseMove = (e: MouseEvent) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 40;
       const y = (e.clientY / window.innerHeight - 0.5) * 40;
       setMousePos({ x, y });
     };
     window.addEventListener('mousemove', handleMouseMove);
+
+    // Generar asteroides aleatorios solo en el cliente
+    const generatedAsteroids = Array.from({ length: 12 }).map((_, i) => ({
+      id: i,
+      size: Math.random() * 60 + 20,
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      duration: Math.random() * 20 + 10,
+      delay: Math.random() * -20,
+      rotate: Math.random() * 360,
+    }));
+    setAsteroids(generatedAsteroids);
+
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
-
-  // Generar asteroides aleatorios
-  const asteroids = Array.from({ length: 12 }).map((_, i) => ({
-    id: i,
-    size: Math.random() * 60 + 20,
-    top: `${Math.random() * 100}%`,
-    left: `${Math.random() * 100}%`,
-    duration: Math.random() * 20 + 10,
-    delay: Math.random() * -20,
-    rotate: Math.random() * 360,
-  }));
 
   return (
     <section className="py-12 px-6 md:px-12 bg-[#F0F4FF]">
@@ -46,7 +51,7 @@ export const ShowreelSection = () => {
 
         {/* Asteroids Layer */}
         <div className="absolute inset-0 z-10 pointer-events-none">
-          {asteroids.map((ast) => (
+          {hasMounted && asteroids.map((ast) => (
             <div
               key={ast.id}
               className="absolute bg-white/10 backdrop-blur-[2px] border border-white/5 shadow-2xl animate-float"
@@ -79,7 +84,6 @@ export const ShowreelSection = () => {
 
         {/* Interface Elements */}
         <div className="absolute top-12 left-12 z-30 flex items-center gap-2">
-          <h3 className="text-xl font-black text-white tracking-tighter uppercase italic">NAXDE</h3>
           <Plus className="w-4 h-4 text-white/40" />
         </div>
 
@@ -113,9 +117,10 @@ export const ShowreelSection = () => {
             <p className="text-xs font-bold text-white uppercase tracking-tighter">EL FUTURO EN MOVIMIENTO</p>
           </div>
           <div className="flex gap-1">
-            {asteroids.slice(0, 4).map((_, i) => (
-              <div key={i} className="w-1 h-1 bg-white rounded-full opacity-40" />
-            ))}
+            <div className="w-1 h-1 bg-white rounded-full opacity-40" />
+            <div className="w-1 h-1 bg-white rounded-full opacity-40" />
+            <div className="w-1 h-1 bg-white rounded-full opacity-40" />
+            <div className="w-1 h-1 bg-white rounded-full opacity-40" />
           </div>
         </div>
 
