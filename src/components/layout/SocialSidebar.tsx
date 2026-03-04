@@ -55,8 +55,8 @@ const SocialSidebarContent = () => {
       <div className="w-full h-px bg-white/10 my-1" />
       
       <div className="flex flex-col items-center">
-        <span className="[writing-mode:vertical-lr] text-[8px] font-black uppercase tracking-[0.4em] text-white/20 py-2">
-          Social Hub
+        <span className="[writing-mode:vertical-lr] text-[10px] font-black uppercase tracking-[0.4em] text-white/20 py-2">
+          Social
         </span>
       </div>
     </div>
