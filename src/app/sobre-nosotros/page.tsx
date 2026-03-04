@@ -19,7 +19,9 @@ import {
   ArrowRight,
   Plus,
   Star,
-  Heart
+  Heart,
+  Trophy,
+  Cpu
 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
@@ -179,8 +181,8 @@ export default function SobreNosotrosPage() {
       <section className="py-24 md:py-40 bg-black overflow-hidden">
         <div className="max-w-screen-2xl mx-auto">
           <div className="px-6 mb-16 space-y-4">
-            <h2 className="text-primary font-bold uppercase tracking-[0.4em] text-xs">Equipo de Trabajo</h2>
-            <h3 className="text-4xl md:text-6xl font-headline font-black text-white uppercase leading-none">Las Mentes Detrás de <span className="text-primary italic">Naxde</span></h3>
+            <h2 className="text-primary font-bold uppercase tracking-[0.4em] text-xs">Equipo Táctico</h2>
+            <h3 className="text-4xl md:text-6xl font-headline font-black text-white uppercase leading-none">Las Mentes que <span className="text-primary italic">Desafían</span> lo Imposible</h3>
           </div>
 
           <Carousel 
