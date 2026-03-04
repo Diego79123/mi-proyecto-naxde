@@ -31,8 +31,8 @@ export const Header = () => {
     { name: "SOBRE NOSOTROS", href: "/sobre-nosotros" },
     { name: "SERVICIOS", href: "/servicios" },
     { name: "NEOCARD", href: "/tarjetas-neocard" },
+    { name: "SITIOS WEB", href: "/sitios-web" },
     { name: "PROYECTOS", href: "/proyectos" },
-    { name: "ADMIN", href: "/admin" },
     { name: "CONTACTO", href: "/contacto" }
   ];
 
