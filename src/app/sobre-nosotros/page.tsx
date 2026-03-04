@@ -163,7 +163,6 @@ export default function SobreNosotrosPage() {
                   <v.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold">{v.title}</h3>
-                <h3 className="text-xl font-bold">{v.title}</h3>
                 <p className="text-white/40 text-sm leading-relaxed">{v.desc}</p>
               </div>
             ))}
