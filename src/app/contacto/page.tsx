@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useFirestore } from '@/firebase';
 import { collection, serverTimestamp } from 'firebase/firestore';
 import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { cn } from '@/lib/utils';
 
 export default function ContactoPage() {
   const [loading, setLoading] = useState(false);
