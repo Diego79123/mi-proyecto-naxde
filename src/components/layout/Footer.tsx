@@ -1,4 +1,3 @@
-
 "use client"
 
 import React from 'react';
@@ -169,7 +168,7 @@ export const Footer = () => {
           </div>
 
           <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-white/20">
-            DESARROLLADO CON EL <Heart className="w-3 h-3 text-primary fill-primary" /> POR NAXDE STUDIO
+            DESARROLLADO CON EL <Heart className="w-3 h-3 text-primary fill-primary animate-heartbeat" /> POR NAXDE STUDIO
           </div>
         </div>
       </div>
