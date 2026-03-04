@@ -17,7 +17,8 @@ import {
   MessageCircle, 
   Linkedin, 
   ArrowRight,
-  Plus
+  Plus,
+  Star
 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
@@ -162,6 +163,7 @@ export default function SobreNosotrosPage() {
                   <v.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold">{v.title}</h3>
+                <h3 className="text-xl font-bold">{v.title}</h3>
                 <p className="text-white/40 text-sm leading-relaxed">{v.desc}</p>
               </div>
             ))}
@@ -169,7 +171,7 @@ export default function SobreNosotrosPage() {
         </div>
       </section>
 
-      {/* Interactive Team Showcase (Design Guide Implementation) */}
+      {/* Interactive Team Showcase */}
       <section className="py-24 md:py-40 bg-black overflow-hidden">
         <div className="max-w-screen-2xl mx-auto">
           <div className="px-6 mb-16 space-y-4">
@@ -202,7 +204,7 @@ export default function SobreNosotrosPage() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
 
-                      {/* Guide Design: Label Anterior/Próximo */}
+                      {/* Anterior/Próximo Labels */}
                       {!isActive && (
                         <div className="absolute inset-0 flex items-center justify-center">
                           <span className="text-white text-[10px] md:text-xs font-black uppercase tracking-[0.5em] opacity-60">
@@ -211,7 +213,7 @@ export default function SobreNosotrosPage() {
                         </div>
                       )}
 
-                      {/* Guide Design: Bottom Info (Active Only) */}
+                      {/* Info Overlay (Active Only) */}
                       {isActive && (
                         <div className="absolute inset-x-0 bottom-0 p-10 md:p-16 flex flex-col md:flex-row justify-between items-end gap-8 animate-in fade-in slide-in-from-bottom-10 duration-1000">
                           <div className="space-y-2">
@@ -267,6 +269,49 @@ export default function SobreNosotrosPage() {
               <span className="text-[10px] font-black uppercase tracking-[0.4em]">Siguiente</span>
               <div className="w-1 h-1 rounded-full bg-current" />
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-24 md:py-40 px-6 relative overflow-hidden bg-[#00001D]">
+        {/* Glow Decorativo */}
+        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle,rgba(248,0,55,0.2)_0%,transparent_70%)]" />
+        </div>
+        
+        <div className="max-w-5xl mx-auto text-center relative z-10 space-y-12">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md mb-2">
+              <Star className="w-4 h-4 text-primary" />
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Impulsa tu Visión</span>
+            </div>
+            <h2 className="text-4xl md:text-7xl lg:text-8xl font-headline font-black text-white leading-[0.9] uppercase tracking-tighter">
+              ¿LISTO PARA <span className="text-primary italic">LIDERAR</span> <br /> EL FUTURO?
+            </h2>
+            <p className="text-xl text-white/50 max-w-2xl mx-auto font-medium leading-relaxed italic">
+              "No seguimos tendencias, las construimos. Hagamos realidad esa plataforma que transformará tu industria por completo."
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-4">
+            <Link href="/contacto">
+              <Button size="lg" className="h-16 md:h-24 px-12 md:px-16 bg-primary hover:bg-primary/90 text-white rounded-full neon-accent text-xl md:text-2xl font-black transition-all hover:scale-105 active:scale-95 group shadow-glow-accent">
+                INICIAR PROYECTO
+                <Zap className="w-6 h-6 md:w-8 md:h-8 ml-4 group-hover:rotate-12 transition-transform" />
+              </Button>
+            </Link>
+            <Link href="/servicios">
+              <Button size="lg" variant="outline" className="h-16 md:h-24 px-12 md:px-16 border-white/10 hover:bg-white/5 text-white rounded-full text-lg md:text-xl font-bold backdrop-blur-md transition-all">
+                EXPLORAR SOLUCIONES
+              </Button>
+            </Link>
+          </div>
+
+          <div className="pt-12">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">
+              NAXDE STUDIO • BOGOTÁ • LATAM
+            </p>
           </div>
         </div>
       </section>
