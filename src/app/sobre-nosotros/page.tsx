@@ -18,7 +18,8 @@ import {
   Linkedin, 
   ArrowRight,
   Plus,
-  Star
+  Star,
+  Heart
 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
@@ -151,19 +152,24 @@ export default function SobreNosotrosPage() {
       <section className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-headline font-bold text-center mb-16 uppercase tracking-[0.3em] text-primary">Nuestros Valores</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {[
+              { 
+                title: "Propósito Trascendente", 
+                desc: "Construimos un mejor país y una región con más oportunidades, creando soluciones de excelencia bajo los fundamentos de Dios para el avance de nuestra sociedad.", 
+                icon: Heart 
+              },
               { title: "Innovación Radical", desc: "No seguimos tendencias, las creamos.", icon: Zap },
               { title: "Calidad Premium", desc: "Cada pixel y cada línea de código cuenta.", icon: ShieldCheck },
               { title: "Transparencia", desc: "Comunicación clara y honesta en cada paso.", icon: Users },
               { title: "Impacto Social", desc: "Tecnología que mejora vidas y negocios.", icon: Globe }
             ].map((v, i) => (
-              <div key={i} className="glass-card p-10 rounded-[2.5rem] border border-white/5 text-center space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mx-auto">
+              <div key={i} className="glass-card p-8 rounded-[2.5rem] border border-white/5 text-center space-y-4 flex flex-col h-full hover:border-primary/30 transition-all group">
+                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mx-auto group-hover:bg-primary/10 transition-colors">
                   <v.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold">{v.title}</h3>
-                <p className="text-white/40 text-sm leading-relaxed">{v.desc}</p>
+                <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors">{v.title}</h3>
+                <p className="text-white/40 text-xs leading-relaxed flex-1">{v.desc}</p>
               </div>
             ))}
           </div>
