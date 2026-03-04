@@ -156,7 +156,7 @@ export default function SobreNosotrosPage() {
             {[
               { 
                 title: "Propósito Superior", 
-                desc: "Construimos país y futuro con integridad y propósito superior.", 
+                desc: "Impulsamos el futuro de nuestra región con integridad, excelencia y un propósito superior.", 
                 icon: Heart 
               },
               { title: "Innovación Radical", desc: "No seguimos tendencias, las creamos.", icon: Zap },
