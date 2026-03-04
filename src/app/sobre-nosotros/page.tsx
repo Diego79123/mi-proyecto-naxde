@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -155,8 +154,8 @@ export default function SobreNosotrosPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {[
               { 
-                title: "Propósito Trascendente", 
-                desc: "Construimos un mejor país y una región con más oportunidades, creando soluciones de excelencia bajo los fundamentos de Dios para el avance de nuestra sociedad.", 
+                title: "Propósito Superior", 
+                desc: "Construimos país y futuro bajo los fundamentos de Dios.", 
                 icon: Heart 
               },
               { title: "Innovación Radical", desc: "No seguimos tendencias, las creamos.", icon: Zap },
