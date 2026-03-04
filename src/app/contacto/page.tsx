@@ -79,7 +79,7 @@ export default function ContactoPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
             {[
-              { title: "Ubicación", content: "CRA 103 B # 152 C - 10\nBogotá, Colombia", icon: MapPin, action: "VER EN MAPS", href: "https://maps.app.goo.gl/ii7bAyev7ZioPuuj9" },
+              { title: "Ubicación", content: "Cra. 103 B # 152 C - 10\nBogotá, Colombia", icon: MapPin, action: "VER EN MAPS", href: "https://maps.app.goo.gl/ii7bAyev7ZioPuuj9" },
               { title: "WhatsApp Pro", content: "Asesoría técnica inmediata\nCanal prioritario", icon: MessageCircle, action: "CHAT DIRECTO", href: "https://wa.me/57315001001", highlight: true },
               { title: "Email", content: "Ventas y Consultas\ndesarrollonaxde@gmail.com", icon: Mail, action: "ENVIAR CORREO", href: "mailto:desarrollonaxde@gmail.com" }
             ].map((item, idx) => (
@@ -135,7 +135,7 @@ export default function ContactoPage() {
 
             <div className="h-[600px] lg:h-auto glass-card rounded-[4rem] border border-white/5 overflow-hidden relative shadow-2xl">
               <iframe 
-                src="https://www.google.com/maps?q=Cra+103B+%23+152C+-+10+Bogota&output=embed" 
+                src="https://www.google.com/maps?q=Naxde+Bogota&output=embed" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2)' }} 
