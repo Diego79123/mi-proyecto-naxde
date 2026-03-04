@@ -44,7 +44,7 @@ import { useSearchParams } from 'next/navigation';
 
 const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 const OSCAR_PROFILE_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1";
-const MAPS_URL = "https://maps.app.goo.gl/tvQx2QB3CXvPcGEX6";
+const MAPS_URL = "https://maps.app.goo.gl/ii7bAyev7ZioPuuj9";
 
 interface DigitalCardPageProps {
   params: Promise<{ slug: string }>;
@@ -191,7 +191,7 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
           phone: '3194254196',
           email: 'naxdeadmon@gmail.com',
           whatsapp: '3194254196',
-          address: 'Bogotá, Colombia'
+          address: 'Cra. 103b #152c-10, Bogotá'
         });
       }
       setIsLoading(false);
@@ -454,7 +454,7 @@ END:VCARD`;
                 </div>
                 <div className="space-y-4">
                   <h3 className="text-4xl font-bold font-headline">Nuestra Sede</h3>
-                  <p className="text-white/50 text-lg max-w-xs mx-auto leading-relaxed">Bogotá, Colombia. Calle 154 # 103B - 76.</p>
+                  <p className="text-white/50 text-lg max-w-xs mx-auto leading-relaxed">Bogotá, Colombia. Cra. 103b #152c-10.</p>
                 </div>
                 <Button className="w-full h-20 bg-primary text-white rounded-[2.5rem] text-xl font-bold neon-accent gap-4 hover:scale-[1.02] transition-transform" onClick={() => window.open(MAPS_URL, '_blank')}>
                   Ir con Google Maps
@@ -516,7 +516,7 @@ END:VCARD`;
               )}
             >
               <div className={cn(
-                "p-2.5 rounded-[1.5rem] transition-all duration-[500ms]",
+                "p-2.5 rounded-[1.5rem] transition-all duration-500",
                 isActive ? "bg-primary/20 shadow-glow-accent scale-110" : "group-hover:bg-white/5"
               )}>
                 <item.icon className="w-6 h-6" />
