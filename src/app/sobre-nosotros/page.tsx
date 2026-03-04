@@ -1,7 +1,7 @@
 
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
@@ -16,7 +16,8 @@ import {
   Mail, 
   MessageCircle, 
   Linkedin, 
-  ArrowRight 
+  ArrowRight,
+  Plus
 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
@@ -25,8 +26,7 @@ import {
   Carousel, 
   CarouselContent, 
   CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
+  type CarouselApi
 } from "@/components/ui/carousel";
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -34,24 +34,56 @@ import Link from 'next/link';
 
 export default function SobreNosotrosPage() {
   const db = useFirestore();
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
   const teamRef = useMemoFirebase(() => {
     return query(collection(db, 'team_members'), where('isActive', '==', true));
   }, [db]);
 
   const { data: team, isLoading } = useCollection(teamRef);
 
-  // Perfil de referencia por si no hay datos en la base
+  useEffect(() => {
+    if (!api) return;
+    setCurrent(api.selectedScrollSnap());
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  // Equipo extendido para la visualización del diseño solicitado
   const mockTeam = [
     {
       id: 'oscar-rivera',
       name: 'Oscar Rivera',
-      role: 'CEO & Founder Naxde',
+      role: 'CEO & Founder',
       slug: 'oscar-rivera',
       profileImageUrl: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1',
-      bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial.',
-      linkedinUrl: '#',
-      email: 'naxdeadmon@gmail.com',
-      whatsapp: '573184254198'
+      bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial.'
+    },
+    {
+      id: 'elena-petrova',
+      name: 'Elena Petrova',
+      role: 'CTO & Software Architect',
+      slug: 'elena-petrova',
+      profileImageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000',
+      bio: 'Experta en arquitecturas cloud escalables y seguridad de datos de alto nivel.'
+    },
+    {
+      id: 'marcos-silva',
+      name: 'Marcos Silva',
+      role: 'Head of AI Applied',
+      slug: 'marcos-silva',
+      profileImageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000',
+      bio: 'Desarrollando modelos predictivos y agentes inteligentes para optimizar negocios.'
+    },
+    {
+      id: 'sofia-chen',
+      name: 'Sofia Chen',
+      role: 'Product Design Lead',
+      slug: 'sofia-chen',
+      profileImageUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000',
+      bio: 'Creadora de interfaces inmersivas que definen la próxima era del diseño digital.'
     }
   ];
 
@@ -61,6 +93,7 @@ export default function SobreNosotrosPage() {
     <main className="min-h-screen bg-[#00001D] text-white font-body selection:bg-primary/30">
       <Header />
 
+      {/* Hero Section */}
       <section className="pt-40 pb-20 px-6 text-center">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
@@ -71,11 +104,12 @@ export default function SobreNosotrosPage() {
             SOMOS <span className="text-primary italic">NAXDE</span>.
           </h1>
           <p className="text-xl text-white/50 leading-relaxed font-medium">
-            Un equipo de ingenieros, diseñadores y estrategas digitales unidos por una misión: construir el futuro de los negocios en Latinoamérica a través de tecnología disruptiva.
+            Un equipo de ingenieros, diseñadores y estrategas digitales unidos por una misión: construir el futuro de los negocios en Latinoamérica.
           </p>
         </div>
       </section>
 
+      {/* Team Collaboration Image */}
       <section className="px-6 mb-24">
         <div className="max-w-7xl mx-auto h-[500px] rounded-[3rem] overflow-hidden relative">
           <div className="absolute inset-0 bg-primary/20 blur-[150px] -z-10" />
@@ -88,6 +122,7 @@ export default function SobreNosotrosPage() {
         </div>
       </section>
 
+      {/* Mission & Vision */}
       <section className="py-24 bg-white/[0.02] border-y border-white/5 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
           <div className="space-y-8">
@@ -96,7 +131,7 @@ export default function SobreNosotrosPage() {
             </div>
             <h2 className="text-4xl font-headline font-bold">Nuestra Misión</h2>
             <p className="text-white/60 text-lg leading-relaxed">
-              Democratizar el acceso a tecnologías de alta gama para empresas de todos los tamaños en Colombia y la región, impulsando su competitividad mediante plataformas digitales de clase mundial.
+              Democratizar el acceso a tecnologías de alta gama para empresas en Colombia y la región, impulsando su competitividad mediante plataformas de clase mundial.
             </p>
           </div>
           <div className="space-y-8">
@@ -105,12 +140,13 @@ export default function SobreNosotrosPage() {
             </div>
             <h2 className="text-4xl font-headline font-bold">Nuestra Visión</h2>
             <p className="text-white/60 text-lg leading-relaxed">
-              Ser el socio tecnológico #1 en Latinoamérica para 2030, reconocidos por nuestra capacidad de innovación en software, NFC e Inteligencia Artificial aplicada.
+              Ser el socio tecnológico #1 en Latinoamérica para 2030, reconocidos por nuestra capacidad de innovación en software e IA aplicada.
             </p>
           </div>
         </div>
       </section>
 
+      {/* Values */}
       <section className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-headline font-bold text-center mb-16 uppercase tracking-[0.3em] text-primary">Nuestros Valores</h2>
@@ -133,109 +169,104 @@ export default function SobreNosotrosPage() {
         </div>
       </section>
 
-      {/* Team Showcase Section */}
-      <section className="py-24 md:py-40 bg-[#00001D] relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 rounded-full blur-[180px] -z-10" />
-        
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center space-y-6 mb-20">
-            <h2 className="text-4xl md:text-7xl font-headline font-black text-white tracking-tighter uppercase leading-none">
-              NUESTRO <span className="text-primary italic">EQUIPO</span>
-            </h2>
-            <p className="text-xl text-white/40 max-w-2xl mx-auto font-medium">
-              Conoce a los arquitectos de la singularidad digital que hacen posible lo imposible.
-            </p>
+      {/* Interactive Team Showcase (Design Guide Implementation) */}
+      <section className="py-24 md:py-40 bg-black overflow-hidden">
+        <div className="max-w-screen-2xl mx-auto">
+          <div className="px-6 mb-16 space-y-4">
+            <h2 className="text-primary font-bold uppercase tracking-[0.4em] text-xs">Ecosistema Naxde</h2>
+            <h3 className="text-4xl md:text-6xl font-headline font-black text-white uppercase leading-none">Arquitectos de la <span className="text-primary italic">Singularidad</span></h3>
           </div>
 
-          <div className="relative">
-            {isLoading ? (
-              <div className="flex gap-8 overflow-hidden">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="min-w-[300px] h-[500px] rounded-[3rem] bg-white/5 animate-pulse" />
-                ))}
-              </div>
-            ) : (
-              <Carousel 
-                opts={{ align: "start", loop: true }} 
-                className="w-full"
-              >
-                <CarouselContent className="-ml-4">
-                  {displayTeam.map((member, idx) => (
-                    <CarouselItem key={idx} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                      <div className="group relative h-[550px] rounded-[3rem] overflow-hidden border border-white/5 bg-white/[0.02] transition-all duration-700 hover:border-primary/40 hover:bg-white/[0.05]">
-                        
-                        {/* Member Image Overlay */}
-                        <div className="absolute inset-0 z-0">
-                          <img 
-                            src={member.profileImageUrl} 
-                            alt={member.name}
-                            className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#00001D] via-transparent to-transparent opacity-80" />
+          <Carousel 
+            setApi={setApi}
+            opts={{ align: "center", loop: true }} 
+            className="w-full"
+          >
+            <CarouselContent className="-ml-0">
+              {displayTeam.map((member, idx) => {
+                const isActive = current === idx;
+                const isPrev = current === (idx + 1) % displayTeam.length;
+                const isNext = current === (idx - 1 + displayTeam.length) % displayTeam.length;
+
+                return (
+                  <CarouselItem key={idx} className="pl-0 basis-full md:basis-[70%] lg:basis-[60%]">
+                    <div className={cn(
+                      "relative h-[450px] md:h-[650px] transition-all duration-700 ease-out overflow-hidden group",
+                      !isActive && "opacity-40 grayscale scale-[0.9] blur-[2px]"
+                    )}>
+                      {/* Image Layer */}
+                      <img 
+                        src={member.profileImageUrl} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+
+                      {/* Guide Design: Label Anterior/Próximo */}
+                      {!isActive && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-white text-[10px] md:text-xs font-black uppercase tracking-[0.5em] opacity-60">
+                            {isPrev ? "PRÓXIMO" : "ANTERIOR"}
+                          </span>
                         </div>
+                      )}
 
-                        {/* Content Overlay (Visible on Hover and Static) */}
-                        <div className="absolute inset-0 z-10 p-10 flex flex-col justify-end">
-                          <div className="space-y-4">
-                            {/* Role (High contrast highlight) */}
-                            <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/20 backdrop-blur-md">
-                                {member.role}
-                              </span>
-                            </div>
-
-                            {/* Name */}
-                            <h3 className="text-3xl font-headline font-bold text-white leading-none">
+                      {/* Guide Design: Bottom Info (Active Only) */}
+                      {isActive && (
+                        <div className="absolute inset-x-0 bottom-0 p-10 md:p-16 flex flex-col md:flex-row justify-between items-end gap-8 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                          <div className="space-y-2">
+                            <h4 className="text-3xl md:text-5xl font-headline font-black text-white leading-none uppercase tracking-tighter">
                               {member.name}
-                            </h3>
-
-                            {/* Bio & Social (Reveals on Hover) */}
-                            <div className="opacity-0 group-hover:opacity-100 transition-all duration-500 max-h-0 group-hover:max-h-[250px] overflow-hidden">
-                              <p className="text-sm text-white/60 leading-relaxed mb-6 font-medium">
-                                {member.bio}
-                              </p>
-                              <div className="flex gap-4 mb-6">
-                                {member.linkedinUrl && (
-                                  <Link href={member.linkedinUrl} target="_blank" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 hover:bg-primary hover:border-primary hover:shadow-glow-accent transition-all">
-                                    <Linkedin className="w-4 h-4" />
-                                  </Link>
-                                )}
-                                {member.whatsapp && (
-                                  <Link href={`https://wa.me/${member.whatsapp}`} target="_blank" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 hover:bg-primary hover:border-primary hover:shadow-glow-accent transition-all">
-                                    <MessageCircle className="w-4 h-4" />
-                                  </Link>
-                                )}
-                                {member.email && (
-                                  <Link href={`mailto:${member.email}`} className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 hover:bg-primary hover:border-primary hover:shadow-glow-accent transition-all">
-                                    <Mail className="w-4 h-4" />
-                                  </Link>
-                                )}
-                              </div>
-                              <div className="pt-4 border-t border-white/10">
-                                <Link href={`/tarjetas-neocard/${member.slug}`}>
-                                  <Button variant="link" className="text-primary p-0 font-black text-xs uppercase tracking-[0.2em] group/btn hover:no-underline">
-                                    Ver Neocard <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                                  </Button>
-                                </Link>
-                              </div>
-                            </div>
+                            </h4>
+                            <p className="text-primary font-bold text-xs md:text-sm uppercase tracking-[0.3em]">
+                              {member.role}
+                            </p>
+                          </div>
+                          
+                          <div className="flex flex-col items-end gap-4">
+                            <Link href={`/tarjetas-neocard/${member.slug}`}>
+                              <button className="flex items-center gap-4 text-white hover:text-primary transition-colors group/link">
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Ver Perfil Inteligente</span>
+                                <Plus className="w-5 h-5 group-hover/link:rotate-90 transition-transform" />
+                              </button>
+                            </Link>
                           </div>
                         </div>
+                      )}
+                    </div>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+          </Carousel>
 
-                        {/* Decorator Dot */}
-                        <div className="absolute top-8 right-8 z-20">
-                          <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e] animate-pulse" />
-                        </div>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <div className="flex justify-center gap-4 mt-12">
-                  <CarouselPrevious className="static translate-y-0 h-14 w-14 rounded-2xl bg-white/5 border-white/10 hover:bg-primary hover:text-white transition-all" />
-                  <CarouselNext className="static translate-y-0 h-14 w-14 rounded-2xl bg-white/5 border-white/10 hover:bg-primary hover:text-white transition-all" />
-                </div>
-              </Carousel>
-            )}
+          {/* Custom Controls */}
+          <div className="flex justify-center gap-12 mt-12 px-6">
+            <button 
+              onClick={() => api?.scrollPrev()} 
+              className="group flex items-center gap-4 text-white/30 hover:text-white transition-all"
+            >
+              <div className="w-1 h-1 rounded-full bg-current" />
+              <span className="text-[10px] font-black uppercase tracking-[0.4em]">Anterior</span>
+            </button>
+            <div className="flex gap-2 items-center">
+              {displayTeam.map((_, i) => (
+                <div 
+                  key={i} 
+                  className={cn(
+                    "h-1 transition-all duration-500 rounded-full",
+                    current === i ? "w-8 bg-primary" : "w-2 bg-white/10"
+                  )} 
+                />
+              ))}
+            </div>
+            <button 
+              onClick={() => api?.scrollNext()} 
+              className="group flex items-center gap-4 text-white/30 hover:text-white transition-all"
+            >
+              <span className="text-[10px] font-black uppercase tracking-[0.4em]">Siguiente</span>
+              <div className="w-1 h-1 rounded-full bg-current" />
+            </button>
           </div>
         </div>
       </section>
