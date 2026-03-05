@@ -1,7 +1,7 @@
 
 "use client"
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -21,6 +21,21 @@ import { cn } from '@/lib/utils';
 const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 
 export const Footer = () => {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -150,7 +165,7 @@ export const Footer = () => {
           ))}
         </div>
 
-        {/* Bottom Bar - Posicionada más arriba gracias al pb-32 del contenedor principal */}
+        {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/5 flex flex-col lg:flex-row justify-between items-center gap-8">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <p className="text-[10px] font-bold uppercase tracking-widest text-white/20">
@@ -174,8 +189,11 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Scroll to Top - Vertical Style following the reference image */}
-      <div className="fixed bottom-32 left-6 md:left-12 z-[150] flex flex-col items-center gap-6 group">
+      {/* Scroll to Top - Conditional Visibility based on scroll position */}
+      <div className={cn(
+        "fixed bottom-32 left-6 md:left-12 z-[150] flex flex-col items-center gap-6 group transition-all duration-700 ease-in-out",
+        showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
+      )}>
         <button 
           onClick={scrollToTop}
           className="w-14 h-14 rounded-full bg-white/[0.05] border border-white/10 text-white flex items-center justify-center hover:bg-white/[0.1] transition-all backdrop-blur-xl"
