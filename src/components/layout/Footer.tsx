@@ -183,7 +183,7 @@ export const Footer = () => {
           <ArrowUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
         </button>
         <span className="[writing-mode:vertical-lr] text-[10px] font-black uppercase tracking-[0.5em] text-white/30 group-hover:text-white transition-colors select-none">
-          BACK TO TOP
+          VOLVER AL INICIO
         </span>
       </div>
     </footer>
