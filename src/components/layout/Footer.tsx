@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -173,13 +174,18 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Scroll to Top - Ajustado para no chocar con el nav */}
-      <button 
-        onClick={scrollToTop}
-        className="fixed bottom-32 left-6 md:bottom-32 md:left-12 w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/10 text-white/40 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all z-[150] backdrop-blur-xl group"
-      >
-        <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
-      </button>
+      {/* Scroll to Top - Vertical Style following the reference image */}
+      <div className="fixed bottom-32 left-6 md:left-12 z-[150] flex flex-col items-center gap-6 group">
+        <button 
+          onClick={scrollToTop}
+          className="w-14 h-14 rounded-full bg-white/[0.05] border border-white/10 text-white flex items-center justify-center hover:bg-white/[0.1] transition-all backdrop-blur-xl"
+        >
+          <ArrowUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
+        </button>
+        <span className="[writing-mode:vertical-lr] text-[10px] font-black uppercase tracking-[0.5em] text-white/30 group-hover:text-white transition-colors select-none">
+          BACK TO TOP
+        </span>
+      </div>
     </footer>
   );
 };
