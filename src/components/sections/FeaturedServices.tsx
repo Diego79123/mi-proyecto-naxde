@@ -178,11 +178,11 @@ export const FeaturedServices = () => {
                   <div className="w-2.5 h-2.5 bg-white/10 rounded-full" />
                 </div>
 
-                {/* Iframe Content */}
+                {/* Iframe Content - Pointer events none para deshabilitar scroll interno */}
                 <div className="absolute inset-0 rounded-[2.8rem] overflow-hidden bg-[#00001D]">
                   <iframe 
                     src="/tarjetas-neocard/oscar-rivera?mode=mockup" 
-                    className="w-full h-full border-none select-none no-scrollbar"
+                    className="w-full h-full border-none select-none no-scrollbar pointer-events-none"
                     title="Oscar Rivera Neocard Prototype"
                     style={{ 
                       scrollbarWidth: 'none',

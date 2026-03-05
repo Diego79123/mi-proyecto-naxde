@@ -314,7 +314,7 @@ END:VCARD`;
   return (
     <main className={cn(
       "w-full bg-transparent text-white flex flex-col items-center relative font-body selection:bg-primary/30 no-scrollbar",
-      isMockup ? "h-full overflow-y-auto" : "h-[100dvh] overflow-hidden"
+      isMockup ? "h-full overflow-hidden" : "h-[100dvh] overflow-hidden"
     )}>
       <SpaceBackground isOscar={slug === 'oscar-rivera'} isMockup={isMockup} />
       {!isMockup && <Header />}
