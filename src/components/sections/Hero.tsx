@@ -479,6 +479,9 @@ export const Hero = () => {
         </div>
       </div>
 
+      {/* Bottom Fade Gradient to smooth transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#00001D] to-transparent z-[40] pointer-events-none" />
+
       <style jsx global>{`
         @keyframes slide-up-cycle {
           0% { transform: translateY(100px); opacity: 0; filter: blur(20px); }
