@@ -1,8 +1,10 @@
+
 'use client';
 
 import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Hero } from '@/components/sections/Hero';
+import { WhyChooseUs } from '@/components/sections/WhyChooseUs';
 import { FeaturedServices } from '@/components/sections/FeaturedServices';
 import { WebDesignInteractive } from '@/components/sections/WebDesignInteractive';
 import { AppDesignInteractive } from '@/components/sections/AppDesignInteractive';
@@ -23,6 +25,9 @@ export default function Home() {
       <Header />
       
       <Hero />
+
+      {/* Sección de Beneficios de Élite - Inspirada en la guía del usuario */}
+      <WhyChooseUs />
       
       {/* Sección Prototipo Smartphone (Neocards) */}
       <FeaturedServices />
