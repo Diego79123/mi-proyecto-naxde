@@ -95,7 +95,7 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/servicios" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="h-20 md:h-24 px-12 md:px-16 border-black/10 hover:bg-black/5 text-black rounded-full text-xl md:text-2xl font-bold w-full backdrop-blur-md transition-all">
+                <Button size="lg" variant="outline" className="h-20 md:h-24 px-12 md:px-16 bg-white border-2 border-[#5200F8] hover:bg-white/90 text-black rounded-full text-xl md:text-2xl font-bold w-full transition-all shadow-[0_0_15px_rgba(82,0,248,0.15)]">
                   Explorar Soluciones
                 </Button>
               </Link>
