@@ -19,24 +19,24 @@ import {
   CheckCircle2, 
   Circle,
   MessageSquare,
-  Zap,
-  LayoutDashboard
+  LayoutDashboard,
+  MoreVertical
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Markdown from 'react-markdown';
 import { cn } from '@/lib/utils';
 import { generateChatResponseAction, generateImageAction } from './actions';
 import { ImageEditor } from '@/components/asistente/ImageEditor';
-import { Header } from '@/components/layout/Header';
 import Link from 'next/link';
 
-const STORAGE_KEY = 'naxde_ai_sessions_v2';
+const STORAGE_KEY = 'naxde_ai_sessions_v3';
 
 export default function AsistentePage() {
   const [sessions, setSessions] = useState<any[]>([]);
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [attachments, setAttachments] = useState<any[]>([]);
   const [editingImageIndex, setEditingImageIndex] = useState<number | null>(null);
@@ -116,7 +116,7 @@ export default function AsistentePage() {
 
     let sessionId = currentSessionId;
     if (!sessionId) {
-      const newSession = { id: Date.now().toString(), title: input.slice(0, 30) || 'Imagen adjunta', messages: [], updatedAt: Date.now() };
+      const newSession = { id: Date.now().toString(), title: input.slice(0, 30) || 'Nueva conversación', messages: [], updatedAt: Date.now() };
       setSessions(prev => [newSession, ...prev]);
       setCurrentSessionId(newSession.id);
       sessionId = newSession.id;
@@ -134,7 +134,7 @@ export default function AsistentePage() {
       ...s, 
       messages: [...s.messages, userMsg], 
       updatedAt: Date.now(),
-      title: s.messages.length === 0 ? (input.slice(0, 30) || 'Estrategia Visual') : s.title
+      title: s.messages.length === 0 ? (input.slice(0, 30) || 'Imagen adjunta') : s.title
     } : s));
 
     const currentInput = input;
@@ -144,14 +144,14 @@ export default function AsistentePage() {
     setIsLoading(true);
 
     try {
-      const history = messages.map(m => ({ 
+      const session = sessions.find(s => s.id === sessionId);
+      const history = (session?.messages || []).map(m => ({ 
         role: m.role === 'user' ? 'user' : 'model', 
         parts: [{ text: m.content }] 
       }));
 
       const response = await generateChatResponseAction(currentInput, history, currentAtts);
       
-      // Detección de comando de generación de imagen
       const imageMatch = response.match(/\[GENERATE_IMAGE:\s*(.*?)\]/);
       let generatedImageUrl = null;
 
@@ -199,184 +199,197 @@ export default function AsistentePage() {
   };
 
   return (
-    <div className="flex h-screen bg-[#00001D] text-white overflow-hidden">
-      <Header />
-      
-      {/* Sidebar Historial Portado */}
-      <aside className="w-72 border-r border-white/5 bg-black/40 pt-24 hidden lg:flex flex-col">
-        <div className="p-6 space-y-6">
-          <button onClick={createNewSession} className="w-full flex items-center justify-center gap-3 p-4 bg-primary rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-primary/90 transition-all shadow-glow-accent">
-            <Plus className="w-5 h-5" /> Nuevo Proyecto
-          </button>
-          
-          <div className="space-y-4">
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 px-2">Historial Estratégico</p>
-            <div className="space-y-1 max-h-[60vh] overflow-y-auto no-scrollbar">
-              {sessions.map(s => (
-                <div key={s.id} className="group relative">
-                  <button 
-                    onClick={() => setCurrentSessionId(s.id)} 
-                    className={cn(
-                      "w-full text-left p-4 rounded-xl text-sm transition-all flex items-center gap-3", 
-                      currentSessionId === s.id ? "bg-white/10 text-primary border border-white/10" : "text-white/40 hover:bg-white/5"
-                    )}
-                  >
-                    <MessageSquare className="w-4 h-4 shrink-0" />
-                    <div className="truncate font-bold uppercase text-[10px] tracking-widest">{s.title}</div>
-                  </button>
-                  <button onClick={(e) => deleteSession(s.id, e)} className="absolute right-2 top-1/2 -translate-y-1/2 p-2 opacity-0 group-hover:opacity-100 text-white/20 hover:text-red-500 transition-all">
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              ))}
+    <div className="flex h-screen bg-zinc-50 overflow-hidden text-zinc-900 font-sans">
+      <input type="file" ref={fileInputRef} onChange={(e) => e.target.files && processFiles(e.target.files)} className="hidden" accept="image/*" multiple />
+
+      {/* Sidebar Original */}
+      <AnimatePresence mode="wait">
+        {isSidebarOpen && (
+          <motion.aside
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: 280, opacity: 1 }}
+            exit={{ width: 0, opacity: 0 }}
+            className="bg-white border-r border-zinc-200 flex flex-col h-full z-20"
+          >
+            <div className="p-4 border-b border-zinc-100 flex items-center justify-between">
+              <div className="flex items-center gap-2 font-bold text-xl text-indigo-600">
+                <Sparkles className="w-6 h-6 fill-indigo-600" />
+                <span>Naxde AI</span>
+              </div>
+              <button onClick={() => setIsSidebarOpen(false)} className="p-1.5 hover:bg-zinc-100 rounded-lg text-zinc-500 lg:hidden">
+                <X className="w-5 h-5" />
+              </button>
             </div>
-          </div>
-        </div>
 
-        <div className="mt-auto p-6 border-t border-white/5">
-          <Link href="/admin">
-            <button className="w-full flex items-center gap-3 p-4 rounded-xl text-white/40 hover:bg-white/5 transition-all text-xs font-bold uppercase tracking-widest">
-              <LayoutDashboard className="w-4 h-4" /> Panel Admin
-            </button>
-          </Link>
-        </div>
-      </aside>
+            <div className="p-4 flex-1 overflow-y-auto space-y-4 no-scrollbar">
+              <button onClick={createNewSession} className="w-full flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-colors shadow-sm">
+                <Plus className="w-5 h-5" />
+                <span>Nuevo Chat</span>
+              </button>
 
-      <main className="flex-1 flex flex-col pt-24 relative">
-        <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 no-scrollbar">
-          {messages.length === 0 && (
-            <div className="h-full flex flex-col items-center justify-center text-center max-w-2xl mx-auto space-y-10">
-              <div className="relative">
-                <div className="absolute -inset-4 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-                <div className="w-24 h-24 bg-primary/10 rounded-[2.5rem] border border-primary/30 flex items-center justify-center text-primary relative z-10">
-                  <Sparkles className="w-12 h-12" />
+              <div className="space-y-1">
+                <p className="px-2 text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Historial</p>
+                <div className="space-y-1">
+                  {sessions.map((session) => (
+                    <button 
+                      key={session.id}
+                      onClick={() => setCurrentSessionId(session.id)}
+                      className={cn(
+                        "w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-colors text-left group",
+                        currentSessionId === session.id ? "bg-indigo-50 text-indigo-700" : "text-zinc-600 hover:bg-zinc-100"
+                      )}
+                    >
+                      <MessageSquare className="w-4 h-4 shrink-0" />
+                      <span className="truncate flex-1">{session.title}</span>
+                      <Trash2 className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-zinc-400 hover:text-red-500 transition-opacity" onClick={(e) => deleteSession(session.id, e)} />
+                    </button>
+                  ))}
                 </div>
               </div>
-              <div className="space-y-4">
-                <h2 className="text-5xl font-headline font-black uppercase tracking-tighter italic leading-none">Naxde <span className="text-primary not-italic">Social AI</span></h2>
-                <p className="text-white/40 text-xl font-medium">Ingeniería de contenido impulsada por modelos Gemini 2.0</p>
+            </div>
+
+            <div className="p-4 border-t border-zinc-100">
+              <Link href="/">
+                <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-zinc-50 cursor-pointer transition-colors text-zinc-500">
+                  <LayoutDashboard className="w-5 h-5" />
+                  <span className="text-sm font-medium">Volver a Naxde</span>
+                </div>
+              </Link>
+            </div>
+          </motion.aside>
+        )}
+      </AnimatePresence>
+
+      {/* Main Content Original */}
+      <main className="flex-1 flex flex-col relative min-w-0">
+        <header className="h-16 border-b border-zinc-200 bg-white/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 sticky top-0 z-10">
+          <div className="flex items-center gap-4">
+            {!isSidebarOpen && (
+              <button onClick={() => setIsSidebarOpen(true)} className="p-2 hover:bg-zinc-100 rounded-lg text-zinc-500">
+                <MoreVertical className="w-5 h-5" />
+              </button>
+            )}
+            <h1 className="font-semibold text-zinc-900 truncate">
+              {currentSession ? currentSession.title : "Asistente Estratégico"}
+            </h1>
+          </div>
+          <div className="flex items-center gap-2">
+            <button className="p-2 hover:bg-zinc-100 rounded-lg text-zinc-500"><Share2 className="w-5 h-5" /></button>
+            <button className="p-2 hover:bg-zinc-100 rounded-lg text-zinc-500"><Download className="w-5 h-5" /></button>
+          </div>
+        </header>
+
+        <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 scroll-smooth no-scrollbar">
+          {messages.length === 0 && (
+            <div className="h-full flex flex-col items-center justify-center text-center max-w-2xl mx-auto space-y-6">
+              <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 mb-2">
+                <Sparkles className="w-8 h-8" />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                {["Estrategia para Instagram", "Diseño de Logo Minimalista", "Plan de Contenido Mensual", "Copys de Alto Impacto"].map((s, i) => (
-                  <button key={i} onClick={() => setInput(s)} className="p-5 bg-white/[0.02] border border-white/10 rounded-[2rem] hover:border-primary/50 text-[10px] font-black uppercase tracking-widest transition-all hover:bg-white/[0.05]">{s}</button>
+              <h2 className="text-3xl font-bold text-zinc-900">¿Qué vamos a crear hoy?</h2>
+              <p className="text-zinc-500 text-lg">
+                Soy tu experto en redes sociales. Puedo ayudarte a diseñar una estrategia completa, redactar copys persuasivos o generar imágenes para tus posts.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-8">
+                {["Estrategia para Instagram", "Diseño de Logo Minimalista", "Plan de Contenido Semanal", "Capítulos de LinkedIn sobre IA"].map((s, i) => (
+                  <button key={i} onClick={() => setInput(s)} className="p-4 text-left border border-zinc-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50/50 transition-all text-sm text-zinc-600">{s}</button>
                 ))}
               </div>
             </div>
           )}
 
           {messages.map((m: any) => (
-            <div key={m.id} className={cn("flex gap-6 max-w-5xl mx-auto", m.role === 'user' ? "flex-row-reverse" : "flex-row")}>
-              <div className={cn(
-                "w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-2xl transition-transform hover:scale-110", 
-                m.role === 'user' ? "bg-primary neon-accent" : "bg-white/5 border border-white/10"
-              )}>
-                {m.role === 'user' ? <User className="w-6 h-6" /> : <Bot className="w-6 h-6 text-primary" />}
+            <div key={m.id} className={cn("flex gap-4 max-w-4xl mx-auto", m.role === 'user' ? "flex-row-reverse" : "flex-row")}>
+              <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-1", m.role === 'user' ? "bg-indigo-600 text-white" : "bg-white border border-zinc-200 text-indigo-600")}>
+                {m.role === 'user' ? <User className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
               </div>
               
-              <div className={cn(
-                "p-6 md:p-8 rounded-[2.5rem] max-w-[85%] space-y-4 shadow-2xl transition-all", 
-                m.role === 'user' ? "bg-primary/10 border border-primary/20 rounded-tr-none" : "bg-white/5 border border-white/5 rounded-tl-none backdrop-blur-md"
-              )}>
-                {m.attachments?.map((att: any, i: number) => (
-                  <div key={i} className="relative inline-block group">
-                    <img src={`data:${att.mimeType};base64,${att.data}`} className="max-w-[250px] rounded-2xl border border-white/10 shadow-lg" alt="Adjunto" />
-                    {att.isReference && (
-                      <div className="absolute top-2 left-2 bg-emerald-500 text-white text-[8px] font-black px-2 py-1 rounded uppercase tracking-widest shadow-lg">Referencia Logo</div>
-                    )}
-                  </div>
-                ))}
-                
-                <div className="prose prose-invert prose-sm max-w-none prose-headings:font-headline prose-headings:uppercase prose-headings:tracking-tighter prose-strong:text-primary">
-                  <Markdown>{m.content}</Markdown>
-                </div>
-
-                {m.imageUrl && (
-                  <div className="mt-6 rounded-3xl overflow-hidden border border-white/10 shadow-2xl group/img">
-                    <img src={m.imageUrl} className="w-full h-auto object-cover" alt="Generada por IA" />
-                    <div className="p-4 bg-white/5 backdrop-blur-xl flex justify-between items-center">
-                      <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Visualización Generativa</span>
-                      <a href={m.imageUrl} download="naxde-ai-design.png" className="p-3 bg-primary rounded-xl hover:scale-105 transition-all"><Download className="w-4 h-4" /></a>
+              <div className={cn("flex flex-col gap-2 max-w-[85%]", m.role === 'user' ? "items-end" : "items-start")}>
+                <div className={cn("p-4 rounded-2xl shadow-sm", m.role === 'user' ? "bg-indigo-600 text-white rounded-tr-none" : "bg-white border border-zinc-200 text-zinc-800 rounded-tl-none")}>
+                  {m.attachments?.map((att: any, i: number) => (
+                    <div key={i} className="relative w-20 h-20 rounded-lg overflow-hidden border border-white/20 mb-3">
+                      <img src={`data:${att.mimeType};base64,${att.data}`} alt="Adjunto" className="w-full h-full object-cover" />
                     </div>
+                  ))}
+                  <div className="prose prose-sm max-w-none dark:prose-invert">
+                    <Markdown>{m.content}</Markdown>
                   </div>
-                )}
+                  {m.imageUrl && (
+                    <div className="mt-4 rounded-xl overflow-hidden border border-zinc-100 bg-zinc-50">
+                      <img src={m.imageUrl} alt="Generada por IA" className="w-full h-auto object-cover" />
+                      <div className="p-3 flex justify-between items-center border-t border-zinc-100">
+                        <span className="text-xs text-zinc-500 font-medium">Imagen generada por IA</span>
+                        <a href={m.imageUrl} download="ai-image.png" className="p-1.5 hover:bg-zinc-200 rounded-lg text-zinc-600 transition-colors"><Download className="w-4 h-4" /></a>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <span className="text-[10px] text-zinc-400 px-1">{new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
               </div>
             </div>
           ))}
-          
+
           {isLoading && (
-            <div className="flex gap-6 max-w-5xl mx-auto">
-              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0"><Bot className="w-6 h-6 text-primary animate-pulse" /></div>
-              <div className="bg-white/5 border border-white/5 p-6 rounded-[2rem] rounded-tl-none flex gap-2">
-                {[0, 150, 300].map(d => <span key={d} className="w-2.5 h-2.5 bg-primary rounded-full animate-bounce shadow-glow-accent" style={{ animationDelay: `${d}ms` }} />)}
+            <div className="flex gap-4 max-w-4xl mx-auto">
+              <div className="w-8 h-8 rounded-lg bg-white border border-zinc-200 text-indigo-600 flex items-center justify-center shrink-0"><Bot className="w-5 h-5" /></div>
+              <div className="bg-white border border-zinc-200 p-4 rounded-2xl rounded-tl-none shadow-sm flex gap-1">
+                {[0, 150, 300].map(d => <span key={d} className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: `${d}ms` }} />)}
               </div>
             </div>
           )}
         </div>
 
-        {/* Input Area Rediseñada */}
-        <div className="p-6 md:p-10 bg-gradient-to-t from-[#00001D] via-[#00001D]/90 to-transparent">
-          <div className="max-w-5xl mx-auto space-y-6">
+        {/* Input Area Original */}
+        <div className="p-4 md:p-8 bg-gradient-to-t from-zinc-50 via-zinc-50 to-transparent">
+          <div className="max-w-4xl mx-auto space-y-4">
             
-            {/* Modo Logo Activo Indicador */}
-            {attachments.some(a => a.isReference) && (
-              <div className="flex items-center gap-3 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full w-fit animate-pulse">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981]" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500">Logo de Referencia Activo</span>
+            {attachments.length > 0 && (
+              <div className="flex flex-wrap gap-3 px-2">
+                {attachments.map((att, i) => (
+                  <div key={i} className="relative group">
+                    <div className={cn("w-20 h-20 rounded-xl overflow-hidden border-2 shadow-sm relative transition-all", att.isReference ? "border-emerald-500 ring-2 ring-emerald-500/20" : "border-zinc-200")}>
+                      <img src={att.url} alt="Preview" className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                        <button onClick={() => setEditingImageIndex(i)} className="p-1.5 bg-white/20 hover:bg-white/40 rounded-lg text-white"><Edit3 className="w-4 h-4" /></button>
+                        <button onClick={() => toggleReference(i)} className={cn("p-1.5 rounded-lg", att.isReference ? "bg-emerald-500 text-white" : "bg-white/20 hover:bg-white/40 text-white")}>
+                          {att.isReference ? <CheckCircle2 className="w-4 h-4" /> : <Circle className="w-4 h-4" />}
+                        </button>
+                      </div>
+                    </div>
+                    <button onClick={() => setAttachments(prev => prev.filter((_, idx) => idx !== i))} className="absolute -top-2 -right-2 w-6 h-6 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-400 hover:text-red-500 shadow-sm transition-colors z-10"><X className="w-4 h-4" /></button>
+                  </div>
+                ))}
               </div>
             )}
 
             <div className="relative group">
-              <AnimatePresence>
-                {attachments.length > 0 && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="flex gap-4 mb-6 p-4 overflow-x-auto no-scrollbar bg-white/[0.02] border border-white/5 rounded-3xl backdrop-blur-xl">
-                    {attachments.map((att, i) => (
-                      <div key={i} className="relative group/att shrink-0">
-                        <div className={cn(
-                          "w-24 h-24 rounded-2xl overflow-hidden border-2 transition-all shadow-xl",
-                          att.isReference ? "border-emerald-500 ring-4 ring-emerald-500/20" : "border-white/10"
-                        )}>
-                          <img src={att.url} className="w-full h-full object-cover" alt="Preview" />
-                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/att:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
-                            <button onClick={() => setEditingImageIndex(i)} className="p-2 bg-white/10 rounded-lg hover:bg-white/20"><Edit3 className="w-4 h-4" /></button>
-                            <button onClick={() => toggleReference(i)} className={cn("p-2 rounded-lg", att.isReference ? "bg-emerald-500" : "bg-white/10")}>
-                              {att.isReference ? <CheckCircle2 className="w-4 h-4" /> : <Circle className="w-4 h-4" />}
-                            </button>
-                          </div>
-                        </div>
-                        <button onClick={() => setAttachments(prev => prev.filter((_, idx) => idx !== i))} className="absolute -top-3 -right-3 bg-red-500 rounded-full p-1.5 shadow-2xl hover:scale-110 transition-all"><X className="w-3.5 h-3.5" /></button>
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <div className="relative">
-                <textarea
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
-                  placeholder="Describe tu estrategia o pide un diseño..."
-                  className="w-full bg-white/[0.03] border border-white/10 rounded-[2.5rem] px-8 py-6 pr-40 focus:border-primary/50 outline-none resize-none min-h-[85px] shadow-2xl transition-all focus:bg-white/[0.05] font-medium"
-                  rows={1}
-                />
-                <div className="absolute right-4 bottom-4 flex gap-2">
-                  <button onClick={() => fileInputRef.current?.click()} className="p-3 text-white/40 hover:text-primary hover:bg-white/5 rounded-2xl transition-all" title="Adjuntar activos"><Paperclip className="w-6 h-6" /></button>
-                  <button onClick={toggleRecording} className={cn("p-3 rounded-2xl transition-all", isRecording ? "bg-red-500/20 text-red-500 animate-pulse" : "text-white/40 hover:text-primary hover:bg-white/5")}><Mic className="w-6 h-6" /></button>
-                  <button onClick={handleSend} disabled={isLoading} className="p-4 bg-primary rounded-[1.5rem] text-white shadow-glow-accent hover:scale-105 active:scale-95 transition-all"><Send className="w-6 h-6" /></button>
-                </div>
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
+                placeholder="Describe tu empresa o pide un diseño..."
+                className="w-full bg-white border border-zinc-200 rounded-2xl px-4 py-4 pr-32 shadow-lg focus:ring-2 focus:ring-indigo-500 outline-none resize-none min-h-[60px] max-h-[200px] transition-all"
+                rows={1}
+              />
+              <div className="absolute right-2 bottom-2 flex items-center gap-1">
+                <button onClick={() => setInput(prev => prev + " Genera una imagen para este post: ")} className="p-2 text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all" title="Generar imagen"><ImageIcon className="w-5 h-5" /></button>
+                <button onClick={() => fileInputRef.current?.click()} className="p-2 text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all" title="Adjuntar imagen"><Paperclip className="w-5 h-5" /></button>
+                <button onClick={toggleRecording} className={cn("p-2 rounded-xl transition-all", isRecording ? "bg-red-50 text-red-600 animate-pulse" : "text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50")}>{isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}</button>
+                <button onClick={handleSend} disabled={isLoading} className={cn("p-2 rounded-xl transition-all", (input.trim() || attachments.length > 0) ? "bg-indigo-600 text-white shadow-md hover:bg-indigo-700" : "bg-zinc-100 text-zinc-400")}><Send className="w-5 h-5" /></button>
               </div>
             </div>
           </div>
         </div>
       </main>
 
-      <input type="file" ref={fileInputRef} onChange={(e) => e.target.files && processFiles(e.target.files)} className="hidden" accept="image/*" multiple />
-
       {editingImageIndex !== null && (
-        <ImageEditor imageUrl={attachments[editingImageIndex].url} onSave={(url) => {
-          setAttachments(prev => prev.map((att, i) => i === editingImageIndex ? { ...att, url, data: url.split(',')[1] } : att));
-          setEditingImageIndex(null);
-        }} onClose={() => setEditingImageIndex(null)} />
+        <ImageEditor 
+          imageUrl={attachments[editingImageIndex].url}
+          onSave={(url) => {
+            setAttachments(prev => prev.map((att, i) => i === editingImageIndex ? { ...att, url, data: url.split(',')[1] } : att));
+            setEditingImageIndex(null);
+          }}
+          onClose={() => setEditingImageIndex(null)}
+        />
       )}
     </div>
   );
