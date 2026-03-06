@@ -56,7 +56,7 @@ export const Header = () => {
           }}
         />
 
-        <div className="max-w-screen-2xl mx-auto h-full px-6 md:px-8 relative flex items-center justify-between">
+        <div className="max-w-screen-2xl mx-auto h-full px-6 md:px-12 lg:px-16 relative flex items-center justify-between">
           <div className="w-10 h-10 hidden md:block" />
 
           {/* Logo */}

@@ -206,7 +206,7 @@ export default function NeocardLanding() {
       <Header />
 
       {/* SECTION 1: HERO INTERACTIVO */}
-      <section className="relative pt-32 md:pt-48 pb-24 md:pb-40 px-6">
+      <section className="relative pt-32 md:pt-48 pb-24 md:pb-40 px-6 md:px-12 lg:px-16">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle,rgba(82,0,248,0.15)_0%,transparent_70%)] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto relative z-10">
@@ -290,8 +290,8 @@ export default function NeocardLanding() {
       </section>
 
       {/* SECTION 2: ECOSISTEMA Y BENEFICIOS */}
-      <section className="py-24 md:py-40 bg-white/[0.02] border-y border-white/5 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <section className="py-24 md:py-40 px-6 md:px-12 lg:px-16 bg-white/[0.02] border-y border-white/5 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-20">
             <div className="space-y-6 max-w-2xl">
               <h2 className="text-4xl md:text-7xl font-headline font-black text-white leading-none tracking-tighter uppercase">
@@ -323,10 +323,10 @@ export default function NeocardLanding() {
       </section>
 
       {/* SECTION: SHOWCASE DE TRABAJOS REALIZADOS */}
-      <section className="py-24 md:py-40 relative overflow-hidden bg-[#00001D]">
+      <section className="py-24 md:py-40 px-6 md:px-12 lg:px-16 relative overflow-hidden bg-[#00001D]">
         <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(82,0,248,0.05)_0%,transparent_70%)] pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center space-y-6 mb-20">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md">
               <Zap className="w-4 h-4 text-primary animate-pulse" />
@@ -426,7 +426,7 @@ export default function NeocardLanding() {
       </section>
 
       {/* SECTION 3: PLANES NEOCARD */}
-      <section id="planes" className="py-24 md:py-40 px-6 relative">
+      <section id="planes" className="py-24 md:py-40 px-6 md:px-12 lg:px-16 relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-secondary/5 rounded-full blur-[150px] -z-10" />
         
         <div className="max-w-7xl mx-auto text-center space-y-24">
@@ -497,7 +497,7 @@ export default function NeocardLanding() {
       </section>
 
       {/* SECTION FINAL: CONVERSIÓN */}
-      <section className="py-24 md:py-40 px-6 relative overflow-hidden text-center bg-[#F0F4FF]">
+      <section className="py-24 md:py-40 px-6 md:px-12 lg:px-16 relative overflow-hidden text-center bg-[#F0F4FF]">
         <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
         
         <div className="max-w-5xl mx-auto space-y-12 relative z-10">

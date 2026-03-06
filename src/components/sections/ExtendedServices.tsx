@@ -69,7 +69,7 @@ export const ExtendedServices = () => {
       <div className="absolute top-[20%] left-[-10%] w-[60%] h-[40%] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[40%] bg-secondary/5 blur-[150px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-20">
           <div className="space-y-6 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">

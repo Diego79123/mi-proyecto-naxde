@@ -30,7 +30,7 @@ export default function ServiciosPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-6 relative overflow-hidden">
+      <section className="pt-40 pb-20 px-6 md:px-12 lg:px-16 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" />
         <div className="max-w-7xl mx-auto text-center space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
@@ -47,7 +47,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-24 px-6 relative">
+      <section className="py-24 px-6 md:px-12 lg:px-16 relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle,rgba(82,0,248,0.05)_0%,transparent_70%)] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -87,7 +87,7 @@ export default function ServiciosPage() {
       <TestimonialsSection />
 
       {/* Final CTA Section */}
-      <section className="py-24 md:py-40 px-6 relative overflow-hidden">
+      <section className="py-24 md:py-40 px-6 md:px-12 lg:px-16 relative overflow-hidden">
         <div className="max-w-5xl mx-auto text-center space-y-12">
           <div className="space-y-6">
             <h2 className="text-4xl md:text-7xl lg:text-8xl font-headline font-black text-white leading-[0.9] uppercase tracking-tighter">

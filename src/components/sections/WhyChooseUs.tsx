@@ -43,7 +43,7 @@ const impactCards = [
 export const WhyChooseUs = () => {
   return (
     <section className="py-24 bg-[#00001D] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         
         {/* Top Badges Row */}
         <div className="flex flex-wrap justify-center gap-8 md:gap-16 mb-24 opacity-60">

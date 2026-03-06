@@ -83,7 +83,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#00001D] text-white pt-24 pb-32 md:pb-40 px-6 md:px-12 border-t border-white/5">
+    <footer className="bg-[#00001D] text-white pt-24 pb-32 md:pb-40 px-6 md:px-12 lg:px-16 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
         {/* Top Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
@@ -191,7 +191,7 @@ export const Footer = () => {
 
       {/* Scroll to Top - Conditional Visibility based on scroll position */}
       <div className={cn(
-        "fixed bottom-32 left-6 md:left-12 z-[150] flex flex-col items-center gap-6 group transition-all duration-700 ease-in-out",
+        "fixed bottom-32 left-6 md:left-12 lg:left-16 z-[150] flex flex-col items-center gap-6 group transition-all duration-700 ease-in-out",
         showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
       )}>
         <button 

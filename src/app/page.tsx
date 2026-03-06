@@ -57,8 +57,8 @@ export default function Home() {
       <FAQSection />
 
       {/* CTA Final */}
-      <section className="py-12 md:py-24 px-6 bg-[#F0F4FF]">
-        <div className="max-w-7xl mx-auto relative py-24 md:py-40 px-6 rounded-[3rem] overflow-hidden group/cta">
+      <section className="py-12 md:py-24 px-6 md:px-12 lg:px-16 bg-[#F0F4FF]">
+        <div className="max-w-7xl mx-auto relative py-24 md:py-40 px-6 md:px-12 lg:px-16 rounded-[3rem] overflow-hidden group/cta">
           
           {/* Background Layer - Texture subtle */}
           <div className="absolute inset-0 z-0">

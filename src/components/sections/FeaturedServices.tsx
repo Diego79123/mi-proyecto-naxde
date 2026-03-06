@@ -42,7 +42,7 @@ const benefits = [
     end: 0.75
   },
   { 
-    id: 2,
+    id: 2, 
     title: "Eco-Friendly", 
     desc: "Elimina el desperdicio de tarjetas de papel.", 
     icon: Leaf, 
@@ -52,7 +52,7 @@ const benefits = [
     end: 0.83
   },
   { 
-    id: 3,
+    id: 3, 
     title: "Control Total", 
     desc: "Actualiza tu perfil en tiempo real 24/7.", 
     icon: Settings2, 
@@ -62,7 +62,7 @@ const benefits = [
     end: 0.91
   },
   { 
-    id: 4,
+    id: 4, 
     title: "Métricas", 
     desc: "Mide el impacto de tu red de contactos.", 
     icon: BarChart3, 
@@ -129,7 +129,7 @@ export const FeaturedServices = () => {
           <div className="w-[85%] h-[85%] border-[30px] md:border-[80px] border-white/5 rounded-full animate-float-slow" />
         </div>
         
-        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full h-full flex items-center justify-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 relative z-10 w-full h-full flex items-center justify-center">
           
           <div className="relative w-full h-full flex items-center justify-center">
             
@@ -276,7 +276,7 @@ export const FeaturedServices = () => {
 
       {/* Services Bottom Grid */}
       <div className={cn(
-        "relative z-40 max-w-7xl mx-auto px-6 pb-24 transition-all duration-1000",
+        "relative z-40 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pb-24 transition-all duration-1000",
         scrollProgress < 0.92 ? "opacity-0 translate-y-20" : "opacity-100 translate-y-0"
       )}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 border-t border-white/10 pt-16">

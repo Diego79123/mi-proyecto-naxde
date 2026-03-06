@@ -97,7 +97,7 @@ export default function SobreNosotrosPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-6 text-center">
+      <section className="pt-40 pb-20 px-6 md:px-12 lg:px-16 text-center">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
             <Rocket className="w-4 h-4 text-primary animate-pulse" />
@@ -113,7 +113,7 @@ export default function SobreNosotrosPage() {
       </section>
 
       {/* Team Collaboration Image */}
-      <section className="px-6 mb-24">
+      <section className="px-6 md:px-12 lg:px-16 mb-24">
         <div className="max-w-7xl mx-auto h-[500px] rounded-[3rem] overflow-hidden relative">
           <div className="absolute inset-0 bg-primary/20 blur-[150px] -z-10" />
           <img 
@@ -126,7 +126,7 @@ export default function SobreNosotrosPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-24 bg-white/[0.02] border-y border-white/5 px-6">
+      <section className="py-24 bg-white/[0.02] border-y border-white/5 px-6 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
           <div className="space-y-8">
             <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
@@ -150,7 +150,7 @@ export default function SobreNosotrosPage() {
       </section>
 
       {/* Values */}
-      <section className="py-24 px-6">
+      <section className="py-24 px-6 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-headline font-bold text-center mb-16 uppercase tracking-[0.3em] text-primary">Nuestros Valores</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
@@ -178,9 +178,9 @@ export default function SobreNosotrosPage() {
       </section>
 
       {/* Interactive Team Showcase */}
-      <section className="py-24 md:py-40 bg-black overflow-hidden">
+      <section className="py-24 md:py-40 bg-black overflow-hidden px-6 md:px-12 lg:px-16">
         <div className="max-w-screen-2xl mx-auto">
-          <div className="px-6 mb-16 space-y-4">
+          <div className="mb-16 space-y-4">
             <h2 className="text-primary font-bold uppercase tracking-[0.4em] text-xs">Equipo Táctico</h2>
             <h3 className="text-4xl md:text-6xl font-headline font-black text-white uppercase leading-none">Las Mentes que <span className="text-primary italic">Desafían</span> lo Imposible</h3>
           </div>
@@ -280,7 +280,7 @@ export default function SobreNosotrosPage() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-24 md:py-40 px-6 relative overflow-hidden bg-[#00001D]">
+      <section className="py-24 md:py-40 px-6 md:px-12 lg:px-16 relative overflow-hidden bg-[#00001D]">
         {/* Glow Decorativo */}
         <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle,rgba(248,0,55,0.2)_0%,transparent_70%)]" />
