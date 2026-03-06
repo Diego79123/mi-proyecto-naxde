@@ -23,13 +23,17 @@ import {
   MousePointer2,
   Mail,
   MessageCircle,
-  Database
+  Database,
+  Linkedin,
+  ExternalLink
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection, query, where } from 'firebase/firestore';
 
 const floatingBenefits = [
   { 
@@ -146,6 +150,13 @@ const plans = [
 
 export default function NeocardLanding() {
   const [isVisible, setIsVisible] = useState(false);
+  const db = useFirestore();
+
+  const membersRef = useMemoFirebase(() => {
+    return query(collection(db, 'team_members'), where('isActive', '==', true));
+  }, [db]);
+
+  const { data: members, isLoading: isMembersLoading } = useCollection(membersRef);
 
   useEffect(() => {
     setIsVisible(true);
@@ -268,6 +279,100 @@ export default function NeocardLanding() {
                 <p className="text-white/50 leading-relaxed font-medium">{benefit.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION: SHOWCASE DE TRABAJOS REALIZADOS */}
+      <section className="py-24 md:py-40 relative overflow-hidden bg-[#00001D]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(82,0,248,0.05)_0%,transparent_70%)] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center space-y-6 mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md">
+              <Zap className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">Showcase Premium</span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-headline font-black text-white uppercase tracking-tighter leading-none">
+              IDENTIDADES <br />
+              <span className="text-primary italic">CONSTRUIDAS</span>.
+            </h2>
+            <p className="text-white/40 font-medium text-lg max-w-2xl mx-auto">
+              Explora los perfiles inteligentes que hemos diseñado para líderes y organizaciones que ya habitan el futuro.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {isMembersLoading ? (
+              [1, 2, 3].map((i) => (
+                <div key={i} className="aspect-[3/4] rounded-[2.5rem] bg-white/5 animate-pulse" />
+              ))
+            ) : (
+              members?.map((member) => (
+                <div 
+                  key={member.id} 
+                  className="group relative h-[550px] rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary/30 transition-all duration-700 shadow-2xl"
+                >
+                  <div className="absolute inset-0 z-0">
+                    <img 
+                      src={member.profileImageUrl} 
+                      alt={member.name}
+                      className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#00001D] via-[#00001D]/60 to-transparent" />
+                  </div>
+
+                  <div className="absolute inset-0 z-10 p-10 flex flex-col justify-end space-y-6">
+                    <div>
+                      <h2 className="text-3xl font-headline font-bold text-white group-hover:text-primary transition-colors duration-300">
+                        {member.name}
+                      </h2>
+                      <p className="text-primary text-xs font-bold uppercase tracking-[0.3em] mt-2">
+                        {member.role}
+                      </p>
+                    </div>
+
+                    <p className="text-white/50 text-sm leading-relaxed line-clamp-2">
+                      {member.bio}
+                    </p>
+
+                    <div className="flex gap-4 pt-2">
+                      {member.linkedinUrl && (
+                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                          <Linkedin className="w-4 h-4 text-white/60" />
+                        </div>
+                      )}
+                      {member.whatsapp && (
+                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                          <MessageCircle className="w-4 h-4 text-white/60" />
+                        </div>
+                      )}
+                      {member.email && (
+                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                          <Mail className="w-4 h-4 text-white/60" />
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="pt-6 border-t border-white/10">
+                      <Link href={`/tarjetas-neocard/${member.slug}`}>
+                        <Button className="w-full h-14 bg-white/5 hover:bg-primary text-white border border-white/10 hover:border-primary rounded-2xl font-bold gap-3 transition-all duration-300">
+                          Ver Perfil Inteligente
+                          <ArrowRight className="w-4 h-4" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="absolute top-6 left-6 z-20">
+                    <div className="px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md border border-primary/30 flex items-center gap-2">
+                      <Zap className="w-3 h-3 text-primary" />
+                      <span className="text-[10px] font-bold text-primary uppercase tracking-widest">NEOCARD ACTIVE</span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>
