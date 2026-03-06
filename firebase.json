@@ -1,3 +1,4 @@
+
 {
   "hosting": {
     "public": "public",
@@ -7,6 +8,10 @@
       "**/node_modules/**"
     ],
     "rewrites": [
+      {
+        "source": "/asistente/**",
+        "destination": "/asistente/index.html"
+      },
       {
         "source": "**",
         "destination": "/index.html"
