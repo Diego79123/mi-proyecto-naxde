@@ -51,23 +51,23 @@ export default function ServiciosPage() {
           {allServices.map((service) => (
             <div 
               key={service.id} 
-              className="group relative p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-primary/50 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-2xl"
+              className="group relative p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-secondary/50 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-2xl"
             >
-              {/* Hover Glow Effects */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary/10 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+              {/* Hover Glow Effects - Morados y Azules */}
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -right-20 -top-20 w-64 h-64 bg-blue-600/15 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
               <div className="relative z-10">
-                <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-10 group-hover:bg-primary group-hover:text-white transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(248,0,55,0.4)] border border-white/5 group-hover:border-primary">
-                  <service.icon className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
+                <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-10 group-hover:bg-secondary group-hover:text-white transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(82,0,248,0.5)] border border-white/5 group-hover:border-secondary">
+                  <service.icon className="w-8 h-8 text-secondary group-hover:text-white transition-colors" />
                 </div>
-                <h3 className="text-2xl font-headline font-bold mb-4 uppercase tracking-tight group-hover:text-primary transition-colors">{service.title}</h3>
+                <h3 className="text-2xl font-headline font-bold mb-4 uppercase tracking-tight group-hover:text-secondary transition-colors">{service.title}</h3>
                 <p className="text-white/50 leading-relaxed font-medium mb-8 group-hover:text-white/70 transition-colors">{service.desc}</p>
               </div>
               
               <div className="relative z-10 pt-4 border-t border-white/5 mt-auto flex items-center justify-between">
-                <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest group-hover:text-primary/40 transition-colors">Naxde Module</span>
-                <ArrowRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all" />
+                <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest group-hover:text-secondary/40 transition-colors">Naxde Module</span>
+                <ArrowRight className="w-5 h-5 text-secondary opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all" />
               </div>
             </div>
           ))}
