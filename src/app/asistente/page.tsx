@@ -20,7 +20,8 @@ import {
   Circle,
   MessageSquare,
   LayoutDashboard,
-  MoreVertical
+  MoreVertical,
+  Zap
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Markdown from 'react-markdown';
@@ -29,7 +30,7 @@ import { generateChatResponseAction, generateImageAction } from './actions';
 import { ImageEditor } from '@/components/asistente/ImageEditor';
 import Link from 'next/link';
 
-const STORAGE_KEY = 'naxde_ai_sessions_v3';
+const STORAGE_KEY = 'social_ai_sessions_v4';
 
 export default function AsistentePage() {
   const [sessions, setSessions] = useState<any[]>([]);
@@ -147,7 +148,12 @@ export default function AsistentePage() {
       const session = sessions.find(s => s.id === sessionId);
       const history = (session?.messages || []).map(m => ({ 
         role: m.role === 'user' ? 'user' : 'model', 
-        parts: [{ text: m.content }] 
+        parts: [
+          { text: m.content },
+          ...(m.attachments || []).map(att => ({
+            inlineData: { mimeType: att.mimeType, data: att.data }
+          }))
+        ] 
       }));
 
       const response = await generateChatResponseAction(currentInput, history, currentAtts);
@@ -202,7 +208,7 @@ export default function AsistentePage() {
     <div className="flex h-screen bg-zinc-50 overflow-hidden text-zinc-900 font-sans">
       <input type="file" ref={fileInputRef} onChange={(e) => e.target.files && processFiles(e.target.files)} className="hidden" accept="image/*" multiple />
 
-      {/* Sidebar Original */}
+      {/* Sidebar Original del Repositorio */}
       <AnimatePresence mode="wait">
         {isSidebarOpen && (
           <motion.aside
@@ -213,11 +219,11 @@ export default function AsistentePage() {
           >
             <div className="p-4 border-b border-zinc-100 flex items-center justify-between">
               <div className="flex items-center gap-2 font-bold text-xl text-indigo-600">
-                <Sparkles className="w-6 h-6 fill-indigo-600" />
-                <span>Naxde AI</span>
+                <Zap className="w-6 h-6 fill-indigo-600" />
+                <span>SocialAI</span>
               </div>
-              <button onClick={() => setIsSidebarOpen(false)} className="p-1.5 hover:bg-zinc-100 rounded-lg text-zinc-500 lg:hidden">
-                <X className="w-5 h-5" />
+              <button onClick={() => setIsSidebarOpen(false)} className="p-1.5 hover:bg-zinc-100 rounded-lg text-zinc-500 md:hidden">
+                <MoreVertical className="w-5 h-5" />
               </button>
             </div>
 
@@ -230,6 +236,9 @@ export default function AsistentePage() {
               <div className="space-y-1">
                 <p className="px-2 text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Historial</p>
                 <div className="space-y-1">
+                  {sessions.length === 0 && (
+                    <p className="px-3 py-2 text-xs text-zinc-400 italic">No hay conversaciones aún</p>
+                  )}
                   {sessions.map((session) => (
                     <button 
                       key={session.id}
@@ -249,10 +258,19 @@ export default function AsistentePage() {
             </div>
 
             <div className="p-4 border-t border-zinc-100">
-              <Link href="/">
-                <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-zinc-50 cursor-pointer transition-colors text-zinc-500">
-                  <LayoutDashboard className="w-5 h-5" />
-                  <span className="text-sm font-medium">Volver a Naxde</span>
+              <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-zinc-50 cursor-pointer transition-colors">
+                <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs">
+                  JD
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-zinc-900 truncate">John Doe</p>
+                  <p className="text-xs text-zinc-500 truncate">Pro Plan</p>
+                </div>
+              </div>
+              <Link href="/" className="mt-2 block">
+                <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-zinc-50 transition-colors text-zinc-400 text-xs">
+                  <LayoutDashboard className="w-3 h-3" />
+                  <span>Volver al Sitio Principal</span>
                 </div>
               </Link>
             </div>
@@ -260,17 +278,17 @@ export default function AsistentePage() {
         )}
       </AnimatePresence>
 
-      {/* Main Content Original */}
+      {/* Main Content */}
       <main className="flex-1 flex flex-col relative min-w-0">
         <header className="h-16 border-b border-zinc-200 bg-white/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 sticky top-0 z-10">
           <div className="flex items-center gap-4">
             {!isSidebarOpen && (
               <button onClick={() => setIsSidebarOpen(true)} className="p-2 hover:bg-zinc-100 rounded-lg text-zinc-500">
-                <MoreVertical className="w-5 h-5" />
+                <LayoutDashboard className="w-5 h-5" />
               </button>
             )}
             <h1 className="font-semibold text-zinc-900 truncate">
-              {currentSession ? currentSession.title : "Asistente Estratégico"}
+              {currentSession ? currentSession.title : "Asistente de Estrategia"}
             </h1>
           </div>
           <div className="flex items-center gap-2">
@@ -287,10 +305,15 @@ export default function AsistentePage() {
               </div>
               <h2 className="text-3xl font-bold text-zinc-900">¿Qué vamos a crear hoy?</h2>
               <p className="text-zinc-500 text-lg">
-                Soy tu experto en redes sociales. Puedo ayudarte a diseñar una estrategia completa, redactar copys persuasivos o generar imágenes para tus posts.
+                Soy tu experto en redes sociales. Puedo ayudarte a diseñar una estrategia completa, redactar copys persuasivos o incluso generar imágenes para tus posts.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-8">
-                {["Estrategia para Instagram", "Diseño de Logo Minimalista", "Plan de Contenido Semanal", "Capítulos de LinkedIn sobre IA"].map((s, i) => (
+                {[
+                  "Crea una estrategia para Instagram de una cafetería",
+                  "Diseña un logo minimalista para una startup tech",
+                  "Escribe 5 captions para LinkedIn sobre IA",
+                  "Plan de contenido semanal para una marca de ropa"
+                ].map((s, i) => (
                   <button key={i} onClick={() => setInput(s)} className="p-4 text-left border border-zinc-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50/50 transition-all text-sm text-zinc-600">{s}</button>
                 ))}
               </div>
@@ -305,12 +328,16 @@ export default function AsistentePage() {
               
               <div className={cn("flex flex-col gap-2 max-w-[85%]", m.role === 'user' ? "items-end" : "items-start")}>
                 <div className={cn("p-4 rounded-2xl shadow-sm", m.role === 'user' ? "bg-indigo-600 text-white rounded-tr-none" : "bg-white border border-zinc-200 text-zinc-800 rounded-tl-none")}>
-                  {m.attachments?.map((att: any, i: number) => (
-                    <div key={i} className="relative w-20 h-20 rounded-lg overflow-hidden border border-white/20 mb-3">
-                      <img src={`data:${att.mimeType};base64,${att.data}`} alt="Adjunto" className="w-full h-full object-cover" />
+                  {m.attachments?.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {m.attachments.map((att: any, i: number) => (
+                        <div key={i} className="relative w-20 h-20 rounded-lg overflow-hidden border border-white/20">
+                          <img src={`data:${att.mimeType};base64,${att.data}`} alt="Adjunto" className="w-full h-full object-cover" />
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                  <div className="prose prose-sm max-w-none dark:prose-invert">
+                  )}
+                  <div className="markdown-body prose prose-sm max-w-none">
                     <Markdown>{m.content}</Markdown>
                   </div>
                   {m.imageUrl && (
@@ -338,12 +365,18 @@ export default function AsistentePage() {
           )}
         </div>
 
-        {/* Input Area Original */}
+        {/* Input Area */}
         <div className="p-4 md:p-8 bg-gradient-to-t from-zinc-50 via-zinc-50 to-transparent">
           <div className="max-w-4xl mx-auto space-y-4">
             
             {attachments.length > 0 && (
               <div className="flex flex-wrap gap-3 px-2">
+                {attachments.some(a => a.isReference) && (
+                  <div className="w-full flex items-center gap-2 mb-1 text-[10px] text-emerald-600 font-semibold uppercase tracking-wider animate-pulse">
+                    <Zap className="w-3 h-3" />
+                    <span>Modo Preservación de Logo Activo</span>
+                  </div>
+                )}
                 {attachments.map((att, i) => (
                   <div key={i} className="relative group">
                     <div className={cn("w-20 h-20 rounded-xl overflow-hidden border-2 shadow-sm relative transition-all", att.isReference ? "border-emerald-500 ring-2 ring-emerald-500/20" : "border-zinc-200")}>
@@ -354,6 +387,11 @@ export default function AsistentePage() {
                           {att.isReference ? <CheckCircle2 className="w-4 h-4" /> : <Circle className="w-4 h-4" />}
                         </button>
                       </div>
+                      {att.isReference && (
+                        <div className="absolute top-1 left-1 bg-emerald-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider shadow-sm">
+                          Logo
+                        </div>
+                      )}
                     </div>
                     <button onClick={() => setAttachments(prev => prev.filter((_, idx) => idx !== i))} className="absolute -top-2 -right-2 w-6 h-6 bg-white border border-zinc-200 rounded-full flex items-center justify-center text-zinc-400 hover:text-red-500 shadow-sm transition-colors z-10"><X className="w-4 h-4" /></button>
                   </div>
@@ -366,7 +404,7 @@ export default function AsistentePage() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSend())}
-                placeholder="Describe tu empresa o pide un diseño..."
+                placeholder="Describe tu empresa, sube una imagen o usa tu voz..."
                 className="w-full bg-white border border-zinc-200 rounded-2xl px-4 py-4 pr-32 shadow-lg focus:ring-2 focus:ring-indigo-500 outline-none resize-none min-h-[60px] max-h-[200px] transition-all"
                 rows={1}
               />
@@ -377,6 +415,9 @@ export default function AsistentePage() {
                 <button onClick={handleSend} disabled={isLoading} className={cn("p-2 rounded-xl transition-all", (input.trim() || attachments.length > 0) ? "bg-indigo-600 text-white shadow-md hover:bg-indigo-700" : "bg-zinc-100 text-zinc-400")}><Send className="w-5 h-5" /></button>
               </div>
             </div>
+            <p className="text-[10px] text-zinc-400 text-center mt-2">
+              SocialAI puede cometer errores. Considera verificar la información importante.
+            </p>
           </div>
         </div>
       </main>
