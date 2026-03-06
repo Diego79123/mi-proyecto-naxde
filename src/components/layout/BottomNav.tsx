@@ -100,7 +100,6 @@ export const BottomNav = () => {
                     <h3 className="text-4xl font-headline font-black text-white uppercase tracking-tighter">Naxde <span className="text-primary italic">Tactical</span></h3>
                     <p className="text-white/40 font-bold uppercase tracking-widest text-[10px]">Centro de operaciones avanzado</p>
                   </div>
-                  <Button variant="ghost" onClick={closePopup} className="rounded-full h-12 w-12 border border-white/5 text-white/40"><X /></Button>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <Link href="/asistente" onClick={closePopup} className="group p-6 rounded-3xl bg-white/[0.03] border border-white/5 hover:border-primary/40 transition-all text-center flex flex-col items-center gap-4 relative overflow-hidden">
@@ -145,12 +144,11 @@ export const BottomNav = () => {
                     <h3 className="text-4xl font-headline font-black text-white uppercase tracking-tighter">Nuestros <span className="text-primary italic">Módulos</span></h3>
                     <p className="text-white/40 font-bold uppercase tracking-widest text-[10px]">Ingeniería de alta gama para tu negocio</p>
                   </div>
-                  <Button variant="ghost" onClick={closePopup} className="rounded-full h-12 w-12 border border-white/5 text-white/40"><X /></Button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
                     { title: "Software a Medida", desc: "Apps robustas y escalables.", icon: Smartphone },
-                    { title: "Web Inmersiva", desc: "Diseño futurista de conversión.", icon: Globe },
+                    { title: "Web Inmersiva", desc: "Diseño futurista 3D.", icon: Globe },
                     { title: "IA Aplicada", desc: "Automatización con LLMs.", icon: Bot },
                     { title: "Ecosistema NFC", desc: "Identidad inteligente.", icon: Zap }
                   ].map((s, i) => (
@@ -176,7 +174,6 @@ export const BottomNav = () => {
                     <h3 className="text-4xl font-headline font-black text-white uppercase tracking-tighter">Casos de <span className="text-primary italic">Éxito</span></h3>
                     <p className="text-white/40 font-bold uppercase tracking-widest text-[10px]">Transformando industrias en LATAM</p>
                   </div>
-                  <Button variant="ghost" onClick={closePopup} className="rounded-full h-12 w-12 border border-white/5 text-white/40"><X /></Button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="relative aspect-video rounded-2xl overflow-hidden group">
@@ -207,7 +204,6 @@ export const BottomNav = () => {
                     <h3 className="text-4xl font-headline font-black text-white uppercase tracking-tighter">Canal <span className="text-primary italic">Directo</span></h3>
                     <p className="text-white/40 font-bold uppercase tracking-widest text-[10px]">Ingeniería a un clic de distancia</p>
                   </div>
-                  <Button variant="ghost" onClick={closePopup} className="rounded-full h-12 w-12 border border-white/5 text-white/40"><X /></Button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <a href="https://wa.me/57315001001" target="_blank" className="p-8 rounded-3xl bg-[#25D366]/10 border border-[#25D366]/20 hover:bg-[#25D366]/20 transition-all flex flex-col items-center gap-4">
