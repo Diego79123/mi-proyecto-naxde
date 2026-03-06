@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -32,6 +33,7 @@ export const Header = () => {
     { name: "SERVICIOS", href: "/servicios" },
     { name: "NEOCARD", href: "/tarjetas-neocard" },
     { name: "SITIOS WEB", href: "/sitios-web" },
+    { name: "SOCIAL AI", href: "/asistente" },
     { name: "PROYECTOS", href: "/proyectos" },
     { name: "CONTACTO", href: "/contacto" }
   ];
