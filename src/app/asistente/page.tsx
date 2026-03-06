@@ -27,7 +27,6 @@ import { cn } from '@/lib/utils';
 import { generateChatResponseAction } from './actions';
 import { ImageEditor } from '@/components/asistente/ImageEditor';
 import { Header } from '@/components/layout/Header';
-import { BottomNav } from '@/components/layout/BottomNav';
 
 const STORAGE_KEY = 'naxde_ai_sessions';
 
@@ -226,7 +225,6 @@ export default function AsistentePage() {
       </main>
 
       <input type="file" ref={fileInputRef} onChange={(e) => e.target.files && processFiles(e.target.files)} className="hidden" accept="image/*" multiple />
-      <BottomNav />
 
       {editingImageIndex !== null && (
         <ImageEditor imageUrl={attachments[editingImageIndex].url} onSave={() => {}} onClose={() => setEditingImageIndex(null)} />
