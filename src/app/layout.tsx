@@ -16,6 +16,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'Naxde | Plataformas Digitales que Transforman Negocios',
   description: 'Líderes en Colombia y Latinoamérica en desarrollo de software, tarjetas NFC y transformación digital.',
+  icons: {
+    icon: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FFavicon%20naxde.webp?alt=media&token=e0a7a283-64ec-4e60-865c-eb12370ead3b',
+  },
 };
 
 export default function RootLayout({
