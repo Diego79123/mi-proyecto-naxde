@@ -35,6 +35,30 @@ const reviews = [
     content: "El desarrollo web inmersivo que construyeron para nuestra marca elevó nuestra conversión a niveles que no habíamos visto antes. Ingeniería de clase mundial.",
     avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200",
     rating: 5
+  },
+  {
+    id: 4,
+    name: "Marcos Silva",
+    role: "Fundador | Silva Tech",
+    content: "Excelente capacidad de respuesta. El equipo de Naxde no solo entrega código, entrega soluciones estratégicas que escalan con el negocio.",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200",
+    rating: 5
+  },
+  {
+    id: 5,
+    name: "Sofía Chen",
+    role: "Product Manager | Retail Next",
+    content: "La integración de sus flujos automáticos eliminó por completo el cuello de botella en nuestra atención al cliente. Un antes y un después.",
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200",
+    rating: 5
+  },
+  {
+    id: 6,
+    name: "Javier Ortega",
+    role: "Director IT | Constructora Horizonte",
+    content: "Seguridad y robustez. Buscábamos un socio tecnológico confiable para nuestra infraestructura cloud y Naxde superó todas las expectativas.",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200",
+    rating: 5
   }
 ];
 
@@ -69,7 +93,7 @@ export const TestimonialsSection = () => {
 
         <Carousel 
           setApi={setApi}
-          opts={{ align: "center", loop: true }}
+          opts={{ align: "start", loop: true }}
           className="w-full"
         >
           <CarouselContent className="-ml-4">
@@ -112,24 +136,25 @@ export const TestimonialsSection = () => {
         <div className="flex justify-center gap-4 mt-12">
           <button 
             onClick={() => api?.scrollPrev()} 
-            className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:bg-white/5 hover:text-white transition-all"
+            className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:bg-white/5 hover:text-white transition-all active:scale-95"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <div className="flex items-center gap-2">
             {reviews.map((_, i) => (
-              <div 
+              <button 
                 key={i} 
+                onClick={() => api?.scrollTo(i)}
                 className={cn(
-                  "h-1.5 rounded-full transition-all duration-500",
-                  current === i ? "w-8 bg-primary" : "w-2 bg-white/10"
+                  "h-1.5 transition-all duration-500 rounded-full",
+                  current === i ? "w-8 bg-primary" : "w-2 bg-white/10 hover:bg-white/20"
                 )} 
               />
             ))}
           </div>
           <button 
             onClick={() => api?.scrollNext()} 
-            className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:bg-white/5 hover:text-white transition-all"
+            className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:bg-white/5 hover:text-white transition-all active:scale-95"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
