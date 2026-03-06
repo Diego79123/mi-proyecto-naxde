@@ -6,7 +6,9 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
 import { FAQSection } from '@/components/sections/FAQSection';
-import { Smartphone, Globe, Zap, Cpu, Code, Database, ShieldCheck, BarChart, ShoppingBag, Palette, ArrowRight, Sparkles } from 'lucide-react';
+import { SuccessStoriesSection } from '@/components/sections/SuccessStoriesSection';
+import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
+import { Smartphone, Globe, Zap, Cpu, Code, Database, ShieldCheck, ShoppingBag, Palette, ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -77,6 +79,12 @@ export default function ServiciosPage() {
 
       {/* FAQ Section */}
       <FAQSection />
+
+      {/* Success Stories Section */}
+      <SuccessStoriesSection />
+
+      {/* Testimonials Section */}
+      <TestimonialsSection />
 
       {/* Final CTA Section */}
       <section className="py-24 md:py-40 px-6 relative overflow-hidden">
