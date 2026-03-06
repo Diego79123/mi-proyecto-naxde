@@ -414,7 +414,7 @@ export default function NeocardLanding() {
             )}
           </div>
 
-          <div className="-mt-10 flex justify-center pb-10">
+          <div className="mt-2 flex justify-center pb-10">
             <Link href="/proyectos">
               <Button className="h-14 px-10 bg-secondary hover:bg-secondary/90 text-white rounded-2xl font-bold gap-3 transition-all group shadow-glow-complement border-none">
                 Ver más proyectos
