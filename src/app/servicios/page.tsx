@@ -5,6 +5,7 @@ import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
+import { FAQSection } from '@/components/sections/FAQSection';
 import { Smartphone, Globe, Zap, Cpu, Code, Database, ShieldCheck, BarChart, ShoppingBag, Palette, ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -73,6 +74,9 @@ export default function ServiciosPage() {
           ))}
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQSection />
 
       {/* Final CTA Section */}
       <section className="py-24 md:py-40 px-6 relative overflow-hidden">
