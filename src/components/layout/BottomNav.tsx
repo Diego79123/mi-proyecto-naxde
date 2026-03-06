@@ -90,7 +90,7 @@ export const BottomNav = () => {
       </nav>
 
       <Dialog open={activePopup !== null} onOpenChange={(open) => !open && closePopup()}>
-        <DialogContent className="max-w-4xl w-[90vw] bg-[#00001D]/95 border-white/10 backdrop-blur-[40px] rounded-[3rem] p-0 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] border-none">
+        <DialogContent className="max-w-4xl w-[90vw] bg-white/[0.03] border border-white/10 backdrop-blur-[60px] rounded-[3.5rem] p-0 overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8),inset_0_0_20px_rgba(255,255,255,0.05)] border-none">
           <div className="relative p-8 md:p-12 h-full max-h-[85vh] overflow-y-auto no-scrollbar">
             
             {activePopup === 'mega' && (
