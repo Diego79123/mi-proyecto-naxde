@@ -207,7 +207,7 @@ export default function NeocardLanding() {
 
       {/* SECTION 1: HERO INTERACTIVO */}
       <section className="relative pt-32 md:pt-48 pb-24 md:pb-40 px-6">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle,rgba(82,0,248,0.1)_0%,transparent_70%)] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle,rgba(82,0,248,0.15)_0%,transparent_70%)] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center space-y-8 mb-20 md:mb-32">
@@ -412,6 +412,15 @@ export default function NeocardLanding() {
                 </div>
               ))
             )}
+          </div>
+
+          <div className="mt-20 flex justify-center">
+            <Link href="/proyectos">
+              <Button variant="outline" className="h-14 px-10 border-white/10 hover:bg-white/5 text-white rounded-2xl font-bold gap-3 transition-all group">
+                Ver más proyectos
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
