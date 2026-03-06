@@ -158,6 +158,45 @@ export default function NeocardLanding() {
 
   const { data: members, isLoading: isMembersLoading } = useCollection(membersRef);
 
+  // Perfiles de referencia (Mock) que se muestran si no hay en la DB
+  const mockMembers = [
+    {
+      id: 'oscar-rivera',
+      name: 'Oscar Rivera',
+      role: 'CEO & Founder Naxde',
+      slug: 'oscar-rivera',
+      profileImageUrl: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1',
+      bio: 'Liderando la transformación digital en Latinoamérica a través de tecnología NFC e Inteligencia Artificial.',
+      linkedinUrl: '#',
+      email: 'naxdeadmon@gmail.com',
+      whatsapp: '573184254198'
+    },
+    {
+      id: 'elena-petrova',
+      name: 'Elena Petrova',
+      role: 'CTO & Software Architect',
+      slug: 'elena-petrova',
+      profileImageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000',
+      bio: 'Arquitecturas cloud de alto nivel y seguridad de datos para empresas globales.',
+      linkedinUrl: '#',
+      email: 'elena@naxde.com',
+      whatsapp: '573000000000'
+    },
+    {
+      id: 'marcos-silva',
+      name: 'Marcos Silva',
+      role: 'Head of AI Applied',
+      slug: 'marcos-silva',
+      profileImageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000',
+      bio: 'Optimizando negocios mediante modelos predictivos y agentes inteligentes.',
+      linkedinUrl: '#',
+      email: 'marcos@naxde.com',
+      whatsapp: '573000000000'
+    }
+  ];
+
+  const displayMembers = (members && members.length > 0) ? members : mockMembers;
+
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -308,7 +347,7 @@ export default function NeocardLanding() {
                 <div key={i} className="aspect-[3/4] rounded-[2.5rem] bg-white/5 animate-pulse" />
               ))
             ) : (
-              members?.map((member) => (
+              displayMembers.map((member) => (
                 <div 
                   key={member.id} 
                   className="group relative h-[550px] rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary/30 transition-all duration-700 shadow-2xl"
