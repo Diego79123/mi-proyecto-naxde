@@ -43,9 +43,10 @@ import { Header } from '@/components/layout/Header';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 
-const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
+const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FLogos%2FLogo%20Tagua.png?alt=media&token=3293b33d-d3d3-4329-983b-7590eb20086b";
 const OSCAR_PROFILE_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1";
 const MAPS_URL = "https://maps.app.goo.gl/ii7bAyev7ZioPuuj9";
+const TAGUA_FACHADA_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FPersonas%2FFACHADA%20EMPRESA.png?alt=media&token=52527034-259c-459c-828b-710c3418a618";
 
 interface DigitalCardPageProps {
   params: Promise<{ slug: string }>;
@@ -151,6 +152,12 @@ const TaguaTheme = ({ member }: { member: any }) => {
     "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000"
   ];
 
+  const closeModals = () => {
+    setIsGalleryOpen(false);
+    setIsContactOpen(false);
+    setIsLocationOpen(false);
+  };
+
   return (
     <div className="h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-hidden font-serif no-scrollbar">
       {/* Botón de identificación opcional en la parte superior */}
@@ -164,7 +171,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
         <div className="relative">
           <div className="w-32 h-32 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex items-center justify-center p-2">
             <img
-              src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FLogos%2FLogo%20Tagua.png?alt=media&token=3293b33d-d3d3-4329-983b-7590eb20086b"
+              src={LOGO_URL}
               alt="Logo Tagua"
               className="w-full h-full object-contain rounded-full"
             />
@@ -193,8 +200,8 @@ const TaguaTheme = ({ member }: { member: any }) => {
         <div className="w-full max-w-[90%] relative">
           <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
             <img
-              src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000"
-              alt="Taller de Tagua Shop"
+              src={TAGUA_FACHADA_URL}
+              alt="Fachada Taller de Tagua"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black/5" />
@@ -366,7 +373,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
       {/* Barra de Navegación Inferior */}
       <nav className="fixed bottom-0 left-0 right-0 h-24 bg-[#E8E2D2]/80 backdrop-blur-xl border-t border-[#DED8C8] flex items-center justify-around px-8 z-50">
         <button 
-          onClick={() => { setIsGalleryOpen(true); setIsContactOpen(false); setIsLocationOpen(false); }}
+          onClick={() => { closeModals(); setIsGalleryOpen(true); }}
           className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group"
         >
           <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
@@ -375,7 +382,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
           <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Galería</span>
         </button>
         <button 
-          onClick={() => { setIsGalleryOpen(false); setIsContactOpen(true); setIsLocationOpen(false); }}
+          onClick={() => { closeModals(); setIsContactOpen(true); }}
           className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group"
         >
           <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
@@ -384,7 +391,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
           <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Contacto</span>
         </button>
         <button 
-          onClick={() => { setIsGalleryOpen(false); setIsContactOpen(false); setIsLocationOpen(true); }}
+          onClick={() => { closeModals(); setIsLocationOpen(true); }}
           className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group"
         >
           <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
@@ -446,7 +453,7 @@ function DigitalCardContent({ slug }: { slug: string }) {
           name: 'Bonilla & Vergara',
           role: 'Taller de Tagua',
           slug: 'bonilla-vergara',
-          profileImageUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000',
+          profileImageUrl: TAGUA_FACHADA_URL,
           bio: 'Arte y tradición transformados en piezas únicas de tagua.',
           phone: '3102423116',
           email: 'bonillavergaratagua@hotmail.com',
