@@ -41,6 +41,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Header } from '@/components/layout/Header';
 import { useSearchParams } from 'next/navigation';
+import { motion, AnimatePresence } from 'motion/react';
 
 const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
 const OSCAR_PROFILE_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1";
@@ -138,6 +139,17 @@ const SpaceBackground = ({ isOscar, isMockup }: { isOscar: boolean; isMockup: bo
 
 // --- TAGUA THEME COMPONENT ---
 const TaguaTheme = ({ member }: { member: any }) => {
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+
+  const galleryImages = [
+    "https://images.unsplash.com/photo-1611486212335-1921f7070523?q=80&w=800",
+    "https://images.unsplash.com/photo-1631233839290-006962005691?q=80&w=800",
+    "https://images.unsplash.com/photo-1605722243979-fe0be8158232?q=80&w=800",
+    "https://images.unsplash.com/photo-1590540179852-2110a54f813a?q=80&w=800",
+    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800",
+    "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000"
+  ];
+
   return (
     <div className="min-h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-y-auto font-serif pb-32 no-scrollbar scroll-smooth">
       {/* Top Left Circle "N" */}
@@ -248,6 +260,50 @@ const TaguaTheme = ({ member }: { member: any }) => {
         </div>
       </section>
 
+      {/* Galería Overlay */}
+      <AnimatePresence>
+        {isGalleryOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-[100] bg-[#F5F1E6] flex flex-col p-8 overflow-y-auto no-scrollbar"
+          >
+            <div className="max-w-4xl mx-auto w-full space-y-12 pb-20">
+              <header className="flex justify-between items-start">
+                <div className="space-y-4">
+                  <h2 className="text-5xl font-black tracking-tight">Nuestra Galería</h2>
+                  <p className="text-xl opacity-70 leading-relaxed font-sans font-medium max-w-xl">
+                    Explora la belleza y el detalle de nuestras piezas talladas a mano en tagua.
+                  </p>
+                </div>
+                <button 
+                  onClick={() => setIsGalleryOpen(false)}
+                  className="w-14 h-14 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </header>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {galleryImages.map((src, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="aspect-square rounded-[2rem] bg-white border-4 border-white shadow-xl overflow-hidden group"
+                  >
+                    <img src={src} alt={`Pieza ${i + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Bottom Nav */}
       <nav className="fixed bottom-0 left-0 right-0 h-24 bg-[#E8E2D2]/80 backdrop-blur-xl border-t border-[#DED8C8] flex items-center justify-around px-8 z-50">
         <button className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group">
@@ -256,7 +312,10 @@ const TaguaTheme = ({ member }: { member: any }) => {
           </div>
           <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Inicio</span>
         </button>
-        <button className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group">
+        <button 
+          onClick={() => setIsGalleryOpen(true)}
+          className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group"
+        >
           <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
             <Smartphone className="w-6 h-6" />
           </div>
