@@ -157,16 +157,6 @@ const TaguaTheme = ({ member }: { member: any }) => {
         N
       </div>
 
-      {/* Social Sidebar pegado a la izquierda con efecto glass */}
-      <div className="fixed left-0 top-1/2 -translate-y-1/2 flex flex-col gap-4 p-3 bg-[#E8E2D2]/60 backdrop-blur-md border-y border-r border-white/20 rounded-r-2xl shadow-xl z-40">
-        <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
-          <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
-        </a>
-        <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
-          <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
-        </a>
-      </div>
-
       {/* Contenedor Principal: Sin scroll, centrado */}
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-lg px-6 gap-8 pb-32">
         {/* Logotipo */}
@@ -180,10 +170,22 @@ const TaguaTheme = ({ member }: { member: any }) => {
           </div>
         </div>
 
-        {/* Nombre de la Empresa */}
-        <div className="text-center space-y-2">
-          <p className="text-[10px] font-sans font-black uppercase tracking-[0.5em] opacity-60">Taller de Tagua</p>
-          <h1 className="text-4xl font-black tracking-tight leading-none">Bonilla & Vergara</h1>
+        {/* Nombre de la Empresa + Social Sidebar Wrapper */}
+        <div className="w-full relative py-2">
+          {/* Social Sidebar pegado a la izquierda a la altura del nombre */}
+          <div className="absolute left-[-1.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-4 p-3 bg-[#E8E2D2]/60 backdrop-blur-md border-y border-r border-white/20 rounded-r-2xl shadow-xl z-40">
+            <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
+              <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
+            </a>
+            <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
+              <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
+            </a>
+          </div>
+
+          <div className="text-center space-y-2">
+            <p className="text-[10px] font-sans font-black uppercase tracking-[0.5em] opacity-60">Taller de Tagua</p>
+            <h1 className="text-4xl font-black tracking-tight leading-none">Bonilla & Vergara</h1>
+          </div>
         </div>
 
         {/* Imagen Principal */}
@@ -665,4 +667,4 @@ END:VCARD`;
       </nav>
     </main>
   );
-}
+};
