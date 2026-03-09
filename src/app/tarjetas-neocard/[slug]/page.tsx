@@ -281,19 +281,19 @@ const TaguaTheme = ({ member }: { member: any }) => {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full max-w-4xl max-h-[85vh] bg-[#F5F1E6] rounded-[3rem] shadow-2xl overflow-y-auto no-scrollbar p-8 md:p-12 border border-white/20"
             >
-              <header className="flex justify-between items-start mb-12">
-                <div className="space-y-4">
+              <header className="flex flex-col items-center mb-12 relative">
+                <button 
+                  onClick={() => setIsGalleryOpen(false)}
+                  className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg shrink-0 z-10"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <div className="space-y-4 text-center px-12">
                   <h2 className="text-4xl md:text-5xl font-black tracking-tight">Nuestra Galería</h2>
-                  <p className="text-xl opacity-70 leading-relaxed font-sans font-medium max-w-xl">
+                  <p className="text-xl opacity-70 leading-relaxed font-sans font-medium max-w-xl mx-auto text-center">
                     Explora la belleza y el detalle de nuestras piezas talladas a mano en tagua.
                   </p>
                 </div>
-                <button 
-                  onClick={() => setIsGalleryOpen(false)}
-                  className="w-14 h-14 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg shrink-0"
-                >
-                  <X className="w-6 h-6" />
-                </button>
               </header>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
