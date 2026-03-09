@@ -260,27 +260,37 @@ const TaguaTheme = ({ member }: { member: any }) => {
         </div>
       </section>
 
-      {/* Galería Overlay */}
+      {/* Galería Overlay - Cuadro Modal */}
       <AnimatePresence>
         {isGalleryOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[100] bg-[#F5F1E6] flex flex-col p-8 overflow-y-auto no-scrollbar"
-          >
-            <div className="max-w-4xl mx-auto w-full space-y-12 pb-20">
-              <header className="flex justify-between items-start">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8">
+            {/* Backdrop traslúcido */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsGalleryOpen(false)}
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            />
+            
+            {/* Contenedor de la Galería (Cuadro Modal) */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-4xl max-h-[85vh] bg-[#F5F1E6] rounded-[3rem] shadow-2xl overflow-y-auto no-scrollbar p-8 md:p-12 border border-white/20"
+            >
+              <header className="flex justify-between items-start mb-12">
                 <div className="space-y-4">
-                  <h2 className="text-5xl font-black tracking-tight">Nuestra Galería</h2>
+                  <h2 className="text-4xl md:text-5xl font-black tracking-tight">Nuestra Galería</h2>
                   <p className="text-xl opacity-70 leading-relaxed font-sans font-medium max-w-xl">
                     Explora la belleza y el detalle de nuestras piezas talladas a mano en tagua.
                   </p>
                 </div>
                 <button 
                   onClick={() => setIsGalleryOpen(false)}
-                  className="w-14 h-14 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg"
+                  className="w-14 h-14 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg shrink-0"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -299,8 +309,8 @@ const TaguaTheme = ({ member }: { member: any }) => {
                   </motion.div>
                 ))}
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
@@ -355,10 +365,6 @@ function DigitalCardContent({ slug }: { slug: string }) {
   const [count, setCount] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  const [dragY, setDragY] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const startY = useRef(0);
-
   useEffect(() => {
     async function fetchMember() {
       if (!db) return;
@@ -411,25 +417,6 @@ function DigitalCardContent({ slug }: { slug: string }) {
     const interval = setInterval(() => api.scrollNext(), 5000);
     return () => clearInterval(interval);
   }, [api, isHovered]);
-
-  const onPointerDown = (e: React.PointerEvent) => {
-    setIsDragging(true);
-    startY.current = e.clientY;
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!isDragging) return;
-    const deltaY = e.clientY - startY.current;
-    if (deltaY > 0) setDragY(deltaY);
-  };
-
-  const onPointerUp = (e: React.PointerEvent) => {
-    if (!isDragging) return;
-    setIsDragging(false);
-    if (dragY > 150) setActiveSection('inicio');
-    setDragY(0);
-  };
 
   if (isLoading) {
     return (
@@ -586,10 +573,9 @@ END:VCARD`;
 
       {['ubicacion', 'logros'].map((section) => (
         <div key={section}
-          style={{ transform: activeSection === section ? `translateY(${dragY}px)` : 'translateY(100%)', transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)' }}
-          className={cn("fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)] touch-none", activeSection === section ? "h-[75vh]" : "h-0")}
+          className={cn("fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out", activeSection === section ? "h-[75vh]" : "h-0 translate-y-full")}
         >
-          <div className="w-full h-14 flex items-center justify-center cursor-grab active:cursor-grabbing" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
+          <div className="w-full h-14 flex items-center justify-center cursor-pointer" onClick={() => setActiveSection('inicio')}>
             <div className="w-16 h-1.5 bg-white/30 rounded-full" />
           </div>
 
@@ -650,6 +636,6 @@ END:VCARD`;
           );
         })}
       </nav>
-    </main>
+    </div>
   );
 }
