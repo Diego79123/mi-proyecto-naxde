@@ -189,8 +189,8 @@ const TaguaTheme = ({ member }: { member: any }) => {
         </div>
 
         {/* Imagen Principal */}
-        <div className="w-full relative">
-          <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
+        <div className="w-full max-w-[90%] relative">
+          <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
             <img
               src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000"
               alt="Taller de Tagua Shop"
