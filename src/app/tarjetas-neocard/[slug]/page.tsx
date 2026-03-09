@@ -144,12 +144,17 @@ const TaguaTheme = ({ member }: { member: any }) => {
   const [isLocationOpen, setIsLocationOpen] = useState(false);
 
   const galleryImages = [
-    "https://images.unsplash.com/photo-1611486212335-1921f7070523?q=80&w=800",
-    "https://images.unsplash.com/photo-1631233839290-006962005691?q=80&w=800",
-    "https://images.unsplash.com/photo-1605722243979-fe0be8158232?q=80&w=800",
-    "https://images.unsplash.com/photo-1590540179852-2110a54f813a?q=80&w=800",
-    "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800",
-    "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000"
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FPersonas%2FDON%20C%C3%89SAR%20Y%20ESPOSA%20(2).png?alt=media&token=21c53301-cd1a-4042-b771-2ad1bb81c1f4",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FPersonas%2FDON%20C%C3%89SAR%20Y%20ESPOSA_2.png?alt=media&token=c314317b-e914-49e5-9d29-451498f201ae",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FPersonas%2FCHICO%20TAGUA.png?alt=media&token=48f48944-e08b-47b5-b44e-f301b4874445",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FProductos%2FAJEDREZ%20DE%20TAGUA.png?alt=media&token=d42858bc-efb0-46ca-924b-ef78fa28c5b1",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FProductos%2FESFERAS%20DE%20TAGUA.png?alt=media&token=1d503748-e0a8-49dc-8344-2115339a1ac2",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FProductos%2FJARRONES%20DE%20TAGUA.png?alt=media&token=1e6c09fc-1db8-4b15-9b3c-77d1c424b2f4",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FProductos%2FLUPA.png?alt=media&token=cdc238ad-38b6-41db-a287-425fe468ea6f",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FProductos%2FMANOS%20TRABAJADORAS.png?alt=media&token=5078b00d-ab44-4c83-92c6-4751c4404b25",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FProductos%2FMANOS%20TRABAJADORAS_2.png?alt=media&token=8b9e79bf-ddf1-489d-a7fc-50ae029f0520",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FProductos%2FMU%C3%91EQUITOS%20DE%20TAGUA.png?alt=media&token=3f8cc768-7aeb-4a1a-8520-d9c135f82b89",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FProductos%2FTROMPOS%20DE%20TAGUA.png?alt=media&token=9f654502-c60c-4bcc-8b31-be585fd787e1"
   ];
 
   const closeModals = () => {
@@ -698,6 +703,6 @@ END:VCARD`;
           );
         })}
       </nav>
-    </main>
+    </div>
   );
-}
+};
