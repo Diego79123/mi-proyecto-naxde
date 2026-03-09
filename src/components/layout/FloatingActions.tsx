@@ -26,6 +26,14 @@ const CANDY_AVATAR_URL = "https://firebasestorage.googleapis.com/v0/b/studio-492
 const FloatingActionsContent = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  
+  // 1. Estado para asegurar que el componente solo se renderice en el cliente
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const isMockup = searchParams?.get('mode') === 'mockup';
   const isTaguaPage = pathname?.includes('/tarjetas-neocard/bonilla-vergara');
   
@@ -62,12 +70,12 @@ const FloatingActionsContent = () => {
     }
   };
 
-  // Ocultar si estamos en modo mockup para el prototipo interactivo
-  if (isMockup) return null;
+  // 2. Si no ha montado o estamos en modo mockup, no renderizamos nada
+  if (!mounted || isMockup) return null;
 
   return (
     <div className="fixed bottom-24 right-6 md:bottom-10 md:right-10 z-[100] flex flex-col gap-4">
-      {/* Botón de Asistente IA (Tipo Sidebar) - Oculto en Taller de Tagua */}
+      {/* Botón de Asistente IA - Solo si NO es la página de Taller de Tagua */}
       {!isTaguaPage && (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
@@ -175,7 +183,7 @@ const FloatingActionsContent = () => {
         </Sheet>
       )}
 
-      {/* Botón de WhatsApp - Animación de Salto mantenida */}
+      {/* Botón de WhatsApp */}
       <a 
         href="https://wa.me/57315001001" 
         target="_blank" 
