@@ -636,6 +636,6 @@ END:VCARD`;
           );
         })}
       </nav>
-    </div>
+    </main>
   );
 }
