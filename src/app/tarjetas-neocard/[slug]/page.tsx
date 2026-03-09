@@ -145,8 +145,8 @@ const TaguaTheme = ({ member }: { member: any }) => {
         N
       </div>
 
-      {/* Social Floating Left Sidebar - Beige Glass Box */}
-      <div className="fixed left-4 top-1/2 -translate-y-1/2 flex flex-col gap-4 p-3 bg-[#E8E2D2]/60 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl z-40">
+      {/* Social Floating Left Sidebar - Beige Glass Box (Pegado al borde) */}
+      <div className="fixed left-0 top-1/2 -translate-y-1/2 flex flex-col gap-4 p-3 bg-[#E8E2D2]/60 backdrop-blur-md border-y border-r border-white/20 rounded-r-2xl shadow-xl z-40">
         <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
           <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
         </a>
