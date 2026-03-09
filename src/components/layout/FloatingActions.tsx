@@ -65,7 +65,7 @@ const FloatingActionsContent = () => {
 
   return (
     <div className="fixed bottom-24 right-6 md:bottom-10 md:right-10 z-[100] flex flex-col gap-4">
-      {/* Botón de Asistente IA (Tipo Sidebar) */}
+      {/* Botón de Asistente IA (Tipo Sidebar) - Restaurado */}
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
           <div className="group relative cursor-pointer">
@@ -171,7 +171,7 @@ const FloatingActionsContent = () => {
         </SheetContent>
       </Sheet>
 
-      {/* Botón de WhatsApp */}
+      {/* Botón de WhatsApp - Animación de Salto mantenida */}
       <a 
         href="https://wa.me/57315001001" 
         target="_blank" 
@@ -181,7 +181,7 @@ const FloatingActionsContent = () => {
         <div className="absolute -inset-2 bg-green-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
         <Button 
           size="icon" 
-          className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#25D366]/90 text-white shadow-lg border-none relative z-10 transition-transform active:scale-90"
+          className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#25D366]/90 text-white shadow-lg border-none relative z-10 transition-transform active:scale-90 animate-bounce"
         >
           <MessageCircle className="w-7 h-7" />
         </Button>
