@@ -164,7 +164,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
         <div className="relative">
           <div className="w-32 h-32 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex items-center justify-center p-2">
             <img
-              src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FFavicon%20naxde.webp?alt=media&token=e0a7a283-64ec-4e60-865c-eb12370ead3b"
+              src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FTaller%20de%20Tagua%2FLogos%2FLogo%20Tagua.png?alt=media&token=3293b33d-d3d3-4329-983b-7590eb20086b"
               alt="Logo Tagua"
               className="w-full h-full object-contain rounded-full"
             />
