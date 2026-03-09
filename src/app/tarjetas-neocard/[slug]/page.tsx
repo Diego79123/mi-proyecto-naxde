@@ -139,6 +139,7 @@ const SpaceBackground = ({ isOscar, isMockup }: { isOscar: boolean; isMockup: bo
 
 const TaguaTheme = ({ member }: { member: any }) => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   const galleryImages = [
     "https://images.unsplash.com/photo-1611486212335-1921f7070523?q=80&w=800",
@@ -150,11 +151,13 @@ const TaguaTheme = ({ member }: { member: any }) => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-y-auto font-serif pb-32 no-scrollbar scroll-smooth">
+    <div className="h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-hidden font-serif no-scrollbar">
+      {/* Botón de identificación opcional en la parte superior */}
       <div className="absolute top-6 left-6 w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white text-xs font-bold border border-white/10 z-20 font-sans">
         N
       </div>
 
+      {/* Social Sidebar pegado a la izquierda con efecto glass */}
       <div className="fixed left-0 top-1/2 -translate-y-1/2 flex flex-col gap-4 p-3 bg-[#E8E2D2]/60 backdrop-blur-md border-y border-r border-white/20 rounded-r-2xl shadow-xl z-40">
         <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
           <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -164,85 +167,41 @@ const TaguaTheme = ({ member }: { member: any }) => {
         </a>
       </div>
 
-      <div className="mt-12 mb-8 relative">
-        <div className="w-32 h-32 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex items-center justify-center p-2">
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FFavicon%20naxde.webp?alt=media&token=e0a7a283-64ec-4e60-865c-eb12370ead3b"
-            alt="Logo Tagua"
-            className="w-full h-full object-contain rounded-full"
-          />
-        </div>
-      </div>
-
-      <div className="text-center space-y-2 mb-10">
-        <p className="text-[10px] font-sans font-black uppercase tracking-[0.5em] opacity-60">Taller de Tagua</p>
-        <h1 className="text-4xl font-black tracking-tight leading-none">Bonilla & Vergara</h1>
-      </div>
-
-      <div className="w-full max-w-lg px-6 relative mb-20">
-        <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
-          <img
-            src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000"
-            alt="Taller de Tagua Shop"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/5" />
-        </div>
-      </div>
-
-      <section className="w-full max-w-5xl px-6 mb-24 space-y-12">
-        <h2 className="text-4xl md:text-5xl font-black text-center tracking-tight">Visítanos y Contáctanos</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-          <div className="bg-white/40 backdrop-blur-sm p-8 md:p-10 rounded-[3rem] shadow-xl border border-white/20 flex flex-col">
-            <div className="flex items-start gap-6 mb-12">
-              <div className="w-14 h-14 rounded-2xl bg-[#E8E2D2] flex items-center justify-center shrink-0 shadow-sm">
-                <MapPin className="w-7 h-7 text-[#4A3728]" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-black">Ubicación</h3>
-                <p className="text-lg opacity-70 leading-relaxed font-sans font-medium">Vereda Funza, Tinjacá, Boyacá</p>
-              </div>
-            </div>
-            
-            <div className="mt-auto">
-              <button 
-                onClick={() => window.open(MAPS_URL, '_blank')}
-                className="w-full h-16 bg-[#B8860B] hover:bg-[#966F06] text-white rounded-2xl font-sans font-black text-lg transition-all shadow-lg flex items-center justify-center gap-3 group"
-              >
-                Ver en Maps
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-white/40 backdrop-blur-sm p-8 md:p-10 rounded-[3rem] shadow-xl border border-white/20 space-y-8 flex flex-col">
-            <h3 className="text-2xl font-black mb-4">Canales Directos</h3>
-            
-            <div className="space-y-6 flex-1">
-              {[
-                { label: "LLAMAR AHORA", val: "310 242 3116", icon: Phone },
-                { label: "LLAMAR AHORA", val: "310 885 0757", icon: Phone },
-                { label: "EMAIL", val: "bonillavergaratagua@hotmail.com", icon: Mail },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-6 group cursor-pointer" onClick={() => {
-                  if(item.icon === Phone) window.open(`tel:${item.val.replace(/\s/g, '')}`, '_self');
-                  else window.open(`mailto:${item.val}`, '_self');
-                }}>
-                  <div className="w-12 h-12 rounded-xl bg-[#E8E2D2] flex items-center justify-center shrink-0 group-hover:bg-[#B8860B] group-hover:text-white transition-colors">
-                    <item.icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-sans font-black uppercase tracking-[0.2em] opacity-40">{item.label}</p>
-                    <p className="text-base md:text-lg font-sans font-bold group-hover:text-[#B8860B] transition-colors break-all leading-tight">{item.val}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+      {/* Contenedor Principal: Sin scroll, centrado */}
+      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-lg px-6 gap-8 pb-32">
+        {/* Logotipo */}
+        <div className="relative">
+          <div className="w-32 h-32 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex items-center justify-center p-2">
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FFavicon%20naxde.webp?alt=media&token=e0a7a283-64ec-4e60-865c-eb12370ead3b"
+              alt="Logo Tagua"
+              className="w-full h-full object-contain rounded-full"
+            />
           </div>
         </div>
-      </section>
 
+        {/* Nombre de la Empresa */}
+        <div className="text-center space-y-2">
+          <p className="text-[10px] font-sans font-black uppercase tracking-[0.5em] opacity-60">Taller de Tagua</p>
+          <h1 className="text-4xl font-black tracking-tight leading-none">Bonilla & Vergara</h1>
+        </div>
+
+        {/* Imagen Principal */}
+        <div className="w-full relative">
+          <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
+            <img
+              src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000"
+              alt="Taller de Tagua Shop"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/5" />
+          </div>
+        </div>
+      </div>
+
+      {/* Modales Interactivos */}
       <AnimatePresence>
+        {/* Galería Modal */}
         {isGalleryOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8">
             <motion.div 
@@ -263,7 +222,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
               <header className="flex flex-col items-center mb-12 relative">
                 <button 
                   onClick={() => setIsGalleryOpen(false)}
-                  className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg shrink-0 z-10"
+                  className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -291,17 +250,104 @@ const TaguaTheme = ({ member }: { member: any }) => {
             </motion.div>
           </div>
         )}
+
+        {/* Contacto Modal */}
+        {isContactOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsContactOpen(false)}
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-4xl max-h-[85vh] bg-[#F5F1E6] rounded-[3rem] shadow-2xl overflow-y-auto no-scrollbar p-8 md:p-12 border border-white/20"
+            >
+              <header className="flex flex-col items-center mb-12 relative">
+                <button 
+                  onClick={() => setIsContactOpen(false)}
+                  className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <div className="space-y-4 text-center">
+                  <h2 className="text-4xl md:text-5xl font-black tracking-tight">Visítanos y Contáctanos</h2>
+                </div>
+              </header>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                {/* Tarjeta Ubicación */}
+                <div className="bg-white/40 backdrop-blur-sm p-8 md:p-10 rounded-[3rem] shadow-xl border border-white/20 flex flex-col">
+                  <div className="flex items-start gap-6 mb-12">
+                    <div className="w-14 h-14 rounded-2xl bg-[#E8E2D2] flex items-center justify-center shrink-0 shadow-sm">
+                      <MapPin className="w-7 h-7 text-[#4A3728]" />
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="text-2xl font-black">Ubicación</h3>
+                      <p className="text-lg opacity-70 leading-relaxed font-sans font-medium">Vereda Funza, Tinjacá, Boyacá</p>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-auto">
+                    <button 
+                      onClick={() => window.open(MAPS_URL, '_blank')}
+                      className="w-full h-16 bg-[#B8860B] hover:bg-[#966F06] text-white rounded-2xl font-sans font-black text-lg transition-all shadow-lg flex items-center justify-center gap-3 group"
+                    >
+                      Ver en Maps
+                    </button>
+                  </div>
+                </div>
+
+                {/* Tarjeta Canales Directos */}
+                <div className="bg-white/40 backdrop-blur-sm p-8 md:p-10 rounded-[3rem] shadow-xl border border-white/20 space-y-8 flex flex-col">
+                  <h3 className="text-2xl font-black mb-4">Canales Directos</h3>
+                  
+                  <div className="space-y-6 flex-1">
+                    {[
+                      { label: "LLAMAR AHORA", val: "310 242 3116", icon: Phone },
+                      { label: "LLAMAR AHORA", val: "310 885 0757", icon: Phone },
+                      { label: "EMAIL", val: "bonillavergaratagua@hotmail.com", icon: Mail },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-6 group cursor-pointer" onClick={() => {
+                        if(item.icon === Phone) window.open(`tel:${item.val.replace(/\s/g, '')}`, '_self');
+                        else window.open(`mailto:${item.val}`, '_self');
+                      }}>
+                        <div className="w-12 h-12 rounded-xl bg-[#E8E2D2] flex items-center justify-center shrink-0 group-hover:bg-[#B8860B] group-hover:text-white transition-colors">
+                          <item.icon className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="text-[10px] font-sans font-black uppercase tracking-[0.2em] opacity-40">{item.label}</p>
+                          <p className="text-base md:text-lg font-sans font-bold group-hover:text-[#B8860B] transition-colors break-all leading-tight">{item.val}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
       </AnimatePresence>
 
+      {/* Barra de Navegación Inferior */}
       <nav className="fixed bottom-0 left-0 right-0 h-24 bg-[#E8E2D2]/80 backdrop-blur-xl border-t border-[#DED8C8] flex items-center justify-around px-8 z-50">
-        <button className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group">
+        <button 
+          onClick={() => { setIsGalleryOpen(false); setIsContactOpen(false); }}
+          className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group"
+        >
           <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
             <Home className="w-6 h-6" />
           </div>
           <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Inicio</span>
         </button>
         <button 
-          onClick={() => setIsGalleryOpen(true)}
+          onClick={() => { setIsGalleryOpen(true); setIsContactOpen(false); }}
           className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group"
         >
           <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
@@ -309,7 +355,10 @@ const TaguaTheme = ({ member }: { member: any }) => {
           </div>
           <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Galería</span>
         </button>
-        <button className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group">
+        <button 
+          onClick={() => { setIsGalleryOpen(false); setIsContactOpen(true); }}
+          className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group"
+        >
           <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
             <Mail className="w-6 h-6" />
           </div>
