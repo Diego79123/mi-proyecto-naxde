@@ -139,13 +139,13 @@ const SpaceBackground = ({ isOscar, isMockup }: { isOscar: boolean; isMockup: bo
 // --- TAGUA THEME COMPONENT ---
 const TaguaTheme = ({ member }: { member: any }) => {
   return (
-    <div className="min-h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-hidden font-serif">
+    <div className="min-h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-y-auto font-serif pb-32 no-scrollbar scroll-smooth">
       {/* Top Left Circle "N" */}
       <div className="absolute top-6 left-6 w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white text-xs font-bold border border-white/10 z-20 font-sans">
         N
       </div>
 
-      {/* Social Floating Left Sidebar - Beige Glass Box (Pegado al borde) */}
+      {/* Social Floating Left Sidebar - Beige Glass Box (Totalmente pegado) */}
       <div className="fixed left-0 top-1/2 -translate-y-1/2 flex flex-col gap-4 p-3 bg-[#E8E2D2]/60 backdrop-blur-md border-y border-r border-white/20 rounded-r-2xl shadow-xl z-40">
         <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
           <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -173,7 +173,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
       </div>
 
       {/* Hero Image */}
-      <div className="w-full max-w-lg px-6 relative mb-32">
+      <div className="w-full max-w-lg px-6 relative mb-20">
         <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
           <img
             src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000"
@@ -184,7 +184,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
 
           {/* WhatsApp Floating */}
           <a
-            href={`https://wa.me/${member.whatsapp?.replace(/\D/g, '')}`}
+            href={`https://wa.me/573102423116`}
             target="_blank"
             className="absolute right-6 bottom-6 w-14 h-14 bg-[#25D366] rounded-full shadow-lg flex items-center justify-center text-white hover:scale-110 transition-transform z-10"
           >
@@ -192,6 +192,61 @@ const TaguaTheme = ({ member }: { member: any }) => {
           </a>
         </div>
       </div>
+
+      {/* SECCIÓN: Visítanos y Contáctanos */}
+      <section className="w-full max-w-5xl px-6 mb-24 space-y-12">
+        <h2 className="text-4xl md:text-5xl font-black text-center tracking-tight">Visítanos y Contáctanos</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+          {/* Card: Ubicación */}
+          <div className="bg-white/40 backdrop-blur-sm p-8 md:p-10 rounded-[3rem] shadow-xl border border-white/20 flex flex-col">
+            <div className="flex items-start gap-6 mb-12">
+              <div className="w-14 h-14 rounded-2xl bg-[#E8E2D2] flex items-center justify-center shrink-0 shadow-sm">
+                <MapPin className="w-7 h-7 text-[#4A3728]" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black">Ubicación</h3>
+                <p className="text-lg opacity-70 leading-relaxed font-sans font-medium">Vereda Funza, Tinjacá, Boyacá</p>
+              </div>
+            </div>
+            
+            <div className="mt-auto">
+              <button 
+                onClick={() => window.open(MAPS_URL, '_blank')}
+                className="w-full h-16 bg-[#B8860B] hover:bg-[#966F06] text-white rounded-2xl font-sans font-black text-lg transition-all shadow-lg flex items-center justify-center gap-3 group"
+              >
+                Ver en Maps
+              </button>
+            </div>
+          </div>
+
+          {/* Card: Canales Directos */}
+          <div className="bg-white/40 backdrop-blur-sm p-8 md:p-10 rounded-[3rem] shadow-xl border border-white/20 space-y-8 flex flex-col">
+            <h3 className="text-2xl font-black mb-4">Canales Directos</h3>
+            
+            <div className="space-y-6 flex-1">
+              {[
+                { label: "LLAMAR AHORA", val: "310 242 3116", icon: Phone },
+                { label: "LLAMAR AHORA", val: "310 885 0757", icon: Phone },
+                { label: "EMAIL", val: "bonillavergaratagua@hotmail.com", icon: Mail },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-6 group cursor-pointer" onClick={() => {
+                  if(item.icon === Phone) window.open(`tel:${item.val.replace(/\s/g, '')}`, '_self');
+                  else window.open(`mailto:${item.val}`, '_self');
+                }}>
+                  <div className="w-12 h-12 rounded-xl bg-[#E8E2D2] flex items-center justify-center shrink-0 group-hover:bg-[#B8860B] group-hover:text-white transition-colors">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-sans font-black uppercase tracking-[0.2em] opacity-40">{item.label}</p>
+                    <p className="text-base md:text-lg font-sans font-bold group-hover:text-[#B8860B] transition-colors break-all leading-tight">{item.val}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Bottom Nav */}
       <nav className="fixed bottom-0 left-0 right-0 h-24 bg-[#E8E2D2]/80 backdrop-blur-xl border-t border-[#DED8C8] flex items-center justify-around px-8 z-50">
@@ -273,9 +328,9 @@ function DigitalCardContent({ slug }: { slug: string }) {
           slug: 'bonilla-vergara',
           profileImageUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000',
           bio: 'Arte y tradición transformados en piezas únicas de tagua.',
-          phone: '3000000000',
-          email: 'contacto@tallertagua.com',
-          whatsapp: '3000000000'
+          phone: '3102423116',
+          email: 'bonillavergaratagua@hotmail.com',
+          whatsapp: '3102423116'
         });
       }
       setIsLoading(false);
