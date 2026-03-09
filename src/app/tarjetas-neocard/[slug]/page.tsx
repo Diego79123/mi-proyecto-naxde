@@ -1,21 +1,21 @@
 
 "use client"
 
-import React, { use, useState, useEffect, useRef } from 'react';
+import React, { use, useState, useEffect, useRef, Suspense } from 'react';
 import { useFirestore } from '@/firebase';
 import { collection, query, where, limit, getDocs } from 'firebase/firestore';
-import { 
-  Smartphone, 
-  Mail, 
-  Phone, 
-  Linkedin, 
-  MessageCircle, 
-  UserPlus, 
-  Zap, 
-  MapPin, 
-  Clock, 
-  Calendar as CalendarIcon, 
-  Trophy, 
+import {
+  Smartphone,
+  Mail,
+  Phone,
+  Linkedin,
+  MessageCircle,
+  UserPlus,
+  Zap,
+  MapPin,
+  Clock,
+  Calendar as CalendarIcon,
+  Trophy,
   Home,
   X,
   ExternalLink,
@@ -30,9 +30,9 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { 
-  Carousel, 
-  CarouselContent, 
+import {
+  Carousel,
+  CarouselContent,
   CarouselItem,
   type CarouselApi
 } from "@/components/ui/carousel";
@@ -58,7 +58,7 @@ const SpaceBackground = ({ isOscar, isMockup }: { isOscar: boolean; isMockup: bo
   const [gyro, setGyro] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (isMockup) return; // No inicializar efectos si es mockup
+    if (isMockup) return;
 
     const starCount = 160;
     const newStars = Array.from({ length: starCount }).map((_, i) => ({
@@ -101,23 +101,20 @@ const SpaceBackground = ({ isOscar, isMockup }: { isOscar: boolean; isMockup: bo
     };
   }, [isMockup]);
 
-  // Si es mockup, solo devolver el fondo azul sólido
   if (isMockup) {
     return <div className="fixed inset-0 bg-[#00001D] -z-10" />;
   }
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-[#00001D]">
-      <div 
+      <div
         className="absolute inset-0 overflow-hidden transition-transform duration-[500ms] ease-out"
         style={{ transform: `translate(${gyro.x * 10}px, ${gyro.y * 10}px)` }}
       >
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(0,0,0,1)_0%,rgba(88,28,135,0.2)_40%,rgba(0,0,0,1)_70%)] blur-[180px] rounded-full opacity-90" />
-        <div className="absolute top-[-10%] right-[-10%] w-[120%] h-[70%] bg-purple-900/10 blur-[150px] rounded-full opacity-60" />
-        <div className="absolute bottom-[-20%] left-[-10%] w-[100%] h-[80%] bg-purple-900/10 blur-[150px] rounded-full opacity-60" />
       </div>
-      
-      <div 
+
+      <div
         className="absolute inset-0 transition-transform duration-[700ms] ease-out"
         style={{ transform: `translate(${gyro.x * 20}px, ${gyro.y * 20}px)` }}
       >
@@ -135,29 +132,106 @@ const SpaceBackground = ({ isOscar, isMockup }: { isOscar: boolean; isMockup: bo
           />
         ))}
       </div>
+    </div>
+  );
+};
 
-      {shootingStars.map((ss) => (
-        <div
-          key={ss.id}
-          className="shooting-star absolute h-[1.5px] bg-gradient-to-r from-white/80 to-transparent opacity-0"
-          style={{
-            top: ss.top,
-            left: ss.left,
-            width: '280px',
-            animation: `shooting ${ss.duration} linear infinite`,
-            animationDelay: ss.delay
-          } as any}
-        />
-      ))}
+// --- TAGUA THEME COMPONENT ---
+const TaguaTheme = ({ member }: { member: any }) => {
+  return (
+    <div className="min-h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-hidden font-serif">
+      {/* Top Left Circle "N" */}
+      <div className="absolute top-6 left-6 w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white text-xs font-bold border border-white/10 z-20 font-sans">
+        N
+      </div>
+
+      {/* Profile Logo */}
+      <div className="mt-12 mb-8 relative">
+        <div className="w-32 h-32 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex items-center justify-center p-2">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FFavicon%20naxde.webp?alt=media&token=e0a7a283-64ec-4e60-865c-eb12370ead3b"
+            alt="Logo Tagua"
+            className="w-full h-full object-contain rounded-full"
+          />
+        </div>
+      </div>
+
+      {/* Titles */}
+      <div className="text-center space-y-2 mb-10">
+        <p className="text-[10px] font-sans font-black uppercase tracking-[0.5em] opacity-60">Taller de Tagua</p>
+        <h1 className="text-4xl font-black tracking-tight leading-none">Bonilla & Vergara</h1>
+      </div>
+
+      {/* Hero Image with Floating Icons */}
+      <div className="w-full max-w-lg px-6 relative mb-32">
+        <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
+          <img
+            src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000"
+            alt="Taller de Tagua Shop"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/5" />
+
+          {/* WhatsApp Floating */}
+          <a
+            href={`https://wa.me/${member.whatsapp?.replace(/\D/g, '')}`}
+            target="_blank"
+            className="absolute right-6 bottom-6 w-14 h-14 bg-[#25D366] rounded-full shadow-lg flex items-center justify-center text-white hover:scale-110 transition-transform z-10"
+          >
+            <MessageCircle className="w-8 h-8 fill-current" />
+          </a>
+        </div>
+
+        {/* Social Floating Left */}
+        <div className="absolute left-2 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-20">
+          <a href="#" className="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow-md flex items-center justify-center text-[#4A3728] hover:scale-110 transition-transform">
+            <Facebook className="w-5 h-5" />
+          </a>
+          <a href="#" className="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow-md flex items-center justify-center text-[#4A3728] hover:scale-110 transition-transform">
+            <Instagram className="w-5 h-5" />
+          </a>
+        </div>
+      </div>
+
+      {/* Bottom Nav */}
+      <nav className="fixed bottom-0 left-0 right-0 h-24 bg-[#E8E2D2]/80 backdrop-blur-xl border-t border-[#DED8C8] flex items-center justify-around px-8 z-50">
+        <button className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group">
+          <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
+            <Home className="w-6 h-6" />
+          </div>
+          <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Inicio</span>
+        </button>
+        <button className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group">
+          <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
+            <Smartphone className="w-6 h-6" />
+          </div>
+          <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Galería</span>
+        </button>
+        <button className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group">
+          <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
+            <Mail className="w-6 h-6" />
+          </div>
+          <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Contacto</span>
+        </button>
+      </nav>
     </div>
   );
 };
 
 export default function DigitalCardPage({ params }: DigitalCardPageProps) {
   const { slug } = use(params);
+
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#00001D]" />}>
+      <DigitalCardContent slug={slug} />
+    </Suspense>
+  );
+}
+
+function DigitalCardContent({ slug }: { slug: string }) {
   const searchParams = useSearchParams();
   const isMockup = searchParams?.get('mode') === 'mockup';
-  
+
   const db = useFirestore();
   const [activeSection, setActiveSection] = useState<SectionType>('inicio');
   const [member, setMember] = useState<any>(null);
@@ -167,7 +241,6 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
   const [count, setCount] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // States for swipe-to-close interaction
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const startY = useRef(0);
@@ -178,7 +251,7 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
       setIsLoading(true);
       const q = query(collection(db, 'team_members'), where('slug', '==', slug), where('isActive', '==', true), limit(1));
       const snapshot = await getDocs(q);
-      
+
       if (!snapshot.empty) {
         setMember({ ...snapshot.docs[0].data(), id: snapshot.docs[0].id });
       } else if (slug === 'oscar-rivera') {
@@ -193,29 +266,35 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
           whatsapp: '3194254196',
           address: 'Cra. 103b #152c-10, Bogotá'
         });
+      } else if (slug === 'bonilla-vergara' || slug === 'elena-petrova') {
+        setMember({
+          name: 'Bonilla & Vergara',
+          role: 'Taller de Tagua',
+          slug: 'bonilla-vergara',
+          profileImageUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000',
+          bio: 'Arte y tradición transformados en piezas únicas de tagua.',
+          phone: '3000000000',
+          email: 'contacto@tallertagua.com',
+          whatsapp: '3000000000'
+        });
       }
       setIsLoading(false);
     }
     fetchMember();
   }, [db, slug]);
 
+  const isTagua = slug === 'bonilla-vergara' || slug === 'elena-petrova';
+
   useEffect(() => {
     if (!api) return;
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap());
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
+    api.on("select", () => setCurrent(api.selectedScrollSnap()));
   }, [api]);
 
   useEffect(() => {
     if (!api || isHovered) return;
-
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, 5000);
-
+    const interval = setInterval(() => api.scrollNext(), 5000);
     return () => clearInterval(interval);
   }, [api, isHovered]);
 
@@ -228,17 +307,13 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
   const onPointerMove = (e: React.PointerEvent) => {
     if (!isDragging) return;
     const deltaY = e.clientY - startY.current;
-    if (deltaY > 0) {
-      setDragY(deltaY);
-    }
+    if (deltaY > 0) setDragY(deltaY);
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
     if (!isDragging) return;
     setIsDragging(false);
-    if (dragY > 150) {
-      setActiveSection('inicio');
-    }
+    if (dragY > 150) setActiveSection('inicio');
     setDragY(0);
   };
 
@@ -260,6 +335,10 @@ export default function DigitalCardPage({ params }: DigitalCardPageProps) {
         </Link>
       </div>
     );
+  }
+
+  if (isTagua) {
+    return <TaguaTheme member={member} />;
   }
 
   const handleSaveContact = () => {
@@ -290,17 +369,11 @@ END:VCARD`;
   ];
 
   const handleNavClick = (id: string) => {
-    if (id === 'llamar') {
-      window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self');
-    } else if (id === 'ubicacion') {
-      setActiveSection('ubicacion');
-    } else if (id === 'guardar') {
-      handleSaveContact();
-    } else if (id === 'email') {
-      window.open(`mailto:${member.email}`, '_self');
-    } else if (id === 'logros') {
-      setActiveSection('logros');
-    }
+    if (id === 'llamar') window.open(`tel:${member.phone?.replace(/\s/g, '')}`, '_self');
+    else if (id === 'ubicacion') setActiveSection('ubicacion');
+    else if (id === 'guardar') handleSaveContact();
+    else if (id === 'email') window.open(`mailto:${member.email}`, '_self');
+    else if (id === 'logros') setActiveSection('logros');
   };
 
   const navItems = [
@@ -349,7 +422,7 @@ END:VCARD`;
             <Phone className="w-4 h-4 text-white/40 group-hover:text-primary transition-colors" />
             <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Llamar</span>
           </Button>
-          <Button className="h-12 bg-primary hover:bg-primary/90 text-white rounded-[1.5rem] gap-2 neon-accent shadow-[0_0_15px_rgba(248,0,55,0.4)]" onClick={() => window.open(`https://wa.me/573194254196`, '_blank')}>
+          <Button className="h-12 bg-primary hover:bg-primary/90 text-white rounded-[1.5rem] gap-2 neon-accent shadow-[0_0_15px_rgba(248,0,55,0.4)]" onClick={() => window.open(`https://wa.me/${member.whatsapp?.replace(/\D/g, '')}`, '_blank')}>
             <MessageCircle className="w-4 h-4" />
             <span className="text-[9px] font-bold uppercase tracking-[0.2em]">WhatsApp</span>
           </Button>
@@ -368,16 +441,8 @@ END:VCARD`;
             <div className="h-px w-16 bg-primary/30" />
             <span className="text-[9px] font-bold uppercase tracking-[0.5em] text-primary">Nuestros Servicios</span>
           </div>
-          
-          <div 
-            className="relative w-full"
-            style={{ 
-              maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
-              WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
-            }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
+
+          <div className="relative w-full" style={{ maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)' }} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <Carousel setApi={setApi} className="w-full" opts={{ loop: true, align: "center" }}>
               <CarouselContent className="-ml-4">
                 {advisorServices.map((service, idx) => (
@@ -399,46 +464,25 @@ END:VCARD`;
 
           <div className="flex justify-center items-center gap-1.5">
             {Array.from({ length: count }).map((_, i) => (
-              <div 
-                key={i} 
-                className={cn(
-                  "h-1 rounded-full transition-all duration-[300ms]",
-                  current === i ? "w-4 bg-primary" : "w-1 bg-white/20"
-                )}
-              />
+              <div key={i} className={cn("h-1 rounded-full transition-all duration-[300ms]", current === i ? "w-4 bg-primary" : "w-1 bg-white/20")} />
             ))}
           </div>
         </section>
       </div>
 
       {['ubicacion', 'logros'].map((section) => (
-        <div key={section} 
-          style={{ 
-            transform: activeSection === section 
-              ? `translateY(${dragY}px)` 
-              : 'translateY(100%)',
-            transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)'
-          }}
-          className={cn(
-            "fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)] touch-none",
-            activeSection === section ? "h-[75vh]" : "h-0"
-          )}
+        <div key={section}
+          style={{ transform: activeSection === section ? `translateY(${dragY}px)` : 'translateY(100%)', transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)' }}
+          className={cn("fixed inset-x-0 bottom-0 z-[100] bg-black/40 backdrop-blur-[45px] border-t border-white/10 rounded-t-[3.5rem] flex flex-col shadow-[0_-25px_60px_rgba(0,0,0,0.7)] touch-none", activeSection === section ? "h-[75vh]" : "h-0")}
         >
-          <div 
-            className="w-full h-14 flex items-center justify-center cursor-grab active:cursor-grabbing"
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-          >
+          <div className="w-full h-14 flex items-center justify-center cursor-grab active:cursor-grabbing" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}>
             <div className="w-16 h-1.5 bg-white/30 rounded-full" />
           </div>
 
           <header className="h-20 flex items-center justify-between px-10">
             <div className="flex items-center gap-4">
               <Zap className="w-5 h-5 text-primary" />
-              <span className="font-headline font-bold text-xl uppercase tracking-[0.4em] text-white">
-                {section === 'ubicacion' ? 'Ubicación' : 'Logros'}
-              </span>
+              <span className="font-headline font-bold text-xl uppercase tracking-[0.4em] text-white">{section === 'ubicacion' ? 'Ubicación' : 'Logros'}</span>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setActiveSection('inicio')} className="w-12 h-12 rounded-full text-white/30 hover:text-white transition-colors">
               <X className="w-7 h-7" />
@@ -457,12 +501,10 @@ END:VCARD`;
                   <p className="text-white/50 text-lg max-w-xs mx-auto leading-relaxed">Bogotá, Colombia. Cra. 103b #152c-10.</p>
                 </div>
                 <Button className="w-full h-20 bg-primary text-white rounded-[2.5rem] text-xl font-bold neon-accent gap-4 hover:scale-[1.02] transition-transform" onClick={() => window.open(MAPS_URL, '_blank')}>
-                  Ir con Google Maps
-                  <ExternalLink className="w-6 h-6" />
+                  Ir con Google Maps <ExternalLink className="w-6 h-6" />
                 </Button>
               </div>
             )}
-            
             {section === 'logros' && (
               <div className="grid gap-6 pt-4">
                 <div className="p-8 rounded-[3rem] bg-white/[0.05] border border-white/10 flex flex-col gap-4 group hover:bg-white/[0.1] transition-all">
@@ -474,29 +516,6 @@ END:VCARD`;
                   </div>
                   <p className="text-sm text-white/50 leading-relaxed font-medium">Transformando la complejidad en soluciones empresariales escalables mediante visión técnica y estratégica.</p>
                 </div>
-
-                <div className="p-8 rounded-[3rem] bg-white/[0.05] border border-white/10 flex flex-col gap-4 group hover:bg-white/[0.1] transition-all">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                      <Trophy className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-                    </div>
-                    <h4 className="font-bold text-xl">Trayectoria Académica</h4>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-sm text-white/50 leading-relaxed font-medium">• Graduado en Administración de Empresas en la universidad Uniminuto.</p>
-                    <p className="text-sm text-white/50 leading-relaxed font-medium">• Ingeniería en Gestión Empresarial | Universidad de Chihuahua, Mexico.</p>
-                  </div>
-                </div>
-
-                <div className="p-8 rounded-[3rem] bg-white/[0.05] border border-white/10 flex flex-col gap-4 group hover:bg-white/[0.1] transition-all">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                      <Users className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-                    </div>
-                    <h4 className="font-bold text-xl">Liderazgo de Equipos</h4>
-                  </div>
-                  <p className="text-sm text-white/50 leading-relaxed font-medium">Experto apasionado por la eficiencia operativa y el liderazgo inspirador para el cumplimiento de objetivos.</p>
-                </div>
               </div>
             )}
           </div>
@@ -507,24 +526,12 @@ END:VCARD`;
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
           return (
-            <button 
-              key={item.id} 
-              onClick={() => handleNavClick(item.id)} 
-              className={cn(
-                "flex flex-col items-center justify-center flex-1 transition-all h-full relative group",
-                isActive ? "text-primary" : "text-white/30 hover:text-white/60"
-              )}
-            >
-              <div className={cn(
-                "p-2.5 rounded-[1.5rem] transition-all duration-500",
-                isActive ? "bg-primary/20 shadow-glow-accent scale-110" : "group-hover:bg-white/5"
-              )}>
+            <button key={item.id} onClick={() => handleNavClick(item.id)} className={cn("flex flex-col items-center justify-center flex-1 transition-all h-full relative group", isActive ? "text-primary" : "text-white/30 hover:text-white/60")}>
+              <div className={cn("p-2.5 rounded-[1.5rem] transition-all duration-500", isActive ? "bg-primary/20 shadow-glow-accent scale-110" : "group-hover:bg-white/5")}>
                 <item.icon className="w-6 h-6" />
               </div>
               <span className="text-[8px] font-bold uppercase tracking-[0.3em] mt-1.5 transition-all opacity-80">{item.label}</span>
-              {isActive && (
-                <div className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-primary shadow-glow-accent" />
-              )}
+              {isActive && <div className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-primary shadow-glow-accent" />}
             </button>
           );
         })}

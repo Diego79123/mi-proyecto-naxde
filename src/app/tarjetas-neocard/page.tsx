@@ -5,18 +5,18 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
-import { 
-  Smartphone, 
-  Zap, 
-  ArrowRight, 
-  Check, 
-  ShieldCheck, 
-  BarChart3, 
-  Settings2, 
-  Globe, 
-  Cpu, 
-  Users, 
-  Rocket, 
+import {
+  Smartphone,
+  Zap,
+  ArrowRight,
+  Check,
+  ShieldCheck,
+  BarChart3,
+  Settings2,
+  Globe,
+  Cpu,
+  Users,
+  Rocket,
   Leaf,
   Layers,
   Sparkles,
@@ -36,35 +36,35 @@ import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, query, where } from 'firebase/firestore';
 
 const floatingBenefits = [
-  { 
-    id: 1, 
-    title: "Networking Pro", 
-    desc: "Conecta instantáneamente con un solo toque NFC.", 
-    icon: Zap, 
+  {
+    id: 1,
+    title: "Networking Pro",
+    desc: "Conecta instantáneamente con un solo toque NFC.",
+    icon: Zap,
     pos: "top-[10%] left-[-15%] md:left-[-25%]",
     line: "right-0 top-1/2 w-20 md:w-40 h-px bg-gradient-to-r from-primary to-transparent"
   },
-  { 
-    id: 2, 
-    title: "Eco-Friendly", 
-    desc: "Reduce el uso de tarjetas físicas y el CO2.", 
-    icon: Leaf, 
+  {
+    id: 2,
+    title: "Eco-Friendly",
+    desc: "Reduce el uso de tarjetas físicas y el CO2.",
+    icon: Leaf,
     pos: "top-[25%] right-[-15%] md:right-[-25%]",
     line: "left-0 top-1/2 w-20 md:w-40 h-px bg-gradient-to-l from-primary to-transparent"
   },
-  { 
-    id: 3, 
-    title: "Control Total", 
-    desc: "Actualiza tu perfil en tiempo real 24/7.", 
-    icon: Settings2, 
+  {
+    id: 3,
+    title: "Control Total",
+    desc: "Actualiza tu perfil en tiempo real 24/7.",
+    icon: Settings2,
     pos: "bottom-[25%] left-[-15%] md:left-[-25%]",
     line: "right-0 top-1/2 w-20 md:w-40 h-px bg-gradient-to-r from-primary to-transparent"
   },
-  { 
-    id: 4, 
-    title: "Métricas", 
-    desc: "Analiza interacciones en tiempo real.", 
-    icon: BarChart3, 
+  {
+    id: 4,
+    title: "Métricas",
+    desc: "Analiza interacciones en tiempo real.",
+    icon: BarChart3,
     pos: "bottom-[10%] right-[-15%] md:right-[-25%]",
     line: "left-0 top-1/2 w-20 md:w-40 h-px bg-gradient-to-l from-primary to-transparent"
   }
@@ -158,7 +158,6 @@ export default function NeocardLanding() {
 
   const { data: members, isLoading: isMembersLoading } = useCollection(membersRef);
 
-  // Perfiles de referencia (Mock) que se muestran si no hay en la DB
   const mockMembers = [
     {
       id: 'oscar-rivera',
@@ -172,14 +171,14 @@ export default function NeocardLanding() {
       whatsapp: '573184254198'
     },
     {
-      id: 'elena-petrova',
-      name: 'Elena Petrova',
-      role: 'CTO & Software Architect',
-      slug: 'elena-petrova',
-      profileImageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000',
-      bio: 'Arquitecturas cloud de alto nivel y seguridad de datos para empresas globales.',
+      id: 'bonilla-vergara',
+      name: 'Bonilla & Vergara',
+      role: 'Taller de Tagua',
+      slug: 'bonilla-vergara',
+      profileImageUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1000',
+      bio: 'Arte y tradición transformados en piezas únicas de tagua. Identidad artesanal con visión digital.',
       linkedinUrl: '#',
-      email: 'elena@naxde.com',
+      email: 'contacto@tallertagua.com',
       whatsapp: '573000000000'
     },
     {
@@ -205,10 +204,9 @@ export default function NeocardLanding() {
     <main className="min-h-screen bg-[#00001D] text-white font-body selection:bg-primary/30 overflow-x-hidden">
       <Header />
 
-      {/* SECTION 1: HERO INTERACTIVO */}
       <section className="relative pt-32 md:pt-48 pb-24 md:pb-40 px-6 md:px-12 lg:px-16">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle,rgba(82,0,248,0.15)_0%,transparent_70%)] pointer-events-none" />
-        
+
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center space-y-8 mb-20 md:mb-32">
             <div className={cn(
@@ -218,14 +216,14 @@ export default function NeocardLanding() {
               <Sparkles className="w-4 h-4 text-primary animate-pulse" />
               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Tecnología de Contacto Pro</span>
             </div>
-            
+
             <h1 className={cn(
               "text-5xl md:text-8xl lg:text-[10rem] font-headline font-black tracking-tighter leading-[0.85] uppercase transition-all duration-1000 delay-300",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             )}>
               EL FUTURO <br /> ES <span className="text-primary italic">NEOCARD</span>.
             </h1>
-            
+
             <p className={cn(
               "text-xl md:text-2xl text-white/40 max-w-2xl mx-auto font-medium transition-all duration-1000 delay-500",
               isVisible ? "opacity-100" : "opacity-0"
@@ -234,12 +232,10 @@ export default function NeocardLanding() {
             </p>
           </div>
 
-          {/* Smartphone Mockup Central con Beneficios Flotantes */}
           <div className="relative max-w-md mx-auto h-[600px] md:h-[750px] flex items-center justify-center">
-            {/* Beneficios Flotantes */}
             {floatingBenefits.map((b, idx) => (
-              <div 
-                key={b.id} 
+              <div
+                key={b.id}
                 className={cn(
                   "absolute z-30 w-40 md:w-56 p-4 rounded-2xl glass-card border-white/10 hidden sm:block transition-all duration-1000",
                   b.pos,
@@ -254,42 +250,35 @@ export default function NeocardLanding() {
                   <h4 className="text-[10px] font-black uppercase tracking-widest">{b.title}</h4>
                 </div>
                 <p className="text-[9px] text-white/40 font-medium leading-relaxed">{b.desc}</p>
-                {/* Línea de conexión */}
                 <div className={cn("absolute pointer-events-none", b.line)} />
               </div>
             ))}
 
-            {/* Smartphone Central */}
             <div className={cn(
               "relative w-[280px] h-[580px] md:w-[320px] md:h-[660px] bg-black rounded-[3.5rem] border-[10px] border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-1000 delay-700",
               isVisible ? "scale-100 opacity-100" : "scale-90 opacity-0"
             )}>
-              {/* Dynamic Island */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-2xl z-50 flex items-center justify-center gap-2">
                 <div className="w-8 h-1 bg-white/5 rounded-full" />
                 <div className="w-2 h-2 bg-white/10 rounded-full" />
               </div>
 
-              {/* Iframe Content (Mockup del perfil de Oscar) */}
               <div className="absolute inset-0 rounded-[2.8rem] overflow-hidden bg-[#00001D]">
-                <iframe 
-                  src="/tarjetas-neocard/oscar-rivera?mode=mockup" 
+                <iframe
+                  src="/tarjetas-neocard/oscar-rivera?mode=mockup"
                   className="w-full h-full border-none no-scrollbar pointer-events-auto"
                   title="NeoCard Preview"
                 />
               </div>
-              
-              {/* Reflejos de cristal */}
+
               <div className="absolute inset-0 pointer-events-none z-40 bg-gradient-to-tr from-white/[0.03] via-transparent to-white/[0.05]" />
             </div>
 
-            {/* Brillo de fondo central */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] -z-10 animate-pulse" />
           </div>
         </div>
       </section>
 
-      {/* SECTION 2: ECOSISTEMA Y BENEFICIOS */}
       <section className="py-24 md:py-40 px-6 md:px-12 lg:px-16 bg-white/[0.02] border-y border-white/5 relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-20">
@@ -322,10 +311,9 @@ export default function NeocardLanding() {
         </div>
       </section>
 
-      {/* SECTION: SHOWCASE DE TRABAJOS REALIZADOS */}
       <section className="py-24 md:py-40 px-6 md:px-12 lg:px-16 relative overflow-hidden bg-[#00001D]">
         <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(82,0,248,0.05)_0%,transparent_70%)] pointer-events-none" />
-        
+
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center space-y-6 mb-20">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md">
@@ -348,13 +336,13 @@ export default function NeocardLanding() {
               ))
             ) : (
               displayMembers.map((member) => (
-                <div 
-                  key={member.id} 
+                <div
+                  key={member.id}
                   className="group relative h-[550px] rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-primary/30 transition-all duration-700 shadow-2xl"
                 >
                   <div className="absolute inset-0 z-0">
-                    <img 
-                      src={member.profileImageUrl} 
+                    <img
+                      src={member.profileImageUrl}
                       alt={member.name}
                       className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700"
                     />
@@ -414,7 +402,7 @@ export default function NeocardLanding() {
             )}
           </div>
 
-          <div className="mt-2 flex justify-center pb-10">
+          <div className="mt-12 flex justify-center pb-10">
             <Link href="/proyectos">
               <Button className="h-14 px-10 bg-secondary hover:bg-secondary/90 text-white rounded-2xl font-bold gap-3 transition-all group shadow-glow-complement border-none">
                 Ver más proyectos
@@ -425,10 +413,9 @@ export default function NeocardLanding() {
         </div>
       </section>
 
-      {/* SECTION 3: PLANES NEOCARD */}
       <section id="planes" className="py-24 md:py-40 px-6 md:px-12 lg:px-16 relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-secondary/5 rounded-full blur-[150px] -z-10" />
-        
+
         <div className="max-w-7xl mx-auto text-center space-y-24">
           <div className="space-y-6">
             <h2 className="text-5xl md:text-8xl font-headline font-black text-white leading-none tracking-tighter uppercase">
@@ -450,7 +437,7 @@ export default function NeocardLanding() {
                     RECOMENDADO
                   </Badge>
                 )}
-                
+
                 <CardHeader className="p-0 mb-10">
                   <CardTitle className="text-3xl font-headline font-black text-white uppercase tracking-tight mb-2">
                     {plan.name}
@@ -496,10 +483,9 @@ export default function NeocardLanding() {
         </div>
       </section>
 
-      {/* SECTION FINAL: CONVERSIÓN */}
       <section className="py-24 md:py-40 px-6 md:px-12 lg:px-16 relative overflow-hidden text-center bg-[#F0F4FF]">
         <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-        
+
         <div className="max-w-5xl mx-auto space-y-12 relative z-10">
           <div className="space-y-6">
             <h2 className="text-5xl md:text-8xl font-headline font-black text-black leading-[0.9] tracking-tighter uppercase">
