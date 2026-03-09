@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { MessageCircle, Sparkles, Send, Bot, User, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,16 +27,6 @@ const CANDY_AVATAR_URL = "https://firebasestorage.googleapis.com/v0/b/studio-492
 const FloatingActionsContent = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  
-  // 1. Estado para asegurar que el componente solo se renderice en el cliente
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isMockup = searchParams?.get('mode') === 'mockup';
-  const isTaguaPage = pathname?.includes('/tarjetas-neocard/bonilla-vergara');
   
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -70,8 +61,10 @@ const FloatingActionsContent = () => {
     }
   };
 
-  // 2. Si no ha montado o estamos en modo mockup, no renderizamos nada
-  if (!mounted || isMockup) return null;
+  const isMockup = searchParams.get('mode') === 'mockup';
+  const isTaguaPage = pathname.includes('/tarjetas-neocard/bonilla-vergara');
+
+  if (isMockup) return null;
 
   return (
     <div className="fixed bottom-24 right-6 md:bottom-10 md:right-10 z-[100] flex flex-col gap-4">
@@ -202,10 +195,14 @@ const FloatingActionsContent = () => {
   );
 };
 
+const DynamicFloatingActions = dynamic(() => Promise.resolve(FloatingActionsContent), {
+  ssr: false,
+});
+
 export const FloatingActions = () => {
   return (
     <Suspense fallback={null}>
-      <FloatingActionsContent />
+      <DynamicFloatingActions />
     </Suspense>
   );
 };
