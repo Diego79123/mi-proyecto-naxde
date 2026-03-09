@@ -145,6 +145,16 @@ const TaguaTheme = ({ member }: { member: any }) => {
         N
       </div>
 
+      {/* Social Floating Left Sidebar - Beige Glass Box */}
+      <div className="fixed left-4 top-1/2 -translate-y-1/2 flex flex-col gap-4 p-3 bg-[#E8E2D2]/60 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl z-40">
+        <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
+          <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
+        </a>
+        <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
+          <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
+        </a>
+      </div>
+
       {/* Profile Logo */}
       <div className="mt-12 mb-8 relative">
         <div className="w-32 h-32 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex items-center justify-center p-2">
@@ -162,7 +172,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
         <h1 className="text-4xl font-black tracking-tight leading-none">Bonilla & Vergara</h1>
       </div>
 
-      {/* Hero Image with Floating Icons */}
+      {/* Hero Image */}
       <div className="w-full max-w-lg px-6 relative mb-32">
         <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
           <img
@@ -179,16 +189,6 @@ const TaguaTheme = ({ member }: { member: any }) => {
             className="absolute right-6 bottom-6 w-14 h-14 bg-[#25D366] rounded-full shadow-lg flex items-center justify-center text-white hover:scale-110 transition-transform z-10"
           >
             <MessageCircle className="w-8 h-8 fill-current" />
-          </a>
-        </div>
-
-        {/* Social Floating Left */}
-        <div className="absolute left-2 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-20">
-          <a href="#" className="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow-md flex items-center justify-center text-[#4A3728] hover:scale-110 transition-transform">
-            <Facebook className="w-5 h-5" />
-          </a>
-          <a href="#" className="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow-md flex items-center justify-center text-[#4A3728] hover:scale-110 transition-transform">
-            <Instagram className="w-5 h-5" />
           </a>
         </div>
       </div>
