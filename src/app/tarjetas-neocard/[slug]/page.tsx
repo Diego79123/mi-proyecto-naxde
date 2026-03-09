@@ -172,13 +172,13 @@ const TaguaTheme = ({ member }: { member: any }) => {
 
         {/* Nombre de la Empresa + Social Sidebar Wrapper */}
         <div className="w-full relative py-2">
-          {/* Social Sidebar pegado a la izquierda a la altura del nombre */}
-          <div className="absolute left-[-1.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-4 p-3 bg-[#E8E2D2]/60 backdrop-blur-md border-y border-r border-white/20 rounded-r-2xl shadow-xl z-40">
-            <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
-              <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          {/* Social Sidebar pegado a la izquierda a la altura del nombre - Tamaño reducido */}
+          <div className="absolute left-[-1.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-2 p-2 bg-[#E8E2D2]/60 backdrop-blur-md border-y border-r border-white/20 rounded-r-xl shadow-xl z-40">
+            <a href="#" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
+              <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform" />
             </a>
-            <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
-              <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
+            <a href="#" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
+              <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
             </a>
           </div>
 
@@ -667,4 +667,4 @@ END:VCARD`;
       </nav>
     </main>
   );
-};
+}
