@@ -164,7 +164,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
   };
 
   return (
-    <div className="h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-hidden font-serif no-scrollbar">
+    <main className="h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-hidden font-serif no-scrollbar">
       {/* Botón de identificación opcional en la parte superior */}
       <div className="absolute top-6 left-6 w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white text-xs font-bold border border-white/10 z-20 font-sans">
         N
@@ -234,12 +234,12 @@ const TaguaTheme = ({ member }: { member: any }) => {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full max-w-4xl max-h-[85vh] bg-[#F5F1E6] rounded-[3rem] shadow-2xl overflow-y-auto no-scrollbar p-8 md:p-12 border border-white/20"
             >
-              <header className="flex flex-col items-center mb-12 relative">
+              <header className="flex flex-col items-center mb-6 relative">
                 <button
                   onClick={() => setIsGalleryOpen(false)}
-                  className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
+                  className="absolute right-0 top-0 w-10 h-10 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 </button>
                 <div className="space-y-4 text-center px-12">
                   <h2 className="text-4xl md:text-5xl font-black tracking-tight">Nuestra Galería</h2>
@@ -287,9 +287,9 @@ const TaguaTheme = ({ member }: { member: any }) => {
               <header className="flex flex-col items-center mb-8 relative">
                 <button
                   onClick={() => setIsContactOpen(false)}
-                  className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
+                  className="absolute right-0 top-0 w-10 h-10 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 </button>
                 <div className="space-y-4 text-center">
                   <h2 className="text-4xl font-black tracking-tight">Canales Directos</h2>
@@ -343,9 +343,9 @@ const TaguaTheme = ({ member }: { member: any }) => {
               <header className="flex flex-col items-center mb-8 relative">
                 <button
                   onClick={() => setIsLocationOpen(false)}
-                  className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
+                  className="absolute right-0 top-0 w-10 h-10 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 </button>
                 <div className="space-y-4 text-center">
                   <h2 className="text-4xl font-black tracking-tight">Nuestra Ubicación</h2>
@@ -405,7 +405,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
           <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Ubicación</span>
         </button>
       </nav>
-    </div>
+    </main>
   );
 };
 
