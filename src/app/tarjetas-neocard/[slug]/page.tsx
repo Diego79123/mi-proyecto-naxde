@@ -219,15 +219,15 @@ const TaguaTheme = ({ member }: { member: any }) => {
         {/* Galería Modal */}
         {isGalleryOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsGalleryOpen(false)}
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -235,7 +235,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
               className="relative w-full max-w-4xl max-h-[85vh] bg-[#F5F1E6] rounded-[3rem] shadow-2xl overflow-y-auto no-scrollbar p-8 md:p-12 border border-white/20"
             >
               <header className="flex flex-col items-center mb-12 relative">
-                <button 
+                <button
                   onClick={() => setIsGalleryOpen(false)}
                   className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
                 >
@@ -251,7 +251,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {galleryImages.map((src, i) => (
-                  <motion.div 
+                  <motion.div
                     key={i}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -269,15 +269,15 @@ const TaguaTheme = ({ member }: { member: any }) => {
         {/* Contacto Modal */}
         {isContactOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsContactOpen(false)}
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -285,7 +285,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
               className="relative w-full max-w-lg bg-[#F5F1E6] rounded-[3rem] shadow-2xl overflow-y-auto no-scrollbar p-8 md:p-12 border border-white/20"
             >
               <header className="flex flex-col items-center mb-8 relative">
-                <button 
+                <button
                   onClick={() => setIsContactOpen(false)}
                   className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
                 >
@@ -325,15 +325,15 @@ const TaguaTheme = ({ member }: { member: any }) => {
         {/* Ubicación Modal */}
         {isLocationOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsLocationOpen(false)}
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -341,7 +341,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
               className="relative w-full max-w-lg bg-[#F5F1E6] rounded-[3rem] shadow-2xl overflow-y-auto no-scrollbar p-8 md:p-12 border border-white/20"
             >
               <header className="flex flex-col items-center mb-8 relative">
-                <button 
+                <button
                   onClick={() => setIsLocationOpen(false)}
                   className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
                 >
@@ -362,8 +362,8 @@ const TaguaTheme = ({ member }: { member: any }) => {
                     <p className="text-lg opacity-70 leading-relaxed font-sans font-medium">Vereda Funza, Tinjacá, Boyacá</p>
                   </div>
                 </div>
-                
-                <button 
+
+                <button
                   onClick={() => window.open(MAPS_URL, '_blank')}
                   className="w-full h-16 bg-[#B8860B] hover:bg-[#966F06] text-white rounded-2xl font-sans font-black text-lg transition-all shadow-lg flex items-center justify-center gap-3 group"
                 >
@@ -377,7 +377,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
 
       {/* Barra de Navegación Inferior */}
       <nav className="fixed bottom-0 left-0 right-0 h-24 bg-[#E8E2D2]/80 backdrop-blur-xl border-t border-[#DED8C8] flex items-center justify-around px-8 z-50">
-        <button 
+        <button
           onClick={() => { closeModals(); setIsGalleryOpen(true); }}
           className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group"
         >
@@ -386,7 +386,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
           </div>
           <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Galería</span>
         </button>
-        <button 
+        <button
           onClick={() => { closeModals(); setIsContactOpen(true); }}
           className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group"
         >
@@ -395,7 +395,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
           </div>
           <span className="text-[9px] font-sans font-bold uppercase tracking-widest">Contacto</span>
         </button>
-        <button 
+        <button
           onClick={() => { closeModals(); setIsLocationOpen(true); }}
           className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group"
         >
@@ -703,6 +703,6 @@ END:VCARD`;
           );
         })}
       </nav>
-    </div>
+    </main>
   );
-};
+}
