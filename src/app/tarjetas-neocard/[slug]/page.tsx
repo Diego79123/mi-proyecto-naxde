@@ -137,7 +137,6 @@ const SpaceBackground = ({ isOscar, isMockup }: { isOscar: boolean; isMockup: bo
   );
 };
 
-// --- TAGUA THEME COMPONENT ---
 const TaguaTheme = ({ member }: { member: any }) => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
@@ -152,12 +151,10 @@ const TaguaTheme = ({ member }: { member: any }) => {
 
   return (
     <div className="min-h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-y-auto font-serif pb-32 no-scrollbar scroll-smooth">
-      {/* Top Left Circle "N" */}
       <div className="absolute top-6 left-6 w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white text-xs font-bold border border-white/10 z-20 font-sans">
         N
       </div>
 
-      {/* Social Floating Left Sidebar - Beige Glass Box (Totalmente pegado) */}
       <div className="fixed left-0 top-1/2 -translate-y-1/2 flex flex-col gap-4 p-3 bg-[#E8E2D2]/60 backdrop-blur-md border-y border-r border-white/20 rounded-r-2xl shadow-xl z-40">
         <a href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
           <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -167,7 +164,6 @@ const TaguaTheme = ({ member }: { member: any }) => {
         </a>
       </div>
 
-      {/* Profile Logo */}
       <div className="mt-12 mb-8 relative">
         <div className="w-32 h-32 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex items-center justify-center p-2">
           <img
@@ -178,13 +174,11 @@ const TaguaTheme = ({ member }: { member: any }) => {
         </div>
       </div>
 
-      {/* Titles */}
       <div className="text-center space-y-2 mb-10">
         <p className="text-[10px] font-sans font-black uppercase tracking-[0.5em] opacity-60">Taller de Tagua</p>
         <h1 className="text-4xl font-black tracking-tight leading-none">Bonilla & Vergara</h1>
       </div>
 
-      {/* Hero Image */}
       <div className="w-full max-w-lg px-6 relative mb-20">
         <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group">
           <img
@@ -193,24 +187,13 @@ const TaguaTheme = ({ member }: { member: any }) => {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/5" />
-
-          {/* WhatsApp Floating */}
-          <a
-            href={`https://wa.me/573102423116`}
-            target="_blank"
-            className="absolute right-6 bottom-6 w-14 h-14 bg-[#25D366] rounded-full shadow-lg flex items-center justify-center text-white hover:scale-110 transition-transform z-10"
-          >
-            <MessageCircle className="w-8 h-8 fill-current" />
-          </a>
         </div>
       </div>
 
-      {/* SECCIÓN: Visítanos y Contáctanos */}
       <section className="w-full max-w-5xl px-6 mb-24 space-y-12">
         <h2 className="text-4xl md:text-5xl font-black text-center tracking-tight">Visítanos y Contáctanos</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-          {/* Card: Ubicación */}
           <div className="bg-white/40 backdrop-blur-sm p-8 md:p-10 rounded-[3rem] shadow-xl border border-white/20 flex flex-col">
             <div className="flex items-start gap-6 mb-12">
               <div className="w-14 h-14 rounded-2xl bg-[#E8E2D2] flex items-center justify-center shrink-0 shadow-sm">
@@ -232,7 +215,6 @@ const TaguaTheme = ({ member }: { member: any }) => {
             </div>
           </div>
 
-          {/* Card: Canales Directos */}
           <div className="bg-white/40 backdrop-blur-sm p-8 md:p-10 rounded-[3rem] shadow-xl border border-white/20 space-y-8 flex flex-col">
             <h3 className="text-2xl font-black mb-4">Canales Directos</h3>
             
@@ -260,11 +242,9 @@ const TaguaTheme = ({ member }: { member: any }) => {
         </div>
       </section>
 
-      {/* Galería Overlay - Cuadro Modal */}
       <AnimatePresence>
         {isGalleryOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8">
-            {/* Backdrop traslúcido */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -273,7 +253,6 @@ const TaguaTheme = ({ member }: { member: any }) => {
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
             
-            {/* Contenedor de la Galería (Cuadro Modal) */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -314,7 +293,6 @@ const TaguaTheme = ({ member }: { member: any }) => {
         )}
       </AnimatePresence>
 
-      {/* Bottom Nav */}
       <nav className="fixed bottom-0 left-0 right-0 h-24 bg-[#E8E2D2]/80 backdrop-blur-xl border-t border-[#DED8C8] flex items-center justify-around px-8 z-50">
         <button className="flex flex-col items-center gap-1.5 transition-all opacity-60 hover:opacity-100 group">
           <div className="p-2 rounded-full group-hover:bg-white/20 transition-colors">
