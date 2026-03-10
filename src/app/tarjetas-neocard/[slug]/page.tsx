@@ -178,7 +178,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
       {/* Contenedor Principal: Sin scroll, centrado */}
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-lg px-6 gap-6 pb-28">
         {/* Logotipo */}
-        <div className="w-28 h-28 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex items-center justify-center p-2">
+        <div className="w-36 h-36 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex items-center justify-center p-2">
           <img
             src={LOGO_URL}
             alt="Logo Tagua"
