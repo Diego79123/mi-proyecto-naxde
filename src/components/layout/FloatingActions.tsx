@@ -61,8 +61,13 @@ const FloatingActionsContent = () => {
     }
   };
 
-  const isMockup = searchParams.get('mode') === 'mockup';
-  const isTaguaPage = pathname.includes('/tarjetas-neocard/bonilla-vergara');
+  const isMockup = searchParams?.get('mode') === 'mockup';
+  const isTaguaPage = pathname?.includes('/tarjetas-neocard/bonilla-vergara');
+  
+  // Conditionally set the WhatsApp link based on the page context
+  const whatsappLink = isTaguaPage 
+    ? "https://wa.me/573102423116" 
+    : "https://wa.me/57315001001";
 
   if (isMockup) return null;
 
@@ -178,7 +183,7 @@ const FloatingActionsContent = () => {
 
       {/* Botón de WhatsApp */}
       <a 
-        href="https://wa.me/57315001001" 
+        href={whatsappLink}
         target="_blank" 
         rel="noopener noreferrer"
         className="group relative"
