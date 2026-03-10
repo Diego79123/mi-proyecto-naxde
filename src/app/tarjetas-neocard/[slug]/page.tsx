@@ -190,7 +190,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
             <a href="https://facebook.com/juancesar.bonillagonzalez" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
               <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform" />
             </a>
-            <a href="#" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
+            <a href="https://instagram.com/juancesarbonillagonzalez" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
               <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
             </a>
           </div>
@@ -234,12 +234,12 @@ const TaguaTheme = ({ member }: { member: any }) => {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full max-w-4xl max-h-[85vh] bg-[#F5F1E6] rounded-[3rem] shadow-2xl overflow-y-auto no-scrollbar p-8 md:p-12 border border-white/20"
             >
-              <header className="flex flex-col items-center mb-6 relative">
+              <header className="flex flex-col items-center mb-12 relative">
                 <button
                   onClick={() => setIsGalleryOpen(false)}
-                  className="absolute right-0 top-0 w-10 h-10 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
+                  className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-6 h-6" />
                 </button>
                 <div className="space-y-4 text-center px-12">
                   <h2 className="text-4xl md:text-5xl font-black tracking-tight">Nuestra Galería</h2>
@@ -287,9 +287,9 @@ const TaguaTheme = ({ member }: { member: any }) => {
               <header className="flex flex-col items-center mb-8 relative">
                 <button
                   onClick={() => setIsContactOpen(false)}
-                  className="absolute right-0 top-0 w-10 h-10 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
+                  className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-6 h-6" />
                 </button>
                 <div className="space-y-4 text-center">
                   <h2 className="text-4xl font-black tracking-tight">Canales Directos</h2>
@@ -343,9 +343,9 @@ const TaguaTheme = ({ member }: { member: any }) => {
               <header className="flex flex-col items-center mb-8 relative">
                 <button
                   onClick={() => setIsLocationOpen(false)}
-                  className="absolute right-0 top-0 w-10 h-10 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
+                  className="absolute right-0 top-0 w-12 h-12 rounded-full bg-[#E8E2D2] flex items-center justify-center hover:bg-white transition-colors shadow-lg z-10"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-6 h-6" />
                 </button>
                 <div className="space-y-4 text-center">
                   <h2 className="text-4xl font-black tracking-tight">Nuestra Ubicación</h2>
@@ -621,7 +621,7 @@ END:VCARD`;
                       </div>
                       <div className="space-y-1">
                         <h3 className="text-base font-headline font-bold text-white tracking-tight">{service.title}</h3>
-                        <p className="text-white/40 text-[10px] font-medium leading-relaxed line-clamp-2">{service.desc}</p>
+                        <p className="text-white/40 text-[10px] font-medium leaning-relaxed line-clamp-2">{service.desc}</p>
                       </div>
                     </div>
                   </CarouselItem>
@@ -651,9 +651,9 @@ END:VCARD`;
               <Zap className="w-5 h-5 text-primary" />
               <span className="font-headline font-bold text-xl uppercase tracking-[0.4em] text-white">{section === 'ubicacion' ? 'Ubicación' : 'Logros'}</span>
             </div>
-            <Button variant="ghost" size="icon" onClick={() => setActiveSection('inicio')} className="w-12 h-12 rounded-full text-white/30 hover:text-white transition-colors">
+            <button onClick={() => setActiveSection('inicio')} className="w-12 h-12 rounded-full text-white/30 hover:text-white transition-colors flex items-center justify-center hover:bg-white/10">
               <X className="w-7 h-7" />
-            </Button>
+            </button>
           </header>
 
           <div className="flex-1 overflow-y-auto px-10 pb-32 space-y-8 no-scrollbar touch-auto">
