@@ -165,11 +165,6 @@ const TaguaTheme = ({ member }: { member: any }) => {
 
   return (
     <main className="h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-hidden font-serif no-scrollbar">
-      {/* Botón de identificación opcional en la parte superior */}
-      <div className="absolute top-6 left-6 w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-white text-xs font-bold border border-white/10 z-20 font-sans">
-        N
-      </div>
-
       {/* Contenedor Principal: Sin scroll, centrado */}
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-lg px-6 gap-6 pb-28">
         {/* Logotipo */}
