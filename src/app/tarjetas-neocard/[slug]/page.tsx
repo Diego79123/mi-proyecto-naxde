@@ -164,7 +164,7 @@ const TaguaTheme = ({ member }: { member: any }) => {
   };
 
   return (
-    <main className="h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-hidden font-serif no-scrollbar">
+    <main className="fixed inset-0 w-full h-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center overflow-hidden font-serif no-scrollbar overscroll-none">
       {/* Social Sidebar anclado a la izquierda de la pantalla */}
       <div className="fixed left-0 top-1/2 -translate-y-1/2 flex flex-col gap-2 p-2 bg-[#E8E2D2]/60 backdrop-blur-md border-y border-r border-white/20 rounded-r-xl shadow-xl z-40">
         <a href="https://facebook.com/juancesar.bonillagonzalez" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
