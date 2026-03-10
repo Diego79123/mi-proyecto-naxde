@@ -167,8 +167,18 @@ const TaguaTheme = ({ member }: { member: any }) => {
     <main className="h-screen w-full bg-[#F5F1E6] text-[#4A3728] flex flex-col items-center relative overflow-hidden font-serif no-scrollbar">
       {/* Contenedor Principal: Sin scroll, centrado */}
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-lg px-6 gap-6 pb-28">
-        {/* Logotipo */}
+        {/* Logotipo + Social Sidebar Wrapper */}
         <div className="relative">
+          {/* Social Sidebar pegado a la izquierda del logo */}
+          <div className="absolute left-[-3.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-2 p-2 bg-[#E8E2D2]/60 backdrop-blur-md border border-white/20 rounded-xl shadow-xl z-40">
+            <a href="https://facebook.com/juancesar.bonillagonzalez" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
+              <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform" />
+            </a>
+            <a href="https://instagram.com/juancesarbonillagonzalez" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
+              <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
+            </a>
+          </div>
+
           <div className="w-28 h-28 rounded-full bg-white border-4 border-white shadow-xl overflow-hidden flex items-center justify-center p-2">
             <img
               src={LOGO_URL}
@@ -178,22 +188,10 @@ const TaguaTheme = ({ member }: { member: any }) => {
           </div>
         </div>
 
-        {/* Nombre de la Empresa + Social Sidebar Wrapper */}
-        <div className="w-full relative py-2">
-          {/* Social Sidebar pegado a la izquierda a la altura del nombre - Tamaño reducido */}
-          <div className="absolute left-[-1.5rem] top-1/2 -translate-y-1/2 flex flex-col gap-2 p-2 bg-[#E8E2D2]/60 backdrop-blur-md border-y border-r border-white/20 rounded-r-xl shadow-xl z-40">
-            <a href="https://facebook.com/juancesar.bonillagonzalez" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
-              <Facebook className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            </a>
-            <a href="https://instagram.com/juancesarbonillagonzalez" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#4A3728] hover:bg-white/40 transition-all group">
-              <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            </a>
-          </div>
-
-          <div className="text-center space-y-2">
-            <p className="text-[10px] font-sans font-black uppercase tracking-[0.5em] opacity-60">Taller de Tagua</p>
-            <h1 className="text-4xl font-black tracking-tight leading-none">Bonilla & Vergara</h1>
-          </div>
+        {/* Nombre de la Empresa */}
+        <div className="w-full text-center space-y-2 py-2">
+          <p className="text-[10px] font-sans font-black uppercase tracking-[0.5em] opacity-60">Taller de Tagua</p>
+          <h1 className="text-4xl font-black tracking-tight leading-none">Bonilla & Vergara</h1>
         </div>
 
         {/* Imagen Principal */}
