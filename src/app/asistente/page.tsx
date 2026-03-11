@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { 
   Send, 
   Image as ImageIcon, 
@@ -27,12 +28,16 @@ import { motion, AnimatePresence } from 'motion/react';
 import Markdown from 'react-markdown';
 import { cn } from '@/lib/utils';
 import { generateChatResponseAction, generateImageAction } from './actions';
-import { ImageEditor } from '@/components/asistente/ImageEditor';
 import Link from 'next/link';
+
+// Importación dinámica del editor para evitar errores de pre-renderizado (Konva necesita el cliente)
+const ImageEditor = dynamic(() => import('@/components/asistente/ImageEditor').then(mod => mod.ImageEditor), {
+  ssr: false,
+});
 
 const STORAGE_KEY = 'social_ai_sessions_v4';
 
-export default function AsistentePage() {
+function AsistenteContent() {
   const [sessions, setSessions] = useState<any[]>([]);
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
   const [input, setInput] = useState('');
@@ -208,7 +213,7 @@ export default function AsistentePage() {
     <div className="flex h-screen bg-zinc-50 overflow-hidden text-zinc-900 font-sans">
       <input type="file" ref={fileInputRef} onChange={(e) => e.target.files && processFiles(e.target.files)} className="hidden" accept="image/*" multiple />
 
-      {/* Sidebar Original del Repositorio */}
+      {/* Sidebar */}
       <AnimatePresence mode="wait">
         {isSidebarOpen && (
           <motion.aside
@@ -433,5 +438,20 @@ export default function AsistentePage() {
         />
       )}
     </div>
+  );
+}
+
+export default function AsistentePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-screen items-center justify-center bg-zinc-50">
+        <div className="flex flex-col items-center gap-4">
+          <Zap className="w-12 h-12 text-indigo-600 animate-pulse" />
+          <p className="text-zinc-400 text-sm font-medium animate-pulse">Cargando Inteligencia Artificial...</p>
+        </div>
+      </div>
+    }>
+      <AsistenteContent />
+    </Suspense>
   );
 }
