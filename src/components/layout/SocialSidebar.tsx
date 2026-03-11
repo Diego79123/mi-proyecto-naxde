@@ -4,14 +4,18 @@
 import React, { Suspense } from 'react';
 import { Instagram, Facebook } from 'lucide-react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 const SocialSidebarContent = () => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const isMockup = searchParams?.get('mode') === 'mockup';
 
-  if (isMockup) return null;
+  // Ocultar si es modo mockup o si estamos en una página de tarjeta individual
+  const isNeocardPage = pathname?.startsWith('/tarjetas-neocard/') || pathname?.startsWith('/tarjetas-nfc/');
+
+  if (isMockup || isNeocardPage) return null;
 
   return (
     <div className={cn(
