@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -304,39 +303,73 @@ export const Hero = () => {
 
   const handleBlackHoleClick = () => {
     setIsAbsorbing(true);
+    // Iniciar prefetching de la ruta para suavizar la carga final
+    router.prefetch('/tarjetas-neocard');
+    
     setTimeout(() => {
       setShowWhiteOut(true);
-    }, 1000);
+    }, 800);
+
     setTimeout(() => {
       router.push('/tarjetas-neocard');
-    }, 1800);
+    }, 2500);
   };
 
   return (
     <section className="relative h-screen w-full flex flex-col bg-[#00001D] overflow-hidden select-none">
+      {/* Wormhole Wormhole / Black Hole Transition Layer */}
       {showWhiteOut && (
-        <div className="fixed inset-0 z-[10000] bg-[#00001D] flex items-center justify-center overflow-hidden animate-white-out">
-          <div className="relative w-[50vh] h-[50vh] rounded-full bg-black shadow-[0_0_150px_#F80037,0_0_300px_#5200F8,inset_0_0_100px_rgba(0,0,0,1)] animate-black-hole flex items-center justify-center">
-            <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_0%,#F80037_50%,transparent_100%)] opacity-40 animate-spin duration-[3s]" />
-            <div className="absolute inset-[15%] bg-[conic-gradient(from_180deg,transparent_0%,#5200F8_50%,transparent_100%)] opacity-30 animate-spin duration-[5s] [animation-direction:reverse]" />
-          </div>
-          <div className="absolute inset-0 pointer-events-none">
-            {Array.from({ length: 60 }).map((_, i) => (
+        <div className="fixed inset-0 z-[10000] bg-black flex items-center justify-center overflow-hidden animate-white-out">
+          {/* Central Singular Point */}
+          <div className="relative w-4 h-4 bg-white rounded-full shadow-[0_0_100px_white,0_0_200px_white] z-[100]" />
+          
+          {/* Black Spiral Layers */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            {[0, 90, 180, 270].map((angle) => (
               <div 
-                key={i}
-                className="absolute w-1 h-1 bg-white rounded-full animate-burst"
-                style={{
-                  left: '50%',
-                  top: '50%',
-                  '--tw-translate-x': `${(Math.random() - 0.5) * 3000}px`,
-                  '--tw-translate-y': `${(Math.random() - 0.5) * 3000}px`,
-                  animationDelay: `${Math.random() * 0.8}s`,
-                  opacity: Math.random()
+                key={angle}
+                className="absolute w-[200vw] h-[200vw] opacity-80"
+                style={{ 
+                  transform: `rotate(${angle}deg)`,
+                  background: 'conic-gradient(from 0deg, black 0%, transparent 40%, black 50%, transparent 90%, black 100%)',
+                  animation: `spin ${3 - (angle/100)}s linear infinite`
                 } as any}
               />
             ))}
           </div>
-          <div className="absolute w-[70vh] h-[70vh] rounded-full border-[30px] border-white/5 backdrop-blur-[40px] animate-black-hole" style={{ animationDelay: '0.1s' }} />
+
+          {/* Wormhole Waves */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div 
+                key={i}
+                className="absolute rounded-full border border-primary/30 animate-wormhole-wave"
+                style={{ 
+                  width: '40vh', 
+                  height: '40vh',
+                  animationDelay: `${i * 0.4}s`
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Hyper-speed Stars */}
+          <div className="absolute inset-0 pointer-events-none">
+            {Array.from({ length: 100 }).map((_, i) => (
+              <div 
+                key={i}
+                className="absolute w-px h-16 bg-gradient-to-t from-white to-transparent opacity-0 animate-hyper-star"
+                style={{
+                  left: '50%',
+                  top: '50%',
+                  '--tx': `${(Math.random() - 0.5) * 3000}px`,
+                  '--ty': `${(Math.random() - 0.5) * 3000}px`,
+                  animationDelay: `${Math.random() * 1.5}s`,
+                  transform: `rotate(${Math.random() * 360}deg)`
+                } as any}
+              />
+            ))}
+          </div>
         </div>
       )}
 
@@ -344,7 +377,7 @@ export const Hero = () => {
       <div className={cn(
         "absolute inset-0 z-0 pointer-events-none transition-all duration-1000",
         isAbsorbing && "animate-absorb",
-        isHovered && "translate-x-[2%] scale-[1.02]"
+        isHovered && !isAbsorbing && "translate-x-[2%] scale-[1.02]"
       )}
       style={{ '--absorb-x': '40vw', '--absorb-y': '200px' } as any}
       >
@@ -368,8 +401,8 @@ export const Hero = () => {
         onMouseLeave={() => setIsHovered(false)}
         className={cn(
           "absolute right-[5%] md:right-[8%] lg:right-[10%] top-[calc(70%+200px)] sm:top-[calc(50%+200px)] -translate-y-1/2 z-[30] cursor-pointer group transition-all duration-1000",
-          isAbsorbing && "scale-[3] opacity-100 rotate-[360deg]",
-          isHovered && "scale-110"
+          isAbsorbing && "scale-[4] opacity-100 rotate-[720deg]",
+          isHovered && !isAbsorbing && "scale-110"
         )}
       >
         <div className="absolute inset-[-20px] sm:inset-[-40px] rounded-full animate-spin-slow opacity-60 blur-2xl bg-[conic-gradient(from_0deg,#F80037,#5200F8,#F80037)] pointer-events-none" />
@@ -387,10 +420,9 @@ export const Hero = () => {
         </div>
         
         <div className="relative w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full bg-black shadow-[0_0_40px_rgba(248,0,55,0.4),0_0_80px_rgba(82,0,248,0.4)] transition-all duration-500 group-hover:shadow-[0_0_60px_#F80037,0_0_120px_#5200F8] overflow-hidden">
-          {/* Dimension Portal Preview (Visible on Hover) */}
           <div className={cn(
             "absolute inset-0 transition-all duration-1000 ease-in-out pointer-events-none opacity-0 scale-150 rotate-12",
-            isHovered && "opacity-40 scale-100 rotate-0"
+            isHovered && !isAbsorbing && "opacity-40 scale-100 rotate-0"
           )}>
             <img 
               src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Tarjetas%20digitales%2FNaxde%2FPerfil%20oscar.jpeg?alt=media&token=1b57f085-d1fd-4435-8693-1be5d9bdd2b1" 
@@ -403,7 +435,7 @@ export const Hero = () => {
           <div className="absolute inset-0 rounded-full border border-white/5 animate-spin duration-[15s]" />
           <div className={cn(
             "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/20 transition-all duration-500",
-            isHovered ? "opacity-100 text-primary scale-125" : "opacity-40 scale-100"
+            isHovered && !isAbsorbing ? "opacity-100 text-primary scale-125" : "opacity-40 scale-100"
           )}>
             <Zap className="w-4 h-4 sm:w-6 sm:h-6 animate-pulse" />
           </div>
@@ -413,15 +445,18 @@ export const Hero = () => {
       {/* Astronaut con interacción de cursor */}
       <div className={cn(
         "absolute inset-0 flex items-center justify-center z-[20] pointer-events-none transition-all duration-[1000ms] ease-out",
-        isAbsorbing && "animate-absorb"
+        isAbsorbing && "animate-absorb scale-0"
       )}
       style={{ 
         '--absorb-x': '40vw', 
         '--absorb-y': '200px',
-        transform: `translate(${mousePos.x * 1.2}px, ${mousePos.y * 1.2}px)`
+        transform: isAbsorbing ? 'none' : `translate(${mousePos.x * 1.2}px, ${mousePos.y * 1.2}px)`
       } as any}
       >
-        <div className="relative w-[180px] h-[180px] sm:w-[280px] sm:h-[280px] md:w-[480px] md:h-[480px] float-anim opacity-60 sm:opacity-100">
+        <div className={cn(
+          "relative w-[180px] h-[180px] sm:w-[280px] sm:h-[280px] md:w-[480px] md:h-[480px] opacity-60 sm:opacity-100",
+          !isAbsorbing && "float-anim"
+        )}>
           <Image 
             src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FAstronauta%20candy.png?alt=media&token=2b444080-0b94-4549-a656-6e67dc038512"
             alt="Astronauta Candy"
@@ -435,8 +470,8 @@ export const Hero = () => {
       {/* Content Stack */}
       <div className={cn(
         "flex-1 relative flex flex-col items-center justify-center gap-2 sm:gap-4 transition-all duration-[1500ms] px-6 sm:px-12 ease-out",
-        isAbsorbing && "animate-absorb",
-        isHovered && "translate-x-[2%] scale-[0.99]"
+        isAbsorbing && "animate-absorb opacity-0 scale-50",
+        isHovered && !isAbsorbing && "translate-x-[2%] scale-[0.99]"
       )}
       style={{ '--absorb-x': '40vw', '--absorb-y': '200px' } as any}
       >

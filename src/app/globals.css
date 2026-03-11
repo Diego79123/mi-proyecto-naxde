@@ -288,6 +288,46 @@
     animation: black-hole-expand 1.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
   }
 
+  /* Wormhole Wave Animation */
+  @keyframes wormhole-wave {
+    0% {
+      transform: scale(0.2);
+      opacity: 0;
+      border-width: 20px;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(3);
+      opacity: 0;
+      border-width: 1px;
+    }
+  }
+
+  .animate-wormhole-wave {
+    animation: wormhole-wave 2s infinite ease-out;
+  }
+
+  /* Wormhole Hyperstar Animation */
+  @keyframes hyper-star {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--tx), var(--ty)) scale(2);
+      opacity: 0;
+    }
+  }
+
+  .animate-hyper-star {
+    animation: hyper-star 1.2s ease-in forwards;
+  }
+
   .animate-spin-slow {
     animation: spin 12s linear infinite;
   }
