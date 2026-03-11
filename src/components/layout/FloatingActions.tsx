@@ -191,7 +191,7 @@ const FloatingActionsContent = () => {
         <div className="absolute -inset-2 bg-green-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
         <Button 
           size="icon" 
-          className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#25D366]/90 text-white shadow-lg border-none relative z-10 transition-transform active:scale-90 animate-bounce"
+          className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#25D366]/90 text-white shadow-lg border-none relative z-10 transition-transform active:scale-90"
         >
           <MessageCircle className="w-7 h-7" />
         </Button>
