@@ -45,7 +45,7 @@ import {
   type CarouselApi
 } from "@/components/ui/carousel";
 
-// Datos del vehículo con las imágenes de Firebase Storage
+// Datos del vehículo actualizados con video y especificaciones finales
 const carData = {
   brand: "Porsche",
   model: "911 Carrera",
@@ -116,18 +116,18 @@ export default function AutoSpecPage() {
 
   return (
     <div className="fixed inset-0 bg-white text-zinc-900 font-body overflow-hidden selection:bg-primary/30">
-      {/* Background Decor - Solo Gris y Blanco */}
+      {/* Background Decor - Minimalista Gris y Blanco */}
       <div className="absolute inset-0 z-0 pointer-events-none bg-zinc-50">
         <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[60%] bg-zinc-200/30 blur-[150px] rounded-full" />
         <div className="absolute bottom-[-10%] left-[-10%] w-[70%] h-[50%] bg-zinc-200/30 blur-[120px] rounded-full" />
         
-        {/* Massive Background Text */}
+        {/* Massive Background Text - Maximizado para impacto visual */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none">
           <h1 className="text-[65vw] font-black tracking-tighter leading-none italic text-zinc-900">911</h1>
         </div>
       </div>
 
-      {/* Minimalist Header */}
+      {/* Header con Logo de 500px */}
       <header className="absolute top-0 left-0 right-0 z-50 h-24 flex items-center justify-between px-10">
         <Link href="/proyectos">
           <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-zinc-900 rounded-full bg-white/50 border border-zinc-100">
@@ -146,7 +146,7 @@ export default function AutoSpecPage() {
         <div className="w-10" />
       </header>
 
-      {/* Tactical Left Menu */}
+      {/* Menú Táctico Izquierdo */}
       <nav className="absolute left-10 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-4">
         {menuItems.map((item) => (
           <button
@@ -172,7 +172,7 @@ export default function AutoSpecPage() {
         ))}
       </nav>
 
-      {/* Bottom Tactical Navigation Bar */}
+      {/* Barra de Navegación Inferior Táctica */}
       <nav className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 p-2 bg-white/90 backdrop-blur-3xl border border-zinc-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
         {bottomNavItems.map((item) => (
           <button
@@ -194,7 +194,7 @@ export default function AutoSpecPage() {
         ))}
       </nav>
 
-      {/* Hero Car Video Section */}
+      {/* Video Hero Principal */}
       <main className="relative z-10 w-full h-full flex flex-col items-center justify-center pt-20">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -202,7 +202,7 @@ export default function AutoSpecPage() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative w-full max-w-5xl px-10"
         >
-          {/* Main Hero Video Player */}
+          {/* Reproductor de Video Hero */}
           <div className="relative w-full aspect-video rounded-[3rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)] border-[12px] border-white/5 bg-zinc-100">
             <video 
               src={carData.videoUrl} 
@@ -214,14 +214,14 @@ export default function AutoSpecPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
             
-            {/* Live Indicator */}
+            {/* Indicador de "Live" */}
             <div className="absolute top-8 left-8 flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-600/90 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest shadow-lg">
               <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
               Live Presentation
             </div>
           </div>
           
-          {/* Price Label */}
+          {/* Etiquetas de Precio y Modelo */}
           <div className="mt-12 text-center space-y-2">
             <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-zinc-900">{carData.model}</h2>
             <div className="flex items-center justify-center gap-4">
@@ -233,11 +233,11 @@ export default function AutoSpecPage() {
         </motion.div>
       </main>
 
-      {/* Pop-up System */}
+      {/* Sistema de Ventanas Emergentes (Pop-ups) */}
       <AnimatePresence>
         {activePopup && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-10">
-            {/* Backdrop */}
+            {/* Backdrop con desenfoque */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -246,7 +246,7 @@ export default function AutoSpecPage() {
               className="absolute inset-0 bg-white/80 backdrop-blur-md"
             />
 
-            {/* Content Window */}
+            {/* Ventana de Contenido */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
