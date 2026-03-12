@@ -53,6 +53,12 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  type CarouselApi 
+} from "@/components/ui/carousel";
 
 // Datos del vehículo actualizados
 const carData = {
@@ -93,8 +99,37 @@ type PopupType = 'specs' | 'features' | 'confort' | 'performance' | 'general' | 
 export default function AutoSpecPage() {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
   const [activeMedia, setActiveMedia] = useState<'video' | number>('video');
+  const [api, setApi] = useState<CarouselApi>();
 
   const closePopup = () => setActivePopup(null);
+
+  // Sync Carousel with activeMedia state
+  useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => {
+      const index = api.selectedScrollSnap();
+      if (index === 0) {
+        setActiveMedia('video');
+      } else {
+        setActiveMedia(index - 1);
+      }
+    };
+
+    api.on("select", onSelect);
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api]);
+
+  // Scroll to carousel item when activeMedia changes (from external buttons or dots)
+  useEffect(() => {
+    if (!api) return;
+    const targetIndex = activeMedia === 'video' ? 0 : (activeMedia as number) + 1;
+    if (api.selectedScrollSnap() !== targetIndex) {
+      api.scrollTo(targetIndex);
+    }
+  }, [activeMedia, api]);
 
   // Menú Izquierdo: Características Técnicas
   const leftMenuItems = [
@@ -264,34 +299,49 @@ export default function AutoSpecPage() {
 
           {/* Miniatures Slide */}
           <div className="w-full max-w-3xl flex flex-col items-center gap-4">
-            <div className="w-full flex items-center gap-3 overflow-x-auto no-scrollbar pb-4 px-2">
-              {/* Thumbnail Video */}
-              <button 
-                onClick={() => setActiveMedia('video')}
-                className={cn(
-                  "relative flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300",
-                  activeMedia === 'video' ? "border-primary scale-110 shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
-                )}
+            <div className="w-full px-10 relative">
+              <Carousel
+                setApi={setApi}
+                opts={{
+                  align: "start",
+                  containScroll: "trimSnaps"
+                }}
+                className="w-full"
               >
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center z-10">
-                  <Play className="w-4 h-4 text-white fill-white" />
-                </div>
-                <video src={carData.videoUrl} muted className="w-full h-full object-cover" />
-              </button>
+                <CarouselContent className="-ml-3">
+                  {/* Slide Video */}
+                  <CarouselItem className="pl-3 basis-auto">
+                    <button 
+                      onClick={() => setActiveMedia('video')}
+                      className={cn(
+                        "relative flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300",
+                        activeMedia === 'video' ? "border-primary scale-110 shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
+                      )}
+                    >
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center z-10">
+                        <Play className="w-4 h-4 text-white fill-white" />
+                      </div>
+                      <video src={carData.videoUrl} muted className="w-full h-full object-cover" />
+                    </button>
+                  </CarouselItem>
 
-              {/* Thumbnail Images */}
-              {carData.images.map((img, idx) => (
-                <button 
-                  key={idx}
-                  onClick={() => setActiveMedia(idx)}
-                  className={cn(
-                    "flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300",
-                    activeMedia === idx ? "border-primary scale-110 shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
-                  )}
-                >
-                  <img src={img} className="w-full h-full object-cover" alt="Porsche thumbnail" />
-                </button>
-              ))}
+                  {/* Slide Images */}
+                  {carData.images.map((img, idx) => (
+                    <CarouselItem key={idx} className="pl-3 basis-auto">
+                      <button 
+                        key={idx}
+                        onClick={() => setActiveMedia(idx)}
+                        className={cn(
+                          "flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300",
+                          activeMedia === idx ? "border-primary scale-110 shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
+                        )}
+                      >
+                        <img src={img} className="w-full h-full object-cover" alt="Porsche thumbnail" />
+                      </button>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
             </div>
 
             {/* Bubble Indicators */}
