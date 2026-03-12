@@ -45,7 +45,8 @@ import {
   Star,
   Music,
   Mail,
-  Play
+  Play,
+  Settings
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -87,7 +88,7 @@ const carData = {
   ]
 };
 
-type PopupType = 'specs' | 'confort' | 'performance' | 'general' | 'exterior' | 'safety' | 'entertainment' | 'interior' | 'whatsapp' | 'location' | 'history' | 'sales' | 'email' | null;
+type PopupType = 'specs' | 'features' | 'confort' | 'performance' | 'general' | 'exterior' | 'safety' | 'entertainment' | 'interior' | 'whatsapp' | 'location' | 'history' | 'sales' | 'email' | null;
 
 export default function AutoSpecPage() {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
@@ -98,6 +99,7 @@ export default function AutoSpecPage() {
   // Menú Izquierdo: Características Técnicas
   const leftMenuItems = [
     { id: 'specs', label: 'Ficha Técnica', icon: Info },
+    { id: 'features', label: 'Características', icon: Settings },
     { id: 'confort', label: 'Confort', icon: Wind },
     { id: 'performance', label: 'Rendimiento', icon: Timer },
     { id: 'general', label: 'Info General', icon: Layers },
@@ -340,6 +342,27 @@ export default function AutoSpecPage() {
                       { icon: Box, label: "Referencia", val: carData.reference },
                       { icon: Palette, label: "Color", val: carData.color },
                       { icon: Handshake, label: "Permuta", val: carData.permuta },
+                    ].map((item, i) => (
+                      <div key={i} className="flex flex-col gap-1 p-4 rounded-2xl bg-zinc-50 border border-zinc-100">
+                        <item.icon className="w-4 h-4 text-zinc-900 mb-2" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">{item.label}</span>
+                        <span className="text-lg font-bold text-zinc-900">{item.val}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activePopup === 'features' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {[
+                      { icon: Palette, label: "Color", val: carData.color },
+                      { icon: Fuel, label: "Tipo de Combustible", val: carData.fuel },
+                      { icon: Zap, label: "Motor", val: carData.engine },
+                      { icon: Handshake, label: "Permuta", val: carData.permuta },
+                      { icon: DoorOpen, label: "Puertas", val: carData.doors },
+                      { icon: Activity, label: "Sensores de Parqueo", val: carData.sensors },
+                      { icon: Settings2, label: "Transmisión", val: carData.transmission },
+                      { icon: CircleDollarSign, label: "Negociable", val: carData.negotiable },
                     ].map((item, i) => (
                       <div key={i} className="flex flex-col gap-1 p-4 rounded-2xl bg-zinc-50 border border-zinc-100">
                         <item.icon className="w-4 h-4 text-zinc-900 mb-2" />
