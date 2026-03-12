@@ -18,14 +18,17 @@ import {
   Box,
   MapPin,
   Share2,
-  ChevronRight,
-  Sparkles
+  X,
+  Sparkles,
+  Info,
+  Shield,
+  Activity
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
+import { cn } from '@/lib/utils';
 
 const carData = {
   brand: "Porsche",
@@ -43,156 +46,248 @@ const carData = {
   doors: 2,
   sensors: "360° Vision Pro",
   negotiable: "Precio Negociable",
-  description: "El Porsche 911 Carrera S redefine la ingeniería automotriz. Una obra maestra de precisión alemana diseñada para quienes no aceptan compromisos.",
+  description: "El Porsche 911 Carrera S redefine la ingeniería automotriz. Una obra maestra de precisión alemana diseñada para quienes no aceptan compromisos. Su motor bóxer biturbo entrega una respuesta inmediata, mientras que su silueta icónica corta el viento con una eficiencia inigualable.",
   images: [
     "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200",
-    "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1200"
   ]
 };
 
+type PopupType = 'specs' | 'engine' | 'equipment' | 'contact' | 'description' | null;
+
 export default function AutoSpecPage() {
-  const [activeTab, setActiveTab] = useState('specs');
+  const [activePopup, setActivePopup] = useState<PopupType>(null);
+
+  const closePopup = () => setActivePopup(null);
+
+  const menuItems = [
+    { id: 'specs', label: 'Ficha Técnica', icon: Info },
+    { id: 'engine', label: 'Motor y Potencia', icon: Zap },
+    { id: 'equipment', label: 'Equipamiento', icon: Settings2 },
+    { id: 'description', label: 'Historia', icon: Activity },
+    { id: 'contact', label: 'Ventas', icon: MessageCircle },
+  ];
 
   return (
-    <div className="min-h-screen bg-[#050515] text-white font-sans selection:bg-primary/30">
+    <div className="fixed inset-0 bg-[#050515] text-white font-body overflow-hidden selection:bg-primary/30">
       {/* Background Decor */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[60%] bg-primary/10 blur-[150px] rounded-full" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[70%] h-[50%] bg-blue-600/10 blur-[120px] rounded-full" />
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[60%] bg-primary/5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[70%] h-[50%] bg-blue-600/5 blur-[120px] rounded-full" />
+        
+        {/* Massive Background Text */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none">
+          <h1 className="text-[40vw] font-black tracking-tighter leading-none italic">911</h1>
+        </div>
       </div>
 
-      {/* Header Interactivo */}
-      <header className="sticky top-0 z-50 h-16 bg-black/40 backdrop-blur-xl border-b border-white/5 flex items-center justify-between px-6">
+      {/* Minimalist Header */}
+      <header className="absolute top-0 left-0 right-0 z-50 h-20 flex items-center justify-between px-10">
         <Link href="/proyectos">
-          <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
+          <Button variant="ghost" size="icon" className="text-white/40 hover:text-white rounded-full bg-white/5">
             <ArrowLeft className="w-5 h-5" />
           </Button>
         </Link>
         <div className="flex flex-col items-center">
-          <span className="text-[8px] font-black uppercase tracking-[0.4em] text-primary">Naxde Auto Hub</span>
-          <span className="text-xs font-bold uppercase tracking-widest">Ficha Interactiva</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">PORSCHE</span>
+          <span className="text-[8px] font-bold uppercase tracking-widest text-white/20">Official Dealer Hub</span>
         </div>
-        <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
-          <Share2 className="w-5 h-5" />
-        </Button>
+        <div className="w-10" /> {/* Spacer */}
       </header>
 
-      <main className="relative z-10 max-w-lg mx-auto pb-32">
-        {/* Car Hero Image */}
-        <section className="relative aspect-[4/3] overflow-hidden">
+      {/* Tactical Left Menu */}
+      <nav className="absolute left-10 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-4">
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setActivePopup(item.id as PopupType)}
+            className={cn(
+              "group flex items-center gap-4 p-3 rounded-2xl transition-all duration-500",
+              activePopup === item.id ? "bg-primary text-white" : "bg-white/5 text-white/40 hover:bg-white/10 hover:text-white"
+            )}
+          >
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <item.icon className="w-5 h-5" />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-widest pr-4 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              {item.label}
+            </span>
+          </button>
+        ))}
+      </nav>
+
+      {/* Hero Car Section */}
+      <main className="relative z-10 w-full h-full flex flex-col items-center justify-center pt-20">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="relative w-full max-w-5xl px-10"
+        >
           <img 
             src={carData.images[0]} 
             alt={carData.model} 
-            className="w-full h-full object-cover"
+            className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050515] via-transparent to-transparent" />
           
-          {/* Price Badge Overlay */}
-          <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
-            <div className="space-y-1">
-              <h1 className="text-4xl font-black uppercase tracking-tighter leading-none italic">{carData.brand}</h1>
-              <p className="text-xl font-bold text-white/60 uppercase tracking-tight">{carData.model}</p>
-            </div>
-            <div className="text-right">
-              <Badge className="bg-primary text-white font-black text-lg px-4 py-1 rounded-xl shadow-glow-accent mb-2">
-                {carData.price}
-              </Badge>
-              <p className="text-[10px] font-bold text-primary uppercase tracking-widest animate-pulse">{carData.negotiable}</p>
+          {/* Price Label */}
+          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-center space-y-2">
+            <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none">{carData.model}</h2>
+            <div className="flex items-center justify-center gap-4">
+              <span className="text-2xl font-black text-primary">{carData.price}</span>
+              <div className="w-1 h-1 rounded-full bg-white/20" />
+              <span className="text-sm font-bold text-white/40 uppercase tracking-widest">{carData.negotiable}</span>
             </div>
           </div>
-        </section>
-
-        {/* Quick Stats Grid */}
-        <section className="px-6 py-8 grid grid-cols-3 gap-4">
-          {[
-            { label: "Año", val: carData.year, icon: Calendar },
-            { label: "Kilometraje", val: carData.mileage, icon: Gauge },
-            { label: "Dueños", val: carData.owners, icon: Users },
-          ].map((stat, i) => (
-            <div key={i} className="glass-card p-4 rounded-3xl border border-white/5 text-center space-y-2">
-              <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center mx-auto">
-                <stat.icon className="w-4 h-4 text-primary" />
-              </div>
-              <p className="text-[8px] font-black uppercase tracking-widest text-white/40">{stat.label}</p>
-              <p className="text-xs font-bold text-white">{stat.val}</p>
-            </div>
-          ))}
-        </section>
-
-        {/* Detailed Info Tabs */}
-        <section className="px-6">
-          <Tabs defaultValue="specs" className="w-full">
-            <TabsList className="w-full bg-white/5 border border-white/5 rounded-2xl h-14 p-1">
-              <TabsTrigger value="specs" className="flex-1 rounded-xl font-bold text-xs uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white">Ficha Técnica</TabsTrigger>
-              <TabsTrigger value="equipment" className="flex-1 rounded-xl font-bold text-xs uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white">Equipamiento</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="specs" className="mt-6 space-y-4">
-              <div className="glass-card p-6 rounded-[2.5rem] border border-white/5 space-y-6">
-                {[
-                  { icon: Zap, label: "Motor", val: carData.engine },
-                  { icon: Settings2, label: "Transmisión", val: carData.transmission },
-                  { icon: Fuel, label: "Combustible", val: carData.fuel },
-                  { icon: Box, label: "Referencia", val: carData.reference },
-                  { icon: Sparkles, label: "Color", val: carData.color },
-                  { icon: CheckCircle2, label: "Permuta", val: carData.permuta },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center justify-between group">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <item.icon className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
-                      </div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-white/40">{item.label}</span>
-                    </div>
-                    <span className="text-sm font-bold text-white text-right">{item.val}</span>
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="equipment" className="mt-6 space-y-4">
-              <div className="glass-card p-6 rounded-[2.5rem] border border-white/5 space-y-6">
-                {[
-                  { label: "Puertas", val: carData.doors },
-                  { label: "Sensores", val: carData.sensors },
-                  { label: "Tracción", val: "Trasera (RWD)" },
-                  { label: "Frenos", val: "Cerámicos Pro" },
-                  { label: "Faros", val: "LED Matrix" },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center justify-between">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-white/40">{item.label}</span>
-                    <span className="text-sm font-bold text-white">{item.val}</span>
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
-          </Tabs>
-        </section>
-
-        {/* Description Section */}
-        <section className="px-6 mt-8">
-          <div className="glass-card p-8 rounded-[3rem] border border-white/5 space-y-4">
-            <h3 className="text-sm font-black uppercase tracking-[0.3em] text-primary">Descripción</h3>
-            <p className="text-sm text-white/60 leading-relaxed font-medium">
-              {carData.description}
-            </p>
-          </div>
-        </section>
+        </motion.div>
       </main>
 
-      {/* Floating Action Bar */}
-      <nav className="fixed bottom-6 left-6 right-6 z-50 h-20 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-full flex items-center justify-around px-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-        <Button className="flex-1 h-14 bg-primary hover:bg-primary/90 text-white rounded-full font-black uppercase tracking-widest text-[10px] gap-3 neon-accent mx-2 group">
-          <MessageCircle className="w-5 h-5" />
-          WhatsApp
-        </Button>
-        <Button variant="outline" className="w-14 h-14 bg-white/5 border-white/10 text-white rounded-full flex items-center justify-center p-0 hover:bg-white/10 mx-2">
-          <Phone className="w-5 h-5" />
-        </Button>
-        <Button variant="outline" className="w-14 h-14 bg-white/5 border-white/10 text-white rounded-full flex items-center justify-center p-0 hover:bg-white/10 mx-2">
-          <MapPin className="w-5 h-5" />
-        </Button>
-      </nav>
+      {/* Pop-up System */}
+      <AnimatePresence>
+        {activePopup && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-10">
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closePopup}
+              className="absolute inset-0 bg-black/60 backdrop-blur-md"
+            />
+
+            {/* Content Window */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 30 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-2xl bg-[#0A0A1F]/90 border border-white/10 rounded-[3rem] shadow-[0_30px_100px_rgba(0,0,0,0.8)] overflow-hidden"
+            >
+              <header className="p-8 border-b border-white/5 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    {menuItems.find(i => i.id === activePopup)?.icon && React.createElement(menuItems.find(i => i.id === activePopup)!.icon, { className: "w-6 h-6 text-primary" })}
+                  </div>
+                  <h3 className="text-2xl font-headline font-bold uppercase tracking-tight">
+                    {menuItems.find(i => i.id === activePopup)?.label}
+                  </h3>
+                </div>
+                <button 
+                  onClick={closePopup}
+                  className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
+                >
+                  <X className="w-6 h-6 text-white/40" />
+                </button>
+              </header>
+
+              <div className="p-8 md:p-12 max-h-[60vh] overflow-y-auto no-scrollbar">
+                {activePopup === 'specs' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {[
+                      { icon: Calendar, label: "Año Modelo", val: carData.year },
+                      { icon: Gauge, label: "Kilometraje", val: carData.mileage },
+                      { icon: Users, label: "Dueños", val: carData.owners },
+                      { icon: Box, label: "Referencia", val: carData.reference },
+                      { icon: Sparkles, label: "Color", val: carData.color },
+                      { icon: CheckCircle2, label: "Permuta", val: carData.permuta },
+                    ].map((item, i) => (
+                      <div key={i} className="flex flex-col gap-1 p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                        <item.icon className="w-4 h-4 text-primary mb-2" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-white/20">{item.label}</span>
+                        <span className="text-lg font-bold">{item.val}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activePopup === 'engine' && (
+                  <div className="space-y-6">
+                    {[
+                      { label: "Motor", val: carData.engine, icon: Zap },
+                      { label: "Transmisión", val: carData.transmission, icon: Settings2 },
+                      { label: "Combustible", val: carData.fuel, icon: Fuel },
+                      { label: "Tracción", val: "Trasera (RWD)", icon: Activity },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center justify-between p-6 rounded-[2rem] bg-white/[0.02] border border-white/5">
+                        <div className="flex items-center gap-4">
+                          <item.icon className="w-6 h-6 text-primary" />
+                          <span className="text-xs font-black uppercase tracking-widest text-white/40">{item.label}</span>
+                        </div>
+                        <span className="text-lg font-bold">{item.val}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activePopup === 'equipment' && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[
+                      "Sensores de Parqueo 360°",
+                      "Faros LED Matrix",
+                      "Frenos Cerámicos Pro",
+                      "Sonido Burmester High-End",
+                      "Asientos Deportivos Plus",
+                      "Apple CarPlay Inalámbrico"
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                        <CheckCircle2 className="w-4 h-4 text-primary" />
+                        <span className="text-sm font-medium text-white/80">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activePopup === 'description' && (
+                  <div className="space-y-6">
+                    <p className="text-lg text-white/60 leading-relaxed font-medium">
+                      {carData.description}
+                    </p>
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="aspect-square rounded-2xl bg-white/5" />
+                      <div className="aspect-square rounded-2xl bg-white/5" />
+                      <div className="aspect-square rounded-2xl bg-white/5" />
+                    </div>
+                  </div>
+                )}
+
+                {activePopup === 'contact' && (
+                  <div className="space-y-8">
+                    <div className="text-center">
+                      <p className="text-white/40 text-sm font-medium mb-6">Asesoría personalizada disponible ahora</p>
+                      <div className="flex flex-col gap-4">
+                        <Button className="h-16 bg-primary hover:bg-primary/90 text-white rounded-2xl text-xl font-black gap-4 neon-accent shadow-glow-accent">
+                          <MessageCircle className="w-6 h-6" />
+                          WHATSAPP ASESOR
+                        </Button>
+                        <Button variant="outline" className="h-16 border-white/10 hover:bg-white/5 text-white rounded-2xl text-xl font-black gap-4">
+                          <Phone className="w-6 h-6" />
+                          SOLICITAR LLAMADA
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="p-6 rounded-[2rem] border border-white/5 bg-white/[0.02] flex items-center gap-6">
+                      <MapPin className="w-8 h-8 text-primary" />
+                      <div>
+                        <h4 className="font-bold">Showroom Bogotá</h4>
+                        <p className="text-white/40 text-sm">Av. 116 # 45-20, Zona Norte</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <footer className="p-8 bg-white/[0.02] border-t border-white/5 text-center">
+                <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.5em]">Naxde Auto Hub • ID: 911-C24</p>
+              </footer>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <style jsx global>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   );
 }
