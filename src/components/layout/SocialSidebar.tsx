@@ -12,10 +12,13 @@ const SocialSidebarContent = () => {
   const pathname = usePathname();
   const isMockup = searchParams?.get('mode') === 'mockup';
 
-  // Ocultar si es modo mockup o si estamos en una página de tarjeta individual
-  const isNeocardPage = pathname?.startsWith('/tarjetas-neocard/') || pathname?.startsWith('/tarjetas-nfc/');
+  // Ocultar si es modo mockup o si estamos en una página de tarjeta individual o demos interactivas
+  const isExcludedPage = 
+    pathname?.startsWith('/tarjetas-neocard/') || 
+    pathname?.startsWith('/tarjetas-nfc/') ||
+    pathname?.startsWith('/demo/');
 
-  if (isMockup || isNeocardPage) return null;
+  if (isMockup || isExcludedPage) return null;
 
   return (
     <div className={cn(
