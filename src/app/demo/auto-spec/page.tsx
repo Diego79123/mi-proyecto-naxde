@@ -49,7 +49,8 @@ import {
   Settings,
   UserCheck,
   Lightbulb,
-  HelpCircle
+  HelpCircle,
+  Menu
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -103,6 +104,7 @@ export default function AutoSpecPage() {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
   const [activeMedia, setActiveMedia] = useState<'video' | number>('video');
   const [api, setApi] = useState<CarouselApi>();
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
   const closePopup = () => setActivePopup(null);
 
@@ -188,28 +190,52 @@ export default function AutoSpecPage() {
         <div className="w-10" />
       </header>
 
-      {/* Menú Táctico Izquierdo */}
-      <nav className="absolute left-10 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3">
+      {/* Sidebar Táctico Izquierdo Colapsable */}
+      <nav 
+        className={cn(
+          "absolute left-6 md:left-10 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3 transition-all duration-500 ease-in-out",
+          isSidebarExpanded ? "items-start" : "items-center"
+        )}
+      >
+        {/* Botón de Expansión (Sidebar Toggle) */}
+        <button
+          onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
+          className="w-12 h-12 rounded-2xl bg-zinc-900 text-white shadow-xl flex items-center justify-center mb-2 hover:scale-105 transition-transform"
+        >
+          {isSidebarExpanded ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+
         {leftMenuItems.map((item) => (
           <button
             key={item.id}
             onClick={() => setActivePopup(item.id as PopupType)}
             className={cn(
-              "group flex items-center gap-4 p-2.5 rounded-2xl transition-all duration-500",
+              "group flex items-center p-2.5 rounded-2xl transition-all duration-500 overflow-hidden",
               activePopup === item.id 
                 ? "bg-zinc-900 text-white shadow-xl" 
-                : "bg-white/80 backdrop-blur-md border border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-900"
+                : "bg-white/80 backdrop-blur-md border border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-900",
+              isSidebarExpanded ? "gap-4 w-full pr-6" : "gap-0 w-12"
             )}
           >
             <div className={cn(
-              "w-9 h-9 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform",
+              "w-7 h-7 rounded-xl flex items-center justify-center shrink-0 transition-transform",
               activePopup === item.id ? "bg-white/10" : "bg-zinc-50"
             )}>
-              <item.icon className="w-4 h-4" />
+              <item.icon className="w-3.5 h-3.5" />
             </div>
-            <span className="text-[9px] font-black uppercase tracking-widest pr-4 whitespace-nowrap">
-              {item.label}
-            </span>
+            
+            <AnimatePresence mode="wait">
+              {isSidebarExpanded && (
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  className="text-[9px] font-black uppercase tracking-widest whitespace-nowrap"
+                >
+                  {item.label}
+                </motion.span>
+              )}
+            </AnimatePresence>
           </button>
         ))}
       </nav>
