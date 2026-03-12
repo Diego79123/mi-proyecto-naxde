@@ -31,7 +31,8 @@ import {
   Timer,
   Globe,
   Smartphone,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Heart
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -127,7 +128,7 @@ export default function AutoSpecPage() {
         </div>
       </div>
 
-      {/* Header con Logo de 500px */}
+      {/* Header con Logo de 500px y Créditos */}
       <header className="absolute top-0 left-0 right-0 z-50 h-24 flex items-center justify-between px-10">
         <Link href="/proyectos">
           <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-zinc-900 rounded-full bg-white/50 border border-zinc-100">
@@ -143,7 +144,11 @@ export default function AutoSpecPage() {
             />
           </div>
         </div>
-        <div className="w-10" />
+        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-400">
+          <span className="hidden md:inline">Desarrollada con</span>
+          <Heart className="w-3.5 h-3.5 text-primary fill-primary animate-heartbeat" />
+          <span>por Naxde Studio</span>
+        </div>
       </header>
 
       {/* Menú Táctico Izquierdo */}
