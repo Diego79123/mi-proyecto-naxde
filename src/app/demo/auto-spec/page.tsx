@@ -35,8 +35,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi
 } from "@/components/ui/carousel";
 
@@ -113,7 +111,7 @@ export default function AutoSpecPage() {
             <ArrowLeft className="w-5 h-5" />
           </Button>
         </Link>
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center">
           <div className="relative h-20 w-[200px]">
             <img 
               src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2Fporsche-logo-0.png?alt=media&token=7ab4dfea-f919-4f19-8e5f-91427f396bbe" 
@@ -121,7 +119,6 @@ export default function AutoSpecPage() {
               className="h-full w-full object-contain" 
             />
           </div>
-          <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-zinc-400">Official Dealer Hub</span>
         </div>
         <div className="w-10" /> {/* Spacer */}
       </header>
