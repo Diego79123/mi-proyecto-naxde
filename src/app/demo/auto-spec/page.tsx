@@ -44,7 +44,7 @@ import {
   type CarouselApi
 } from "@/components/ui/carousel";
 
-// Datos del vehículo con soporte para múltiples imágenes (tomas)
+// Datos del vehículo con las nuevas imágenes de Firebase Storage
 const carData = {
   brand: "Porsche",
   model: "911 Carrera S",
@@ -63,9 +63,17 @@ const carData = {
   negotiable: "Precio Negociable",
   description: "El Porsche 911 Carrera S redefine la ingeniería automotriz. Una obra maestra de precisión alemana diseñada para quienes no aceptan compromisos. Su motor bóxer biturbo entrega una respuesta inmediata, mientras que su silueta icónica corta el viento con una eficiencia inigualable.",
   images: [
-    "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200",
-    "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1200",
-    "https://images.unsplash.com/photo-1611859328053-3cbc9f9399f4?q=80&w=1200"
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_602061-MCO105977916300_022026-F.webp?alt=media&token=6cd8d7a7-0860-4d6a-801b-a75f03e17db2",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_682747-MCO106592118399_022026-F.webp?alt=media&token=e12f6558-b495-4462-a637-30f12e1b527b",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_685030-MCO105977855834_022026-F.webp?alt=media&token=863dec48-7ab9-433f-866a-2aefcd45a01c",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_685595-MCO105977856028_022026-F.webp?alt=media&token=1d777a07-2eb5-472a-bc77-f5e249d2769e",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_700914-MCO105977826090_022026-F.webp?alt=media&token=e0ef2f37-0c45-4f80-80cc-84bdd3e92ecb",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_713820-MCO106594285901_022026-F.webp?alt=media&token=4d020de2-906f-41de-82c2-4dd00a023147",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_768432-MCO106591998853_022026-F.webp?alt=media&token=a8b201a4-75d0-4c4d-b970-c586e5a7dd12",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_783906-MCO106856009737_022026-F.webp?alt=media&token=e8da9f59-99f7-4cc7-8213-e750ac8b1209",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_945370-MCO105977885654_022026-F.webp?alt=media&token=77b05907-7998-4443-bad2-dfa262d84033",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_976463-MCO106591908669_022026-F.webp?alt=media&token=3d788ff7-baca-462a-9600-b4e55aa4ba1a",
+    "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_996114-MCO105979518408_022026-F.webp?alt=media&token=2236d7b3-1a79-436e-a060-8998d1d2bbe7"
   ]
 };
 
