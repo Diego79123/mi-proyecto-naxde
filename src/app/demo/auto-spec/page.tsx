@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState } from 'react';
@@ -81,14 +80,14 @@ export default function AutoSpecPage() {
       </div>
 
       {/* Minimalist Header */}
-      <header className="absolute top-0 left-0 right-0 z-50 h-20 flex items-center justify-between px-10">
+      <header className="absolute top-0 left-0 right-0 z-50 h-24 flex items-center justify-between px-10">
         <Link href="/proyectos">
           <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-zinc-900 rounded-full bg-zinc-100/50">
             <ArrowLeft className="w-5 h-5" />
           </Button>
         </Link>
         <div className="flex flex-col items-center gap-1">
-          <div className="relative h-12 w-24">
+          <div className="relative h-20 w-[200px]">
             <img 
               src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2Fporsche-logo-0.png?alt=media&token=7ab4dfea-f919-4f19-8e5f-91427f396bbe" 
               alt="Porsche Logo" 
