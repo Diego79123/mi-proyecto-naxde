@@ -263,34 +263,57 @@ export default function AutoSpecPage() {
           </div>
 
           {/* Miniatures Slide */}
-          <div className="w-full max-w-3xl flex items-center gap-3 overflow-x-auto no-scrollbar pb-4 px-2">
-            {/* Thumbnail Video */}
-            <button 
-              onClick={() => setActiveMedia('video')}
-              className={cn(
-                "relative flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300",
-                activeMedia === 'video' ? "border-primary scale-110 shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
-              )}
-            >
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center z-10">
-                <Play className="w-4 h-4 text-white fill-white" />
-              </div>
-              <video src={carData.videoUrl} muted className="w-full h-full object-cover" />
-            </button>
-
-            {/* Thumbnail Images */}
-            {carData.images.map((img, idx) => (
+          <div className="w-full max-w-3xl flex flex-col items-center gap-4">
+            <div className="w-full flex items-center gap-3 overflow-x-auto no-scrollbar pb-4 px-2">
+              {/* Thumbnail Video */}
               <button 
-                key={idx}
-                onClick={() => setActiveMedia(idx)}
+                onClick={() => setActiveMedia('video')}
                 className={cn(
-                  "flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300",
-                  activeMedia === idx ? "border-primary scale-110 shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
+                  "relative flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300",
+                  activeMedia === 'video' ? "border-primary scale-110 shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
                 )}
               >
-                <img src={img} className="w-full h-full object-cover" alt="Porsche thumbnail" />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center z-10">
+                  <Play className="w-4 h-4 text-white fill-white" />
+                </div>
+                <video src={carData.videoUrl} muted className="w-full h-full object-cover" />
               </button>
-            ))}
+
+              {/* Thumbnail Images */}
+              {carData.images.map((img, idx) => (
+                <button 
+                  key={idx}
+                  onClick={() => setActiveMedia(idx)}
+                  className={cn(
+                    "flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300",
+                    activeMedia === idx ? "border-primary scale-110 shadow-lg" : "border-transparent opacity-60 hover:opacity-100"
+                  )}
+                >
+                  <img src={img} className="w-full h-full object-cover" alt="Porsche thumbnail" />
+                </button>
+              ))}
+            </div>
+
+            {/* Bubble Indicators */}
+            <div className="flex justify-center items-center gap-2">
+              <button
+                onClick={() => setActiveMedia('video')}
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-300",
+                  activeMedia === 'video' ? "w-6 bg-primary" : "w-1.5 bg-zinc-300"
+                )}
+              />
+              {carData.images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveMedia(idx)}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-300",
+                    activeMedia === idx ? "w-6 bg-primary" : "w-1.5 bg-zinc-300"
+                  )}
+                />
+              ))}
+            </div>
           </div>
         </motion.div>
       </main>
