@@ -63,7 +63,7 @@ const carData = {
   sensors: "360° Vision Pro",
   negotiable: "Precio Negociable",
   description: "El Porsche 911 Carrera S redefine la ingeniería automotriz. Una obra maestra de precisión alemana diseñada para quienes no aceptan compromisos. Su motor bóxer biturbo entrega una respuesta inmediata, mientras que su silueta icónica corta el viento con una eficiencia inigualable.",
-  videoUrl: "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2Fvideo-porsche.mp4?alt=media",
+  videoUrl: "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2Fgrabacion-de-pantalla-2026-03-12-a-la-s-12444-pm_SUVPvkRo.mp4?alt=media&token=7e63d879-c8f7-4337-9f7e-e6e2f72f0d56",
   images: [
     "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_602061-MCO105977916300_022026-F.webp?alt=media&token=6cd8d7a7-0860-4d6a-801b-a75f03e17db2",
     "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_682747-MCO106592118399_022026-F.webp?alt=media&token=e12f6558-b495-4462-a637-30f12e1b527b",
