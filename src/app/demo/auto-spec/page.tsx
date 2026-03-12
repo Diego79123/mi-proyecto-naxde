@@ -47,7 +47,9 @@ import {
   Mail,
   Play,
   Settings,
-  UserCheck
+  UserCheck,
+  Lightbulb,
+  HelpCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -95,7 +97,7 @@ const carData = {
   ]
 };
 
-type PopupType = 'specs' | 'features' | 'confort' | 'performance' | 'general' | 'exterior' | 'safety' | 'entertainment' | 'interior' | 'whatsapp' | 'location' | 'history' | 'sales' | 'email' | null;
+type PopupType = 'specs' | 'features' | 'confort' | 'performance' | 'general' | 'exterior' | 'safety' | 'entertainment' | 'interior' | 'whatsapp' | 'location' | 'history' | 'sales' | 'email' | 'tips' | 'faq' | null;
 
 export default function AutoSpecPage() {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
@@ -211,6 +213,31 @@ export default function AutoSpecPage() {
           </button>
         ))}
       </nav>
+
+      {/* Botones Flotantes Derecha (Consejos y FAQ) */}
+      <div className="absolute right-10 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-4">
+        <button
+          onClick={() => setActivePopup('tips')}
+          className={cn(
+            "group flex flex-col items-center justify-center w-16 h-16 rounded-2xl bg-white/80 backdrop-blur-xl border border-zinc-200 shadow-lg hover:border-primary transition-all",
+            activePopup === 'tips' ? "bg-primary text-white" : "text-zinc-500 hover:text-primary"
+          )}
+        >
+          <Lightbulb className="w-6 h-6 mb-1 group-hover:scale-110 transition-transform" />
+          <span className="text-[8px] font-black uppercase tracking-widest">Consejos</span>
+        </button>
+        
+        <button
+          onClick={() => setActivePopup('faq')}
+          className={cn(
+            "group flex flex-col items-center justify-center w-16 h-16 rounded-2xl bg-white/80 backdrop-blur-xl border border-zinc-200 shadow-lg hover:border-primary transition-all",
+            activePopup === 'faq' ? "bg-primary text-white" : "text-zinc-500 hover:text-primary"
+          )}
+        >
+          <HelpCircle className="w-6 h-6 mb-1 group-hover:scale-110 transition-transform" />
+          <span className="text-[8px] font-black uppercase tracking-widest">FAQ</span>
+        </button>
+      </div>
 
       {/* Redes Sociales Inferior Izquierda */}
       <div className="absolute bottom-10 left-10 z-40 flex flex-col gap-4">
@@ -389,11 +416,19 @@ export default function AutoSpecPage() {
               <header className="p-8 border-b border-zinc-100 flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-zinc-100 flex items-center justify-center">
-                    {(leftMenuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)?.icon) && 
-                      React.createElement((leftMenuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)!.icon)!, { className: "w-6 h-6 text-zinc-900" })}
+                    {(() => {
+                      const item = [...leftMenuItems, ...bottomNavItems, 
+                        { id: 'tips', icon: Lightbulb, label: 'Consejos' },
+                        { id: 'faq', icon: HelpCircle, label: 'Preguntas Frecuentes' }
+                      ].find(i => i.id === activePopup);
+                      return item?.icon && React.createElement(item.icon, { className: "w-6 h-6 text-zinc-900" });
+                    })()}
                   </div>
                   <h3 className="text-2xl font-headline font-bold uppercase tracking-tight text-zinc-900">
-                    {leftMenuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label}
+                    {[...leftMenuItems, ...bottomNavItems, 
+                      { id: 'tips', label: 'Consejos de Experto' },
+                      { id: 'faq', label: 'Preguntas Frecuentes' }
+                    ].find(i => i.id === activePopup)?.label}
                   </h3>
                 </div>
                 <button 
@@ -641,6 +676,41 @@ export default function AutoSpecPage() {
                         )}>
                           {item.val}
                         </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activePopup === 'tips' && (
+                  <div className="space-y-8">
+                    {[
+                      { t: "Mantenimiento Preventivo", d: "Realiza el cambio de aceite y filtros cada 10,000 km o una vez al año para mantener la eficiencia del motor bóxer biturbo." },
+                      { t: "Cuidado de Pintura", d: "El color blanco brillante requiere encerado semestral para proteger la laca contra los rayos UV y contaminantes ambientales." },
+                      { t: "Optimización de Conducción", d: "Usa el modo Sport solo en carreteras abiertas; para ciudad, el modo Normal optimiza el consumo de gasolina y suaviza la suspensión." },
+                      { t: "Neumáticos de Alto Rendimiento", d: "Verifica la presión en frío semanalmente. Una presión incorrecta afecta drásticamente la estabilidad y el agarre en curvas." }
+                    ].map((tip, i) => (
+                      <div key={i} className="p-6 rounded-[2rem] bg-zinc-50 border border-zinc-100 relative group overflow-hidden">
+                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                          <Lightbulb className="w-12 h-12 text-primary" />
+                        </div>
+                        <h4 className="text-xl font-bold mb-2 uppercase tracking-tight text-zinc-900">{tip.t}</h4>
+                        <p className="text-zinc-500 font-medium leading-relaxed">{tip.d}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activePopup === 'faq' && (
+                  <div className="space-y-4">
+                    {[
+                      { q: "¿El vehículo cuenta con garantía vigente?", a: "Sí, cuenta con garantía de fábrica extendida hasta finales de 2025 o 50,000 km, lo que ocurra primero." },
+                      { q: "¿Se aceptan peritajes externos?", a: "Absolutamente. Invitamos a los compradores a realizar peritajes en centros autorizados Porsche o de su confianza." },
+                      { q: "¿Cómo es el proceso de traspaso?", a: "El vehículo está libre de gravámenes. El traspaso se realiza de forma inmediata tras el acuerdo comercial, con gestión documental incluida." },
+                      { q: "¿Dónde puedo ver el carro físicamente?", a: "Se encuentra disponible en nuestro Showroom Principal en la Zona Norte de Bogotá, bajo cita previa." }
+                    ].map((faq, i) => (
+                      <div key={i} className="p-6 rounded-2xl border border-zinc-100 hover:bg-zinc-50 transition-colors">
+                        <h4 className="text-lg font-bold text-zinc-900 mb-2">Q: {faq.q}</h4>
+                        <p className="text-zinc-500 font-medium">A: {faq.a}</p>
                       </div>
                     ))}
                   </div>
