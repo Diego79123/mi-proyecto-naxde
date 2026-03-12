@@ -221,7 +221,7 @@ export default function AutoSpecPage() {
       <main className="relative z-10 w-full h-full flex flex-col items-center justify-center pt-24">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
+          animate={{ opacity: 1, scale: 1, y: -30 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative w-full max-w-5xl px-10 flex flex-col items-center"
         >
