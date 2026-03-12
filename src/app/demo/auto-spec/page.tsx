@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -32,7 +31,9 @@ import {
   Globe,
   Smartphone,
   Image as ImageIcon,
-  Heart
+  Heart,
+  Facebook,
+  Instagram
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -173,6 +174,16 @@ export default function AutoSpecPage() {
           </button>
         ))}
       </nav>
+
+      {/* Redes Sociales Inferior Izquierda */}
+      <div className="absolute bottom-10 left-10 z-40 flex flex-col gap-4">
+        <button className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur-xl border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-zinc-900 transition-all shadow-lg group">
+          <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
+        </button>
+        <button className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur-xl border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-zinc-900 transition-all shadow-lg group">
+          <Facebook className="w-5 h-5 group-hover:scale-110 transition-transform" />
+        </button>
+      </div>
 
       {/* Menú Inferior con Créditos */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-4">
@@ -333,20 +344,18 @@ export default function AutoSpecPage() {
                       </div>
 
                       <div className="flex justify-between items-center mt-8">
-                        <Button 
-                          variant="outline" 
+                        <button 
                           onClick={() => api?.scrollPrev()}
-                          className="rounded-full border-zinc-200"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-200 hover:bg-zinc-50 transition-colors text-sm font-bold"
                         >
-                          <ChevronLeft className="w-4 h-4 mr-2" /> Anterior
-                        </Button>
-                        <Button 
-                          variant="outline" 
+                          <ChevronLeft className="w-4 h-4" /> Anterior
+                        </button>
+                        <button 
                           onClick={() => api?.scrollNext()}
-                          className="rounded-full border-zinc-200"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-200 hover:bg-zinc-50 transition-colors text-sm font-bold"
                         >
-                          Siguiente <ChevronRight className="w-4 h-4 ml-2" />
-                        </Button>
+                          Siguiente <ChevronRight className="w-4 h-4" />
+                        </button>
                       </div>
                     </Carousel>
                   </div>
@@ -497,14 +506,14 @@ export default function AutoSpecPage() {
                     <div className="text-center">
                       <p className="text-zinc-400 text-sm font-medium mb-6">Asesoría personalizada disponible ahora</p>
                       <div className="flex flex-col gap-4">
-                        <Button className="h-16 bg-zinc-900 hover:bg-black text-white rounded-2xl text-xl font-black gap-4 shadow-lg">
+                        <button className="h-16 bg-zinc-900 hover:bg-black text-white rounded-2xl text-xl font-black flex items-center justify-center gap-4 shadow-lg transition-all">
                           <MessageCircle className="w-6 h-6" />
                           WHATSAPP ASESOR
-                        </Button>
-                        <Button variant="outline" className="h-16 border-zinc-200 hover:bg-zinc-50 text-zinc-900 rounded-2xl text-xl font-black gap-4">
+                        </button>
+                        <button className="h-16 border border-zinc-200 hover:bg-zinc-50 text-zinc-900 rounded-2xl text-xl font-black flex items-center justify-center gap-4 transition-all">
                           <Phone className="w-6 h-6" />
                           SOLICITAR LLAMADA
-                        </Button>
+                        </button>
                       </div>
                     </div>
                     <div className="p-6 rounded-[2.5rem] border border-zinc-100 bg-zinc-50 flex items-center gap-6">

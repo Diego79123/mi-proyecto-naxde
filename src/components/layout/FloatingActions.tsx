@@ -63,13 +63,14 @@ const FloatingActionsContent = () => {
 
   const isMockup = searchParams?.get('mode') === 'mockup';
   const isTaguaPage = pathname?.includes('/tarjetas-neocard/bonilla-vergara');
+  const isDemoPage = pathname?.startsWith('/demo/');
   
   // Conditionally set the WhatsApp link based on the page context
   const whatsappLink = isTaguaPage 
     ? "https://wa.me/573102423116" 
     : "https://wa.me/57315001001";
 
-  if (isMockup) return null;
+  if (isMockup || isDemoPage) return null;
 
   return (
     <div className="fixed bottom-24 right-6 md:bottom-10 md:right-10 z-[100] flex flex-col gap-4">
