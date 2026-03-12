@@ -46,7 +46,8 @@ import {
   Music,
   Mail,
   Play,
-  Settings
+  Settings,
+  UserCheck
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -223,7 +224,7 @@ export default function AutoSpecPage() {
 
       {/* Menú Inferior (Contacto) */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-4">
-        <nav className="flex items-center gap-2 p-2 bg-primary border border-white/10 rounded-3xl shadow-[0_20px_50px_rgba(248,0,55,0.3)]">
+        <nav className="flex items-center gap-2 p-2 bg-primary border border-white/10 rounded-3xl">
           {bottomNavItems.map((item) => (
             <button
               key={item.id}
@@ -297,7 +298,7 @@ export default function AutoSpecPage() {
             </div>
           </div>
 
-          {/* Miniatures */}
+          {/* Miniatures with Swipe & Dots */}
           <div className="w-full max-w-3xl flex flex-col items-center gap-4">
             <div className="w-full px-10 relative">
               <Carousel
@@ -682,18 +683,53 @@ export default function AutoSpecPage() {
                 )}
 
                 {activePopup === 'sales' && (
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-6 p-6 bg-zinc-50 rounded-3xl border border-zinc-100">
-                      <div className="w-16 h-16 rounded-full bg-zinc-200" />
-                      <div>
-                        <h4 className="font-black uppercase tracking-tight">Andrés Mendoza</h4>
-                        <p className="text-primary text-xs font-bold uppercase">Executive Sales Manager</p>
+                  <div className="space-y-8">
+                    {/* Perfil de Muestra Detallado */}
+                    <div className="p-8 rounded-[2.5rem] bg-zinc-50 border border-zinc-100 shadow-sm">
+                      <div className="flex flex-col md:flex-row items-center gap-8">
+                        <div className="relative">
+                          <div className="w-24 h-24 rounded-full bg-zinc-200 overflow-hidden border-4 border-white shadow-md">
+                            <img 
+                              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200" 
+                              alt="Andrés Mendoza" 
+                              className="w-full h-full object-cover" 
+                            />
+                          </div>
+                          <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-primary rounded-full border-4 border-white flex items-center justify-center text-white">
+                            <UserCheck className="w-4 h-4" />
+                          </div>
+                        </div>
+                        
+                        <div className="text-center md:text-left space-y-2">
+                          <h4 className="text-2xl font-black uppercase tracking-tight text-zinc-900">Andrés Mendoza</h4>
+                          <div className="flex items-center justify-center md:justify-start gap-2">
+                            <Badge className="bg-primary/10 text-primary border-none text-[10px] font-black uppercase px-3">Asesor Certificado</Badge>
+                            <span className="text-xs text-zinc-400 font-bold uppercase tracking-widest">• Executive Sales Manager</span>
+                          </div>
+                          <p className="text-sm text-zinc-500 leading-relaxed max-w-sm">
+                            Especialista en vehículos de alta gama con más de 10 años de experiencia en la marca Porsche.
+                          </p>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex flex-col gap-3">
-                      <button className="h-14 border border-zinc-200 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-zinc-50 transition-all">
-                        <Phone className="w-5 h-5" /> SOLICITAR LLAMADA
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <button className="h-16 bg-zinc-900 text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:bg-black transition-all shadow-lg group">
+                        <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                        LLAMAR AHORA
                       </button>
+                      <button className="h-16 bg-[#25D366] text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:bg-[#128C7E] transition-all shadow-lg group">
+                        <MessageCircle className="w-5 h-5 fill-white group-hover:scale-110 transition-transform" />
+                        WHATSAPP DIRECTO
+                      </button>
+                    </div>
+                    
+                    <div className="pt-4 border-t border-zinc-100 flex items-center justify-center gap-4 opacity-40">
+                      <Star className="w-4 h-4 text-zinc-400 fill-zinc-400" />
+                      <Star className="w-4 h-4 text-zinc-400 fill-zinc-400" />
+                      <Star className="w-4 h-4 text-zinc-400 fill-zinc-400" />
+                      <Star className="w-4 h-4 text-zinc-400 fill-zinc-400" />
+                      <Star className="w-4 h-4 text-zinc-400 fill-zinc-400" />
                     </div>
                   </div>
                 )}
