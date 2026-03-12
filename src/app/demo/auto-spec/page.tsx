@@ -87,9 +87,15 @@ export default function AutoSpecPage() {
             <ArrowLeft className="w-5 h-5" />
           </Button>
         </Link>
-        <div className="flex flex-col items-center">
-          <span className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">PORSCHE</span>
-          <span className="text-[8px] font-bold uppercase tracking-widest text-white/20">Official Dealer Hub</span>
+        <div className="flex flex-col items-center gap-1">
+          <div className="relative h-12 w-24">
+            <img 
+              src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2Fporsche-logo-0.png?alt=media&token=7ab4dfea-f919-4f19-8e5f-91427f396bbe" 
+              alt="Porsche Logo" 
+              className="h-full w-full object-contain" 
+            />
+          </div>
+          <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-white/30">Official Dealer Hub</span>
         </div>
         <div className="w-10" /> {/* Spacer */}
       </header>
