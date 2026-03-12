@@ -108,7 +108,7 @@ export default function AutoSpecPage() {
             <div className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
               <item.icon className="w-5 h-5" />
             </div>
-            <span className="text-[10px] font-black uppercase tracking-widest pr-4 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            <span className="text-[10px] font-black uppercase tracking-widest pr-4 opacity-100 transition-opacity whitespace-nowrap">
               {item.label}
             </span>
           </button>
