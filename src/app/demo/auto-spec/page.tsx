@@ -218,13 +218,23 @@ export default function AutoSpecPage() {
       </div>
 
       {/* Contenedor de Medios Central */}
-      <main className="relative z-10 w-full h-full flex flex-col items-center justify-center pt-20">
+      <main className="relative z-10 w-full h-full flex flex-col items-center justify-center pt-24">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative w-full max-w-5xl px-10 flex flex-col items-center"
         >
+          {/* Título y Precio arriba del video */}
+          <div className="mb-8 text-center space-y-2">
+            <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-zinc-900">{carData.model}</h2>
+            <div className="flex items-center justify-center gap-4">
+              <span className="text-2xl font-black text-zinc-900">{carData.price}</span>
+              <div className="w-1 h-1 rounded-full bg-zinc-200" />
+              <span className="text-sm font-bold text-zinc-400 uppercase tracking-widest">{carData.negotiable ? 'Precio Negociable' : ''}</span>
+            </div>
+          </div>
+
           {/* Main Media Display */}
           <div className="relative w-full aspect-video rounded-[3rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)] border-[12px] border-white/5 bg-zinc-100 mb-8 group">
             {activeMedia === 'video' ? (
@@ -282,15 +292,6 @@ export default function AutoSpecPage() {
               </button>
             ))}
           </div>
-          
-          <div className="mt-8 text-center space-y-2">
-            <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-zinc-900">{carData.model}</h2>
-            <div className="flex items-center justify-center gap-4">
-              <span className="text-2xl font-black text-zinc-900">{carData.price}</span>
-              <div className="w-1 h-1 rounded-full bg-zinc-200" />
-              <span className="text-sm font-bold text-zinc-400 uppercase tracking-widest">{carData.negotiable ? 'Precio Negociable' : ''}</span>
-            </div>
-          </div>
         </motion.div>
       </main>
 
@@ -320,7 +321,7 @@ export default function AutoSpecPage() {
                       React.createElement((leftMenuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)!.icon)!, { className: "w-6 h-6 text-zinc-900" })}
                   </div>
                   <h3 className="text-2xl font-headline font-bold uppercase tracking-tight text-zinc-900">
-                    {activePopup === 'features' ? 'Características' : (leftMenuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label)}
+                    {leftMenuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label}
                   </h3>
                 </div>
                 <button 
