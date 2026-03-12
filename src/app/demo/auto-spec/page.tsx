@@ -112,7 +112,7 @@ export default function AutoSpecPage() {
           </Button>
         </Link>
         <div className="flex flex-col items-center">
-          <div className="relative h-20 w-[200px]">
+          <div className="relative h-24 w-[500px]">
             <img 
               src="https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2Fporsche-logo-0.png?alt=media&token=7ab4dfea-f919-4f19-8e5f-91427f396bbe" 
               alt="Porsche Logo" 
