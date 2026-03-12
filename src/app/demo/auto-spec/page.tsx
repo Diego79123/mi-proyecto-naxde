@@ -128,7 +128,7 @@ export default function AutoSpecPage() {
         </div>
       </div>
 
-      {/* Header con Logo de 500px y Créditos */}
+      {/* Header con Logo de 500px */}
       <header className="absolute top-0 left-0 right-0 z-50 h-24 flex items-center justify-between px-10">
         <Link href="/proyectos">
           <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-zinc-900 rounded-full bg-white/50 border border-zinc-100">
@@ -144,11 +144,8 @@ export default function AutoSpecPage() {
             />
           </div>
         </div>
-        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-400">
-          <span className="hidden md:inline">Desarrollada con</span>
-          <Heart className="w-3.5 h-3.5 text-primary fill-primary animate-heartbeat" />
-          <span>por Naxde Studio</span>
-        </div>
+        {/* Espacio reservado para equilibrio visual del justify-between */}
+        <div className="w-10" />
       </header>
 
       {/* Menú Táctico Izquierdo */}
@@ -177,27 +174,36 @@ export default function AutoSpecPage() {
         ))}
       </nav>
 
-      {/* Barra de Navegación Inferior Táctica */}
-      <nav className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 p-2 bg-white/90 backdrop-blur-3xl border border-zinc-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
-        {bottomNavItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => setActivePopup(item.id as PopupType)}
-            className={cn(
-              "flex items-center gap-3 px-6 py-3 rounded-2xl transition-all duration-500 group",
-              activePopup === item.id ? "bg-zinc-900 text-white" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900"
-            )}
-          >
-            <item.icon className={cn(
-              "w-5 h-5 transition-transform group-hover:scale-110",
-              activePopup === item.id ? "text-primary" : "text-zinc-400"
-            )} />
-            <span className="text-[10px] font-black uppercase tracking-widest">
-              {item.label}
-            </span>
-          </button>
-        ))}
-      </nav>
+      {/* Menú Inferior con Créditos */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-4">
+        <nav className="flex items-center gap-2 p-2 bg-white/90 backdrop-blur-3xl border border-zinc-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+          {bottomNavItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActivePopup(item.id as PopupType)}
+              className={cn(
+                "flex items-center gap-3 px-6 py-3 rounded-2xl transition-all duration-500 group",
+                activePopup === item.id ? "bg-zinc-900 text-white" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900"
+              )}
+            >
+              <item.icon className={cn(
+                "w-5 h-5 transition-transform group-hover:scale-110",
+                activePopup === item.id ? "text-primary" : "text-zinc-400"
+              )} />
+              <span className="text-[10px] font-black uppercase tracking-widest">
+                {item.label}
+              </span>
+            </button>
+          ))}
+        </nav>
+        
+        {/* Créditos debajo del menú */}
+        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-400">
+          <span className="hidden md:inline">Desarrollada con</span>
+          <Heart className="w-3.5 h-3.5 text-primary fill-primary animate-heartbeat" />
+          <span>por Naxde Studio</span>
+        </div>
+      </div>
 
       {/* Video Hero Principal */}
       <main className="relative z-10 w-full h-full flex flex-col items-center justify-center pt-20">
