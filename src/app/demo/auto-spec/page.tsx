@@ -188,7 +188,6 @@ export default function AutoSpecPage() {
 
       {/* Menú Inferior (Contacto y Utilidades) */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-4">
-        <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Canales Directos</h4>
         <nav className="flex items-center gap-2 p-2 bg-white/90 backdrop-blur-3xl border border-zinc-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
           {bottomNavItems.map((item) => (
             <button
@@ -321,7 +320,7 @@ export default function AutoSpecPage() {
                       React.createElement((leftMenuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)!.icon)!, { className: "w-6 h-6 text-zinc-900" })}
                   </div>
                   <h3 className="text-2xl font-headline font-bold uppercase tracking-tight text-zinc-900">
-                    {activePopup === 'features' ? 'Características del producto' : (activePopup === 'performance' ? 'Rendimiento y dimensiones' : (leftMenuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label))}
+                    {activePopup === 'features' ? 'Características' : (leftMenuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label)}
                   </h3>
                 </div>
                 <button 
@@ -446,6 +445,34 @@ export default function AutoSpecPage() {
                       <div key={i} className="p-6 bg-zinc-50 rounded-3xl border border-zinc-100">
                         <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">{item.l}</p>
                         <p className="text-xl font-bold">{item.v}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activePopup === 'exterior' && (
+                  <div className="space-y-1">
+                    {[
+                      { label: "Llantas de aleación", val: "Sí" },
+                      { label: "Techo corredizo", val: "No" },
+                      { label: "Soporte para llanta de repuesto", val: "Sí" },
+                      { label: "Limpia/lava luneta", val: "Sí" },
+                      { label: "Porta equipaje en techo", val: "No" },
+                    ].map((item, i) => (
+                      <div 
+                        key={i} 
+                        className={cn(
+                          "flex justify-between items-center p-4 rounded-xl transition-colors",
+                          i % 2 === 0 ? "bg-zinc-50" : "bg-white"
+                        )}
+                      >
+                        <span className="text-sm font-bold text-zinc-600 uppercase tracking-tight">{item.label}</span>
+                        <span className={cn(
+                          "text-sm font-black uppercase tracking-widest",
+                          item.val === 'Sí' ? "text-green-600" : "text-red-500"
+                        )}>
+                          {item.val}
+                        </span>
                       </div>
                     ))}
                   </div>
