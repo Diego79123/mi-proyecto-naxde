@@ -50,7 +50,7 @@ const carData = {
   brand: "Porsche",
   model: "911 Carrera",
   year: 2024,
-  price: "$145,000",
+  price: "210.000.000",
   mileage: "0 KM",
   owners: "1 (Nuevo)",
   reference: "992 Generation",
