@@ -24,7 +24,11 @@ import {
   Shield,
   Activity,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Sofa,
+  Cpu,
+  ShieldAlert,
+  Timer
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -56,7 +60,6 @@ const carData = {
   sensors: "360° Vision Pro",
   negotiable: "Precio Negociable",
   description: "El Porsche 911 Carrera S redefine la ingeniería automotriz. Una obra maestra de precisión alemana diseñada para quienes no aceptan compromisos. Su motor bóxer biturbo entrega una respuesta inmediata, mientras que su silueta icónica corta el viento con una eficiencia inigualable.",
-  // Estas URLs deben ser reemplazadas por los enlaces de Firebase Storage de la carpeta aplicaciones/aplicaciones-auto
   images: [
     "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200",
     "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1200",
@@ -64,7 +67,7 @@ const carData = {
   ]
 };
 
-type PopupType = 'specs' | 'engine' | 'equipment' | 'contact' | 'description' | null;
+type PopupType = 'specs' | 'engine' | 'equipment' | 'contact' | 'description' | 'interior' | 'safety' | 'tech' | 'performance' | null;
 
 export default function AutoSpecPage() {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
@@ -89,6 +92,13 @@ export default function AutoSpecPage() {
     { id: 'equipment', label: 'Equipamiento', icon: Settings2 },
     { id: 'description', label: 'Historia', icon: Activity },
     { id: 'contact', label: 'Ventas', icon: MessageCircle },
+  ];
+
+  const bottomNavItems = [
+    { id: 'interior', label: 'Interior', icon: Sofa },
+    { id: 'safety', label: 'Seguridad', icon: ShieldAlert },
+    { id: 'tech', label: 'Tecnología', icon: Cpu },
+    { id: 'performance', label: 'Performance', icon: Timer },
   ];
 
   return (
@@ -141,6 +151,28 @@ export default function AutoSpecPage() {
               <item.icon className="w-5 h-5" />
             </div>
             <span className="text-[10px] font-black uppercase tracking-widest pr-4 opacity-100 transition-opacity whitespace-nowrap">
+              {item.label}
+            </span>
+          </button>
+        ))}
+      </nav>
+
+      {/* Bottom Tactical Navigation Bar */}
+      <nav className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 p-2 bg-white/80 backdrop-blur-3xl border border-zinc-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.1)]">
+        {bottomNavItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setActivePopup(item.id as PopupType)}
+            className={cn(
+              "flex items-center gap-3 px-6 py-3 rounded-2xl transition-all duration-500 group",
+              activePopup === item.id ? "bg-zinc-900 text-white" : "text-zinc-500 hover:bg-zinc-100"
+            )}
+          >
+            <item.icon className={cn(
+              "w-5 h-5 transition-transform group-hover:scale-110",
+              activePopup === item.id ? "text-primary" : "text-zinc-400"
+            )} />
+            <span className="text-[10px] font-black uppercase tracking-widest">
               {item.label}
             </span>
           </button>
@@ -238,10 +270,11 @@ export default function AutoSpecPage() {
               <header className="p-8 border-b border-zinc-100 flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    {menuItems.find(i => i.id === activePopup)?.icon && React.createElement(menuItems.find(i => i.id === activePopup)!.icon, { className: "w-6 h-6 text-primary" })}
+                    {(menuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)?.icon) && 
+                      React.createElement((menuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)!.icon)!, { className: "w-6 h-6 text-primary" })}
                   </div>
                   <h3 className="text-2xl font-headline font-bold uppercase tracking-tight text-zinc-900">
-                    {menuItems.find(i => i.id === activePopup)?.label}
+                    {menuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label}
                   </h3>
                 </div>
                 <button 
@@ -318,6 +351,96 @@ export default function AutoSpecPage() {
                       <div className="aspect-square rounded-2xl bg-zinc-100" />
                       <div className="aspect-square rounded-2xl bg-zinc-100" />
                       <div className="aspect-square rounded-2xl bg-zinc-100" />
+                    </div>
+                  </div>
+                )}
+
+                {activePopup === 'interior' && (
+                  <div className="space-y-6">
+                    <div className="aspect-video rounded-[2rem] bg-zinc-100 mb-6 overflow-hidden">
+                      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200" alt="Interior" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {[
+                        "Cuero Club Premium",
+                        "Iluminación Ambiental 64 Colores",
+                        "Pantalla Táctil 10.9\"",
+                        "Climatizador Bizona Pro"
+                      ].map((feat, i) => (
+                        <div key={i} className="p-4 rounded-xl bg-zinc-50 border border-zinc-100 flex items-center gap-3">
+                          <CheckCircle2 className="w-4 h-4 text-primary" />
+                          <span className="text-sm font-bold text-zinc-700">{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activePopup === 'safety' && (
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {[
+                        { t: "8 Airbags Pro", d: "Protección integral envolvente" },
+                        { t: "Frenado Emergencia", d: "Detección de colisión frontal" },
+                        { t: "Control Estabilidad", d: "Porsche Stability Management" },
+                        { t: "Anclajes ISOFIX", d: "Seguridad para asientos infantiles" }
+                      ].map((item, i) => (
+                        <div key={i} className="p-6 rounded-[2rem] bg-zinc-50 border border-zinc-100 space-y-2">
+                          <Shield className="w-6 h-6 text-primary" />
+                          <h4 className="font-black text-zinc-900 uppercase text-sm tracking-tight">{item.t}</h4>
+                          <p className="text-xs text-zinc-500">{item.d}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activePopup === 'tech' && (
+                  <div className="space-y-6">
+                    <div className="flex flex-col gap-4">
+                      {[
+                        { icon: Globe, t: "Porsche Connect", d: "Servicios online y navegación en tiempo real" },
+                        { icon: Zap, t: "Sonido Bose Pro", d: "12 altavoces de alta fidelidad" },
+                        { icon: Smartphone, t: "App Remote", d: "Controla tu coche desde el smartphone" }
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-6 p-6 rounded-[2rem] bg-zinc-50 border border-zinc-100">
+                          <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm">
+                            <item.icon className="w-6 h-6 text-primary" />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-zinc-900">{item.t}</h4>
+                            <p className="text-xs text-zinc-500">{item.d}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activePopup === 'performance' && (
+                  <div className="space-y-8">
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="flex flex-col items-center p-6 rounded-[2rem] bg-zinc-900 text-white text-center">
+                        <Timer className="w-6 h-6 text-primary mb-2" />
+                        <span className="text-[8px] font-black uppercase opacity-50">0-100 km/h</span>
+                        <span className="text-2xl font-black italic">3.5s</span>
+                      </div>
+                      <div className="flex flex-col items-center p-6 rounded-[2rem] bg-zinc-900 text-white text-center">
+                        <Gauge className="w-6 h-6 text-primary mb-2" />
+                        <span className="text-[8px] font-black uppercase opacity-50">V. Máxima</span>
+                        <span className="text-2xl font-black italic">306</span>
+                      </div>
+                      <div className="flex flex-col items-center p-6 rounded-[2rem] bg-zinc-900 text-white text-center">
+                        <Activity className="w-6 h-6 text-primary mb-2" />
+                        <span className="text-[8px] font-black uppercase opacity-50">Potencia</span>
+                        <span className="text-2xl font-black italic">450 CV</span>
+                      </div>
+                    </div>
+                    <div className="p-6 rounded-[2rem] border border-zinc-100 bg-zinc-50">
+                      <h4 className="font-bold text-zinc-900 mb-4">Dinámica de Conducción</h4>
+                      <p className="text-sm text-zinc-600 leading-relaxed">
+                        Sistema de suspensión activa (PASM) con ajuste continuo de la amortiguación. Porsche Torque Vectoring Plus para una agilidad superior en curvas.
+                      </p>
                     </div>
                   </div>
                 )}
