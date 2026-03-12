@@ -54,7 +54,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
 
-// Datos del vehículo actualizados según imagen
+// Datos del vehículo actualizados
 const carData = {
   brand: "Porsche",
   model: "911 Carrera",
@@ -127,7 +127,7 @@ export default function AutoSpecPage() {
         
         {/* Massive Background Text */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none">
-          <h1 className="text-[65vw] font-black tracking-tighter leading-none italic text-zinc-900">911</h1>
+          <h1 className="text-[100vw] font-black tracking-tighter leading-none italic text-zinc-900">911</h1>
         </div>
       </div>
 
@@ -378,15 +378,36 @@ export default function AutoSpecPage() {
                 )}
 
                 {activePopup === 'confort' && (
-                  <div className="space-y-8 text-zinc-600">
-                    <p className="text-lg">Equipamiento diseñado para el bienestar absoluto:</p>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {["Climatizador Bi-zona Pro", "Asientos Deportivos 14 posiciones", "Iluminación Ambiental 64 colores", "Suspensión Adaptativa PASM"].map((t, i) => (
-                        <li key={i} className="flex items-center gap-3 p-4 bg-zinc-50 rounded-2xl border border-zinc-100 font-bold">
-                          <CheckCircle2 className="w-5 h-5 text-zinc-900" /> {t}
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="space-y-1">
+                    {[
+                      { label: "Piloto automático", val: "No" },
+                      { label: "Aire acondicionado", val: "Sí" },
+                      { label: "Alarma de luces encendidas", val: "Sí" },
+                      { label: "Computadora de abordo", val: "Sí" },
+                      { label: "Vidrios eléctricos", val: "Sí" },
+                      { label: "Sensor de lluvia", val: "Sí" },
+                      { label: "Apertura remota de baúl", val: "Sí" },
+                      { label: "Comando remoto para radio en el volante", val: "Sí" },
+                      { label: "Porta vasos", val: "Sí" },
+                      { label: "Climatizador", val: "Sí" },
+                      { label: "Cierre automático de vidrios", val: "Sí" },
+                    ].map((item, i) => (
+                      <div 
+                        key={i} 
+                        className={cn(
+                          "flex justify-between items-center p-4 rounded-xl transition-colors",
+                          i % 2 === 0 ? "bg-zinc-50" : "bg-white"
+                        )}
+                      >
+                        <span className="text-sm font-bold text-zinc-600 uppercase tracking-tight">{item.label}</span>
+                        <span className={cn(
+                          "text-sm font-black uppercase tracking-widest",
+                          item.val === 'Sí' ? "text-green-600" : "text-red-500"
+                        )}>
+                          {item.val}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 )}
 
