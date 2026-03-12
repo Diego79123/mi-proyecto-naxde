@@ -28,7 +28,9 @@ import {
   Sofa,
   Cpu,
   ShieldAlert,
-  Timer
+  Timer,
+  Globe,
+  Smartphone
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -102,14 +104,14 @@ export default function AutoSpecPage() {
   ];
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-white to-zinc-100 text-zinc-900 font-body overflow-hidden selection:bg-primary/30">
-      {/* Background Decor */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[60%] bg-primary/5 blur-[150px] rounded-full" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[70%] h-[50%] bg-blue-600/5 blur-[120px] rounded-full" />
+    <div className="fixed inset-0 bg-white text-zinc-900 font-body overflow-hidden selection:bg-primary/30">
+      {/* Background Decor - Solo Gris y Blanco */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-zinc-50">
+        <div className="absolute top-[-10%] right-[-10%] w-[80%] h-[60%] bg-zinc-200/30 blur-[150px] rounded-full" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[70%] h-[50%] bg-zinc-200/30 blur-[120px] rounded-full" />
         
         {/* Massive Background Text */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-[0.05] select-none">
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none">
           <h1 className="text-[40vw] font-black tracking-tighter leading-none italic text-zinc-900">911</h1>
         </div>
       </div>
@@ -117,7 +119,7 @@ export default function AutoSpecPage() {
       {/* Minimalist Header */}
       <header className="absolute top-0 left-0 right-0 z-50 h-24 flex items-center justify-between px-10">
         <Link href="/proyectos">
-          <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-zinc-900 rounded-full bg-zinc-100/50">
+          <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-zinc-900 rounded-full bg-white/50 border border-zinc-100">
             <ArrowLeft className="w-5 h-5" />
           </Button>
         </Link>
@@ -141,16 +143,18 @@ export default function AutoSpecPage() {
             onClick={() => setActivePopup(item.id as PopupType)}
             className={cn(
               "group flex items-center gap-4 p-3 rounded-2xl transition-all duration-500",
-              activePopup === item.id ? "bg-primary text-white shadow-lg shadow-primary/20" : "bg-white border border-zinc-200 text-zinc-500 hover:border-primary/30 hover:text-primary"
+              activePopup === item.id 
+                ? "bg-zinc-900 text-white shadow-xl" 
+                : "bg-white border border-zinc-200 text-zinc-500 hover:border-zinc-400 hover:text-zinc-900"
             )}
           >
             <div className={cn(
               "w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform",
-              activePopup === item.id ? "bg-white/20" : "bg-zinc-50"
+              activePopup === item.id ? "bg-white/10" : "bg-zinc-50"
             )}>
               <item.icon className="w-5 h-5" />
             </div>
-            <span className="text-[10px] font-black uppercase tracking-widest pr-4 opacity-100 transition-opacity whitespace-nowrap">
+            <span className="text-[10px] font-black uppercase tracking-widest pr-4 whitespace-nowrap">
               {item.label}
             </span>
           </button>
@@ -158,14 +162,14 @@ export default function AutoSpecPage() {
       </nav>
 
       {/* Bottom Tactical Navigation Bar */}
-      <nav className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 p-2 bg-white/80 backdrop-blur-3xl border border-zinc-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.1)]">
+      <nav className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 p-2 bg-white/90 backdrop-blur-3xl border border-zinc-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
         {bottomNavItems.map((item) => (
           <button
             key={item.id}
             onClick={() => setActivePopup(item.id as PopupType)}
             className={cn(
               "flex items-center gap-3 px-6 py-3 rounded-2xl transition-all duration-500 group",
-              activePopup === item.id ? "bg-zinc-900 text-white" : "text-zinc-500 hover:bg-zinc-100"
+              activePopup === item.id ? "bg-zinc-900 text-white" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900"
             )}
           >
             <item.icon className={cn(
@@ -195,7 +199,7 @@ export default function AutoSpecPage() {
                     <img 
                       src={src} 
                       alt={`${carData.model} - toma ${index + 1}`} 
-                      className="w-full h-auto max-h-[60vh] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.15)]"
+                      className="w-full h-auto max-h-[60vh] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.1)]"
                     />
                   </div>
                 </CarouselItem>
@@ -206,7 +210,7 @@ export default function AutoSpecPage() {
             <div className="absolute -left-4 top-1/2 -translate-y-1/2">
               <button 
                 onClick={() => api?.scrollPrev()}
-                className="w-12 h-12 rounded-full bg-white/80 border border-zinc-200 flex items-center justify-center text-zinc-400 hover:text-primary hover:bg-white transition-all shadow-md"
+                className="w-12 h-12 rounded-full bg-white/80 border border-zinc-200 flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:bg-white transition-all shadow-sm"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
@@ -214,7 +218,7 @@ export default function AutoSpecPage() {
             <div className="absolute -right-4 top-1/2 -translate-y-1/2">
               <button 
                 onClick={() => api?.scrollNext()}
-                className="w-12 h-12 rounded-full bg-white/80 border border-zinc-200 flex items-center justify-center text-zinc-400 hover:text-primary hover:bg-white transition-all shadow-md"
+                className="w-12 h-12 rounded-full bg-white/80 border border-zinc-200 flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:bg-white transition-all shadow-sm"
               >
                 <ChevronRight className="w-6 h-6" />
               </button>
@@ -227,7 +231,7 @@ export default function AutoSpecPage() {
                   key={i} 
                   className={cn(
                     "h-1.5 rounded-full transition-all duration-300",
-                    current === i ? "w-8 bg-primary" : "w-2 bg-zinc-200"
+                    current === i ? "w-8 bg-zinc-900" : "w-2 bg-zinc-200"
                   )} 
                 />
               ))}
@@ -238,7 +242,7 @@ export default function AutoSpecPage() {
           <div className="mt-12 text-center space-y-2">
             <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-zinc-900">{carData.model}</h2>
             <div className="flex items-center justify-center gap-4">
-              <span className="text-2xl font-black text-primary">{carData.price}</span>
+              <span className="text-2xl font-black text-zinc-900">{carData.price}</span>
               <div className="w-1 h-1 rounded-full bg-zinc-200" />
               <span className="text-sm font-bold text-zinc-400 uppercase tracking-widest">{carData.negotiable}</span>
             </div>
@@ -256,7 +260,7 @@ export default function AutoSpecPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closePopup}
-              className="absolute inset-0 bg-white/60 backdrop-blur-md"
+              className="absolute inset-0 bg-white/80 backdrop-blur-md"
             />
 
             {/* Content Window */}
@@ -265,13 +269,13 @@ export default function AutoSpecPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 30 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-2xl bg-white/95 border border-zinc-200 rounded-[3rem] shadow-[0_30px_100px_rgba(0,0,0,0.1)] overflow-hidden"
+              className="relative w-full max-w-2xl bg-white border border-zinc-200 rounded-[3rem] shadow-[0_30px_100px_rgba(0,0,0,0.05)] overflow-hidden"
             >
               <header className="p-8 border-b border-zinc-100 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-zinc-100 flex items-center justify-center">
                     {(menuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)?.icon) && 
-                      React.createElement((menuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)!.icon)!, { className: "w-6 h-6 text-primary" })}
+                      React.createElement((menuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)!.icon)!, { className: "w-6 h-6 text-zinc-900" })}
                   </div>
                   <h3 className="text-2xl font-headline font-bold uppercase tracking-tight text-zinc-900">
                     {menuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label}
@@ -297,7 +301,7 @@ export default function AutoSpecPage() {
                       { icon: CheckCircle2, label: "Permuta", val: carData.permuta },
                     ].map((item, i) => (
                       <div key={i} className="flex flex-col gap-1 p-4 rounded-2xl bg-zinc-50 border border-zinc-100">
-                        <item.icon className="w-4 h-4 text-primary mb-2" />
+                        <item.icon className="w-4 h-4 text-zinc-900 mb-2" />
                         <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">{item.label}</span>
                         <span className="text-lg font-bold text-zinc-900">{item.val}</span>
                       </div>
@@ -313,9 +317,9 @@ export default function AutoSpecPage() {
                       { label: "Combustible", val: carData.fuel, icon: Fuel },
                       { label: "Tracción", val: "Trasera (RWD)", icon: Activity },
                     ].map((item, i) => (
-                      <div key={i} className="flex items-center justify-between p-6 rounded-[2rem] bg-zinc-50 border border-zinc-100">
+                      <div key={i} className="flex items-center justify-between p-6 rounded-[2.5rem] bg-zinc-50 border border-zinc-100">
                         <div className="flex items-center gap-4">
-                          <item.icon className="w-6 h-6 text-primary" />
+                          <item.icon className="w-6 h-6 text-zinc-900" />
                           <span className="text-xs font-black uppercase tracking-widest text-zinc-400">{item.label}</span>
                         </div>
                         <span className="text-lg font-bold text-zinc-900">{item.val}</span>
@@ -335,7 +339,7 @@ export default function AutoSpecPage() {
                       "Apple CarPlay Inalámbrico"
                     ].map((item, i) => (
                       <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-zinc-50 border border-zinc-100">
-                        <CheckCircle2 className="w-4 h-4 text-primary" />
+                        <CheckCircle2 className="w-4 h-4 text-zinc-900" />
                         <span className="text-sm font-medium text-zinc-700">{item}</span>
                       </div>
                     ))}
@@ -368,7 +372,7 @@ export default function AutoSpecPage() {
                         "Climatizador Bizona Pro"
                       ].map((feat, i) => (
                         <div key={i} className="p-4 rounded-xl bg-zinc-50 border border-zinc-100 flex items-center gap-3">
-                          <CheckCircle2 className="w-4 h-4 text-primary" />
+                          <CheckCircle2 className="w-4 h-4 text-zinc-900" />
                           <span className="text-sm font-bold text-zinc-700">{feat}</span>
                         </div>
                       ))}
@@ -386,7 +390,7 @@ export default function AutoSpecPage() {
                         { t: "Anclajes ISOFIX", d: "Seguridad para asientos infantiles" }
                       ].map((item, i) => (
                         <div key={i} className="p-6 rounded-[2rem] bg-zinc-50 border border-zinc-100 space-y-2">
-                          <Shield className="w-6 h-6 text-primary" />
+                          <Shield className="w-6 h-6 text-zinc-900" />
                           <h4 className="font-black text-zinc-900 uppercase text-sm tracking-tight">{item.t}</h4>
                           <p className="text-xs text-zinc-500">{item.d}</p>
                         </div>
@@ -405,7 +409,7 @@ export default function AutoSpecPage() {
                       ].map((item, i) => (
                         <div key={i} className="flex items-center gap-6 p-6 rounded-[2rem] bg-zinc-50 border border-zinc-100">
                           <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm">
-                            <item.icon className="w-6 h-6 text-primary" />
+                            <item.icon className="w-6 h-6 text-zinc-900" />
                           </div>
                           <div>
                             <h4 className="font-bold text-zinc-900">{item.t}</h4>
@@ -420,17 +424,17 @@ export default function AutoSpecPage() {
                 {activePopup === 'performance' && (
                   <div className="space-y-8">
                     <div className="grid grid-cols-3 gap-4">
-                      <div className="flex flex-col items-center p-6 rounded-[2rem] bg-zinc-900 text-white text-center">
+                      <div className="flex flex-col items-center p-6 rounded-[2.5rem] bg-zinc-900 text-white text-center">
                         <Timer className="w-6 h-6 text-primary mb-2" />
                         <span className="text-[8px] font-black uppercase opacity-50">0-100 km/h</span>
                         <span className="text-2xl font-black italic">3.5s</span>
                       </div>
-                      <div className="flex flex-col items-center p-6 rounded-[2rem] bg-zinc-900 text-white text-center">
+                      <div className="flex flex-col items-center p-6 rounded-[2.5rem] bg-zinc-900 text-white text-center">
                         <Gauge className="w-6 h-6 text-primary mb-2" />
                         <span className="text-[8px] font-black uppercase opacity-50">V. Máxima</span>
                         <span className="text-2xl font-black italic">306</span>
                       </div>
-                      <div className="flex flex-col items-center p-6 rounded-[2rem] bg-zinc-900 text-white text-center">
+                      <div className="flex flex-col items-center p-6 rounded-[2.5rem] bg-zinc-900 text-white text-center">
                         <Activity className="w-6 h-6 text-primary mb-2" />
                         <span className="text-[8px] font-black uppercase opacity-50">Potencia</span>
                         <span className="text-2xl font-black italic">450 CV</span>
@@ -450,7 +454,7 @@ export default function AutoSpecPage() {
                     <div className="text-center">
                       <p className="text-zinc-400 text-sm font-medium mb-6">Asesoría personalizada disponible ahora</p>
                       <div className="flex flex-col gap-4">
-                        <Button className="h-16 bg-primary hover:bg-primary/90 text-white rounded-2xl text-xl font-black gap-4 neon-accent shadow-glow-accent">
+                        <Button className="h-16 bg-zinc-900 hover:bg-black text-white rounded-2xl text-xl font-black gap-4 shadow-lg">
                           <MessageCircle className="w-6 h-6" />
                           WHATSAPP ASESOR
                         </Button>
@@ -460,8 +464,8 @@ export default function AutoSpecPage() {
                         </Button>
                       </div>
                     </div>
-                    <div className="p-6 rounded-[2rem] border border-zinc-100 bg-zinc-50 flex items-center gap-6">
-                      <MapPin className="w-8 h-8 text-primary" />
+                    <div className="p-6 rounded-[2.5rem] border border-zinc-100 bg-zinc-50 flex items-center gap-6">
+                      <MapPin className="w-8 h-8 text-zinc-900" />
                       <div>
                         <h4 className="font-bold text-zinc-900">Showroom Bogotá</h4>
                         <p className="text-zinc-500 text-sm">Av. 116 # 45-20, Zona Norte</p>
