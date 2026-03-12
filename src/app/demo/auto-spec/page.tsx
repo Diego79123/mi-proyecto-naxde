@@ -478,6 +478,101 @@ export default function AutoSpecPage() {
                   </div>
                 )}
 
+                {activePopup === 'safety' && (
+                  <div className="space-y-1">
+                    {[
+                      { label: "Frenos ABS", val: "Sí" },
+                      { label: "Defensa delantera", val: "Sí" },
+                      { label: "Airbag conductor", val: "Sí" },
+                      { label: "Luces con regulación automática", val: "Sí" },
+                      { label: "Sensor de parqueo", val: "Sí" },
+                      { label: "Airbag para conductor y pasajero", val: "Sí" },
+                      { label: "Faros antinieblas traseros", val: "Sí" },
+                      { label: "Desempañador trasero", val: "Sí" },
+                      { label: "Control de estabilidad", val: "Sí" },
+                      { label: "Tercera luz de freno led", val: "Sí" },
+                      { label: "Cierre centralizado de puertas", val: "Sí" },
+                      { label: "Blindado", val: "No" },
+                    ].map((item, i) => (
+                      <div 
+                        key={i} 
+                        className={cn(
+                          "flex justify-between items-center p-4 rounded-xl transition-colors",
+                          i % 2 === 0 ? "bg-zinc-50" : "bg-white"
+                        )}
+                      >
+                        <span className="text-sm font-bold text-zinc-600 uppercase tracking-tight">{item.label}</span>
+                        <span className={cn(
+                          "text-sm font-black uppercase tracking-widest",
+                          item.val === 'Sí' ? "text-green-600" : "text-red-500"
+                        )}>
+                          {item.val}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activePopup === 'entertainment' && (
+                  <div className="space-y-1">
+                    {[
+                      { label: "AM/FM", val: "Sí" },
+                      { label: "Bluetooth", val: "Sí" },
+                      { label: "Reproductor de MP3", val: "Sí" },
+                      { label: "Entrada USB", val: "Sí" },
+                      { label: "Android Auto", val: "Sí" },
+                      { label: "Apple CarPlay", val: "Sí" },
+                      { label: "Control de audio al volante", val: "Sí" },
+                    ].map((item, i) => (
+                      <div 
+                        key={i} 
+                        className={cn(
+                          "flex justify-between items-center p-4 rounded-xl transition-colors",
+                          i % 2 === 0 ? "bg-zinc-50" : "bg-white"
+                        )}
+                      >
+                        <span className="text-sm font-bold text-zinc-600 uppercase tracking-tight">{item.label}</span>
+                        <span className={cn(
+                          "text-sm font-black uppercase tracking-widest",
+                          item.val === 'Sí' ? "text-green-600" : "text-red-500"
+                        )}>
+                          {item.val}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activePopup === 'interior' && (
+                  <div className="space-y-1">
+                    {[
+                      { label: "Tapizado de cuero", val: "Sí" },
+                      { label: "Computadora de abordo", val: "Sí" },
+                      { label: "Aire acondicionado", val: "Sí" },
+                      { label: "Cristales eléctricos", val: "Sí" },
+                      { label: "Comando remoto para radio en el volante", val: "Sí" },
+                      { label: "Porta vasos", val: "Sí" },
+                      { label: "Asientos eléctricos", val: "Sí" },
+                    ].map((item, i) => (
+                      <div 
+                        key={i} 
+                        className={cn(
+                          "flex justify-between items-center p-4 rounded-xl transition-colors",
+                          i % 2 === 0 ? "bg-zinc-50" : "bg-white"
+                        )}
+                      >
+                        <span className="text-sm font-bold text-zinc-600 uppercase tracking-tight">{item.label}</span>
+                        <span className={cn(
+                          "text-sm font-black uppercase tracking-widest",
+                          item.val === 'Sí' ? "text-green-600" : "text-red-500"
+                        )}>
+                          {item.val}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
                 {activePopup === 'whatsapp' && (
                   <div className="text-center space-y-8">
                     <p className="text-zinc-500 font-medium text-lg">Inicia una conversación directa con un asesor certificado.</p>
