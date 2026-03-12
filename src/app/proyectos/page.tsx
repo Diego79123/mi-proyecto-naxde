@@ -9,7 +9,7 @@ import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, query, where } from 'firebase/firestore';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Smartphone, Globe, Layout, ExternalLink, Zap, ArrowRight, Code, Sparkles } from 'lucide-react';
+import { Smartphone, Globe, Layout, ExternalLink, Zap, ArrowRight, Code, Sparkles, CarFront } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -33,6 +33,15 @@ export default function ProyectosPage() {
   const { data: projects, isLoading } = useCollection(projectsQuery);
 
   const mockProjects = [
+    {
+      id: 'autospec-pro',
+      title: 'AutoSpec Pro',
+      category: 'Aplicaciones',
+      shortDescription: 'Aplicativo de ficha técnica automotriz escaneable vía NFC/QR. Diseño inmersivo para concesionarios de alta gama.',
+      imageUrl: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1000',
+      technologies: ['NFC', 'Next.js', 'Framer Motion'],
+      customHref: '/demo/auto-spec'
+    },
     {
       id: 'oscar-card-project',
       title: 'Vortex Oscar Rivera',
@@ -137,7 +146,7 @@ export default function ProyectosPage() {
                     <div className="pt-6 flex items-center justify-between border-t border-white/5">
                       <Link href={project.customHref || `/proyectos/${project.slug || project.id}`}>
                         <Button variant="link" className="text-primary p-0 font-black uppercase tracking-[0.2em] text-[10px] gap-3 group/btn">
-                          VER PORTAFOLIO
+                          VER PROYECTO
                           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
                         </Button>
                       </Link>
