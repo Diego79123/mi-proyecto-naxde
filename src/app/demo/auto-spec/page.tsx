@@ -122,7 +122,7 @@ export default function AutoSpecPage() {
     };
   }, [api]);
 
-  // Scroll to carousel item when activeMedia changes (from external buttons or dots)
+  // Scroll to carousel item when activeMedia changes
   useEffect(() => {
     if (!api) return;
     const targetIndex = activeMedia === 'video' ? 0 : (activeMedia as number) + 1;
@@ -166,7 +166,7 @@ export default function AutoSpecPage() {
         </div>
       </div>
 
-      {/* Header con Logo imponente */}
+      {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-50 h-24 flex items-center justify-between px-10">
         <Link href="/proyectos">
           <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-zinc-900 rounded-full bg-white/50 border border-zinc-100">
@@ -185,7 +185,7 @@ export default function AutoSpecPage() {
         <div className="w-10" />
       </header>
 
-      {/* Menú Táctico Izquierdo (Características) */}
+      {/* Menú Táctico Izquierdo */}
       <nav className="absolute left-10 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3">
         {leftMenuItems.map((item) => (
           <button
@@ -221,21 +221,21 @@ export default function AutoSpecPage() {
         </button>
       </div>
 
-      {/* Menú Inferior (Contacto y Utilidades) */}
+      {/* Menú Inferior (Contacto) */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-4">
-        <nav className="flex items-center gap-2 p-2 bg-white/90 backdrop-blur-3xl border border-zinc-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+        <nav className="flex items-center gap-2 p-2 bg-primary border border-white/10 rounded-3xl shadow-[0_20px_50px_rgba(248,0,55,0.3)]">
           {bottomNavItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActivePopup(item.id as PopupType)}
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-500 group",
-                activePopup === item.id ? "bg-zinc-900 text-white" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900"
+                activePopup === item.id ? "bg-white text-primary" : "text-white hover:bg-white/10"
               )}
             >
               <item.icon className={cn(
                 "w-4 h-4 transition-transform group-hover:scale-110",
-                activePopup === item.id ? "text-primary" : "text-zinc-400"
+                activePopup === item.id ? "text-primary" : "text-white"
               )} />
               <span className="text-[9px] font-black uppercase tracking-widest hidden lg:inline">
                 {item.label}
@@ -244,7 +244,7 @@ export default function AutoSpecPage() {
           ))}
         </nav>
         
-        {/* Créditos con latido */}
+        {/* Créditos */}
         <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-400">
           <span className="hidden md:inline">Desarrollada con</span>
           <Heart className="w-3.5 h-3.5 text-primary fill-primary animate-heartbeat" />
@@ -252,7 +252,7 @@ export default function AutoSpecPage() {
         </div>
       </div>
 
-      {/* Contenedor de Medios Central */}
+      {/* Media Central */}
       <main className="relative z-10 w-full h-full flex flex-col items-center justify-center pt-24">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -260,7 +260,7 @@ export default function AutoSpecPage() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative w-full max-w-5xl px-10 flex flex-col items-center"
         >
-          {/* Título y Precio arriba del video */}
+          {/* Título y Precio */}
           <div className="mb-8 text-center space-y-2">
             <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-zinc-900">{carData.model}</h2>
             <div className="flex items-center justify-center gap-4">
@@ -270,7 +270,7 @@ export default function AutoSpecPage() {
             </div>
           </div>
 
-          {/* Main Media Display */}
+          {/* Main Display */}
           <div className="relative w-full aspect-video rounded-[3rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)] border-[12px] border-white/5 bg-zinc-100 mb-8 group">
             {activeMedia === 'video' ? (
               <video 
@@ -297,7 +297,7 @@ export default function AutoSpecPage() {
             </div>
           </div>
 
-          {/* Miniatures Slide */}
+          {/* Miniatures */}
           <div className="w-full max-w-3xl flex flex-col items-center gap-4">
             <div className="w-full px-10 relative">
               <Carousel
@@ -309,7 +309,6 @@ export default function AutoSpecPage() {
                 className="w-full"
               >
                 <CarouselContent className="-ml-3">
-                  {/* Slide Video */}
                   <CarouselItem className="pl-3 basis-auto">
                     <button 
                       onClick={() => setActiveMedia('video')}
@@ -325,7 +324,6 @@ export default function AutoSpecPage() {
                     </button>
                   </CarouselItem>
 
-                  {/* Slide Images */}
                   {carData.images.map((img, idx) => (
                     <CarouselItem key={idx} className="pl-3 basis-auto">
                       <button 
@@ -368,7 +366,7 @@ export default function AutoSpecPage() {
         </motion.div>
       </main>
 
-      {/* Popups de Información */}
+      {/* Popups */}
       <AnimatePresence>
         {activePopup && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-10">
