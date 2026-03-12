@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -33,7 +34,13 @@ import {
   Image as ImageIcon,
   Heart,
   Facebook,
-  Instagram
+  Instagram,
+  Palette,
+  Handshake,
+  DoorOpen,
+  Radio,
+  CircleDollarSign,
+  Layers
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -81,7 +88,7 @@ const carData = {
   ]
 };
 
-type PopupType = 'specs' | 'engine' | 'equipment' | 'gallery' | 'contact' | 'description' | 'interior' | 'safety' | 'tech' | 'performance' | null;
+type PopupType = 'specs' | 'features' | 'engine' | 'equipment' | 'gallery' | 'contact' | 'description' | 'interior' | 'safety' | 'tech' | 'performance' | null;
 
 export default function AutoSpecPage() {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
@@ -102,6 +109,7 @@ export default function AutoSpecPage() {
 
   const menuItems = [
     { id: 'specs', label: 'Ficha Técnica', icon: Info },
+    { id: 'features', label: 'Características', icon: Layers },
     { id: 'engine', label: 'Motor y Potencia', icon: Zap },
     { id: 'equipment', label: 'Equipamiento', icon: Settings2 },
     { id: 'gallery', label: 'Imágenes', icon: ImageIcon },
@@ -311,6 +319,33 @@ export default function AutoSpecPage() {
                         <span className="text-lg font-bold text-zinc-900">{item.val}</span>
                       </div>
                     ))}
+                  </div>
+                )}
+
+                {activePopup === 'features' && (
+                  <div className="space-y-10">
+                    <h4 className="text-3xl font-black tracking-tight text-zinc-900 border-b border-zinc-100 pb-4">Características del producto</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                      {[
+                        { icon: Palette, label: "Color", val: "Blanco" },
+                        { icon: DoorOpen, label: "Puertas", val: "2" },
+                        { icon: Fuel, label: "Tipo de combustible", val: "Gasolina" },
+                        { icon: Radio, label: "Sensor de parqueo", val: "Sí" },
+                        { icon: Zap, label: "Motor", val: "3.8" },
+                        { icon: Settings2, label: "Transmisión", val: "Automática" },
+                        { icon: Handshake, label: "Venpermuta", val: "No" },
+                        { icon: CircleDollarSign, label: "Con precio negociable", val: "Sí" },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-6">
+                          <div className="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center shadow-sm shrink-0">
+                            <item.icon className="w-6 h-6 text-zinc-900" />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-zinc-500 whitespace-nowrap">{item.label}: <span className="text-zinc-900 font-bold">{item.val}</span></p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
 
