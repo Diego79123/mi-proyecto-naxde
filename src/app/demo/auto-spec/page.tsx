@@ -321,7 +321,7 @@ export default function AutoSpecPage() {
                       React.createElement((leftMenuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)!.icon)!, { className: "w-6 h-6 text-zinc-900" })}
                   </div>
                   <h3 className="text-2xl font-headline font-bold uppercase tracking-tight text-zinc-900">
-                    {activePopup === 'features' ? 'Características del producto' : (leftMenuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label)}
+                    {activePopup === 'features' ? 'Características del producto' : (activePopup === 'performance' ? 'Rendimiento y dimensiones' : (leftMenuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label))}
                   </h3>
                 </div>
                 <button 
@@ -412,22 +412,26 @@ export default function AutoSpecPage() {
                 )}
 
                 {activePopup === 'performance' && (
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="p-6 rounded-3xl bg-zinc-900 text-white text-center">
-                      <Timer className="w-6 h-6 text-primary mx-auto mb-2" />
-                      <span className="text-[10px] font-black uppercase opacity-50">0-100 km/h</span>
-                      <p className="text-3xl font-black italic">3.5s</p>
-                    </div>
-                    <div className="p-6 rounded-3xl bg-zinc-900 text-white text-center">
-                      <Gauge className="w-6 h-6 text-primary mx-auto mb-2" />
-                      <span className="text-[10px] font-black uppercase opacity-50">Máxima</span>
-                      <p className="text-3xl font-black italic">306</p>
-                    </div>
-                    <div className="p-6 rounded-3xl bg-zinc-900 text-white text-center">
-                      <Activity className="w-6 h-6 text-primary mx-auto mb-2" />
-                      <span className="text-[10px] font-black uppercase opacity-50">Potencia</span>
-                      <p className="text-3xl font-black italic">450 CV</p>
-                    </div>
+                  <div className="space-y-1">
+                    {[
+                      { label: "Control de tracción", val: "Delantera" },
+                      { label: "Capacidad de personas", val: "2" },
+                      { label: "Potencia", val: "400 hp" },
+                      { label: "Válvulas por cilindro", val: "4" },
+                    ].map((item, i) => (
+                      <div 
+                        key={i} 
+                        className={cn(
+                          "flex justify-between items-center p-4 rounded-xl transition-colors",
+                          i % 2 === 0 ? "bg-zinc-50" : "bg-white"
+                        )}
+                      >
+                        <span className="text-sm font-bold text-zinc-600 uppercase tracking-tight">{item.label}</span>
+                        <span className="text-sm font-black uppercase tracking-widest text-zinc-900">
+                          {item.val}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 )}
 
