@@ -1,6 +1,7 @@
+
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Car, 
   Fuel, 
@@ -21,14 +22,25 @@ import {
   Sparkles,
   Info,
   Shield,
-  Activity
+  Activity,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi
+} from "@/components/ui/carousel";
 
+// Datos del vehículo con soporte para múltiples imágenes (tomas)
 const carData = {
   brand: "Porsche",
   model: "911 Carrera S",
@@ -46,8 +58,11 @@ const carData = {
   sensors: "360° Vision Pro",
   negotiable: "Precio Negociable",
   description: "El Porsche 911 Carrera S redefine la ingeniería automotriz. Una obra maestra de precisión alemana diseñada para quienes no aceptan compromisos. Su motor bóxer biturbo entrega una respuesta inmediata, mientras que su silueta icónica corta el viento con una eficiencia inigualable.",
+  // Estas URLs deben ser reemplazadas por los enlaces de Firebase Storage de la carpeta aplicaciones/aplicaciones-auto
   images: [
     "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200",
+    "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1200",
+    "https://images.unsplash.com/photo-1611859328053-3cbc9f9399f4?q=80&w=1200"
   ]
 };
 
@@ -55,6 +70,18 @@ type PopupType = 'specs' | 'engine' | 'equipment' | 'contact' | 'description' | 
 
 export default function AutoSpecPage() {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
 
   const closePopup = () => setActivePopup(null);
 
@@ -123,7 +150,7 @@ export default function AutoSpecPage() {
         ))}
       </nav>
 
-      {/* Hero Car Section */}
+      {/* Hero Car Slider Section */}
       <main className="relative z-10 w-full h-full flex flex-col items-center justify-center pt-20">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -131,14 +158,55 @@ export default function AutoSpecPage() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative w-full max-w-5xl px-10"
         >
-          <img 
-            src={carData.images[0]} 
-            alt={carData.model} 
-            className="w-full h-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.15)]"
-          />
+          <Carousel setApi={setApi} className="w-full">
+            <CarouselContent>
+              {carData.images.map((src, index) => (
+                <CarouselItem key={index}>
+                  <div className="flex items-center justify-center p-2">
+                    <img 
+                      src={src} 
+                      alt={`${carData.model} - toma ${index + 1}`} 
+                      className="w-full h-auto max-h-[60vh] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.15)]"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            
+            {/* Controles del Carrusel */}
+            <div className="absolute -left-4 top-1/2 -translate-y-1/2">
+              <button 
+                onClick={() => api?.scrollPrev()}
+                className="w-12 h-12 rounded-full bg-white/80 border border-zinc-200 flex items-center justify-center text-zinc-400 hover:text-primary hover:bg-white transition-all shadow-md"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="absolute -right-4 top-1/2 -translate-y-1/2">
+              <button 
+                onClick={() => api?.scrollNext()}
+                className="w-12 h-12 rounded-full bg-white/80 border border-zinc-200 flex items-center justify-center text-zinc-400 hover:text-primary hover:bg-white transition-all shadow-md"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Indicadores de página */}
+            <div className="flex justify-center gap-2 mt-4">
+              {carData.images.map((_, i) => (
+                <div 
+                  key={i} 
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-300",
+                    current === i ? "w-8 bg-primary" : "w-2 bg-zinc-200"
+                  )} 
+                />
+              ))}
+            </div>
+          </Carousel>
           
           {/* Price Label */}
-          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-center space-y-2">
+          <div className="mt-12 text-center space-y-2">
             <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-zinc-900">{carData.model}</h2>
             <div className="flex items-center justify-center gap-4">
               <span className="text-2xl font-black text-primary">{carData.price}</span>
