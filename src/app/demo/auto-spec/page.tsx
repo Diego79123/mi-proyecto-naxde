@@ -30,7 +30,8 @@ import {
   ShieldAlert,
   Timer,
   Globe,
-  Smartphone
+  Smartphone,
+  Image as ImageIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -44,7 +45,7 @@ import {
   type CarouselApi
 } from "@/components/ui/carousel";
 
-// Datos del vehículo con las nuevas imágenes de Firebase Storage
+// Datos del vehículo con las imágenes de Firebase Storage
 const carData = {
   brand: "Porsche",
   model: "911 Carrera S",
@@ -62,6 +63,7 @@ const carData = {
   sensors: "360° Vision Pro",
   negotiable: "Precio Negociable",
   description: "El Porsche 911 Carrera S redefine la ingeniería automotriz. Una obra maestra de precisión alemana diseñada para quienes no aceptan compromisos. Su motor bóxer biturbo entrega una respuesta inmediata, mientras que su silueta icónica corta el viento con una eficiencia inigualable.",
+  videoUrl: "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2Fvideo-porsche.mp4?alt=media",
   images: [
     "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_602061-MCO105977916300_022026-F.webp?alt=media&token=6cd8d7a7-0860-4d6a-801b-a75f03e17db2",
     "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2FD_NQ_NP_2X_682747-MCO106592118399_022026-F.webp?alt=media&token=e12f6558-b495-4462-a637-30f12e1b527b",
@@ -77,7 +79,7 @@ const carData = {
   ]
 };
 
-type PopupType = 'specs' | 'engine' | 'equipment' | 'contact' | 'description' | 'interior' | 'safety' | 'tech' | 'performance' | null;
+type PopupType = 'specs' | 'engine' | 'equipment' | 'gallery' | 'contact' | 'description' | 'interior' | 'safety' | 'tech' | 'performance' | null;
 
 export default function AutoSpecPage() {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
@@ -100,6 +102,7 @@ export default function AutoSpecPage() {
     { id: 'specs', label: 'Ficha Técnica', icon: Info },
     { id: 'engine', label: 'Motor y Potencia', icon: Zap },
     { id: 'equipment', label: 'Equipamiento', icon: Settings2 },
+    { id: 'gallery', label: 'Imágenes', icon: ImageIcon },
     { id: 'description', label: 'Historia', icon: Activity },
     { id: 'contact', label: 'Ventas', icon: MessageCircle },
   ];
@@ -140,7 +143,7 @@ export default function AutoSpecPage() {
             />
           </div>
         </div>
-        <div className="w-10" /> {/* Spacer */}
+        <div className="w-10" />
       </header>
 
       {/* Tactical Left Menu */}
@@ -191,7 +194,7 @@ export default function AutoSpecPage() {
         ))}
       </nav>
 
-      {/* Hero Car Slider Section */}
+      {/* Hero Car Video Section */}
       <main className="relative z-10 w-full h-full flex flex-col items-center justify-center pt-20">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -199,52 +202,24 @@ export default function AutoSpecPage() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative w-full max-w-5xl px-10"
         >
-          <Carousel setApi={setApi} className="w-full">
-            <CarouselContent>
-              {carData.images.map((src, index) => (
-                <CarouselItem key={index}>
-                  <div className="flex items-center justify-center p-2">
-                    <img 
-                      src={src} 
-                      alt={`${carData.model} - toma ${index + 1}`} 
-                      className="w-full h-auto max-h-[60vh] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.1)]"
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
+          {/* Main Hero Video Player */}
+          <div className="relative w-full aspect-video rounded-[3rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)] border-[12px] border-white/5 bg-zinc-100">
+            <video 
+              src={carData.videoUrl} 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
             
-            {/* Controles del Carrusel */}
-            <div className="absolute -left-4 top-1/2 -translate-y-1/2">
-              <button 
-                onClick={() => api?.scrollPrev()}
-                className="w-12 h-12 rounded-full bg-white/80 border border-zinc-200 flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:bg-white transition-all shadow-sm"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
+            {/* Live Indicator */}
+            <div className="absolute top-8 left-8 flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-600/90 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest shadow-lg">
+              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              Live Presentation
             </div>
-            <div className="absolute -right-4 top-1/2 -translate-y-1/2">
-              <button 
-                onClick={() => api?.scrollNext()}
-                className="w-12 h-12 rounded-full bg-white/80 border border-zinc-200 flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:bg-white transition-all shadow-sm"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            </div>
-
-            {/* Indicadores de página */}
-            <div className="flex justify-center gap-2 mt-4">
-              {carData.images.map((_, i) => (
-                <div 
-                  key={i} 
-                  className={cn(
-                    "h-1.5 rounded-full transition-all duration-300",
-                    current === i ? "w-8 bg-zinc-900" : "w-2 bg-zinc-200"
-                  )} 
-                />
-              ))}
-            </div>
-          </Carousel>
+          </div>
           
           {/* Price Label */}
           <div className="mt-12 text-center space-y-2">
@@ -314,6 +289,55 @@ export default function AutoSpecPage() {
                         <span className="text-lg font-bold text-zinc-900">{item.val}</span>
                       </div>
                     ))}
+                  </div>
+                )}
+
+                {activePopup === 'gallery' && (
+                  <div className="w-full">
+                    <Carousel setApi={setApi} className="w-full">
+                      <CarouselContent>
+                        {carData.images.map((src, index) => (
+                          <CarouselItem key={index}>
+                            <div className="flex items-center justify-center p-2">
+                              <img 
+                                src={src} 
+                                alt={`${carData.model} - toma ${index + 1}`} 
+                                className="w-full h-auto max-h-[40vh] object-contain rounded-2xl"
+                              />
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      
+                      <div className="flex justify-center gap-2 mt-6">
+                        {carData.images.map((_, i) => (
+                          <div 
+                            key={i} 
+                            className={cn(
+                              "h-1.5 rounded-full transition-all duration-300",
+                              current === i ? "w-8 bg-zinc-900" : "w-2 bg-zinc-200"
+                            )} 
+                          />
+                        ))}
+                      </div>
+
+                      <div className="flex justify-between items-center mt-8">
+                        <Button 
+                          variant="outline" 
+                          onClick={() => api?.scrollPrev()}
+                          className="rounded-full border-zinc-200"
+                        >
+                          <ChevronLeft className="w-4 h-4 mr-2" /> Anterior
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          onClick={() => api?.scrollNext()}
+                          className="rounded-full border-zinc-200"
+                        >
+                          Siguiente <ChevronRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      </div>
+                    </Carousel>
                   </div>
                 )}
 
