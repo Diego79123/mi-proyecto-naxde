@@ -40,7 +40,10 @@ import {
   DoorOpen,
   Radio,
   CircleDollarSign,
-  Layers
+  Layers,
+  Wind,
+  Star,
+  Music
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -88,7 +91,7 @@ const carData = {
   ]
 };
 
-type PopupType = 'specs' | 'features' | 'engine' | 'equipment' | 'gallery' | 'contact' | 'description' | 'interior' | 'safety' | 'tech' | 'performance' | null;
+type PopupType = 'specs' | 'features' | 'engine' | 'equipment' | 'gallery' | 'contact' | 'description' | 'interior' | 'safety' | 'tech' | 'performance' | 'principales' | 'confort' | 'general' | 'exterior' | 'entertainment' | null;
 
 export default function AutoSpecPage() {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
@@ -118,10 +121,14 @@ export default function AutoSpecPage() {
   ];
 
   const bottomNavItems = [
-    { id: 'interior', label: 'Interior', icon: Sofa },
+    { id: 'principales', label: 'Principales', icon: Star },
+    { id: 'confort', label: 'Confort', icon: Wind },
+    { id: 'performance', label: 'Rendimiento', icon: Timer },
+    { id: 'general', label: 'Información general', icon: Info },
+    { id: 'exterior', label: 'Exterior', icon: Car },
     { id: 'safety', label: 'Seguridad', icon: ShieldAlert },
-    { id: 'tech', label: 'Tecnología', icon: Cpu },
-    { id: 'performance', label: 'Performance', icon: Timer },
+    { id: 'entertainment', label: 'Entretenimiento', icon: Radio },
+    { id: 'interior', label: 'Interior', icon: Sofa },
   ];
 
   return (
@@ -153,7 +160,6 @@ export default function AutoSpecPage() {
             />
           </div>
         </div>
-        {/* Espacio reservado para equilibrio visual del justify-between */}
         <div className="w-10" />
       </header>
 
@@ -195,28 +201,28 @@ export default function AutoSpecPage() {
 
       {/* Menú Inferior con Créditos */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-4">
+        <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Características</h4>
         <nav className="flex items-center gap-2 p-2 bg-white/90 backdrop-blur-3xl border border-zinc-200 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
           {bottomNavItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActivePopup(item.id as PopupType)}
               className={cn(
-                "flex items-center gap-3 px-6 py-3 rounded-2xl transition-all duration-500 group",
+                "flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-500 group",
                 activePopup === item.id ? "bg-zinc-900 text-white" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900"
               )}
             >
               <item.icon className={cn(
-                "w-5 h-5 transition-transform group-hover:scale-110",
+                "w-4 h-4 transition-transform group-hover:scale-110",
                 activePopup === item.id ? "text-primary" : "text-zinc-400"
               )} />
-              <span className="text-[10px] font-black uppercase tracking-widest">
+              <span className="text-[9px] font-black uppercase tracking-widest hidden lg:inline">
                 {item.label}
               </span>
             </button>
           ))}
         </nav>
         
-        {/* Créditos debajo del menú */}
         <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-400">
           <span className="hidden md:inline">Desarrollada con</span>
           <Heart className="w-3.5 h-3.5 text-primary fill-primary animate-heartbeat" />
@@ -232,7 +238,6 @@ export default function AutoSpecPage() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative w-full max-w-5xl px-10"
         >
-          {/* Reproductor de Video Hero */}
           <div className="relative w-full aspect-video rounded-[3rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)] border-[12px] border-white/5 bg-zinc-100">
             <video 
               src={carData.videoUrl} 
@@ -243,15 +248,12 @@ export default function AutoSpecPage() {
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-            
-            {/* Indicador de "Live" */}
             <div className="absolute top-8 left-8 flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-600/90 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest shadow-lg">
               <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
               Live Presentation
             </div>
           </div>
           
-          {/* Etiquetas de Precio y Modelo */}
           <div className="mt-12 text-center space-y-2">
             <h2 className="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-zinc-900">{carData.model}</h2>
             <div className="flex items-center justify-center gap-4">
@@ -263,11 +265,9 @@ export default function AutoSpecPage() {
         </motion.div>
       </main>
 
-      {/* Sistema de Ventanas Emergentes (Pop-ups) */}
       <AnimatePresence>
         {activePopup && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-10">
-            {/* Backdrop con desenfoque */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -276,7 +276,6 @@ export default function AutoSpecPage() {
               className="absolute inset-0 bg-white/80 backdrop-blur-md"
             />
 
-            {/* Ventana de Contenido */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -303,7 +302,7 @@ export default function AutoSpecPage() {
               </header>
 
               <div className="p-8 md:p-12 max-h-[60vh] overflow-y-auto no-scrollbar">
-                {activePopup === 'specs' && (
+                {(activePopup === 'specs' || activePopup === 'general') && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {[
                       { icon: Calendar, label: "Año Modelo", val: carData.year },
@@ -342,6 +341,105 @@ export default function AutoSpecPage() {
                           </div>
                           <div>
                             <p className="text-sm font-medium text-zinc-500 whitespace-nowrap">{item.label}: <span className="text-zinc-900 font-bold">{item.val}</span></p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activePopup === 'principales' && (
+                  <div className="space-y-6">
+                    <div className="p-8 rounded-[2.5rem] bg-zinc-900 text-white space-y-4">
+                      <h4 className="text-2xl font-black italic">Porsche DNA</h4>
+                      <p className="text-zinc-400 leading-relaxed">El 911 Carrera combina lo mejor de la tradición con la innovación tecnológica más avanzada.</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                       {[
+                         { icon: Zap, label: "Motor", val: "3.0L Bi-Turbo" },
+                         { icon: Activity, label: "Transmisión", val: "PDK 8 Velocidades" },
+                         { icon: Gauge, label: "0-100 km/h", val: "3.5 segundos" },
+                         { icon: ShieldCheck, label: "Garantía", val: "Certificada" }
+                       ].map((item, i) => (
+                         <div key={i} className="p-6 rounded-3xl bg-zinc-50 border border-zinc-100">
+                           <item.icon className="w-5 h-5 text-primary mb-3" />
+                           <p className="text-[10px] font-black uppercase text-zinc-400 tracking-widest">{item.label}</p>
+                           <p className="text-sm font-bold text-zinc-900">{item.val}</p>
+                         </div>
+                       ))}
+                    </div>
+                  </div>
+                )}
+
+                {activePopup === 'confort' && (
+                  <div className="space-y-8">
+                    <div className="aspect-video rounded-3xl overflow-hidden">
+                      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200" alt="Confort" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {[
+                        { t: "Climatizador", d: "Bi-zona con control inteligente" },
+                        { t: "Asientos", d: "Ajuste eléctrico 14 posiciones" },
+                        { t: "Iluminación", d: "Ambiental personalizable" },
+                        { t: "Suspensión", d: "Adaptativa (PASM)" }
+                      ].map((item, i) => (
+                        <div key={i} className="flex gap-4 items-start">
+                          <CheckCircle2 className="w-5 h-5 text-zinc-900 mt-1" />
+                          <div>
+                            <h4 className="font-bold text-zinc-900">{item.t}</h4>
+                            <p className="text-sm text-zinc-500">{item.d}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activePopup === 'exterior' && (
+                  <div className="space-y-8">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="aspect-square rounded-3xl bg-zinc-100 overflow-hidden">
+                        <img src={carData.images[0]} className="w-full h-full object-cover" />
+                      </div>
+                      <div className="aspect-square rounded-3xl bg-zinc-100 overflow-hidden">
+                        <img src={carData.images[1]} className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="text-xl font-bold">Diseño Atemporal</h4>
+                      <p className="text-zinc-500">Silueta icónica con aerodinámica activa y faros LED Matrix que definen la mirada del 911.</p>
+                      <ul className="grid grid-cols-2 gap-2">
+                        {["Rines Carrera 20/21\"", "Spoiler retráctil", "Luces LED 3D", "Escape deportivo"].map((tag, i) => (
+                          <li key={i} className="text-sm font-medium flex items-center gap-2">
+                            <div className="w-1 h-1 bg-zinc-900 rounded-full" /> {tag}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+
+                {activePopup === 'entertainment' && (
+                  <div className="space-y-8">
+                    <div className="p-8 rounded-[2.5rem] bg-zinc-50 border border-zinc-100 flex items-center gap-8">
+                      <Music className="w-12 h-12 text-zinc-900" />
+                      <div>
+                        <h4 className="text-xl font-black italic">Burmester® Surround Sound</h4>
+                        <p className="text-sm text-zinc-500">Sistema de sonido de alta gama diseñado específicamente para el habitáculo del 911.</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {[
+                        { icon: Smartphone, t: "Connectivity", d: "Apple CarPlay & Android Auto" },
+                        { icon: Globe, t: "Navigation", d: "Tiempo real con Google Maps" },
+                        { icon: Cpu, t: "PCM", d: "Pantalla táctil de 10.9 pulgadas" },
+                        { icon: Zap, t: "Update", d: "Actualizaciones Over-the-Air" }
+                      ].map((item, i) => (
+                        <div key={i} className="p-6 rounded-3xl border border-zinc-100 flex items-center gap-4">
+                          <item.icon className="w-6 h-6 text-zinc-400" />
+                          <div>
+                            <h5 className="font-bold text-sm">{item.t}</h5>
+                            <p className="text-xs text-zinc-500">{item.d}</p>
                           </div>
                         </div>
                       ))}
