@@ -31,7 +31,7 @@ import {
   Timer,
   Globe,
   Smartphone,
-  Image as ImageIcon,
+  ImageIcon,
   Heart,
   Facebook,
   Instagram,
@@ -54,7 +54,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
 
-// Datos del vehículo
+// Datos del vehículo actualizados según imagen
 const carData = {
   brand: "Porsche",
   model: "911 Carrera",
@@ -63,14 +63,14 @@ const carData = {
   mileage: "0 KM",
   owners: "1 (Nuevo)",
   reference: "992 Generation",
-  color: "Crayon Gray",
-  fuel: "Gasolina Extra",
-  engine: "3.0L Flat-6 Twin-Turbo",
-  transmission: "PDK 8 Velocidades",
-  permuta: "Se acepta permuta",
+  color: "Blanco",
+  fuel: "Gasolina",
+  engine: "3.8",
+  transmission: "Automática",
+  permuta: "No",
   doors: 2,
-  sensors: "360° Vision Pro",
-  negotiable: "Precio Negociable",
+  sensors: "Sí",
+  negotiable: "Sí",
   description: "El Porsche 911 Carrera redefine la ingeniería automotriz. Una obra maestra de precisión alemana diseñada para quienes no aceptan compromisos. Su motor bóxer biturbo entrega una respuesta inmediata, mientras que su silueta icónica corta el viento con una eficiencia inigualable.",
   videoUrl: "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Aplicaciones%2FAplicacion%20automotriz%2Fgrabacion-de-pantalla-2026-03-12-a-la-s-12444-pm_SUVPvkRo.mp4?alt=media&token=7e63d879-c8f7-4337-9f7e-e6e2f72f0d56",
   images: [
@@ -289,7 +289,7 @@ export default function AutoSpecPage() {
             <div className="flex items-center justify-center gap-4">
               <span className="text-2xl font-black text-zinc-900">{carData.price}</span>
               <div className="w-1 h-1 rounded-full bg-zinc-200" />
-              <span className="text-sm font-bold text-zinc-400 uppercase tracking-widest">{carData.negotiable}</span>
+              <span className="text-sm font-bold text-zinc-400 uppercase tracking-widest">{carData.negotiable ? 'Precio Negociable' : ''}</span>
             </div>
           </div>
         </motion.div>
@@ -321,7 +321,7 @@ export default function AutoSpecPage() {
                       React.createElement((leftMenuItems.find(i => i.id === activePopup)?.icon || bottomNavItems.find(i => i.id === activePopup)!.icon)!, { className: "w-6 h-6 text-zinc-900" })}
                   </div>
                   <h3 className="text-2xl font-headline font-bold uppercase tracking-tight text-zinc-900">
-                    {leftMenuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label}
+                    {activePopup === 'features' ? 'Características del producto' : (leftMenuItems.find(i => i.id === activePopup)?.label || bottomNavItems.find(i => i.id === activePopup)?.label)}
                   </h3>
                 </div>
                 <button 
@@ -353,21 +353,25 @@ export default function AutoSpecPage() {
                 )}
 
                 {activePopup === 'features' && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
                     {[
                       { icon: Palette, label: "Color", val: carData.color },
-                      { icon: Fuel, label: "Tipo de Combustible", val: carData.fuel },
-                      { icon: Zap, label: "Motor", val: carData.engine },
-                      { icon: Handshake, label: "Permuta", val: carData.permuta },
                       { icon: DoorOpen, label: "Puertas", val: carData.doors },
-                      { icon: Activity, label: "Sensores de Parqueo", val: carData.sensors },
+                      { icon: Fuel, label: "Tipo de combustible", val: carData.fuel },
+                      { icon: Activity, label: "Sensor de parqueo", val: carData.sensors },
+                      { icon: Cpu, label: "Motor", val: carData.engine },
                       { icon: Settings2, label: "Transmisión", val: carData.transmission },
-                      { icon: CircleDollarSign, label: "Negociable", val: carData.negotiable },
+                      { icon: Handshake, label: "Venpermuta", val: carData.permuta },
+                      { icon: CircleDollarSign, label: "Con precio negociable", val: carData.negotiable },
                     ].map((item, i) => (
-                      <div key={i} className="flex flex-col gap-1 p-4 rounded-2xl bg-zinc-50 border border-zinc-100">
-                        <item.icon className="w-4 h-4 text-zinc-900 mb-2" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">{item.label}</span>
-                        <span className="text-lg font-bold text-zinc-900">{item.val}</span>
+                      <div key={i} className="flex items-center gap-5">
+                        <div className="w-14 h-14 rounded-full bg-zinc-100 flex items-center justify-center shrink-0 shadow-sm">
+                          <item.icon className="w-6 h-6 text-zinc-900" />
+                        </div>
+                        <div className="flex gap-2 items-baseline text-zinc-600">
+                          <span className="text-base font-medium whitespace-nowrap">{item.label}:</span>
+                          <span className="text-base font-black text-zinc-900">{item.val}</span>
+                        </div>
                       </div>
                     ))}
                   </div>
