@@ -123,7 +123,7 @@ export default function AutoSpecPage() {
         
         {/* Massive Background Text */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none">
-          <h1 className="text-[40vw] font-black tracking-tighter leading-none italic text-zinc-900">911</h1>
+          <h1 className="text-[65vw] font-black tracking-tighter leading-none italic text-zinc-900">911</h1>
         </div>
       </div>
 
