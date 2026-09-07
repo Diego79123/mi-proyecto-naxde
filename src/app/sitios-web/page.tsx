@@ -1,6 +1,10 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from 'react';
+import { CosmicHero, CosmicBackdrop } from '@/components/layout/CosmicRoute';
+import cosmic from '@/components/layout/CosmicRoute.module.css';
+import { UniverseShowcase } from '@/components/sections/UniverseShowcase';
+import { TechnologyLogos } from '@/components/sections/TechnologyLogos';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
@@ -123,44 +127,14 @@ export default function SitiosWebLanding() {
   }, []);
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-[#00001D] text-white font-body selection:bg-primary/30 overflow-x-hidden">
+    <main ref={containerRef} data-cosmic-route="web" className={cosmic.page}>
       <Header />
+      <CosmicBackdrop />
 
       {/* SECTION 1: HERO MONUMENTAL */}
-      <section className="relative pt-32 md:pt-48 pb-24 md:pb-40 px-6">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle,rgba(82,0,248,0.15)_0%,transparent_70%)] pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto relative z-10 text-center space-y-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <Sparkles className="w-4 h-4 text-blue-400 animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400">Ingeniería Web de Vanguardia</span>
-          </div>
-          
-          <h1 className="text-5xl md:text-8xl lg:text-[11rem] font-headline font-black tracking-tighter leading-[0.85] uppercase animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-            SITIOS QUE <br /> <span className="text-primary italic">DESAFÍAN</span> <br /> LA REALIDAD.
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-white/40 max-w-2xl mx-auto font-medium animate-in fade-in duration-1000 delay-500 italic">
-            No creamos páginas, construimos portales interactivos que elevan tu marca a una dimensión inigualable.
-          </p>
-
-          <div className="pt-12 relative max-w-5xl mx-auto">
-            {/* Laptop Mockup 3D */}
-            <div className="relative aspect-video w-full rounded-[3rem] overflow-hidden bg-black border-[12px] border-[#222] shadow-[0_0_100px_rgba(0,0,0,0.8)] transition-transform duration-1000">
-              <iframe 
-                src="/preview/web-design?mode=mockup" 
-                className="w-full h-full border-none no-scrollbar opacity-80"
-                title="Naxde Web Preview"
-              />
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-            </div>
-            
-            {/* Elementos Flotantes */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 blur-[80px] rounded-full animate-pulse" />
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-secondary/20 blur-[80px] rounded-full animate-pulse delay-700" />
-          </div>
-        </div>
-      </section>
+      <CosmicHero destination="web" />
+      <UniverseShowcase kind="web" />
+      <section className="px-6 md:px-16 py-10 max-w-7xl mx-auto"><TechnologyLogos /></section>
 
       {/* SECTION 2: BENEFICIOS DE ALTA GAMA */}
       <section className="py-24 md:py-40 bg-white/[0.02] border-y border-white/5 relative overflow-hidden">
@@ -292,7 +266,6 @@ export default function SitiosWebLanding() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   );
 }

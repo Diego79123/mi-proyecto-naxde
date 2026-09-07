@@ -5,7 +5,6 @@ import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { FloatingActions } from '@/components/layout/FloatingActions';
 import { SocialSidebar } from '@/components/layout/SocialSidebar';
-import { CursorFollower } from '@/components/layout/CursorFollower';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -15,7 +14,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: 'Naxde | Plataformas Digitales que Transforman Negocios',
-  description: 'Líderes en Colombia y Latinoamérica en desarrollo de software, tarjetas NFC y transformación digital.',
+  description: 'Desarrollo de software a medida, sitios web, e-commerce, inteligencia artificial, automatización y NeoCards. Naxde conecta diseño, tecnología y estrategia en Latinoamérica y Europa.',
   icons: {
     icon: 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FFavicon%20naxde.webp?alt=media&token=e0a7a283-64ec-4e60-865c-eb12370ead3b',
   },
@@ -30,7 +29,6 @@ export default function RootLayout({
     <html lang="es" className={poppins.variable}>
       <body className="font-body antialiased bg-[#00001D]">
         <FirebaseClientProvider>
-          <CursorFollower />
           {children}
           <SocialSidebar />
           <FloatingActions />

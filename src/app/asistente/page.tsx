@@ -2,22 +2,22 @@
 
 import { useState, useRef, useEffect, Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import { 
-  Send, 
-  Image as ImageIcon, 
-  Sparkles, 
-  User, 
-  Bot, 
-  Plus, 
-  Trash2, 
-  Share2, 
-  Download, 
-  Mic, 
-  MicOff, 
-  Paperclip, 
-  X, 
-  Edit3, 
-  CheckCircle2, 
+import {
+  Send,
+  Image as ImageIcon,
+  Sparkles,
+  User,
+  Bot,
+  Plus,
+  Trash2,
+  Share2,
+  Download,
+  Mic,
+  MicOff,
+  Paperclip,
+  X,
+  Edit3,
+  CheckCircle2,
   Circle,
   MessageSquare,
   LayoutDashboard,
@@ -29,6 +29,9 @@ import Markdown from 'react-markdown';
 import { cn } from '@/lib/utils';
 import { generateChatResponseAction, generateImageAction } from './actions';
 import Link from 'next/link';
+import { Header } from '@/components/layout/Header';
+import { SpaceAtmosphere } from '@/components/sections/SpaceAtmosphere';
+import s from './CosmicAssistant.module.css';
 
 // Importación dinámica del editor para evitar errores de pre-renderizado (Konva necesita el cliente)
 const ImageEditor = dynamic(() => import('@/components/asistente/ImageEditor').then(mod => mod.ImageEditor), {
@@ -42,7 +45,14 @@ function AsistenteContent() {
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [motionOff, setMotionOff] = useState(true);
+  useEffect(() => {
+    setIsSidebarOpen(window.innerWidth >= 768);
+    const media = matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setMotionOff(media.matches); sync(); media.addEventListener('change', sync);
+    return () => media.removeEventListener('change', sync);
+  }, []);
   const [isRecording, setIsRecording] = useState(false);
   const [attachments, setAttachments] = useState<any[]>([]);
   const [editingImageIndex, setEditingImageIndex] = useState<number | null>(null);
@@ -112,7 +122,7 @@ function AsistenteContent() {
   };
 
   const toggleReference = (index: number) => {
-    setAttachments(prev => prev.map((att, i) => 
+    setAttachments(prev => prev.map((att, i) =>
       i === index ? { ...att, isReference: !att.isReference } : att
     ));
   };
@@ -128,17 +138,17 @@ function AsistenteContent() {
       sessionId = newSession.id;
     }
 
-    const userMsg = { 
-      id: Date.now().toString(), 
-      role: 'user', 
-      content: input, 
-      attachments: [...attachments], 
-      timestamp: Date.now() 
+    const userMsg = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: input,
+      attachments: [...attachments],
+      timestamp: Date.now()
     };
 
-    setSessions(prev => prev.map(s => s.id === sessionId ? { 
-      ...s, 
-      messages: [...s.messages, userMsg], 
+    setSessions(prev => prev.map(s => s.id === sessionId ? {
+      ...s,
+      messages: [...s.messages, userMsg],
       updatedAt: Date.now(),
       title: s.messages.length === 0 ? (input.slice(0, 30) || 'Imagen adjunta') : s.title
     } : s));
@@ -151,18 +161,18 @@ function AsistenteContent() {
 
     try {
       const session = sessions.find(s => s.id === sessionId);
-      const history = (session?.messages || []).map(m => ({ 
-        role: m.role === 'user' ? 'user' : 'model', 
+      const history = (session?.messages || []).map((m: any) => ({
+        role: m.role === 'user' ? 'user' : 'model',
         parts: [
           { text: m.content },
-          ...(m.attachments || []).map(att => ({
+          ...(m.attachments || []).map((att: any) => ({
             inlineData: { mimeType: att.mimeType, data: att.data }
           }))
-        ] 
+        ]
       }));
 
       const response = await generateChatResponseAction(currentInput, history, currentAtts);
-      
+
       const imageMatch = response.match(/\[GENERATE_IMAGE:\s*(.*?)\]/);
       let generatedImageUrl = null;
 
@@ -210,7 +220,7 @@ function AsistenteContent() {
   };
 
   return (
-    <div className="flex h-screen bg-zinc-50 overflow-hidden text-zinc-900 font-sans">
+    <div className={s.cockpit}><SpaceAtmosphere paused={motionOff} /><Header />
       <input type="file" ref={fileInputRef} onChange={(e) => e.target.files && processFiles(e.target.files)} className="hidden" accept="image/*" multiple />
 
       {/* Sidebar */}
@@ -245,7 +255,7 @@ function AsistenteContent() {
                     <p className="px-3 py-2 text-xs text-zinc-400 italic">No hay conversaciones aún</p>
                   )}
                   {sessions.map((session) => (
-                    <button 
+                    <button
                       key={session.id}
                       onClick={() => setCurrentSessionId(session.id)}
                       className={cn(
@@ -265,11 +275,11 @@ function AsistenteContent() {
             <div className="p-4 border-t border-zinc-100">
               <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-zinc-50 cursor-pointer transition-colors">
                 <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs">
-                  JD
+                  NX
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-zinc-900 truncate">John Doe</p>
-                  <p className="text-xs text-zinc-500 truncate">Pro Plan</p>
+                  <p className="text-sm font-medium text-zinc-900 truncate">Tu espacio creativo</p>
+                  <p className="text-xs text-zinc-500 truncate">Conversaciones en este dispositivo</p>
                 </div>
               </div>
               <Link href="/" className="mt-2 block">
@@ -293,12 +303,11 @@ function AsistenteContent() {
               </button>
             )}
             <h1 className="font-semibold text-zinc-900 truncate">
-              {currentSession ? currentSession.title : "Asistente de Estrategia"}
+              {currentSession ? currentSession.title : "Social AI / Estudio creativo"}
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <button className="p-2 hover:bg-zinc-100 rounded-lg text-zinc-500"><Share2 className="w-5 h-5" /></button>
-            <button className="p-2 hover:bg-zinc-100 rounded-lg text-zinc-500"><Download className="w-5 h-5" /></button>
+            <span className="text-xs text-zinc-400">CREA · CONECTA · AVANZA</span>
           </div>
         </header>
 
@@ -308,7 +317,7 @@ function AsistenteContent() {
               <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 mb-2">
                 <Sparkles className="w-8 h-8" />
               </div>
-              <h2 className="text-3xl font-bold text-zinc-900">¿Qué vamos a crear hoy?</h2>
+              <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-zinc-900">DALE ÓRBITA A TU CREATIVIDAD.</h2>
               <p className="text-zinc-500 text-lg">
                 Soy tu experto en redes sociales. Puedo ayudarte a diseñar una estrategia completa, redactar copys persuasivos o incluso generar imágenes para tus posts.
               </p>
@@ -330,7 +339,7 @@ function AsistenteContent() {
               <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-1", m.role === 'user' ? "bg-indigo-600 text-white" : "bg-white border border-zinc-200 text-indigo-600")}>
                 {m.role === 'user' ? <User className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
               </div>
-              
+
               <div className={cn("flex flex-col gap-2 max-w-[85%]", m.role === 'user' ? "items-end" : "items-start")}>
                 <div className={cn("p-4 rounded-2xl shadow-sm", m.role === 'user' ? "bg-indigo-600 text-white rounded-tr-none" : "bg-white border border-zinc-200 text-zinc-800 rounded-tl-none")}>
                   {m.attachments?.length > 0 && (
@@ -373,7 +382,7 @@ function AsistenteContent() {
         {/* Input Area */}
         <div className="p-4 md:p-8 bg-gradient-to-t from-zinc-50 via-zinc-50 to-transparent">
           <div className="max-w-4xl mx-auto space-y-4">
-            
+
             {attachments.length > 0 && (
               <div className="flex flex-wrap gap-3 px-2">
                 {attachments.some(a => a.isReference) && (
@@ -416,8 +425,8 @@ function AsistenteContent() {
               <div className="absolute right-2 bottom-2 flex items-center gap-1">
                 <button onClick={() => setInput(prev => prev + " Genera una imagen para este post: ")} className="p-2 text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all" title="Generar imagen"><ImageIcon className="w-5 h-5" /></button>
                 <button onClick={() => fileInputRef.current?.click()} className="p-2 text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all" title="Adjuntar imagen"><Paperclip className="w-5 h-5" /></button>
-                <button onClick={toggleRecording} className={cn("p-2 rounded-xl transition-all", isRecording ? "bg-red-50 text-red-600 animate-pulse" : "text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50")}>{isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}</button>
-                <button onClick={handleSend} disabled={isLoading} className={cn("p-2 rounded-xl transition-all", (input.trim() || attachments.length > 0) ? "bg-indigo-600 text-white shadow-md hover:bg-indigo-700" : "bg-zinc-100 text-zinc-400")}><Send className="w-5 h-5" /></button>
+                <button aria-label={isRecording ? "Detener dictado" : "Dictar mensaje"} onClick={toggleRecording} className={cn("p-2 rounded-xl transition-all", isRecording ? "bg-red-50 text-red-600 animate-pulse" : "text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50")}>{isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}</button>
+                <button aria-label="Enviar mensaje" onClick={handleSend} disabled={isLoading} className={cn("p-2 rounded-xl transition-all", (input.trim() || attachments.length > 0) ? "bg-indigo-600 text-white shadow-md hover:bg-indigo-700" : "bg-zinc-100 text-zinc-400")}><Send className="w-5 h-5" /></button>
               </div>
             </div>
             <p className="text-[10px] text-zinc-400 text-center mt-2">
@@ -428,7 +437,7 @@ function AsistenteContent() {
       </main>
 
       {editingImageIndex !== null && (
-        <ImageEditor 
+        <ImageEditor
           imageUrl={attachments[editingImageIndex].url}
           onSave={(url) => {
             setAttachments(prev => prev.map((att, i) => i === editingImageIndex ? { ...att, url, data: url.split(',')[1] } : att));

@@ -2,6 +2,10 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from 'react';
+import { CosmicHero, CosmicBackdrop } from '@/components/layout/CosmicRoute';
+import cosmic from '@/components/layout/CosmicRoute.module.css';
+import { UniverseShowcase } from '@/components/sections/UniverseShowcase';
+import { TechnologyLogos } from '@/components/sections/TechnologyLogos';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
@@ -201,8 +205,10 @@ export default function NeocardLanding() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#00001D] text-white font-body selection:bg-primary/30 overflow-x-hidden">
+    <main data-cosmic-route="neo" className={cosmic.page}>
       <Header />
+      <CosmicBackdrop />
+      <CosmicHero destination="neo" />
 
       <section className="relative pt-32 md:pt-48 pb-24 md:pb-40 px-6 md:px-12 lg:px-16">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle,rgba(82,0,248,0.15)_0%,transparent_70%)] pointer-events-none" />
@@ -217,12 +223,12 @@ export default function NeocardLanding() {
               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Tecnología de Contacto Pro</span>
             </div>
 
-            <h1 className={cn(
+            <h2 className={cn(
               "text-5xl md:text-8xl lg:text-[10rem] font-headline font-black tracking-tighter leading-[0.85] uppercase transition-all duration-1000 delay-300",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             )}>
-              EL FUTURO <br /> ES <span className="text-primary italic">NEOCARD</span>.
-            </h1>
+              TU IDENTIDAD.<br /><span className="text-primary italic">EN UN TOQUE.</span>
+            </h2>
 
             <p className={cn(
               "text-xl md:text-2xl text-white/40 max-w-2xl mx-auto font-medium transition-all duration-1000 delay-500",
@@ -508,7 +514,6 @@ export default function NeocardLanding() {
       </section>
 
       <Footer />
-      <BottomNav />
 
       <style jsx global>{`
         .no-scrollbar::-webkit-scrollbar {

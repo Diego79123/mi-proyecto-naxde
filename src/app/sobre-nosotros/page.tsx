@@ -2,6 +2,10 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import { CosmicHero, CosmicBackdrop } from '@/components/layout/CosmicRoute';
+import cosmic from '@/components/layout/CosmicRoute.module.css';
+import { UniverseShowcase } from '@/components/sections/UniverseShowcase';
+import { TechnologyLogos } from '@/components/sections/TechnologyLogos';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
@@ -93,23 +97,11 @@ export default function SobreNosotrosPage() {
   const displayTeam = (team && team.length > 0) ? team : mockTeam;
 
   return (
-    <main className="min-h-screen bg-[#00001D] text-white font-body selection:bg-primary/30">
+    <main data-cosmic-route="about" className={cosmic.page}>
       <Header />
+      <CosmicBackdrop />
 
-      <section className="pt-40 pb-20 px-6 md:px-12 lg:px-16 text-center">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-            <Rocket className="w-4 h-4 text-primary animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">Hub de Innovación</span>
-          </div>
-          <h1 className="text-5xl md:text-8xl font-headline font-bold tracking-tighter leading-none uppercase">
-            SOMOS <span className="text-primary italic">NAXDE</span>.
-          </h1>
-          <p className="text-xl text-white/50 leading-relaxed font-medium">
-            Un equipo de ingenieros, diseñadores y estrategas digitales unidos por una misión: construir el futuro de los negocios en Latinoamérica.
-          </p>
-        </div>
-      </section>
+      <CosmicHero destination="about" />
 
       <section className="px-6 md:px-12 lg:px-16 mb-24">
         <div className="max-w-7xl mx-auto h-[500px] rounded-[3rem] overflow-hidden relative">
@@ -230,7 +222,6 @@ export default function SobreNosotrosPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   );
 }

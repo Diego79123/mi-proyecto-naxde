@@ -1,214 +1,36 @@
 'use client';
-
-import React, { useState, useRef, useEffect, Suspense } from 'react';
-import dynamic from 'next/dynamic';
-import { MessageCircle, Sparkles, Send, Bot, User, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Suspense, useState, useRef, useEffect, type FormEvent } from 'react';
+import { Orbit, ArrowUpRight, Send } from 'lucide-react';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { generalAssistant } from '@/ai/flows/general-assistant-flow';
-import { cn } from '@/lib/utils';
-import { useSearchParams, usePathname } from 'next/navigation';
-
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
-}
-
-const CANDY_AVATAR_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Elementos%20graficos%2FUsuarios%2FUsuarios.webp?alt=media&token=9038b70a-676e-46ff-8808-b9271f69aa32";
-
-const FloatingActionsContent = () => {
-  const searchParams = useSearchParams();
+import { usePathname, useSearchParams } from 'next/navigation';
+import s from './UniverseAssistant.module.css';
+type Message = { role: 'user' | 'assistant'; content: string };
+function AssistantDock() {
   const pathname = usePathname();
-  
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: '¡Hola! Soy Candy, tu asistente inteligente de Naxde. ¿Cómo puedo ayudarte a transformar tu negocio hoy?' }
-  ]);
+  const params = useSearchParams();
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([{ role: 'assistant', content: 'Hola, soy el asistente de Naxde. Cuéntame qué quieres crear o mejorar en tu negocio y exploramos por dónde empezar.' }]);
   const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages]);
-
-  const handleSendMessage = async (e?: React.FormEvent) => {
-    e?.preventDefault();
-    if (!input.trim() || isLoading) return;
-
-    const userMessage = input.trim();
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-    setIsLoading(true);
-
-    try {
-      const result = await generalAssistant({ message: userMessage });
-      setMessages(prev => [...prev, { role: 'assistant', content: result.response }]);
-    } catch (error) {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Lo siento, he tenido un problema técnico. ¿Podrías intentar de nuevo o contactarnos por WhatsApp?' }]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const isMockup = searchParams?.get('mode') === 'mockup';
-  const isTaguaPage = pathname?.includes('/tarjetas-neocard/bonilla-vergara');
-  const isDemoPage = pathname?.startsWith('/demo/');
-  
-  // Conditionally set the WhatsApp link based on the page context
-  const whatsappLink = isTaguaPage 
-    ? "https://wa.me/573102423116" 
-    : "https://wa.me/57315001001";
-
-  if (isMockup || isDemoPage) return null;
-
-  return (
-    <div className="fixed bottom-24 right-6 md:bottom-10 md:right-10 z-[100] flex flex-col gap-4">
-      {/* Botón de Asistente IA - Solo si NO es la página de Taller de Tagua */}
-      {!isTaguaPage && (
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild>
-            <div className="group relative cursor-pointer">
-              <div className="absolute -inset-2 bg-primary/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <Button 
-                size="icon" 
-                className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-primary hover:bg-white/20 shadow-lg relative z-10 overflow-hidden transition-transform active:scale-90"
-              >
-                <Sparkles className="w-7 h-7" />
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent pointer-events-none" />
-              </Button>
-            </div>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-full sm:max-w-[440px] bg-[#00001D]/95 border-l border-white/10 backdrop-blur-2xl p-0 flex flex-col">
-            <SheetHeader className="p-6 border-b border-white/5 bg-white/[0.02]">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center overflow-hidden border border-white/10">
-                  <img 
-                    src={CANDY_AVATAR_URL} 
-                    alt="Candy Assistant" 
-                    className="w-full h-full object-contain" 
-                  />
-                </div>
-                <div>
-                  <SheetTitle className="text-white font-headline text-left">Candy Assistant</SheetTitle>
-                  <p className="text-[10px] text-primary font-bold uppercase tracking-widest text-left">Naxde Guía Inteligente</p>
-                </div>
-              </div>
-            </SheetHeader>
-            
-            <ScrollArea className="flex-1 p-6">
-              <div className="space-y-6">
-                {messages.map((msg, idx) => (
-                  <div key={idx} className={cn(
-                    "flex gap-3 max-w-[90%]",
-                    msg.role === 'user' ? "ml-auto flex-row-reverse" : "mr-auto"
-                  )}>
-                    <div className={cn(
-                      "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 overflow-hidden",
-                      msg.role === 'user' ? "bg-primary/20" : "bg-transparent border border-white/10"
-                    )}>
-                      {msg.role === 'user' ? (
-                        <User className="w-4 h-4 text-primary" />
-                      ) : (
-                        <img 
-                          src={CANDY_AVATAR_URL} 
-                          alt="Candy" 
-                          className="w-full h-full object-contain" 
-                        />
-                      )}
-                    </div>
-                    <div className={cn(
-                      "p-4 rounded-2xl text-sm leading-relaxed",
-                      msg.role === 'user' 
-                        ? "bg-primary text-white shadow-[0_4px_15px_rgba(248,0,55,0.2)]" 
-                        : "bg-white/5 text-white/80 border border-white/5"
-                    )}>
-                      {msg.content}
-                    </div>
-                  </div>
-                ))}
-                {isLoading && (
-                  <div className="flex gap-3 mr-auto">
-                    <div className="w-8 h-8 rounded-lg bg-transparent border border-white/10 flex items-center justify-center shrink-0 overflow-hidden">
-                      <img 
-                        src={CANDY_AVATAR_URL} 
-                        alt="Candy" 
-                        className="w-full h-full object-contain animate-pulse" 
-                      />
-                    </div>
-                    <div className="bg-white/5 p-4 rounded-2xl flex gap-1.5 items-center border border-white/5">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]" />
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]" />
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" />
-                    </div>
-                  </div>
-                )}
-                <div ref={scrollRef} />
-              </div>
-            </ScrollArea>
-
-            <div className="p-6 border-t border-white/5 bg-white/[0.01]">
-              <form onSubmit={handleSendMessage} className="flex gap-2">
-                <Input 
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Escribe tu duda aquí..." 
-                  className="bg-white/5 border-white/10 text-white rounded-xl focus:ring-primary h-14"
-                />
-                <Button 
-                  disabled={isLoading || !input.trim()}
-                  type="submit" 
-                  size="icon" 
-                  className="bg-primary hover:bg-primary/90 text-white shrink-0 rounded-xl h-14 w-14 neon-accent shadow-[0_0_15px_rgba(248,0,55,0.4)]"
-                >
-                  <Send className="w-5 h-5" />
-                </Button>
-              </form>
-              <p className="text-[10px] text-white/20 mt-4 text-center uppercase tracking-widest font-bold">
-                Potenciado por Naxde Engine
-              </p>
-            </div>
-          </SheetContent>
-        </Sheet>
-      )}
-
-      {/* Botón de WhatsApp */}
-      <a 
-        href={whatsappLink}
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="group relative"
-      >
-        <div className="absolute -inset-2 bg-green-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-        <Button 
-          size="icon" 
-          className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#25D366]/90 text-white shadow-lg border-none relative z-10 transition-transform active:scale-90"
-        >
-          <MessageCircle className="w-7 h-7" />
-        </Button>
-      </a>
-    </div>
-  );
-};
-
-const DynamicFloatingActions = dynamic(() => Promise.resolve(FloatingActionsContent), {
-  ssr: false,
-});
-
-export const FloatingActions = () => {
-  return (
-    <Suspense fallback={null}>
-      <DynamicFloatingActions />
-    </Suspense>
-  );
-};
+  const [loading, setLoading] = useState(false);
+  const bottom = useRef<HTMLDivElement>(null);
+  const conversation = useRef<HTMLDivElement>(null);
+  useEffect(() => { if (conversation.current) conversation.current.scrollTop = conversation.current.scrollHeight; }, [messages, loading]);
+  async function send(event?: FormEvent, suggestion?: string) {
+    event?.preventDefault();
+    const text = (suggestion || input).trim();
+    if (!text || loading) return;
+    setInput(''); setLoading(true); setMessages(prev => [...prev, { role: 'user', content: text }]);
+    try { const result = await generalAssistant({ message: text }); setMessages(prev => [...prev, { role: 'assistant', content: result.response }]); }
+    catch { setMessages(prev => [...prev, { role: 'assistant', content: 'No pude completar la respuesta. Puedes intentar de nuevo o hablar con nuestro equipo por WhatsApp.' }]); }
+    finally { setLoading(false); }
+  }
+  if (params?.get('mode') === 'mockup' || pathname?.startsWith('/preview/') || pathname?.startsWith('/demo/') || pathname?.startsWith('/admin') || pathname === '/asistente') return null;
+  const tagua = pathname?.includes('/tarjetas-neocard/bonilla-vergara');
+  const whatsapp = tagua ? 'https://wa.me/573102423116' : 'https://wa.me/573194254196';
+  return <div className={s.dock}>
+    {!tagua && <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><button className={s.launch} aria-label="Abrir asistente Naxde"><Orbit size={21} /><span>Naxde AI</span></button></SheetTrigger><SheetContent side="right" className={s.panel} aria-describedby="naxde-assistant-description"><div className={s.heading}><div className={s.mark}><Orbit size={28} /></div><div><SheetTitle className={s.title}>Naxde AI</SheetTitle><p id="naxde-assistant-description">TU GUÍA DE PROYECTOS</p></div></div><div ref={conversation} className={s.conversation} role="log" aria-live="polite" aria-relevant="additions text">{messages.map((message, i) => <article key={i} className={message.role === 'user' ? s.user : s.assistant}><span>{message.role === 'user' ? 'TÚ' : 'NAXDE AI'}</span><p>{message.content}</p></article>)}{loading && <p className={s.loading} role="status">Preparando una respuesta…</p>}<div ref={bottom} /></div>{messages.length === 1 && <div className={s.suggestions}>{['Quiero una página web', 'Automatizar mi negocio', 'Conocer NeoCard'].map(text => <button key={text} onClick={() => send(undefined, text)}>{text}<ArrowUpRight size={14} /></button>)}</div>}<div className={s.composer}><form onSubmit={send}><label htmlFor="naxde-assistant-input" className="sr-only">Tu mensaje</label><input id="naxde-assistant-input" value={input} onChange={event => setInput(event.target.value)} placeholder="Cuéntanos tu idea…" maxLength={3000} autoComplete="off" /><button type="submit" aria-label="Enviar mensaje" disabled={loading || !input.trim()}><Send size={18} /></button></form><div><span>Asistente con IA · Naxde</span><a href={whatsapp} target="_blank" rel="noopener noreferrer">Hablar con el equipo ↗</a></div></div></SheetContent></Sheet>}
+    <a href={whatsapp} target="_blank" rel="noopener noreferrer" className={s.whatsapp} aria-label="Contactar por WhatsApp"><img src="/brands/whatsapp.svg" alt="" width="20" height="20" /><span>WhatsApp</span></a>
+  </div>;
+}
+export function FloatingActions() { return <Suspense fallback={null}><AssistantDock /></Suspense>; }

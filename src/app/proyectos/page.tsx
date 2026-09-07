@@ -2,6 +2,11 @@
 "use client"
 
 import React, { useState } from 'react';
+import { CosmicHero, CosmicBackdrop } from '@/components/layout/CosmicRoute';
+import cosmic from '@/components/layout/CosmicRoute.module.css';
+import { UniverseShowcase } from '@/components/sections/UniverseShowcase';
+import { TechnologyLogos } from '@/components/sections/TechnologyLogos';
+import { ProjectAction } from '@/components/sections/ProjectAction';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
@@ -57,31 +62,18 @@ export default function ProyectosPage() {
       category: 'Páginas Web',
       shortDescription: 'Plataforma corporativa de alta conversión con estética futurista.',
       imageUrl: 'https://images.unsplash.com/photo-1512364615838-8088a04a778b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-      technologies: ['Next.js', 'Tailwind', 'GenAI']
+      technologies: ['Next.js', 'Tailwind', 'GenAI'], customHref: '/preview/web-design'
     }
   ];
 
-  const displayProjects = (projects && projects.length > 0) ? projects : mockProjects;
+  const displayProjects = projects && projects.length > 0 ? projects : mockProjects.filter(project => activeCategory === 'all' || project.category === activeCategory);
 
   return (
-    <main className="min-h-screen bg-[#00001D] text-white font-body selection:bg-primary/30">
+    <main data-cosmic-route="projects" className={cosmic.page}>
       <Header />
+      <CosmicBackdrop />
 
-      <section className="pt-40 pb-20 px-6 relative overflow-hidden text-center">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" />
-        <div className="max-w-7xl mx-auto space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-            <Zap className="w-4 h-4 text-primary animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">Portfolio Naxde</span>
-          </div>
-          <h1 className="text-5xl md:text-8xl font-headline font-black tracking-tighter leading-[0.9] uppercase">
-            NUESTRO <span className="text-primary italic">LEGADO</span> <br /> DIGITAL.
-          </h1>
-          <p className="text-xl text-white/50 max-w-3xl mx-auto leading-relaxed font-medium">
-            Explora las soluciones de ingeniería que hemos construido para transformar industrias enteras en Latinoamérica.
-          </p>
-        </div>
-      </section>
+      <CosmicHero destination="projects" />
 
       <section className="pb-12 px-6">
         <div className="max-w-7xl mx-auto">
@@ -90,6 +82,7 @@ export default function ProyectosPage() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
+                aria-pressed={activeCategory === cat.id}
                 className={cn(
                   "h-12 px-8 rounded-full font-black text-[10px] uppercase tracking-widest transition-all gap-3 flex items-center",
                   activeCategory === cat.id ? "bg-primary text-white neon-accent shadow-glow-accent" : "text-white/40 hover:text-white hover:bg-white/5"
@@ -136,7 +129,7 @@ export default function ProyectosPage() {
                     </p>
                     
                     <div className="flex flex-wrap gap-2">
-                      {project.technologies?.map((tech, idx) => (
+                      {project.technologies?.map((tech: string, idx: number) => (
                         <span key={idx} className="text-[9px] font-black uppercase tracking-widest text-white/30 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5">
                           {tech}
                         </span>
@@ -144,15 +137,7 @@ export default function ProyectosPage() {
                     </div>
 
                     <div className="pt-6 flex items-center justify-between border-t border-white/5">
-                      <Link href={project.customHref || `/proyectos/${project.slug || project.id}`}>
-                        <Button variant="link" className="text-primary p-0 font-black uppercase tracking-[0.2em] text-[10px] gap-3 group/btn">
-                          VER PROYECTO
-                          <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform" />
-                        </Button>
-                      </Link>
-                      <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl border border-white/5 hover:bg-primary hover:text-white transition-all">
-                        <ExternalLink className="w-5 h-5" />
-                      </Button>
+                      <ProjectAction project={project} />
                     </div>
                   </div>
                 </div>
@@ -163,7 +148,6 @@ export default function ProyectosPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   );
 }

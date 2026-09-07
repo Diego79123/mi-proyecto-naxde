@@ -2,6 +2,10 @@
 "use client"
 
 import React, { useState } from 'react';
+import { CosmicHero, CosmicBackdrop } from '@/components/layout/CosmicRoute';
+import cosmic from '@/components/layout/CosmicRoute.module.css';
+import { UniverseShowcase } from '@/components/sections/UniverseShowcase';
+import { TechnologyLogos } from '@/components/sections/TechnologyLogos';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
@@ -11,8 +15,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { useFirestore } from '@/firebase';
-import { collection, serverTimestamp } from 'firebase/firestore';
-import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+
 import { cn } from '@/lib/utils';
 
 export default function ContactoPage() {
@@ -20,9 +24,11 @@ export default function ContactoPage() {
   const { toast } = useToast();
   const db = useFirestore();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (loading) return;
     setLoading(true);
+    const form = e.currentTarget;
     
     const formData = new FormData(e.currentTarget);
     const data = {
@@ -37,13 +43,13 @@ export default function ContactoPage() {
 
     try {
       const leadsRef = collection(db, 'leads');
-      addDocumentNonBlocking(leadsRef, data);
+      await addDoc(leadsRef, data);
       
       toast({
         title: "MISIÓN RECIBIDA",
-        description: "Tu visión está siendo procesada por nuestros arquitectos digitales.",
+        description: "Recibimos tu mensaje. Nuestro equipo se pondrá en contacto contigo.",
       });
-      (e.target as HTMLFormElement).reset();
+      form.reset();
     } catch (err) {
       toast({
         variant: "destructive",
@@ -56,31 +62,18 @@ export default function ContactoPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#00001D] text-white font-body selection:bg-primary/30">
+    <main data-cosmic-route="contact" className={cosmic.page}>
       <Header />
+      <CosmicBackdrop />
 
-      <section className="pt-40 pb-24 px-6 relative overflow-hidden text-center">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" />
-        <div className="max-w-7xl mx-auto space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">Canal de Enlace</span>
-          </div>
-          <h1 className="text-5xl md:text-8xl font-headline font-black tracking-tighter leading-[0.9] uppercase">
-            HABLEMOS DEL <br /> <span className="text-primary italic">FUTURO</span>.
-          </h1>
-          <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed font-medium">
-            Tu visión merece una ingeniería que no conozca límites. Estamos listos para aterrizar tu próximo gran proyecto digital.
-          </p>
-        </div>
-      </section>
+      <CosmicHero destination="contact" />
 
       <section className="pb-24 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
             {[
               { title: "Ubicación", content: "Cra. 103 B # 152 C - 10\nBogotá, Colombia", icon: MapPin, action: "VER EN MAPS", href: "https://maps.app.goo.gl/ii7bAyev7ZioPuuj9" },
-              { title: "WhatsApp Pro", content: "Asesoría técnica inmediata\nCanal prioritario", icon: MessageCircle, action: "CHAT DIRECTO", href: "https://wa.me/57315001001", highlight: true },
+              { title: "WhatsApp Pro", content: "Conversemos sobre tu proyecto\nLatinoamérica y Europa", icon: MessageCircle, action: "CHAT DIRECTO", href: "https://wa.me/573194254196", highlight: true },
               { title: "Email", content: "Ventas y Consultas\ndesarrollonaxde@gmail.com", icon: Mail, action: "ENVIAR CORREO", href: "mailto:desarrollonaxde@gmail.com" }
             ].map((item, idx) => (
               <div key={idx} className={cn(
@@ -153,7 +146,6 @@ export default function ContactoPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   );
 }

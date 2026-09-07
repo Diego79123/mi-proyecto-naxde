@@ -14,6 +14,8 @@ const SocialSidebarContent = () => {
 
   // Ocultar si es modo mockup o si estamos en una página de tarjeta individual o demos interactivas
   const isExcludedPage = 
+    ['/', '/sobre-nosotros', '/servicios', '/sitios-web', '/tarjetas-neocard', '/proyectos', '/contacto', '/asistente'].includes(pathname || '') ||
+    pathname?.startsWith('/preview/') ||
     pathname?.startsWith('/tarjetas-neocard/') || 
     pathname?.startsWith('/tarjetas-nfc/') ||
     pathname?.startsWith('/demo/');

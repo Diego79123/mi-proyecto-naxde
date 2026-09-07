@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 :root {
+  --story-bg: #080a12;
+  --story-surface: #111420;
+  --story-ink: #f5f6fb;
+  --story-muted: #a7adbf;
+  --story-accent: #fb3158;
+  --story-violet: #9479ff;
   --background: 240 100% 6%;
   --foreground: 0 0% 100%;
   --card: 240 100% 8%;

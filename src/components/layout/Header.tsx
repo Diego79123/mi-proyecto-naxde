@@ -1,121 +1,36 @@
+'use client';
 
-"use client"
-
-import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import s from './SpaceHeader.module.css';
 
-const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764";
+const logo = 'https://firebasestorage.googleapis.com/v0/b/studio-4920931495-1d74b.firebasestorage.app/o/Logos%2FLogo%20naxde.png?alt=media&token=1df1f19b-978a-4f23-8f2f-d0d9efb42764';
+const links = [
+  { title: 'Inicio', href: '/' },
+  { title: 'Nosotros', href: '/sobre-nosotros' },
+  { title: 'Servicios', href: '/servicios' },
+  { title: 'NeoCard', href: '/tarjetas-neocard' },
+  { title: 'Sitios web', href: '/sitios-web' },
+  { title: 'Social AI', href: '/asistente' },
+  { title: 'Proyectos', href: '/proyectos' },
+  { title: 'Contacto', href: '/contacto' },
+];
 
-export const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [isMenuOpen]);
-
-  const navLinks = [
-    { name: "SOBRE NOSOTROS", href: "/sobre-nosotros" },
-    { name: "SERVICIOS", href: "/servicios" },
-    { name: "NEOCARD", href: "/tarjetas-neocard" },
-    { name: "SITIOS WEB", href: "/sitios-web" },
-    { name: "SOCIAL AI", href: "/asistente" },
-    { name: "PROYECTOS", href: "/proyectos" },
-    { name: "CONTACTO", href: "/contacto" }
-  ];
-
-  return (
-    <>
-      <header 
-        className={cn(
-          "fixed top-0 left-0 right-0 z-[130] transition-all duration-500 h-16 md:h-24",
-          isMenuOpen ? "pointer-events-none" : "pointer-events-auto"
-        )}
-      >
-        <div 
-          className={cn(
-            "absolute inset-0 bg-[#0A0520]/90 backdrop-blur-xl border-b border-white/5 transition-all duration-500",
-            isScrolled ? "opacity-100" : "opacity-95"
-          )}
-          style={{
-            clipPath: 'polygon(0 0, 100% 0, 100% 70%, 58% 70%, 56% 100%, 44% 100%, 42% 70%, 0 70%)'
-          }}
-        />
-
-        <div className="max-w-screen-2xl mx-auto h-full px-6 md:px-12 lg:px-16 relative flex items-center justify-between">
-          <div className="w-10 h-10 hidden md:block" />
-
-          {/* Logo */}
-          <Link href="/" className="absolute left-1/2 top-[35%] -translate-x-1/2 -translate-y-1/2 z-[140] flex flex-col items-center">
-            <div className="relative h-6 w-20 md:h-10 md:w-36 transition-transform hover:scale-105">
-              <Image 
-                src={LOGO_URL} 
-                alt="Naxde Logo" 
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </Link>
-
-          {/* Menú Toggle */}
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="relative z-[150] w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none group pointer-events-auto mt-[-10px] md:mt-[-20px]"
-          >
-            <div className={cn(
-              "h-[2px] bg-white transition-all duration-300 rounded-full",
-              isMenuOpen ? "w-6 md:w-8 rotate-45 translate-y-[7px] md:translate-y-[8px]" : "w-6 md:w-8 group-hover:w-10"
-            )} />
-            <div className={cn(
-              "h-[2px] bg-white transition-all duration-300 rounded-full",
-              isMenuOpen ? "w-0 opacity-0" : "w-4 md:w-5 group-hover:w-8"
-            )} />
-            <div className={cn(
-              "h-[2px] bg-white transition-all duration-300 rounded-full",
-              isMenuOpen ? "w-6 md:w-8 -rotate-45 -translate-y-[7px] md:-translate-y-[8px]" : "w-6 md:w-8 group-hover:w-10"
-            )} />
-          </button>
+export function Header() {
+  return <header className={s.header}>
+    <span className={s.caption}>CREA. CONECTA. AVANZA.</span>
+    <Link className={s.brand} href="/" aria-label="Naxde, inicio"><img src={logo} alt="Naxde" width="143" height="40" /></Link>
+    <Sheet>
+      <SheetTrigger asChild><button className={s.trigger} aria-label="Abrir menú principal"><span>MENÚ</span><span className={s.bars} aria-hidden="true"><i /><i /></span></button></SheetTrigger>
+      <SheetContent side="top" className={s.menu} aria-describedby={undefined}>
+        <SheetTitle className="sr-only">Explora el universo Naxde</SheetTitle>
+        <div className={s.menuTop}><span>EXPLORA NUESTRO UNIVERSO</span><SheetClose asChild><Link href="/" aria-label="Naxde, inicio"><img src={logo} alt="Naxde" width="143" height="40" /></Link></SheetClose></div>
+        <div className={s.menuBody}>
+          <nav className={s.links} aria-label="Navegación principal">{links.map((link, i) => <SheetClose asChild key={link.href}><Link className={s.link} href={link.href}><span>0{i + 1}</span><strong>{link.title}</strong><ArrowUpRight aria-hidden="true" /></Link></SheetClose>)}</nav>
+          <div className={s.aside}><p>HAGAMOS QUE SUCEDA</p><h3>Tu próxima gran idea<br />empieza con una<br />conversación.</h3><SheetClose asChild><Link href="/contacto">Iniciar un proyecto ↗</Link></SheetClose><a href="mailto:desarrollonaxde@gmail.com">desarrollonaxde@gmail.com</a><p className={s.menuNote}>LATINOAMÉRICA · EUROPA<br />UN MISMO UNIVERSO.</p></div>
         </div>
-      </header>
-
-      {/* Pantalla de Menú */}
-      <div className={cn(
-        "fixed inset-0 z-[120] transition-all duration-700 ease-in-out",
-        isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-      )}>
-        <div className="absolute inset-0 bg-[#0A0520]/80 backdrop-blur-[60px]" />
-        <div className="relative h-full w-full flex flex-col justify-center md:justify-end px-8 md:px-24 pb-16 md:pb-24 overflow-hidden">
-          <nav className="flex flex-col space-y-4 md:space-y-0 text-left">
-            {navLinks.map((link, idx) => (
-              <Link 
-                key={idx} 
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="group block"
-              >
-                <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-black text-white uppercase tracking-tighter leading-tight transition-all duration-500 group-hover:text-primary group-hover:translate-x-4 md:group-hover:translate-x-6 group-hover:italic">
-                  {link.name}
-                </h2>
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </div>
-    </>
-  );
-};
+      </SheetContent>
+    </Sheet>
+  </header>;
+}

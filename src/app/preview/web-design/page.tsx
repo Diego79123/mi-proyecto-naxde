@@ -38,8 +38,8 @@ export default function WebDesignPreview() {
         {[
           { icon: Globe, t: "Global Reach", d: "Escalabilidad sin fronteras" },
           { icon: Cpu, t: "Core Engine", d: "Performance optimizado" },
-          { icon: Zap, t: "Fast Load", d: "Velocidad instantánea" },
-          { icon: Shield, t: "Secure Hub", d: "Protección militar" }
+          { icon: Zap, t: "Fast Load", d: "Rendimiento cuidado" },
+          { icon: Shield, t: "Secure Hub", d: "Control de acceso" }
         ].map((item, i) => (
           <div key={i} className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 group hover:bg-white/[0.08] transition-all">
             <item.icon className="w-4 h-4 text-primary mb-2 group-hover:scale-110 transition-transform" />
@@ -54,9 +54,9 @@ export default function WebDesignPreview() {
         <div className="h-24 w-full rounded-3xl bg-gradient-to-r from-primary/20 to-secondary/20 border border-white/10 flex items-center justify-between px-6 overflow-hidden relative">
           <div className="space-y-1 relative z-10">
             <p className="text-[10px] font-black italic">CONSTRUYE TU LEGADO</p>
-            <button className="flex items-center gap-2 text-primary font-bold text-[8px] uppercase tracking-widest group">
+            <a href="/contacto" target="_top" className="flex items-center gap-2 text-primary font-bold text-[8px] uppercase tracking-widest group">
               Empezar Ahora <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
           </div>
           <div className="absolute right-[-20px] top-[-20px] w-24 h-24 bg-white/5 rounded-full blur-xl" />
         </div>

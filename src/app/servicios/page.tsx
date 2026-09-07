@@ -2,6 +2,10 @@
 "use client"
 
 import React from 'react';
+import { CosmicHero, CosmicBackdrop } from '@/components/layout/CosmicRoute';
+import cosmic from '@/components/layout/CosmicRoute.module.css';
+import { UniverseShowcase } from '@/components/sections/UniverseShowcase';
+import { TechnologyLogos } from '@/components/sections/TechnologyLogos';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNav } from '@/components/layout/BottomNav';
@@ -26,25 +30,12 @@ const allServices = [
 
 export default function ServiciosPage() {
   return (
-    <main className="min-h-screen bg-[#00001D] text-white selection:bg-primary/30">
+    <main data-cosmic-route="services" className={cosmic.page}>
       <Header />
+      <CosmicBackdrop />
       
       {/* Hero Section */}
-      <section className="pt-40 pb-20 px-6 md:px-12 lg:px-16 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" />
-        <div className="max-w-7xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">Soluciones de Vanguardia</span>
-          </div>
-          <h1 className="text-5xl md:text-8xl font-headline font-black tracking-tighter leading-[0.9] uppercase">
-            INGENIERÍA <span className="text-primary italic">SIN LÍMITES</span>.
-          </h1>
-          <p className="text-xl text-white/50 max-w-3xl mx-auto leading-relaxed font-medium">
-            Desde el código base hasta la interfaz inmersiva, construimos el software que definirá el éxito de tu empresa en la próxima década.
-          </p>
-        </div>
-      </section>
+      <CosmicHero destination="services" />
 
       {/* Services Grid */}
       <section className="py-24 px-6 md:px-12 lg:px-16 relative">
@@ -109,8 +100,8 @@ export default function ServiciosPage() {
         </div>
       </section>
 
+      <UniverseShowcase kind="app" />
       <Footer />
-      <BottomNav />
     </main>
   );
 }
